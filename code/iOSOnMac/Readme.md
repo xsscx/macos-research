@@ -29,7 +29,7 @@ sudo reboot
 - download source
 - open terminal
 - make
-- ./runner main.app/main
+- The Makefile will automatically run the Test Targets in the Makefile
 
 ### Reproduction
 ```
@@ -104,10 +104,6 @@ main.app
 └── main
 
 2 directories, 3 files
-```
-## Compile my Code
-```
-xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o imagefuzzer image.m  interpose.dylib
 ```
 ### Construct the .App Bundle, See Makefile for Example
 ```
