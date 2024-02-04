@@ -18,7 +18,7 @@
  * - [ ] ICC Color Profiles
  * - [ ] Refactor Example Fuzzer 
  * - [ ] Add Logging Toggle as global variable  - testing in createBitmapContextStandardRGB function
- * Compile : xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o interpose.c interpose.dylib
+ * Compile : xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o imagefuzzer ios-image-fuzzer-example.m  interpose.dylib
  * 
  */
 
