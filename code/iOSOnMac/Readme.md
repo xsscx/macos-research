@@ -25,11 +25,16 @@ This Repo does the following:
 sudo nvram boot-args="amfi_get_out_of_my_way=1"
 sudo reboot
 ```
+### Note on Makefile, build.mk, logging.mk
+- The Makefile will automatically run the Test Targets in the Makefile
+- In build.mk, update your DEVELOPER_ID
+- In logging.mk, you can fiddle with Verbose and things
+  
 ## Build Instruction
 - download source
+- Update Developer Id in build.mk, Ad Hoc Signing works fine too
 - open terminal
 - make
-- The Makefile will automatically run the Test Targets in the Makefile
 
 ### Reproduction
 ```
