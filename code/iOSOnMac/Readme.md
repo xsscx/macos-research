@@ -107,7 +107,17 @@ main.app
 ```
 ## Compile my Code
 ```
-xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o imagefuzzer ios-image-fuzzer-example.m  interpose.dylib
+xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o imagefuzzer image.m  interpose.dylib
+```
+### Construct the .App Bundle, See Makefile for Example
+```
+% tree image.app
+image.app
+├── Info.plist
+├── _CodeSignature
+│   └── CodeResources
+├── demo.png
+└── image
 ```
 ## iOS Image Fuzzer Example
 ```
