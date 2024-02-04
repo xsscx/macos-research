@@ -98,28 +98,6 @@ Hello World from iOS!
 [*] Child exited with status 0
  [Info] [iOSOnMac] Runner_dist test completed
 ```
-
-## iOS App Tree Example
-```
-tree main.app
-main.app
-├── Info.plist
-├── _CodeSignature
-│   └── CodeResources
-└── main
-
-2 directories, 3 files
-```
-### Construct the .App Bundle, See Makefile for Example
-```
-% tree image.app
-image.app
-├── Info.plist
-├── _CodeSignature
-│   └── CodeResources
-├── demo.png
-└── image
-```
 ## iOS Image Fuzzer Example
 ```
  ./runner imagefuzzer.app/imagefuzzer /mnt/fuzz/cve.png
@@ -217,6 +195,28 @@ Little Endian Pixel Format:
 CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, colorspace, kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
 ```
 Each permutation represents a different way of handling pixel formats, alpha channels, color spaces, and bit depths. The choice of parameters depends on the specific requirements of the image processing task at hand. For example, a grayscale context might be suitable for processing black-and-white images, while a context with HDR and float components would be more appropriate for high-quality image rendering.
+
+## iOS App Tree Example
+```
+tree main.app
+main.app
+├── Info.plist
+├── _CodeSignature
+│   └── CodeResources
+└── main
+
+2 directories, 3 files
+```
+### My .App Bundle in bin/
+```
+% tree image.app
+image.app
+├── Info.plist
+├── _CodeSignature
+│   └── CodeResources
+├── demo.png
+└── image
+```
 
 ### Other | Testing arm64e 
 #### hello.c | From Apple Security Research Device | SRT 20C80 | arm64e
