@@ -11,13 +11,20 @@ The code originated from Google Project Zero
 - The Scripts and Example Code show how to Target other Dylibs depending on the Image Type, or Fuzz them all with the sample Script [https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/imageio-fuzzer.zsh]
 - There is a larger code base for iOS Fuzzing that has yet to be implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/ios-image-fuzzer-example.m
 - The arm64 code is my current focus to get consistent results from A/B testing with X86_64 and arm64 Platform ABI's, See https://github.com/xsscx/macos-research/issues/3
-- main.cpp is refactored, see https://github.com/xsscx/macos-research/issues/4
-## Suggested Build
+
+## Setup this Code & Build
+- Copy the CMakeLists.txt to ./Jackalope-main/
+- Copy imageio-test-002.m, imageio-test-002.m to ./Jackalope-main/examples/ImageIO/
+- cd ./Jackalope
+- Follow the Build Instructions at https://github.com/googleprojectzero/Jackalope 
+## My Suggested Build
 ```
 cmake  -G Xcode
 cmake --build . --config Debug
 ```
-## Suggested clean
+- Now you have Xcode Project
+- Now you have cmake build system
+## Suggested cmake clean
 ```
 rm -rf CMakeScripts CMakeFiles Release Debug build
 cmake --build . --target clean
@@ -390,6 +397,7 @@ I Posted a shell script as example. You're going to see that the script iterates
 -instrument_module [Framework | dylib]
 ```
 See the Script for an Example https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/imageio-fuzzer.zsh
+
 ### Script Targets for -instrument_module
 ```
 libraries=(
@@ -561,10 +569,19 @@ IF you are seeing these messages:
   )
 ```
 - Benchmark code modifications and results against the baseline code included in the Project
-## Live Debugger Implementation - Ninja Mode
+## TinyInst Debugger Implementation
+- Break or Drop to lldb
+- ninja code for those who enjoy the bleeding edge approach to memory patch and fuzz action
+### TinyInst Changes 
+- make clean
+- manually replace the main.cpp in Jackalope, Background https://github.com/xsscx/macos-research/issues/4
+- manually replace instrumentation.cpp and instrumentation.h files in ./TinyInst
+- make
+- Fuzz
 - See Issue https://github.com/xsscx/macos-research/issues/2 for more info
-- The modified .cpp and.h files are for ninjas only - adds Live Debugging Mode - Work in Progress - Pull Requests Welcome
-- The modified .cpp & .h are meant to be compiled into the Jackalope Stub Programs for A/B/C Testing
+- The modified .cpp and.h files add Live Debugging Mode and other Changes
+
+### TinyInst Global Debug Flag
 ```
 // Global debug flag
 bool debugMode = true;
