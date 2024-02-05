@@ -11,8 +11,7 @@ The code originated from Google Project Zero
 - There is a larger code base for iOS Fuzzing that has yet to be implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/ios-image-fuzzer-example.m
 - The arm64 code is my current focus to get consistent results from A/B testing with X86_64 and arm64 Platform ABI's, See https://github.com/xsscx/macos-research/issues/3
 ## Setup this Code & Build
-- Copy the CMakeLists.txt to ./Jackalope-main/
-- Copy imageio-test-002.m, imageio-test-002.m to ./Jackalope-main/examples/ImageIO/
+- Copy CMakeLists.txt, imageio-test-002.m, imageio-test-002.m to ./Jackalope-main/examples/ImageIO/
 - cd ./Jackalope
 - Follow the Build Instructions at https://github.com/googleprojectzero/Jackalope 
 ## My Suggested Build
