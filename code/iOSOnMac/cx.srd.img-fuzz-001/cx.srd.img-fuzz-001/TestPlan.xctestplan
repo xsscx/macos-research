@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "AD3AB7CF-8CA2-465F-9945-4C04B86A0A48",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:cx.srd.img-fuzz-001.xcodeproj",
+        "identifier" : "1DF2E9A62B153D9E00D403A5",
+        "name" : "cx.srd.img-fuzz-001Tests"
+      }
+    }
+  ],
+  "version" : 1
+}
