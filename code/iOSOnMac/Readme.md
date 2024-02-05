@@ -30,12 +30,21 @@ sudo reboot
 - In build.mk, update your DEVELOPER_ID
 - In logging.mk, you can fiddle with Verbose and things
   
-## Build Instruction
+## Project Build Instruction
 - download source
 - Update Developer Id in build.mk, Ad Hoc Signing works fine too
 - open terminal
 - make
+- Now you have the basic distribution
 
+## Compile and Run my Code
+```
+xcrun -sdk iphoneos clang -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.2.sdk -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o fuzzer ios-image-fuzzer-example.m interpose.dylib
+mkdir fuzzer.app
+mv fuzzer fuzzer.app/
+codesign -s "@@Apple Developer Id or Ad Hoc@@" --entitlements entitlements.xml --force fuzzer.app
+./runner fuzzer.app/fuzzer /mnt/png/seed.png
+```
 ### Reproduction
 ```
 % make clean
@@ -100,7 +109,7 @@ Hello World from iOS!
 ```
 ## iOS Image Fuzzer Example
 ```
- ./runner imagefuzzer.app/imagefuzzer /mnt/fuzz/cve.png
+ ./runner fuzzer.app/fuzzer /mnt/fuzz/cve.png
 [+] Child process created with pid: 74952
 [*] Instrumenting process with PID 74952...
 [*] Attempting to attach to task with PID 74952...
