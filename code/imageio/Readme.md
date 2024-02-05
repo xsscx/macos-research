@@ -16,6 +16,7 @@ The code originated from Google Project Zero
 - Follow the Build Instructions at https://github.com/googleprojectzero/Jackalope 
 ## My Suggested Build
 ```
+cd ./Jackalope
 cmake  -G Xcode
 cmake --build . --config Debug
 ```
