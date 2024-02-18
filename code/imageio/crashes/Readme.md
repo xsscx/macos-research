@@ -1,3 +1,4 @@
+Last Updated: February 18, 2024, 0000Z
 # Trophy Case
 - CVE-2023-46602 https://nvd.nist.gov/vuln/detail/CVE-2023-46602
 - CVE-2023-46603 https://nvd.nist.gov/vuln/detail/CVE-2023-46603
