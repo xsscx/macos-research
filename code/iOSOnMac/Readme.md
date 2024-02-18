@@ -38,6 +38,7 @@ sudo reboot
 - Now you have the basic distribution
 
 ## Compile and Run my Code
+make
 ```
 xcrun -sdk iphoneos clang -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.2.sdk -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o fuzzer ios-image-fuzzer-example.m interpose.dylib
 mkdir fuzzer.app
