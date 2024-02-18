@@ -7,7 +7,12 @@ In libOpenEXR, the crash is in the processing of channels marked as 'HALF (2, 2)
 
 ## EXR File Info
 Flowers.exr Header Info: {'channels': {'BY': HALF (2, 2), 'RY': HALF (2, 2), 'Y': HALF (1, 1)}, 'compression': B44_COMPRESSION, 'dataWindow': (0, 0) - (783, 733), 'displayWindow': (0, 0) - (783, 733), 'lineOrder': INCREASING_Y, 'owner': b'Copyright 2006 Industrial Light & Magic', 'pixelAspectRatio': 1.0, 'screenWindowCenter': (0.0, 0.0), 'screenWindowWidth': 1.0}
-
+### dict_keys
+```
+dict_keys(['BY', 'RY', 'Y']), {'BY': (143864,), 'RY': (143864,), 'Y': (575456,)})
+```
+- The issues arises when BY and RY do not equal 25% of Y
+- This leads to memory management issues in a wide array of products, and services.
 ## Apple Bug
 We can see that the subsampled channels ('BY' and 'RY') are not standard in size compared to the full-resolution 'Y' channel. 
 These channels are a quarter of the total pixel count, potentially leading to incorrect buffer size allocations.
