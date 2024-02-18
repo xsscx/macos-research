@@ -1,5 +1,6 @@
 
-# iOSOnMac | Interposing iOS Applications
+# IOS Image Fuzzer | iOSOnMac | Interposing iOS Applications
+The Source can be run as either iOSOnMac OR Native iOS. I added an iOs App that is actually an iOs Command Line Fuzzer with a Default StoryBoard.
 - Original Source URL https://github.com/googleprojectzero/p0tools/tree/master/iOSOnMac
 - Updated the Makefile to Build on macOS 14
 - Made some changes
