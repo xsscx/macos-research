@@ -39,6 +39,6 @@ Version 3.0.2  23 October 2023
 ## Background
 I had been using Jackalope for Fuzzing and to confirm that it could find easy to identify Bugs.  Looking deeper I found AUF, OOB, NPTR and other issues that concealed Bugs.
 
-This code provides the basis for anyone to take and begin their own exploration of the XNU Image & Video Handling Code, whihc offer a massicve opportunity to find Bugs that may not yet be known to Apple :-)
+This code provides the basis for anyone to take and begin their own exploration of the XNU Image & Video Handling Code, which offer a massive exploit surface opportunity to find Bugs that may not yet be known to Apple :-)
 
 Have Fun!!!
