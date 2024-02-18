@@ -4,7 +4,7 @@
 - Updated the Makefile to Build on macOS 14
 - Made some changes
 - Added some Examples
-- Updated: Monday, 02 FEB 2024 @ 600 EST
+- Updated: Monday, 18 FEB 2024 @ 1100 EST
 ## Replay
 ```
 sw_vers
@@ -27,7 +27,7 @@ sudo reboot
 ```
 ### Note on Makefile, build.mk, logging.mk
 - The Makefile will automatically run the Test Targets in the Makefile
-- In build.mk, update your DEVELOPER_ID
+- In build.mk, update your DEVELOPER_ID, or Ad Hoc Signing
 - In logging.mk, you can fiddle with Verbose and things
   
 ## Project Build Instruction
