@@ -17,7 +17,8 @@ dict_keys(['BY', 'RY', 'Y']), {'BY': (143864,), 'RY': (143864,), 'Y': (575456,)}
 We can see that the subsampled channels ('BY' and 'RY') are not standard in size compared to the full-resolution 'Y' channel. 
 These channels are a quarter of the total pixel count, potentially leading to incorrect buffer size allocations.
 The crashes are likely due to buffer overflows or memory mismanagement when handling these non-standard sizes.
-
+### macOS Mail Crash
+<img src="https://xss.cx/2024/02/20/img/outlook-preview-out_tif-crash-002.png" alt="Picture shows the macOS Mail Client Crashing with my PoC and Flowers.exr" style="height:600px; width:800px;"/>
 ## Why
 We are reminded that the reference implementation indicates:
 ```
