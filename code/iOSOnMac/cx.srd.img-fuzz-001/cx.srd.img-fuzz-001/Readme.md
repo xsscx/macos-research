@@ -19,4 +19,10 @@ The Args passed on Launch are:
 
 This code provides the basis for anyone to take and begin their own exploration of the XNU Image & Video Handling Code, which offer a massive exploit surface opportunity to find Bugs that may not yet be known to Apple :-)
 
+### XNU Image Fuzzer
+- Xcode Sample 1
+<img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-1.png" alt="XNU Image Fuzzer PoC" style="height:1100px; width:1500px;"/>
+- Xcode Sample 2
+<img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-2.png" alt="XNU Image Fuzzer PoC" style="height:1100px; width:1500px;"/>
+
 Have Fun!!!
