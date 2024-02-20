@@ -264,7 +264,7 @@ void debugMemoryHandling(void) {
 
 int main(int argc, const char * argv[]) {
     NSLog(@"Starting up...");
-//    debugMemoryHandling(); // Call the debug function
+    debugMemoryHandling(); // Call the debug function
     setenv("CG_PDF_VERBOSE", "1", 1);
     setenv("CG_CONTEXT_SHOW_BACKTRACE", "1", 1);
     setenv("CG_CONTEXT_SHOW_BACKTRACE_ON_ERROR", "1", 1);
@@ -345,61 +345,117 @@ void processImage(UIImage *image, int permutation) {
         return;
     }
     NSLog(@"CGImage created from UIImage. Dimensions: %zu x %zu", CGImageGetWidth(cgImg), CGImageGetHeight(cgImg));
-    
-    switch (permutation) {
-        case 1:
-            NSLog(@"Case: Creating bitmap context with Standard RGB settings");
-            createBitmapContextStandardRGB(cgImg, permutation);
-            break;
-        case 2:
-            NSLog(@"Case: Creating bitmap context with Premultiplied First Alpha settings");
-            createBitmapContextPremultipliedFirstAlpha(cgImg);
-            break;
-        case 3:
-            NSLog(@"Case: Creating bitmap context with Non-Premultiplied Alpha settings");
-            createBitmapContextNonPremultipliedAlpha(cgImg);
-            break;
-        case 4:
-            NSLog(@"Case: Creating bitmap context with 16-bit depth settings");
-            createBitmapContext16BitDepth(cgImg);
-            break;
-        case 5:
-            NSLog(@"Grayscale image processing is currently pending implementation.");
-            return;
-        case 6:
-            NSLog(@"Case: Creating bitmap context with HDR Float Components settings");
-            createBitmapContextHDRFloatComponents(cgImg);
-            break;
-        case 7:
-            NSLog(@"Case: Creating bitmap context with Alpha Only settings");
-            createBitmapContextAlphaOnly(cgImg);
-            break;
-        case 8:
-            NSLog(@"Case: Creating bitmap context with 1-bit Monochrome settings");
-            createBitmapContext1BitMonochrome(cgImg);
-            break;
-        case 9:
-            NSLog(@"Case: Creating bitmap context with Big Endian pixel format settings");
-            createBitmapContextBigEndian(cgImg);
-            break;
-        case 10:
-            NSLog(@"Case: Creating bitmap context with Little Endian pixel format settings");
-            createBitmapContextLittleEndian(cgImg);
-            break;
-        case 11:
-            NSLog(@"Case: Creating bitmap context with 8-bit depth, inverted colors settings");
-            createBitmapContext8BitInvertedColors(cgImg);
-            break;
-        case 12:
-            NSLog(@"Case: Creating bitmap context with 32-bit float, 4-component settings");
-            createBitmapContext32BitFloat4Component(cgImg);
-            break;
-        default:
-            NSLog(@"Case: Invalid permutation number %d", permutation);
-            break;
-    }
 
-    NSLog(@"Completed image processing for permutation %d", permutation);
+    if (permutation == -1) {
+        for (int i = 1; i <= 12; i++) {
+            switch (i) {
+                case 1:
+                    NSLog(@"Case: Creating bitmap context with Standard RGB settings");
+                    createBitmapContextStandardRGB(cgImg, permutation);
+                    break;
+                case 2:
+                    NSLog(@"Case: Creating bitmap context with Premultiplied First Alpha settings");
+                    createBitmapContextPremultipliedFirstAlpha(cgImg);
+                    break;
+                case 3:
+                    NSLog(@"Case: Creating bitmap context with Non-Premultiplied Alpha settings");
+                    createBitmapContextNonPremultipliedAlpha(cgImg);
+                    break;
+                case 4:
+                    NSLog(@"Case: Creating bitmap context with 16-bit depth settings");
+                    createBitmapContext16BitDepth(cgImg);
+                    break;
+                case 5:
+                    NSLog(@"Grayscale image processing is currently pending implementation.");
+                    return;
+                case 6:
+                    NSLog(@"Case: Creating bitmap context with HDR Float Components settings");
+                    createBitmapContextHDRFloatComponents(cgImg);
+                    break;
+                case 7:
+                    NSLog(@"Case: Creating bitmap context with Alpha Only settings");
+                    createBitmapContextAlphaOnly(cgImg);
+                    break;
+                case 8:
+                    NSLog(@"Case: Creating bitmap context with 1-bit Monochrome settings");
+                    createBitmapContext1BitMonochrome(cgImg);
+                    break;
+                case 9:
+                    NSLog(@"Case: Creating bitmap context with Big Endian pixel format settings");
+                    createBitmapContextBigEndian(cgImg);
+                    break;
+                case 10:
+                    NSLog(@"Case: Creating bitmap context with Little Endian pixel format settings");
+                    createBitmapContextLittleEndian(cgImg);
+                    break;
+                case 11:
+                    NSLog(@"Case: Creating bitmap context with 8-bit depth, inverted colors settings");
+                    createBitmapContext8BitInvertedColors(cgImg);
+                    break;
+                case 12:
+                    NSLog(@"Case: Creating bitmap context with 32-bit float, 4-component settings");
+                    createBitmapContext32BitFloat4Component(cgImg);
+                    break;
+                default:
+                    NSLog(@"Case: Invalid permutation number %d", permutation);
+                    break;
+            }
+            NSLog(@"Completed image processing for permutation %d", i);
+        }
+    } else {
+        switch (permutation) {
+            case 1:
+                NSLog(@"Case: Creating bitmap context with Standard RGB settings");
+                createBitmapContextStandardRGB(cgImg, permutation);
+                break;
+            case 2:
+                NSLog(@"Case: Creating bitmap context with Premultiplied First Alpha settings");
+                createBitmapContextPremultipliedFirstAlpha(cgImg);
+                break;
+            case 3:
+                NSLog(@"Case: Creating bitmap context with Non-Premultiplied Alpha settings");
+                createBitmapContextNonPremultipliedAlpha(cgImg);
+                break;
+            case 4:
+                NSLog(@"Case: Creating bitmap context with 16-bit depth settings");
+                createBitmapContext16BitDepth(cgImg);
+                break;
+            case 5:
+                NSLog(@"Grayscale image processing is currently pending implementation.");
+                return;
+            case 6:
+                NSLog(@"Case: Creating bitmap context with HDR Float Components settings");
+                createBitmapContextHDRFloatComponents(cgImg);
+                break;
+            case 7:
+                NSLog(@"Case: Creating bitmap context with Alpha Only settings");
+                createBitmapContextAlphaOnly(cgImg);
+                break;
+            case 8:
+                NSLog(@"Case: Creating bitmap context with 1-bit Monochrome settings");
+                createBitmapContext1BitMonochrome(cgImg);
+                break;
+            case 9:
+                NSLog(@"Case: Creating bitmap context with Big Endian pixel format settings");
+                createBitmapContextBigEndian(cgImg);
+                break;
+            case 10:
+                NSLog(@"Case: Creating bitmap context with Little Endian pixel format settings");
+                createBitmapContextLittleEndian(cgImg);
+                break;
+            case 11:
+                NSLog(@"Case: Creating bitmap context with 8-bit depth, inverted colors settings");
+                createBitmapContext8BitInvertedColors(cgImg);
+                break;
+            case 12:
+                NSLog(@"Case: Creating bitmap context with 32-bit float, 4-component settings");
+                createBitmapContext32BitFloat4Component(cgImg);
+                break;
+            default:
+                NSLog(@"Case: Invalid permutation number %d", permutation);
+                break;        }
+        NSLog(@"Completed image processing for permutation %d", permutation);
+    }
 }
 
 void createBitmapContextStandardRGB(CGImageRef cgImg, int permutation) {
