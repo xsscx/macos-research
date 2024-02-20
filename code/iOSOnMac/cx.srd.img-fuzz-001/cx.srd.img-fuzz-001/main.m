@@ -40,7 +40,7 @@ BOOL isValidImagePath(NSString *path);
 UIImage *loadImageFromFile(NSString *path);
 void processImage(UIImage *image, int permutation, NSString *sessionDirectory);
 void processPermutation(UIImage *image, int permutation, NSString *sessionDirectory);
-NSString *createUniqueDirectoryForSavingImages();
+NSString *createUniqueDirectoryForSavingImages(void);
 void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message);
 void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height);
 
@@ -60,7 +60,7 @@ void createBitmapContext32BitFloat4Component(CGImageRef cgImg, NSString *session
 // TODO: Implement Grayscale context creation
 void createBitmapContextGrayscale(CGImageRef cgImg);
 
-NSString *createUniqueDirectoryForSavingImages() {
+NSString *createUniqueDirectoryForSavingImages(void) {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd_HH-mm-ss-SSS"];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
@@ -255,7 +255,7 @@ void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t he
     logPixelData(rawData, width, height, "After fuzzing");
 }
 
-void debugMemoryHandling() {
+void debugMemoryHandling(void) {
     const size_t sz = 0x10000;
     char* chunks[64] = { NULL };
     for (int i = 0; i < 64; i++) {
