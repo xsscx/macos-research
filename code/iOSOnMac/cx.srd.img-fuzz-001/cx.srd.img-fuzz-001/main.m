@@ -1,6 +1,6 @@
 /**
- * @file       ios-image-fuzzer-example.mm
- * @brief      Proof of concept iOS Image Fuzzer
+ * @file       ios-image-fuzzer-example.m
+ * @brief      Proof of concept XNU Image Fuzzer
  * @author     @h02332 | David Hoyt
  * @date       Modified 29 Nov 2023 | 1733 EST
  *
