@@ -32,13 +32,13 @@ The Args passed on Launch are:
 This code provides the basis for anyone to take and begin their own exploration of the XNU Image & Video Handling Code, which offer a massive exploit surface opportunity to find Bugs that may not yet be known to Apple :-)
 
 ### XNU Image Fuzzer Pictures
-- Xcode Sample 1
+-XNU Image Fuzzer Xcode Sample 1
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-1.png" alt="XNU Image Fuzzer Xcode View 1" style="height:1100px; width:1500px;"/>
-- Xcode Sample 2
+- XNU Image Fuzzer Xcode Sample 2
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-2.png" alt="XNU Image Fuzzer Xcode View 2" style="height:1100px; width:1500px;"/>
-- Xcode Sample 3
+- XNU Image Fuzzer Xcode Sample 3
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-3.png" alt="XNU Image Fuzzer Xcode View 3" style="height:1100px; width:1500px;"/>
-- Xcode Sample 4
-<img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-4.png" alt="XNU Image Fuzzer Xcode View 4" style="height:500px; width:400px;"/>
+- XNU Image Fuzzer iPhone 14 Pro Max View 1
+<img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-4.png" alt="XNU Image Fuzzer iPhone 14 Pro Max View 1" style="height:500px; width:400px;"/>
 
 Have Fun!!!
