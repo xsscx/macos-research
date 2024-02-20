@@ -38,5 +38,7 @@ This code provides the basis for anyone to take and begin their own exploration 
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-2.png" alt="XNU Image Fuzzer Xcode View 2" style="height:1100px; width:1500px;"/>
 - Xcode Sample 3
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-3.png" alt="XNU Image Fuzzer Xcode View 3" style="height:1100px; width:1500px;"/>
+- Xcode Sample 4
+<img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-4.png" alt="XNU Image Fuzzer Xcode View 4" style="height:1100px; width:1500px;"/>
 
 Have Fun!!!
