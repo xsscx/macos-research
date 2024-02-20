@@ -1,6 +1,6 @@
 
 /* Class = "UITextField"; text = "WTF!!!!"; ObjectID = "Mw5-ZK-jz0"; */
-"Mw5-ZK-jz0.text" = "iOS Fuzzer";
+"Mw5-ZK-jz0.text" = "XNU Image Fuzzer v0.02";
 
 /* Class = "UILabel"; text = "label"; ObjectID = "XIy-Ff-aJO"; */
-"XIy-Ff-aJO.text" = "iOS";
+"XIy-Ff-aJO.text" = "David H Hoyt LLC 2024";
