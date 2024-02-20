@@ -33,7 +33,7 @@ This code provides the basis for anyone to take and begin their own exploration 
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-1.png" alt="XNU Image Fuzzer Xcode View 1" style="height:1100px; width:1500px;"/>
 - Xcode Sample 2
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-2.png" alt="XNU Image Fuzzer Xcode View 2" style="height:1100px; width:1500px;"/>
-- Xcode Sample 2
+- Xcode Sample 3
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-3.png" alt="XNU Image Fuzzer Xcode View 3" style="height:1100px; width:1500px;"/>
 
 Have Fun!!!
