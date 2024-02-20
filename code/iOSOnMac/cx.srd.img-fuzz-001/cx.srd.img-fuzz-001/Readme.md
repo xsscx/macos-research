@@ -1,6 +1,6 @@
 # XNU Image Fuzzer 
 
-Last Updated: February 20, 2024, 0000Z
+Last Updated: February 20, 2024, 1400 EST
 
 This code is a stand-alone Image Fuzzer for XNU Research.
 
@@ -24,13 +24,16 @@ This Code is for you!
 If you have Questions Open an Issue. This Code is meant to stimulate discussion on the Bugs that can be hit from the Remote, No-Auth position.
 
 ### Overview
-This is a Stand Alone iOS Proof of Concept Fuzzer for the CreateCG Image context.
+This is an XCode Project contianing a iOS Proof of Concept Fuzzer for the CreateCG Image and CGColorSpace Context
 The Args passed on Launch are:
 - Flowers.exr
 - -1
 - Change the second arg to shift thru the fuzzer manually
 
 This code provides the basis for anyone to take and begin their own exploration of the XNU Image & Video Handling Code, which offer a massive exploit surface opportunity to find Bugs that may not yet be known to Apple :-)
+
+## C++ Source Code
+https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/main.m
 
 ### XNU Image Fuzzer Pictures
 -XNU Image Fuzzer Xcode Sample 1
