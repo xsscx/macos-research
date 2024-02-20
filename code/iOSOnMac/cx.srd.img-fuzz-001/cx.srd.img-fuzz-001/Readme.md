@@ -1,9 +1,8 @@
 # XNU Image Fuzzer 
 
-Last Updated: February 20, 2024, 1400 EST
+Last Updated: February 20, 2024, 1434 EST
 
 This code is a stand-alone Image Fuzzer for XNU Research.
-
 - This was built as a Cross Check for various Pixel functions
 - Stand alone iOS App, command line with a default storyboard
 - Xcode Project .. ready to compile...
@@ -11,7 +10,19 @@ This code is a stand-alone Image Fuzzer for XNU Research.
 - Works on iPad Pro - M2 Chip
 - Works on iPhone 12 Pro, 14 Pro Max & 15 Pro Max
 - arm64e code for Fuzzing, Learning or Education
- 
+
+## Quick Start
+- Create a new iOS Application in Xcode
+- Copy the Source File and Paste into main.m
+- Edit the Scheme
+  - For Arguements on Launch
+    - Flowers.exr
+    - -1
+- You can look at the pictures below to make sure you have added the Arguements Passed on Launch correctly.
+
+## C++ Source Code
+https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/main.m
+
 ## Background
 I had been using Jackalope for Fuzzing and to confirm that it could find easy to identify Bugs.  Looking deeper I found AUF, OOB, NPTR and other issues that concealed Bugs. 
 
@@ -35,9 +46,6 @@ The Args passed on Launch are:
 - Change the second arg to shift thru the fuzzer manually
 
 This code provides the basis for anyone to take and begin their own exploration of the XNU Image & Video Handling Code, which offer a massive exploit surface opportunity to find Bugs that may not yet be known to Apple :-)
-
-## C++ Source Code
-https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/main.m
 
 ### XNU Image Fuzzer Pictures
 - XNU Image Fuzzer Xcode Sample 1
