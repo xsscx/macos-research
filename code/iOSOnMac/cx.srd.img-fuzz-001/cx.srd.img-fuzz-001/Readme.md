@@ -20,7 +20,7 @@ This code is a stand-alone Image Fuzzer for XNU Research.
     - Flowers.exr
     - -1
 - Build & Run
-- You can look at the pictures below to make sure you have added the Arguements Passed on Launch correctly.
+- You can look at the pictures below to make sure you have added the Args Passed on Launch correctly.
 
 ## C++ Source Code
 https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/main.m
