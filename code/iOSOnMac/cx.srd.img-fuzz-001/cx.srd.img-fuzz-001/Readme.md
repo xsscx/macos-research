@@ -42,7 +42,65 @@ This code provides the basis for anyone to take and begin their own exploration 
 - XNU Image Fuzzer iPhone 14 Pro Max View 1
 <img src="https://xss.cx/2024/02/20/img/xnu-image-fuzzer-xcode-sample-screenshot-poc-4.png" alt="XNU Image Fuzzer iPhone 14 Pro Max View 1" style="height:500px; width:400px;"/>
 
-Have Fun!!!
+## Code WIP
+Currently working on adding a BOOL to the processImage() function
+```
+void processImage(UIImage *image, int permutation) {
+     CGImageRef cgImg = [image CGImage];
+     if (!cgImg) {
+         NSLog(@"Failed to get CGImage from UIImage.");
+         return;
+     }
+     NSLog(@"CGImage created from UIImage. Dimensions: %zu x %zu", CGImageGetWidth(cgImg), CGImageGetHeight(cgImg));
+
+     if (permutation == -1) {
+         for (int i = 1; i <= 12; i++) {
++            BOOL success = YES; // Assume success until proven otherwise
+             switch (i) {
+                 case 1:
+                     NSLog(@"Case: Creating bitmap context with Standard RGB settings");
+-                    createBitmapContextStandardRGB(cgImg, i);
++                    success = createBitmapContextStandardRGB(cgImg, i);
+                     break;
+                 case 2:
+                     NSLog(@"Case: Creating bitmap context with Premultiplied First Alpha settings");
+-                    createBitmapContextPremultipliedFirstAlpha(cgImg);
++                    success = createBitmapContextPremultipliedFirstAlpha(cgImg);
+                     break;
+                 // Implement similar success checks for cases 3 through 11.
+                 case 4:
+                     NSLog(@"Case: Creating bitmap context with 16-bit depth settings");
+-                    createBitmapContext16BitDepth(cgImg);
++                    success = createBitmapContext16BitDepth(cgImg);
++                    if (!success) {
++                        NSLog(@"Failed to create bitmap context with 16-bit Depth settings");
++                    }
+                     break;
+                 // Insert additional cases here...
+                 case 12:
+                     NSLog(@"Case: Creating bitmap context with 32-bit float, 4-component settings");
+-                    createBitmapContext32BitFloat4Component(cgImg);
++                    success = createBitmapContext32BitFloat4Component(cgImg);
+                     break;
+                 default:
+                     NSLog(@"Unexpected case number %d", i);
++                    success = NO; // Mark as failure for unexpected cases
+                     break;
+             }
++            if (success) {
++                NSLog(@"Completed image processing for permutation %d", i);
++            } else {
++                NSLog(@"Failed image processing for permutation %d", i);
++                // You could add additional error recovery or logging here if needed
++            }
+         }
+     } else {
+         // Similar logic for handling a single permutation with error checking
+         // Ensure the specific function called for the single permutation also follows this pattern
+     }
+ }
+
+```
 
 ### Console log
 ```
