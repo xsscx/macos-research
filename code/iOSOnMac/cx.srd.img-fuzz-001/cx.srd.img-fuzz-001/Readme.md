@@ -1,6 +1,6 @@
-# XNU Image Fuzzer
+# XNU Image Fuzzer 
 
-Last Updated: February 18, 2024, 0000Z
+Last Updated: February 20, 2024, 0000Z
 
 This code is a stand-alone Image Fuzzer for XNU Research.
 
@@ -8,7 +8,10 @@ This code is a stand-alone Image Fuzzer for XNU Research.
 - Stand alone iOS App, command line with a default storyboard
 - Xcode Project .. ready to compile...
 - Got Questions? Open an Issue
-
+- Works on iPad Pro - M2 Chip
+- Works on iPhone 12 Pro, 14 Pro Max & 15 Pro Max
+- arm64e code for Fuzzing, Learning or Education
+ 
 ## Background
 I had been using Jackalope for Fuzzing and to confirm that it could find easy to identify Bugs.  Looking deeper I found AUF, OOB, NPTR and other issues that concealed Bugs. 
 
