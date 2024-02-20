@@ -63,7 +63,8 @@ ImageIO                       	       0x1919384f4 EXRReadPlugin::decodeBlockAppl
 ## Summary
 Apple may be handling this as a Product Defect. The Bug is unreported to the OpenEXR Project Maintainers because it should have been found with ClusterFuzz and is easily within the Scope of any rudimentary Fuzzing Campaign.
 
-### Code for Sub-sampling
+### Python Code for Sub-Sampling
+<img src="https://xss.cx/2024/02/20/img/data-reshapred-exr-file-sub-sampling-example-poc-001.png" alt="Python Code for Data Reshaping PoC" style="height:564px; width:1500px;"/>
 - https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/exr-channel-sub-sampling-example.py
 ```
 import OpenEXR
