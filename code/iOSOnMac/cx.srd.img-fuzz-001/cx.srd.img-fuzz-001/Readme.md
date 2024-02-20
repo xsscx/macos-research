@@ -26,7 +26,7 @@ If you have Questions Open an Issue. This Code is meant to stimulate discussion 
 ### Overview
 This is a Stand Alone iOS Proof of Concept Fuzzer for the CreateCG Image context.
 The Args passed on Launch are:
-- Flowers.exr
+- ./Flowers.exr
 - -1
 
 This code provides the basis for anyone to take and begin their own exploration of the XNU Image & Video Handling Code, which offer a massive exploit surface opportunity to find Bugs that may not yet be known to Apple :-)
