@@ -15,13 +15,17 @@ This code is a stand-alone Image Fuzzer for XNU Research.
 ## Background
 I had been using Jackalope for Fuzzing and to confirm that it could find easy to identify Bugs.  Looking deeper I found AUF, OOB, NPTR and other issues that concealed Bugs. 
 
-This Project is for anyone wanting to Learn & Educate on XNU Image Fuzzing. You can use Jackalope with the Example code provided in Imageio, and have your own Stand Alone XNU Image Fuzzer to expand your horizons.
+This Project is for anyone wanting to Learn & Educate on XNU Image Fuzzing. 
+
+You can use Jackalope with the Example code provided higher up the Repo in Imageio, and have your own Code running the XNU Image Fuzzer to expand your horizons.
 
 Are you new to XNU? 
 
 This Code is for you!
 
-If you have Questions Open an Issue. This Code is meant to stimulate discussion on the Bugs that can be hit from the Remote, No-Auth position.
+If you have Questions, then Open an Issue. 
+
+This Code is meant to stimulate discussion on the Bugs that can be hit from the Remote, No-Auth position.
 
 ### Overview
 This is an XCode Project contianing a iOS Proof of Concept Fuzzer for the CreateCG Image and CGColorSpace Context
