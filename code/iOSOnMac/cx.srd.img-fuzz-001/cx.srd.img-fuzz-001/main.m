@@ -1,10 +1,26 @@
-//
-//  main.m
-//  XNU Image Fuzzer
-//
-//  Created by David Hoyt @h02332 on 11/27/23.
-//  Proof of Concept XNU Image Fuzzer for arm64e Devices
-//  
+/**
+ * @file       ios-image-fuzzer-example.mm
+ * @brief      Proof of concept iOS Image Fuzzer
+ * @author     @h02332 | David Hoyt
+ * @date       Modified 29 Nov 2023 | 1733 EST
+ *
+ * Detailed description of the file, if necessary.
+ *
+ * @section    CHANGES
+ * [Date] [Author] - [Description of Changes]
+ * - [26/11/2023] [h02332] - Initial commit
+ * - [27/11/2023] [h02332] - Removed Grayscale Feature pending Implementation
+ * - [28/11/2023] [h02332] - Refactor Code & fuzzing
+ * - [29/11/2023] [h02332] - Refactor Code & fuzzing & logging
+ *
+ * @section    TODO
+ * - [ ] Grayscale Implementation
+ * - [ ] ICC Color Profiles
+ * - [ ] Refactor Example Fuzzer 
+ * - [ ] Add Logging Toggle as global variable  - testing in createBitmapContextStandardRGB function
+ * Compile : xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o imagefuzzer ios-image-fuzzer-example.m  interpose.dylib
+ * 
+ */
 
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
@@ -107,7 +123,6 @@ void applyEnhancedFuzzingToBitmapContext(unsigned char *rawData, size_t width, s
     }
 
     for (size_t y = 0; y < height; y++) {
-        
         for (size_t x = 0; x < width; x++) {
             size_t pixelIndex = (y * width + x) * 4;
             int fuzzMethod = arc4random_uniform(6); // Six methods
@@ -267,20 +282,7 @@ void debugMemoryHandling() {
 
 int main(int argc, const char * argv[]) {
     NSLog(@"Starting up...");
-       setenv("CG_PDF_VERBOSE", "1", 1);
-       setenv("CG_CONTEXT_SHOW_BACKTRACE", "1", 1);
-       setenv("CG_CONTEXT_SHOW_BACKTRACE_ON_ERROR", "1", 1);
-       setenv("CG_IMAGE_SHOW_MALLOC", "1", 1);
-       setenv("CG_LAYER_SHOW_BACKTRACE", "1", 1);
-       setenv("CGBITMAP_CONTEXT_LOG", "1", 1);
-       setenv("CGCOLORDATAPROVIDER_VERBOSE", "1", 1);
-       setenv("CGPDF_LOG_PAGES", "1", 1);
-       setenv("MALLOC_CHECK_", "1", 1);
-       setenv("NSZombieEnabled", "YES", 1);
-       setenv("NSAssertsEnabled", "YES", 1);
-       setenv("NSShowAllViews", "YES", 1);
-       setenv("IDELogRedirectionPolicy", "oslogToStdio", 1);
-//     debugMemoryHandling(); // Call the debug function
+    debugMemoryHandling(); // Call the debug function
     @autoreleasepool {
         if (argc < 3) {
             NSLog(@"Usage: %s path/to/image permutation_number", argv[0]);
@@ -429,7 +431,6 @@ void processImage(UIImage *image, int permutation, NSString *sessionDirectory) {
 }
 
 void createBitmapContextStandardRGB(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    debugMemoryHandling(); // Call the debug function
     if (verboseLogging) {
         NSLog(@"Creating bitmap context with Standard RGB settings and applying fuzzing");
     }
