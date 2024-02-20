@@ -13,12 +13,19 @@ dict_keys(['BY', 'RY', 'Y']), {'BY': (143864,), 'RY': (143864,), 'Y': (575456,)}
 ```
 - The issues arises when BY and RY do not equal 25% of Y
 - This leads to memory management issues in a wide array of products, and services.
+
 ## Apple Bug
 We can see that the subsampled channels ('BY' and 'RY') are not standard in size compared to the full-resolution 'Y' channel. 
 These channels are a quarter of the total pixel count, potentially leading to incorrect buffer size allocations.
 The crashes are likely due to buffer overflows or memory mismanagement when handling these non-standard sizes.
-### macOS Mail Crash
+
+## Impact Samples - Remote, No-Auth
+### macOS Mail Crash - DoS
 <img src="https://xss.cx/2024/02/20/img/outlook-preview-out_tif-crash-002.png" alt="Picture shows the macOS Mail Client Crashing with my PoC and Flowers.exr" style="height:600px; width:800px;"/>
+
+### Havoc
+- Your PoC should Demonstrate some amount of Control :-[]
+<img src="https://xss.cx/2024/02/20/img/shortcut-privacy-warning-send-to-facetime-sample-019.png" alt="Picture shows the PoC Create a Shortcut and send the Crash to FaceTime" style="height:600px; width:900px;"/>
 
 ## Why
 We are reminded that the reference implementation indicates:
