@@ -6,7 +6,7 @@ The Source can be run as either iOSOnMac OR Native iOS. I added an iOs App that 
 - Made some changes
 - Added some Examples
 - Updated: Monday, 20 FEB 2024 @ 1620 EST
-- XNU Image Fuzzer has moved to https://github.com/xsscx/imagefuzzer
+- XNU Image Fuzzer has moved to [https://github.com/xsscx/imagefuzzer](https://github.com/xsscx/xnuimagefuzzer)
 ## Replay
 ```
 sw_vers
