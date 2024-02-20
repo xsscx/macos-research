@@ -19,7 +19,7 @@ These channels are a quarter of the total pixel count, potentially leading to in
 The crashes are likely due to buffer overflows or memory mismanagement when handling these non-standard sizes.
 
 ## Why
-We are reminder the the reference implementation indicates:
+We are reminded that the reference implementation indicates:
 ```
 Tiled image files do not support subsampled chroma channels
 ```
