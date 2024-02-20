@@ -19,6 +19,7 @@ These channels are a quarter of the total pixel count, potentially leading to in
 The crashes are likely due to buffer overflows or memory mismanagement when handling these non-standard sizes.
 ### macOS Mail Crash
 <img src="https://xss.cx/2024/02/20/img/outlook-preview-out_tif-crash-002.png" alt="Picture shows the macOS Mail Client Crashing with my PoC and Flowers.exr" style="height:600px; width:800px;"/>
+
 ## Why
 We are reminded that the reference implementation indicates:
 ```
