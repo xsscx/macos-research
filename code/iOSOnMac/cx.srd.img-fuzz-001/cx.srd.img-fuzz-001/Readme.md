@@ -7,9 +7,18 @@ This code is a stand-alone Image Fuzzer for XNU Research.
 - This was built as a Cross Check for various Pixel functions
 - Stand alone iOS App, command line with a default storyboard
 - Xcode Project .. ready to compile...
+- Got Questions? Open an Issue
 
 ## Background
-I had been using Jackalope for Fuzzing and to confirm that it could find easy to identify Bugs.  Looking deeper I found AUF, OOB, NPTR and other issues that concealed Bugs.
+I had been using Jackalope for Fuzzing and to confirm that it could find easy to identify Bugs.  Looking deeper I found AUF, OOB, NPTR and other issues that concealed Bugs. 
+
+This Project is for anyone wanting to Learn & Educate on XNU Image Fuzzing. You can use Jackalope with the Example code provided in Imageio, and have your own Stand Alone XNU Image Fuzzer to expand your horizons.
+
+Are you new to XNU? 
+
+This Code is for you!
+
+If you have Questions Open an Issue. This Code is meant to stimulate discussion on the Bugs that can be hit from the Remote, No-Auth position.
 
 ### Overview
 This is a Stand Alone iOS Proof of Concept Fuzzer for the CreateCG Image context.
