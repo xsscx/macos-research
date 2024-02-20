@@ -324,5 +324,134 @@ See Quartz 2D Programming Guide (available online) for more information.
 Failed to create bitmap context with 16-bit Depth settings
 Completed image processing for permutation 4
 Grayscale image processing is currently pending implementation.
+...
+Random noise applied at Pixel[699, 733]
+Shift pixel values applied at Pixel[700, 733]
+Conditional color swap at Pixel[701, 733]
+Random color set at Pixel[702, 733]
+Random noise applied at Pixel[703, 733]
+Inversion applied at Pixel[704, 733]
+Inversion applied at Pixel[705, 733]
+Random noise applied at Pixel[706, 733]
+Conditional color swap at Pixel[707, 733]
+Shift pixel values applied at Pixel[708, 733]
+Random noise applied at Pixel[709, 733]
+Conditional color swap at Pixel[710, 733]
+Shift pixel values applied at Pixel[711, 733]
+Extreme contrast adjustment at Pixel[712, 733]
+Inversion applied at Pixel[713, 733]
+Extreme contrast adjustment at Pixel[714, 733]
+Extreme contrast adjustment at Pixel[715, 733]
+Shift pixel values applied at Pixel[716, 733]
+Random color set at Pixel[717, 733]
+Random color set at Pixel[718, 733]
+Shift pixel values applied at Pixel[719, 733]
+Shift pixel values applied at Pixel[720, 733]
+Shift pixel values applied at Pixel[721, 733]
+Random noise applied at Pixel[722, 733]
+Random noise applied at Pixel[723, 733]
+Random noise applied at Pixel[724, 733]
+Random color set at Pixel[725, 733]
+Conditional color swap at Pixel[726, 733]
+Random noise applied at Pixel[727, 733]
+Random color set at Pixel[728, 733]
+Shift pixel values applied at Pixel[729, 733]
+Random color set at Pixel[730, 733]
+Inversion applied at Pixel[731, 733]
+Inversion applied at Pixel[732, 733]
+Random color set at Pixel[733, 733]
+Random color set at Pixel[734, 733]
+Extreme contrast adjustment at Pixel[735, 733]
+Conditional color swap at Pixel[736, 733]
+Random noise applied at Pixel[737, 733]
+Random color set at Pixel[738, 733]
+Extreme contrast adjustment at Pixel[739, 733]
+Random color set at Pixel[740, 733]
+Inversion applied at Pixel[741, 733]
+Random noise applied at Pixel[742, 733]
+Random color set at Pixel[743, 733]
+Extreme contrast adjustment at Pixel[744, 733]
+Random color set at Pixel[745, 733]
+Random color set at Pixel[746, 733]
+Random noise applied at Pixel[747, 733]
+Random color set at Pixel[748, 733]
+Random noise applied at Pixel[749, 733]
+Random color set at Pixel[750, 733]
+Extreme contrast adjustment at Pixel[751, 733]
+Shift pixel values applied at Pixel[752, 733]
+Inversion applied at Pixel[753, 733]
+Extreme contrast adjustment at Pixel[754, 733]
+Shift pixel values applied at Pixel[755, 733]
+Random noise applied at Pixel[756, 733]
+Extreme contrast adjustment at Pixel[757, 733]
+Conditional color swap at Pixel[758, 733]
+Extreme contrast adjustment at Pixel[759, 733]
+Random color set at Pixel[760, 733]
+Random noise applied at Pixel[761, 733]
+Random noise applied at Pixel[762, 733]
+Inversion applied at Pixel[763, 733]
+Random noise applied at Pixel[764, 733]
+Random noise applied at Pixel[765, 733]
+Random noise applied at Pixel[766, 733]
+Shift pixel values applied at Pixel[767, 733]
+Inversion applied at Pixel[768, 733]
+Inversion applied at Pixel[769, 733]
+Shift pixel values applied at Pixel[770, 733]
+Inversion applied at Pixel[771, 733]
+Random color set at Pixel[772, 733]
+Inversion applied at Pixel[773, 733]
+Shift pixel values applied at Pixel[774, 733]
+Random color set at Pixel[775, 733]
+Extreme contrast adjustment at Pixel[776, 733]
+Shift pixel values applied at Pixel[777, 733]
+Extreme contrast adjustment at Pixel[778, 733]
+Random color set at Pixel[779, 733]
+Random color set at Pixel[780, 733]
+Shift pixel values applied at Pixel[781, 733]
+Random noise applied at Pixel[782, 733]
+Shift pixel values applied at Pixel[783, 733]
+Enhanced fuzzing on bitmap context completed
+After fuzzing - Logging 5 random pixels:
+After fuzzing - Pixel[188, 620]: R=0, G=0, B=0, A=0
+After fuzzing - Pixel[112, 699]: R=128, G=128, B=128, A=0
+After fuzzing - Pixel[597, 467]: R=0, G=24, B=0, A=13
+After fuzzing - Pixel[160, 183]: R=37, G=126, B=125, A=0
+After fuzzing - Pixel[624, 224]: R=0, G=0, B=0, A=0
+Creating CGImage from the modified bitmap context
+Fuzzed image saved to /var/mobile/Containers/Data/Application/1CBCFB1E-BC2F-4F6C-88D0-A57BFE378ACF/Documents/fuzzed_image.png
+Modified UIImage created successfully
+New image size: {784, 734}, scale: 1.000000, rendering mode: 0
+Bitmap context processing complete
+Bitmap context with Standard RGB settings created and fuzzing applied
+Completed image processing for permutation 1
+Case: Creating bitmap context with Premultiplied First Alpha settings
+Creating bitmap context with Premultiplied First Alpha settings and applying fuzzing
+Drawing image into the bitmap context
+Applying fuzzing logic to the bitmap context
+Fuzzing applied to RGB components of the bitmap context
+Creating CGImage from the modified bitmap context
+Modified UIImage created successfully
+New image size: {784, 734}, scale: 1.000000, rendering mode: 0
+Bitmap context with Premultiplied First Alpha settings created and fuzzing applied
+Completed image processing for permutation 2
+Case: Creating bitmap context with Non-Premultiplied Alpha settings
+Creating bitmap context with Non-Premultiplied Alpha settings and applying fuzzing
+
+CGBitmapContextCreate: unsupported parameter combination:
+	RGB | 8 bits/component, integer | 3136 bytes/row.
+	kCGImageAlphaLast | kCGImageByteOrderDefault | kCGImagePixelFormatPacked
+Set CGBITMAP_CONTEXT_LOG_ERRORS environmental variable to see more details.
+Failed to create bitmap context with Non-Premultiplied Alpha settings
+Completed image processing for permutation 3
+Case: Creating bitmap context with 16-bit depth settings
+Creating bitmap context with 16-bit Depth settings and applying fuzzing
+
+CGBitmapContextCreate: unsupported parameter combination:
+	RGB | 16 bits/component, integer | 6272 bytes/row.
+	kCGImageAlphaPremultipliedFirst | kCGImageByteOrderDefault | kCGImagePixelFormatPacked
+Set CGBITMAP_CONTEXT_LOG_ERRORS environmental variable to see more details.
+Failed to create bitmap context with 16-bit Depth settings
+Completed image processing for permutation 4
+Grayscale image processing is currently pending implementation.
 End of Run...
 ```
