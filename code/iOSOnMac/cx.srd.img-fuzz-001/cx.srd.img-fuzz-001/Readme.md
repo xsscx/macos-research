@@ -13,22 +13,24 @@ This code is a stand-alone Image Fuzzer for XNU Research.
 
 ## Quick Start
 - Create a new iOS Application in Xcode
-- Copy the Source File and Paste into main.m
+- Copy the Source File and Paste into main.m [https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/main.m]
+- Copy the Flowers.exr image into your XCode Project
 - Edit the Scheme
   - For Arguements on Launch
     - Flowers.exr
     - -1
+- Build & Run
 - You can look at the pictures below to make sure you have added the Arguements Passed on Launch correctly.
 
 ## C++ Source Code
 https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/cx.srd.img-fuzz-001/main.m
 
 ## Background
-I had been using Jackalope for Fuzzing and to confirm that it could find easy to identify Bugs.  Looking deeper I found AUF, OOB, NPTR and other issues that concealed Bugs. 
+I had been using Jackalope for Fuzzing and to confirm that it could find easy to identify Bugs. Looking deeper at Jackalope, I found AUF, OOB, NPTR that impacted some results given the Seeding. I wrote this C++ XNU Image Fuzzer for A/B Testing along side Jackalope. The Results were so Interesting I imcrased this Fuzzer Scope, enjoy!
 
-This Project is for anyone wanting to Learn & Educate on XNU Image Fuzzing. 
+This Project is for anyone wanting to Learn C++ or XNU Image Fuzzing. 
 
-You can use Jackalope with the Example code provided higher up the Repo in Imageio, and have your own Code running the XNU Image Fuzzer to expand your horizons.
+You can use Jackalope with the Example code provided higher up the Repo in Imageio [https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/ios-image-fuzzer-example.m], and have your own Code running the XNU Image Fuzzer to expand your horizons.
 
 Are you new to XNU? 
 
