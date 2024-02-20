@@ -46,152 +46,215 @@ Have Fun!!!
 
 ### Console log
 ```
-cx.srd.img-fuzz-001(3223,0x1f4bba240) malloc: enabling scribbling to detect mods to free blocks
+cx.srd.img-fuzz-001(3276,0x1f4bba240) malloc: enabling scribbling to detect mods to free blocks
 Starting up...
 Loading file: Flowers.exr
-Image path: /private/var/containers/Bundle/Application/575279A1-2417-44E3-B97D-6B9906F996A3/cx.srd.img-fuzz-001.app/Flowers.exr
-UIImage created: <UIImage:0x10740c750 anonymous {784, 734} renderingMode=automatic(original)>, Size: {width: 784.00, height: 734.00}, Scale: 1.000000, Orientation: 0
+Image path: /private/var/containers/Bundle/Application/CE39E385-81DC-4E89-A875-0E00B05337D0/cx.srd.img-fuzz-001.app/Flowers.exr
+UIImage created: <UIImage:0x107e0c750 anonymous {784, 734} renderingMode=automatic(original)>, Size: {width: 784.00, height: 734.00}, Scale: 1.000000, Orientation: 0
 CGImage created from UIImage. Dimensions: 784 x 734
 Case: Creating bitmap context with Standard RGB settings
-Chunk @ 0x102498000
-Chunk @ 0x1024a8000
-Chunk @ 0x1024b8000
-Chunk @ 0x1024c8000
-Chunk @ 0x1024d8000
-Chunk @ 0x1024e8000
-Chunk @ 0x1026c0000
-Chunk @ 0x1026d0000
-Chunk @ 0x1026e0000
-Chunk @ 0x1026f0000
-Chunk @ 0x102700000
-Chunk @ 0x102710000
-Chunk @ 0x102720000
-Chunk @ 0x102730000
-Chunk @ 0x102740000
-Chunk @ 0x102750000
-Chunk @ 0x102760000
-Chunk @ 0x102770000
-Chunk @ 0x102780000
-Chunk @ 0x102790000
-Chunk @ 0x1027a0000
-Chunk @ 0x1027b0000
-Chunk @ 0x1027c0000
-Chunk @ 0x1027d0000
-Chunk @ 0x1027e0000
-Chunk @ 0x1027f0000
-Chunk @ 0x1029d8000
-Chunk @ 0x1029e8000
-Chunk @ 0x102b24000
-Chunk @ 0x1051d4000
-Chunk @ 0x1051e4000
-Chunk @ 0x10aa00000
-Chunk @ 0x10aa10000
-Chunk @ 0x10aa20000
-Chunk @ 0x10aa30000
-Chunk @ 0x10aa40000
-Chunk @ 0x10aa50000
-Chunk @ 0x10aa60000
-Chunk @ 0x10aa70000
-Chunk @ 0x10aa80000
-Chunk @ 0x10aa90000
-Chunk @ 0x10aaa0000
-Chunk @ 0x10aab0000
-Chunk @ 0x10aac0000
-Chunk @ 0x10aad0000
-Chunk @ 0x10aae0000
-Chunk @ 0x10aaf0000
-Chunk @ 0x10ab00000
-Chunk @ 0x10ab10000
-Chunk @ 0x10ab20000
-Chunk @ 0x10ab30000
-Chunk @ 0x10ab40000
-Chunk @ 0x10ab50000
-Chunk @ 0x10ab60000
-Chunk @ 0x10ab70000
-Chunk @ 0x10ab80000
-Chunk @ 0x10ab90000
-Chunk @ 0x10aba0000
-Chunk @ 0x10abb0000
-Chunk @ 0x10abc0000
-Chunk @ 0x10abd0000
-Chunk @ 0x10abe0000
-Chunk @ 0x10abf0000
-Chunk @ 0x10ac00000
-Successfully unmapped chunk @ 0x102498000
-Successfully unmapped chunk @ 0x1024a8000
-Successfully unmapped chunk @ 0x1024b8000
-Successfully unmapped chunk @ 0x1024c8000
-Successfully unmapped chunk @ 0x1024d8000
-Successfully unmapped chunk @ 0x1024e8000
-Successfully unmapped chunk @ 0x1026c0000
-Successfully unmapped chunk @ 0x1026d0000
-Successfully unmapped chunk @ 0x1026e0000
-Successfully unmapped chunk @ 0x1026f0000
-Successfully unmapped chunk @ 0x102700000
-Successfully unmapped chunk @ 0x102710000
-Successfully unmapped chunk @ 0x102720000
-Successfully unmapped chunk @ 0x102730000
-Successfully unmapped chunk @ 0x102740000
-Successfully unmapped chunk @ 0x102750000
-Successfully unmapped chunk @ 0x102760000
-Successfully unmapped chunk @ 0x102770000
-Successfully unmapped chunk @ 0x102780000
-Successfully unmapped chunk @ 0x102790000
-Successfully unmapped chunk @ 0x1027a0000
-Successfully unmapped chunk @ 0x1027b0000
-Successfully unmapped chunk @ 0x1027c0000
-Successfully unmapped chunk @ 0x1027d0000
-Successfully unmapped chunk @ 0x1027e0000
-Successfully unmapped chunk @ 0x1027f0000
-Successfully unmapped chunk @ 0x1029d8000
-Successfully unmapped chunk @ 0x1029e8000
-Successfully unmapped chunk @ 0x102b24000
-Successfully unmapped chunk @ 0x1051d4000
-Successfully unmapped chunk @ 0x1051e4000
-Successfully unmapped chunk @ 0x10aa00000
-Successfully unmapped chunk @ 0x10aa10000
-Successfully unmapped chunk @ 0x10aa20000
-Successfully unmapped chunk @ 0x10aa30000
-Successfully unmapped chunk @ 0x10aa40000
-Successfully unmapped chunk @ 0x10aa50000
-Successfully unmapped chunk @ 0x10aa60000
-Successfully unmapped chunk @ 0x10aa70000
-Successfully unmapped chunk @ 0x10aa80000
-Successfully unmapped chunk @ 0x10aa90000
-Successfully unmapped chunk @ 0x10aaa0000
-Successfully unmapped chunk @ 0x10aab0000
-Successfully unmapped chunk @ 0x10aac0000
-Successfully unmapped chunk @ 0x10aad0000
-Successfully unmapped chunk @ 0x10aae0000
-Successfully unmapped chunk @ 0x10aaf0000
-Successfully unmapped chunk @ 0x10ab00000
-Successfully unmapped chunk @ 0x10ab10000
-Successfully unmapped chunk @ 0x10ab20000
-Successfully unmapped chunk @ 0x10ab30000
-Successfully unmapped chunk @ 0x10ab40000
-Successfully unmapped chunk @ 0x10ab50000
-Successfully unmapped chunk @ 0x10ab60000
-Successfully unmapped chunk @ 0x10ab70000
-Successfully unmapped chunk @ 0x10ab80000
-Successfully unmapped chunk @ 0x10ab90000
-Successfully unmapped chunk @ 0x10aba0000
-Successfully unmapped chunk @ 0x10abb0000
-Successfully unmapped chunk @ 0x10abc0000
-Successfully unmapped chunk @ 0x10abd0000
-Successfully unmapped chunk @ 0x10abe0000
-Successfully unmapped chunk @ 0x10abf0000
-Successfully unmapped chunk @ 0x10ac00000
+Chunk @ 0x102de0000
+Chunk @ 0x102df0000
+Chunk @ 0x102fc0000
+Chunk @ 0x102fd0000
+Chunk @ 0x102fe0000
+Chunk @ 0x102ff0000
+Chunk @ 0x103000000
+Chunk @ 0x103010000
+Chunk @ 0x103020000
+Chunk @ 0x103030000
+Chunk @ 0x103040000
+Chunk @ 0x103050000
+Chunk @ 0x103060000
+Chunk @ 0x103070000
+Chunk @ 0x103080000
+Chunk @ 0x103090000
+Chunk @ 0x1030a0000
+Chunk @ 0x1030b0000
+Chunk @ 0x1030c0000
+Chunk @ 0x1030d0000
+Chunk @ 0x1030e0000
+Chunk @ 0x1030f0000
+Chunk @ 0x103100000
+Chunk @ 0x103110000
+Chunk @ 0x103120000
+Chunk @ 0x105bd0000
+Chunk @ 0x105be0000
+Chunk @ 0x105bf0000
+Chunk @ 0x10b400000
+Chunk @ 0x10b410000
+Chunk @ 0x10b420000
+Chunk @ 0x10b430000
+Chunk @ 0x10b440000
+Chunk @ 0x10b450000
+Chunk @ 0x10b460000
+Chunk @ 0x10b470000
+Chunk @ 0x10b480000
+Chunk @ 0x10b490000
+Chunk @ 0x10b4a0000
+Chunk @ 0x10b4b0000
+Chunk @ 0x10b4c0000
+Chunk @ 0x10b4d0000
+Chunk @ 0x10b4e0000
+Chunk @ 0x10b4f0000
+Chunk @ 0x10b500000
+Chunk @ 0x10b510000
+Chunk @ 0x10b520000
+Chunk @ 0x10b530000
+Chunk @ 0x10b540000
+Chunk @ 0x10b550000
+Chunk @ 0x10b560000
+Chunk @ 0x10b570000
+Chunk @ 0x10b580000
+Chunk @ 0x10b590000
+Chunk @ 0x10b5a0000
+Chunk @ 0x10b5b0000
+Chunk @ 0x10b5c0000
+Chunk @ 0x10b5d0000
+Chunk @ 0x10b5e0000
+Chunk @ 0x10b5f0000
+Chunk @ 0x10b600000
+Chunk @ 0x10b610000
+Chunk @ 0x10b620000
+Chunk @ 0x10b630000
+Successfully unmapped chunk @ 0x102de0000
+Successfully unmapped chunk @ 0x102df0000
+Successfully unmapped chunk @ 0x102fc0000
+Successfully unmapped chunk @ 0x102fd0000
+Successfully unmapped chunk @ 0x102fe0000
+Successfully unmapped chunk @ 0x102ff0000
+Successfully unmapped chunk @ 0x103000000
+Successfully unmapped chunk @ 0x103010000
+Successfully unmapped chunk @ 0x103020000
+Successfully unmapped chunk @ 0x103030000
+Successfully unmapped chunk @ 0x103040000
+Successfully unmapped chunk @ 0x103050000
+Successfully unmapped chunk @ 0x103060000
+Successfully unmapped chunk @ 0x103070000
+Successfully unmapped chunk @ 0x103080000
+Successfully unmapped chunk @ 0x103090000
+Successfully unmapped chunk @ 0x1030a0000
+Successfully unmapped chunk @ 0x1030b0000
+Successfully unmapped chunk @ 0x1030c0000
+Successfully unmapped chunk @ 0x1030d0000
+Successfully unmapped chunk @ 0x1030e0000
+Successfully unmapped chunk @ 0x1030f0000
+Successfully unmapped chunk @ 0x103100000
+Successfully unmapped chunk @ 0x103110000
+Successfully unmapped chunk @ 0x103120000
+Successfully unmapped chunk @ 0x105bd0000
+Successfully unmapped chunk @ 0x105be0000
+Successfully unmapped chunk @ 0x105bf0000
+Successfully unmapped chunk @ 0x10b400000
+Successfully unmapped chunk @ 0x10b410000
+Successfully unmapped chunk @ 0x10b420000
+Successfully unmapped chunk @ 0x10b430000
+Successfully unmapped chunk @ 0x10b440000
+Successfully unmapped chunk @ 0x10b450000
+Successfully unmapped chunk @ 0x10b460000
+Successfully unmapped chunk @ 0x10b470000
+Successfully unmapped chunk @ 0x10b480000
+Successfully unmapped chunk @ 0x10b490000
+Successfully unmapped chunk @ 0x10b4a0000
+Successfully unmapped chunk @ 0x10b4b0000
+Successfully unmapped chunk @ 0x10b4c0000
+Successfully unmapped chunk @ 0x10b4d0000
+Successfully unmapped chunk @ 0x10b4e0000
+Successfully unmapped chunk @ 0x10b4f0000
+Successfully unmapped chunk @ 0x10b500000
+Successfully unmapped chunk @ 0x10b510000
+Successfully unmapped chunk @ 0x10b520000
+Successfully unmapped chunk @ 0x10b530000
+Successfully unmapped chunk @ 0x10b540000
+Successfully unmapped chunk @ 0x10b550000
+Successfully unmapped chunk @ 0x10b560000
+Successfully unmapped chunk @ 0x10b570000
+Successfully unmapped chunk @ 0x10b580000
+Successfully unmapped chunk @ 0x10b590000
+Successfully unmapped chunk @ 0x10b5a0000
+Successfully unmapped chunk @ 0x10b5b0000
+Successfully unmapped chunk @ 0x10b5c0000
+Successfully unmapped chunk @ 0x10b5d0000
+Successfully unmapped chunk @ 0x10b5e0000
+Successfully unmapped chunk @ 0x10b5f0000
+Successfully unmapped chunk @ 0x10b600000
+Successfully unmapped chunk @ 0x10b610000
+Successfully unmapped chunk @ 0x10b620000
+Successfully unmapped chunk @ 0x10b630000
 Creating bitmap context with Standard RGB settings and applying fuzzing
 Drawing image into the bitmap context
 Before fuzzing - Basic pixel logging executed.
 Applying secondary fuzzing logic to the bitmap context
 After fuzzing - Basic pixel logging executed.
 Creating CGImage from the modified bitmap context
-Fuzzed image saved to /var/mobile/Containers/Data/Application/3FD3205B-496F-44B1-8212-C565F6E7673D/Documents/fuzzed_image.png
+Fuzzed image saved to /var/mobile/Containers/Data/Application/64F831C7-A853-4D03-9DB1-727B57E5B732/Documents/fuzzed_image.png
 Modified UIImage created successfully
 New image size: {784, 734}, scale: 1.000000, rendering mode: 0
 Bitmap context processing complete
 Bitmap context with Standard RGB settings created and fuzzing applied
 Completed image processing for permutation 1
+Case: Creating bitmap context with Premultiplied First Alpha settings
+Creating bitmap context with Premultiplied First Alpha settings and applying fuzzing
+Drawing image into the bitmap context
+Applying fuzzing logic to the bitmap context
+Fuzzing applied to RGB components of the bitmap context
+Creating CGImage from the modified bitmap context
+Modified UIImage created successfully
+New image size: {784, 734}, scale: 1.000000, rendering mode: 0
+Bitmap context with Premultiplied First Alpha settings created and fuzzing applied
+Completed image processing for permutation 2
+Case: Creating bitmap context with Non-Premultiplied Alpha settings
+Creating bitmap context with Non-Premultiplied Alpha settings and applying fuzzing
+
+CGBitmapContextCreate: unsupported parameter combination:
+ 	RGB 
+	8 bits/component, integer
+ 	3136 bytes/row
+	kCGImageAlphaLast
+	kCGImageByteOrderDefault
+	kCGImagePixelFormatPacked
+	Valid parameters for RGB color space model are:
+	16  bits per pixel,		 5  bits per component,		 kCGImageAlphaNoneSkipFirst
+	32  bits per pixel,		 8  bits per component,		 kCGImageAlphaNoneSkipFirst
+	32  bits per pixel,		 8  bits per component,		 kCGImageAlphaNoneSkipLast
+	32  bits per pixel,		 8  bits per component,		 kCGImageAlphaPremultipliedFirst
+	32  bits per pixel,		 8  bits per component,		 kCGImageAlphaPremultipliedLast
+	32  bits per pixel,		 10 bits per component,		 kCGImageAlphaNone|kCGImagePixelFormatRGBCIF10|kCGImageByteOrder16Little
+	64  bits per pixel,		 16 bits per component,		 kCGImageAlphaPremultipliedLast
+	64  bits per pixel,		 16 bits per component,		 kCGImageAlphaNoneSkipLast
+	64  bits per pixel,		 16 bits per component,		 kCGImageAlphaPremultipliedLast|kCGBitmapFloatComponents|kCGImageByteOrder16Little
+	64  bits per pixel,		 16 bits per component,		 kCGImageAlphaNoneSkipLast|kCGBitmapFloatComponents|kCGImageByteOrder16Little
+	128 bits per pixel,		 32 bits per component,		 kCGImageAlphaPremultipliedLast|kCGBitmapFloatComponents
+	128 bits per pixel,		 32 bits per component,		 kCGImageAlphaNoneSkipLast|kCGBitmapFloatComponents
+See Quartz 2D Programming Guide (available online) for more information.
+Failed to create bitmap context with Non-Premultiplied Alpha settings
+Completed image processing for permutation 3
+Case: Creating bitmap context with 16-bit depth settings
+Creating bitmap context with 16-bit Depth settings and applying fuzzing
+
+CGBitmapContextCreate: unsupported parameter combination:
+ 	RGB 
+	16 bits/component, integer
+ 	6272 bytes/row
+	kCGImageAlphaPremultipliedFirst
+	kCGImageByteOrderDefault
+	kCGImagePixelFormatPacked
+	Valid parameters for RGB color space model are:
+	16  bits per pixel,		 5  bits per component,		 kCGImageAlphaNoneSkipFirst
+	32  bits per pixel,		 8  bits per component,		 kCGImageAlphaNoneSkipFirst
+	32  bits per pixel,		 8  bits per component,		 kCGImageAlphaNoneSkipLast
+	32  bits per pixel,		 8  bits per component,		 kCGImageAlphaPremultipliedFirst
+	32  bits per pixel,		 8  bits per component,		 kCGImageAlphaPremultipliedLast
+	32  bits per pixel,		 10 bits per component,		 kCGImageAlphaNone|kCGImagePixelFormatRGBCIF10|kCGImageByteOrder16Little
+	64  bits per pixel,		 16 bits per component,		 kCGImageAlphaPremultipliedLast
+	64  bits per pixel,		 16 bits per component,		 kCGImageAlphaNoneSkipLast
+	64  bits per pixel,		 16 bits per component,		 kCGImageAlphaPremultipliedLast|kCGBitmapFloatComponents|kCGImageByteOrder16Little
+	64  bits per pixel,		 16 bits per component,		 kCGImageAlphaNoneSkipLast|kCGBitmapFloatComponents|kCGImageByteOrder16Little
+	128 bits per pixel,		 32 bits per component,		 kCGImageAlphaPremultipliedLast|kCGBitmapFloatComponents
+	128 bits per pixel,		 32 bits per component,		 kCGImageAlphaNoneSkipLast|kCGBitmapFloatComponents
+See Quartz 2D Programming Guide (available online) for more information.
+Failed to create bitmap context with 16-bit Depth settings
+Completed image processing for permutation 4
+Grayscale image processing is currently pending implementation.
 End of Run...
 ```
