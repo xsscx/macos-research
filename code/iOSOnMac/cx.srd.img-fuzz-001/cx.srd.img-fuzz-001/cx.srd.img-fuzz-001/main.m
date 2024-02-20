@@ -366,7 +366,7 @@ void processImage(UIImage *image, int permutation) {
                     break;
                 case 5:
                     NSLog(@"Grayscale image processing is currently pending implementation.");
-                    return;
+                    break;
                 case 6:
                     NSLog(@"Case: Creating bitmap context with HDR Float Components settings");
                     createBitmapContextHDRFloatComponents(cgImg);
