@@ -18,6 +18,13 @@ We can see that the subsampled channels ('BY' and 'RY') are not standard in size
 These channels are a quarter of the total pixel count, potentially leading to incorrect buffer size allocations.
 The crashes are likely due to buffer overflows or memory mismanagement when handling these non-standard sizes.
 
+## Why
+We are reminder the the reference implementation indicates:
+```
+Tiled image files do not support subsampled chroma channels
+```
+Given this critical detail, we can now begin constructing the Seeds for Fuzzing the EXR Libraries.
+
 ### PoC
 Reproduction Image: Flowers.exr from the OpenEXR Distribution using libOpenEXR-3_2.31.3.2.1.dylib
 ```
