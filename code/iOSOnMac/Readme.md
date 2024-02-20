@@ -5,7 +5,8 @@ The Source can be run as either iOSOnMac OR Native iOS. I added an iOs App that 
 - Updated the Makefile to Build on macOS 14
 - Made some changes
 - Added some Examples
-- Updated: Monday, 18 FEB 2024 @ 1100 EST
+- Updated: Monday, 20 FEB 2024 @ 1620 EST
+- XNU Image Fuzzer has moved to https://github.com/xsscx/imagefuzzer
 ## Replay
 ```
 sw_vers
