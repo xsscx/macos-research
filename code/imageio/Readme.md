@@ -2,27 +2,28 @@
 
 Last Updated 22 FEB 2024 at 1100 EST
 
-## Background
-The code originated from Google Project Zero
-- https://github.com/googleprojectzero/Jackalope/blob/main/examples/ImageIO/imageio.m
-- I modified the Google code and wrote some examples to cross-check some Bugs
-- There is a clang scan-build report for Jackalope & TinyInst at URL https://xss.cx/2023/12/09/src/jackalope-scan-build-report/index.html
-- The added Jackalope Source Files are the be placed in examples/ 
-- The added TinyInst Files are complete Replacements
-  - ninja only
-    - Monitor Signals
-    - Drop to LLDB Debugger
-    - Anonymized Memory for Collaboration
-    - Bleeding Edge Enhancements for A/B Testing
-
-## Companions for XNU Image Fuzzer
-- iOS App Proof of Concept https://github.com/xsscx/xnuimagefuzzer
-- Image Fuzzing At Scale https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
-
 ### Target Audience
 - Security Research
 - Tool Developer
 - Fuzzing
+  
+## Background
+The code originated from Google Project Zero
+- https://github.com/googleprojectzero/Jackalope/blob/main/examples/ImageIO/imageio.m
+- I modified the Example Code to enhance coverage with companion Apps for Fuzzed Image Generation
+
+## Companions 
+### XNU Image Fuzzer
+- iOS App Proof of Concept https://github.com/xsscx/xnuimagefuzzer
+- Generate Fuzzed Images At Scale https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
+
+### TinyInst mods
+- The added TinyInst Files are complete Replacements of Source
+  - ninja mode
+    - Monitor Signals
+    - Drop to LLDB Debugger
+    - Anonymized Memory for Collaboration
+    - Bleeding Edge Enhancements for A/B Testing
 
 ## XNU Image Fuzzer Seeds
 - Project Zero Bug 2225 Seed <img src="https://xss.cx/2024/02/20/img/2225.png" alt="Seed - P0-2225" style="height:32px; width:32px;"/>
