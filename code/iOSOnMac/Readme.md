@@ -59,7 +59,7 @@ sudo reboot
 ## Compile and Run my Code
 make
 ```
-xcrun -sdk iphoneos clang -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.2.sdk -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o fuzzer ios-image-fuzzer-example.m interpose.dylib
+xcrun -sdk iphoneos clang -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.2.sdk -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o fuzzer xnuimagefuzzer.m interpose.dylib
 mkdir fuzzer.app
 mv fuzzer fuzzer.app/
 cp Info.plist fuzzer.app/
@@ -190,7 +190,7 @@ libc++abi: terminating due to uncaught exception of type int
 ```
 ### Bitmap Context Notes
 
-Creating a bitmap context with CGBitmapContextCreate involves several parameters that define the characteristics of the context, such as the width, height, bit depth, bytes per row, color space, and alpha info. Varying these parameters can significantly alter the behavior and output of the context. Below are 10 permutations of the CGBitmapContextCreate function call, each demonstrating a different configuration in the Source Code [https://raw.githubusercontent.com/xsscx/macos-research/main/code/iOSOnMac/ios-image-fuzzer-example.m]
+Creating a bitmap context with CGBitmapContextCreate involves several parameters that define the characteristics of the context, such as the width, height, bit depth, bytes per row, color space, and alpha info. Varying these parameters can significantly alter the behavior and output of the context. Below are 10 permutations of the CGBitmapContextCreate function call, each demonstrating a different configuration in the Source Code [https://raw.githubusercontent.com/xsscx/macos-research/main/code/iOSOnMac/xnuimagefuzzer.m]
 ```
 Standard RGB with No Alpha:
 CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 8, 0, colorspace, kCGImageAlphaNone);
