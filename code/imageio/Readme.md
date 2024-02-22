@@ -6,7 +6,7 @@ The code originated from Google Project Zero
 - There is a clang scan-build report for Jackalope & TinyInst at URL https://xss.cx/2023/12/09/src/jackalope-scan-build-report/index.html
 - Best to understand the Jackalope and TinyInst Bugs in the Scan Report as they can influence Fuzzing Coverage & Results
 - XNU Image Fuzzer is moved to URL https://github.com/xsscx/xnuimagefuzzer to Generate Fuzzed Images for Rendering and further Fuzzing
-- 
+
 ## My Code Modifications
 - Windows Fuzzer Code Updates in process
 - The Example Code adds a few supported file types and cleans up the autorelease pool use on macOS
