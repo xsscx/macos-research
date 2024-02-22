@@ -4,7 +4,9 @@ The code originated from Google Project Zero
 - I modified the Google code and wrote some examples to cross-check some Bugs
 - My examples are based on iOSOnMac Interposing Code at URL https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
 - There is a clang scan-build report for Jackalope & TinyInst at URL https://xss.cx/2023/12/09/src/jackalope-scan-build-report/index.html
-- Best to understand the Jackalope and TinyInst Bugs in the Scan Report as they can influence Fuzzing Coverage & Results  
+- Best to understand the Jackalope and TinyInst Bugs in the Scan Report as they can influence Fuzzing Coverage & Results
+- XNU Image Fuzzer is moved to URL https://github.com/xsscx/xnuimagefuzzer to Generate Fuzzed Images for Rendering and further Fuzzing
+- 
 ## My Code Modifications
 - Windows Fuzzer Code Updates in process
 - The Example Code adds a few supported file types and cleans up the autorelease pool use on macOS
