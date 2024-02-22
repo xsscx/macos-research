@@ -1,8 +1,8 @@
 /**
- * @file       ios-image-fuzzer-example.mm
+ * @file       xnuimagefuzzer.m
  * @brief      Proof of concept iOS Image Fuzzer
  * @author     @h02332 | David Hoyt
- * @date       Modified 29 Nov 2023 | 1733 EST
+ * @date       Modified 22 FEB 2024 | 1045 EST
  *
  * Detailed description of the file, if necessary.
  *
@@ -18,6 +18,7 @@
  * - [ ] ICC Color Profiles
  * - [ ] Refactor Example Fuzzer 
  * - [ ] Add Logging Toggle as global variable  - testing in createBitmapContextStandardRGB function
+ * - [ ] Modify File Name at function()
  * Compile : xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o imagefuzzer ios-image-fuzzer-example.m  interpose.dylib
  * 
  */
@@ -472,7 +473,7 @@ void createBitmapContextStandardRGB(CGImageRef cgImg, NSString *sessionDirectory
         CGImageRelease(newCgImg);
 
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextStandardRGB_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         if (verboseLogging) {
@@ -537,7 +538,7 @@ void createBitmapContextPremultipliedFirstAlpha(CGImageRef cgImg, NSString *sess
 
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextPremultipliedFirstAlpha_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
@@ -595,7 +596,7 @@ void createBitmapContextNonPremultipliedAlpha(CGImageRef cgImg, NSString *sessio
 
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextNonPremultipliedAlpha_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
@@ -652,7 +653,7 @@ void createBitmapContext16BitDepth(CGImageRef cgImg, NSString *sessionDirectory,
 
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContext16BitDepth_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
@@ -714,7 +715,7 @@ void createBitmapContextHDRFloatComponents(CGImageRef cgImg, NSString *sessionDi
         
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextHDRFloatComponents_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
@@ -772,7 +773,7 @@ void createBitmapContextAlphaOnly(CGImageRef cgImg, NSString *sessionDirectory, 
 
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextAlphaOnly_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
@@ -826,7 +827,7 @@ void createBitmapContext1BitMonochrome(CGImageRef cgImg, NSString *sessionDirect
 
         // Save the fuzzed image
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_1bit_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContext1BitMonochrome_fuzzed_image_1bit_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed 1-bit Monochrome image saved at: %@", fuzzedImagePath);
@@ -879,7 +880,7 @@ void createBitmapContextBigEndian(CGImageRef cgImg, NSString *sessionDirectory, 
 
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextBigEndian_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
@@ -936,7 +937,7 @@ void createBitmapContextLittleEndian(CGImageRef cgImg, NSString *sessionDirector
 
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextLittleEndian_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
@@ -993,7 +994,7 @@ void createBitmapContext8BitInvertedColors(CGImageRef cgImg, NSString *sessionDi
 
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContext8BitInvertedColors_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
@@ -1050,7 +1051,7 @@ void createBitmapContext32BitFloat4Component(CGImageRef cgImg, NSString *session
         
         // Save the fuzzed image in the session directory
         NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"fuzzed_image_%d.png", permutation]];
+        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContext32BitFloat4Component_fuzzed_image_%d.png", permutation]];
         [imageData writeToFile:fuzzedImagePath atomically:YES];
 
         NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
