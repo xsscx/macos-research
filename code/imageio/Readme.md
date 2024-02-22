@@ -280,7 +280,7 @@ AddressSanitizer:DEADLYSIGNAL
 ```
 
 #### Example Implementation for 10+ Functions
-See URL https://raw.githubusercontent.com/xsscx/macos-research/main/code/iOSOnMac/ios-image-fuzzer-example.m so you can understand the Code shown below and have it running locally.
+See URL https://raw.githubusercontent.com/xsscx/macos-research/main/code/iOSOnMac/xnuimagefuzzer.m so you can understand the Code shown below and have it running locally.
 
 ### Bitmap Context Notes
 
