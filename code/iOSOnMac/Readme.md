@@ -2,10 +2,11 @@
 # XNU Image Fuzzer | iOSOnMac | Interposing iOS Applications
 The Source can be run as either iOSOnMac OR Native iOS
 
-Last Modified: Thursday, 22 FEB 2024 at 1015 EST
+Last Modified: Thursday, 22 FEB 2024 at 1055 EST
 
 ## Based on XNU Image Fuzzer
 - https://github.com/xsscx/xnuimagefuzzer
+- Refactored for Fuzzing at Scale
 
 ### Target Audience
 - Security Research
