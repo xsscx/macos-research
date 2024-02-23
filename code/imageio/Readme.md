@@ -19,11 +19,17 @@ The code originated from Google Project Zero
 
 ### TinyInst mods
 - The added TinyInst Files are complete Replacements of Source
+- instruments.cpp
+- instruments.h
   - ninja mode
     - Monitor Signals
     - Drop to LLDB Debugger
     - Anonymized Memory for Collaboration
     - Bleeding Edge Enhancements for A/B Testing
+
+### Jackalope mods
+- The main.cpp is complete Replacement of Source
+  - main.cpp
 
 ## XNU Image Fuzzer Seeds
 - Project Zero Bug 2225 Seed <img src="https://xss.cx/2024/02/20/img/2225.png" alt="Seed - P0-2225" style="height:32px; width:32px;"/>
