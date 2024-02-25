@@ -12,8 +12,8 @@ The code originated from Google Project Zero
 - https://github.com/googleprojectzero/Jackalope/blob/main/examples/ImageIO/imageio.m
 - I modified the Example Code to enhance coverage with companion Apps for Fuzzed Image Generation
 
-### TinyInst mods
-- The added TinyInst Files are complete Replacements of Source
+### Instrumentation mods
+- These Files are complete Replacements of Source
 - instruments.cpp
 - instruments.h
   - ninja mode
