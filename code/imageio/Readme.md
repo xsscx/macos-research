@@ -48,7 +48,7 @@ The code originated from Google Project Zero
 ```
 cd ./Jackalope
 cmake  -G Xcode
-cmake --build . --config Debug
+cmake --build . --config Release
 ```
 - Now you have Xcode Project
 - Now you have cmake build system
