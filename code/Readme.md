@@ -2,7 +2,7 @@
 ## Last Updated: 21 FEB 2024 at 0600 EST
 - Added P0's iOSOnMac with Mods https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
 - Moved XNU Image Fuzzer https://github.com/xsscx/xnuimagefuzzer
-- Added example main.cpp and mods for instrumenation.cpp and instrumentation.h
+- Added example main.cpp and mods for instrumentation.cpp and instrumentation.h
 - Added CVE-2022-26730 and CVE-2023-32443 using ICC Color Profile Sample PoC's
 - See URL https://github.com/xsscx/macos-research/tree/main/ColorSync-CVE-2022-26730
 - See https://srd.cx/cve-2023-32443/ and https://srd.cx/cve-2022-26730/
