@@ -12,11 +12,6 @@ The code originated from Google Project Zero
 - https://github.com/googleprojectzero/Jackalope/blob/main/examples/ImageIO/imageio.m
 - I modified the Example Code to enhance coverage with companion Apps for Fuzzed Image Generation
 
-## Companions 
-### XNU Image Fuzzer
-- iOS App Proof of Concept https://github.com/xsscx/xnuimagefuzzer
-- Generate Fuzzed Images At Scale https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
-
 ### TinyInst mods
 - The added TinyInst Files are complete Replacements of Source
 - instruments.cpp
@@ -40,7 +35,6 @@ The code originated from Google Project Zero
 - MultipliedAlpha #1 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_premultiplied_first_alpha.png" alt="XNU Image Fuzzer PreMultipliedAlpha" style="height:32px; width:32px;"/> MultipliedAlpha #2 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_premultiplied_first_alpha_series2.png" alt="XNU Image Fuzzer PreMultipliedAlpha #2" style="height:32px; width:32px;"/>
 
 ## My Code Modifications
-- Windows Fuzzer Code Updates in process
 - The Example Code adds a few supported file types and cleans up the autorelease pool use on macOS
 - The Scripts and Example Code show how to Target other Dylibs depending on the Image Type, or Fuzz them all with the sample Script [https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/imageio-fuzzer.zsh]
 - There is a larger code base for iOS Fuzzing that has yet to be implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/xnuimagefuzzer.m
@@ -106,19 +100,6 @@ To find out which modules are loaded for a particular input file, you can run, m
 ```
 ../TinyInst/Debug/litecov -trace_debug_events -- ../examples/ImageIO/Debug/test_imageio -f <filename>
 ```
-## Trophy Case
-- CVE-2023-46602 https://nvd.nist.gov/vuln/detail/CVE-2023-46602
-- CVE-2023-46603 https://nvd.nist.gov/vuln/detail/CVE-2023-46603
-- CVE-2023-46866 https://nvd.nist.gov/vuln/detail/CVE-2023-46866
-- CVE-2023-46867 https://nvd.nist.gov/vuln/detail/CVE-2023-46867
-- CVE-2023-47249 https://nvd.nist.gov/vuln/detail/CVE-2023-47249
-- CVE-2023-48736 https://nvd.nist.gov/vuln/detail/CVE-2023-48736
-- libAppleEXR - Abort()  https://github.com/xsscx/macos-research/blob/main/code/imageio/crashes/libAppleEXR-discussion-analysis.md
-## References
-- https://github.com/InternationalColorConsortium/DemoIccMAX/pull/53
-- https://github.com/InternationalColorConsortium/DemoIccMAX/issues/54
-- https://github.com/InternationalColorConsortium/DemoIccMAX/issues/58
-- https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/crashes/crash-function-YCCAtoRGBA-libappleexr-sample-001.txt
 
 ### Fuzzer Output
 #### Sample for Instrumented module AppleJPEG
@@ -594,6 +575,28 @@ IF you are seeing these messages:
         break;
       case DEBUGGER_PROCESS_EXIT:
         FATAL("Process exited before reaching the target method\n");
+
+## Trophy Case
+- CVE-2023-46602 https://nvd.nist.gov/vuln/detail/CVE-2023-46602
+- CVE-2023-46603 https://nvd.nist.gov/vuln/detail/CVE-2023-46603
+- CVE-2023-46866 https://nvd.nist.gov/vuln/detail/CVE-2023-46866
+- CVE-2023-46867 https://nvd.nist.gov/vuln/detail/CVE-2023-46867
+- CVE-2023-47249 https://nvd.nist.gov/vuln/detail/CVE-2023-47249
+- CVE-2023-48736 https://nvd.nist.gov/vuln/detail/CVE-2023-48736
+- libAppleEXR - Abort()  https://github.com/xsscx/macos-research/blob/main/code/imageio/crashes/libAppleEXR-discussion-analysis.md
+
+## References
+- https://github.com/InternationalColorConsortium/DemoIccMAX/pull/53
+- https://github.com/InternationalColorConsortium/DemoIccMAX/issues/54
+- https://github.com/InternationalColorConsortium/DemoIccMAX/issues/58
+- https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/crashes/crash-function-YCCAtoRGBA-libappleexr-sample-001.txt
+
+## Companions 
+### XNU Image Fuzzer
+- iOS App Proof of Concept https://github.com/xsscx/xnuimagefuzzer
+- Generate Fuzzed Images At Scale https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
+- Generate Ballistic and Random PNG Images for Fuzzing
+  - https://github.com/xsscx/macos-research/tree/main/code/png
         break;
       default:
         FATAL("An unknown problem occured before reaching the target method\n");
