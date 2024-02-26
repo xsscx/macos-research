@@ -49,4 +49,14 @@ if (APPLE)
     "-framework CoreGraphics"
   )
 
+  add_executable(imageio-test-004_imageio
+    imageio-test-004.m
+  )
+
+  target_link_libraries(imageio-test-004_imageio
+    "-framework ImageIO"
+    "-framework AppKit"
+    "-framework CoreGraphics"
+  )
+
 endif()
