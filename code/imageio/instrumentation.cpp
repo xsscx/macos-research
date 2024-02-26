@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iostream>
 #include <chrono>
+#include <cassert>
 
 bool Instrumentation::debugMode = true;
 int Instrumentation::verbosityLevel = 1; // Ensure this matches the declaration in instrumentation.h
@@ -18,8 +19,32 @@ std::ofstream Instrumentation::debugLogFile("fuzzer_debug_log.txt", std::ios::ap
 std::string Instrumentation::AnonymizeAddress(void* addr) {
     char buf[20];
     snprintf(buf, sizeof(buf), "%p", addr);
-    // Your anonymization logic here (unchanged from your original implementation)
-    return std::string(buf); // Placeholder return
+
+    if (!strcmp(buf, "(nil)")) {
+        std::cerr << "[" << __TIME__ << "] AnonymizeAddress: Address is nil" << std::endl;
+        return std::string("0");
+    }
+
+    int addr_start = (buf[0] == '0' && (buf[1] == 'x' || buf[1] == 'X')) ? 2 : 0;
+    int len = static_cast<int>(strlen(buf));
+    int firstnonzero = len;
+    for (int i = addr_start; i < len; i++) {
+        if (buf[i] != '0') {
+            firstnonzero = i;
+            break;
+        }
+    }
+
+    assert(firstnonzero < len); // Sanity check
+
+    for (int i = firstnonzero; i < len - 3; i++) {
+        buf[i] = 'x';
+    }
+
+    std::string anonymizedAddr(buf);
+    std::cerr << "[" << __TIME__ << "] AnonymizeAddress: Original: " << addr
+              << ", Anonymized: " << anonymizedAddr << std::endl;
+    return anonymizedAddr;
 }
 
 void Instrumentation::DebugBreakpoint(const std::string& message) {
@@ -72,3 +97,4 @@ void Instrumentation::LogDebug(const std::string& message, int level) {
         debugLogFile.flush(); // Ensure the message is immediately written to the file
     }
 }
+
