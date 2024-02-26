@@ -72,6 +72,9 @@ Continue learning with the companion App with 12 Target Functions as Examples.
   - iOS On Mac implementation for At Scale generation of Fuzzed Imaged
   - https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
 
+## Discussion & Analysis for libAppleEXR
+- https://github.com/xsscx/macos-research/blob/main/code/imageio/crashes/libAppleEXR-discussion-analysis.md
+
 ## Jackalope Example Command Lines
 ### Suggested grep
 ```
