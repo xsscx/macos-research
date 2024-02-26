@@ -1,255 +1,270 @@
-// Modified by @h02332 David Hoyt to aid in Debugging in Jackalope
-// Modified main.cpp for Live Debugging Mode Implementation
-// Should be used with your Stub Programs in CMakeLists.txt until Stable
-// Ninja Mode with bleeded edge code
+// Modified by @h02332 David Hoyt to aid in Debugging from Jackalope
+// Stable Fuzing Code as of 26 FEB 2024
 
-#include "common.h"
-#include "fuzzer.h"
-#include "mutator.h"
-#include "mersenne.h"
-#include "mutators/grammar/grammar.h"
-#include "mutators/grammar/grammarmutator.h"
-#include "mutators/grammar/grammarminimizer.h"
-#include <iostream>
-#include <csignal>
-#include <fstream>
-#include <execinfo.h>
-#include <unistd.h>
-#include <ctime>
-#include "instrumentation.h"
+#include <Foundation/Foundation.h>
+#include <Foundation/NSURL.h>
+#include <dlfcn.h>
+#include <stdint.h>
+#include <sys/shm.h>
+#include <dirent.h>
+#include <sys/resource.h>
 
-std::ofstream debugLogFile("fuzzer_debug_log.txt", std::ios::app);
+#import <ImageIO/ImageIO.h>
+#import <AppKit/AppKit.h>
+#import <CoreGraphics/CoreGraphics.h>
 
-void LogDebug(const std::string& message) {
-    debugLogFile << message << std::endl;
-}
+// Shared memory configuration for cross-platform compatibility
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
+#include <windows.h>
+#else
+#include <sys/mman.h>
+#endif
 
-void DebugBreakpoint(const std::string& message) {
-    std::cout << "[DEBUG BREAK] " << message << std::endl;
-    std::cout << "Press enter to continue..." << std::endl;
-    std::cin.get();
-}
+#define MAX_SAMPLE_SIZE 1000000
+#define SHM_SIZE (4 + MAX_SAMPLE_SIZE)
+unsigned char *shm_data;
 
-void SignalHandler(int signal) {
-    std::cout << "Caught signal " << signal << std::endl;
-    void* array[10];
-    size_t size;
+bool use_shared_memory = false;
 
-    // get void*'s for all entries on the stack
-    size = backtrace(array, 10);
-    // print out all the frames to stderr
-    fprintf(stderr, "Error: signal %d:\n", signal);
-//    backtrace_symbols_fd(array, size, STDERR_FILENO);
-    backtrace_symbols_fd(array, static_cast<int>(size), STDERR_FILENO);
+// Shared memory setup function
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
 
-    exit(1);
-}
-
-void SetupSignalHandlers() {
-    signal(SIGINT, SignalHandler);
-    signal(SIGSEGV, SignalHandler);
-}
-
-// BinaryFuzzer and GrammarFuzzer class implementations remain unchanged
-
-class BinaryFuzzer : public Fuzzer {
-  Mutator *CreateMutator(int argc, char **argv, ThreadContext *tc) override;
-  bool TrackHotOffsets() override { return true; }
-};
-
-Mutator * BinaryFuzzer::CreateMutator(int argc, char **argv, ThreadContext *tc) {
-  bool use_deterministic_mutations = true;
-  if(GetBinaryOption("-server", argc, argv, false)) {
-    // don't do deterministic mutation if a server is specified
-    use_deterministic_mutations = false;
-  }
-  use_deterministic_mutations = GetBinaryOption("-deterministic_mutations",
-                                                argc, argv,
-                                                use_deterministic_mutations);
-
-  bool deterministic_only = GetBinaryOption("-deterministic_only",
-                                            argc, argv,
-                                            false);
-
-  int nrounds = GetIntOption("-iterations_per_round", argc, argv, 1000);
-
-  char* dictionary = GetOption("-dict", argc, argv);
-
-  // a pretty simple mutation strategy
-
-  PSelectMutator *pselect = new PSelectMutator();
-
-  // select one of the mutators below with corresponding
-  // probablilities
-  pselect->AddMutator(new ByteFlipMutator(), 0.8);
-  pselect->AddMutator(new ArithmeticMutator(), 0.2);
-  pselect->AddMutator(new AppendMutator(1, 128), 0.2);
-  pselect->AddMutator(new BlockInsertMutator(1, 128), 0.1);
-  pselect->AddMutator(new BlockFlipMutator(2, 16), 0.1);
-  pselect->AddMutator(new BlockFlipMutator(16, 64), 0.1);
-  pselect->AddMutator(new BlockFlipMutator(1, 64, true), 0.1);
-  pselect->AddMutator(new BlockDuplicateMutator(1, 128, 1, 8), 0.1);
-
-  InterestingValueMutator *iv_mutator = NULL;
-  if(dictionary) {
-    iv_mutator = new InterestingValueMutator(false);
-    iv_mutator->AddDictionary(dictionary);
-  } else {
-    iv_mutator = new InterestingValueMutator(true);
-  }
-  pselect->AddMutator(iv_mutator, 0.1);
-
-  // SpliceMutator is not compatible with -keep_samples_in_memory=0
-  // as it requires other samples in memory besides the one being
-  // fuzzed.
-  if (GetBinaryOption("-keep_samples_in_memory", argc, argv, true)) {
-    pselect->AddMutator(new SpliceMutator(1, 0.5), 0.1);
-    pselect->AddMutator(new SpliceMutator(2, 0.5), 0.1);
+int setup_shmem(const char* name) {
+  HANDLE map_file = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, name);
+  if (map_file == NULL) {
+    printf("Error accessing shared memory\n");
+    return 0;
   }
 
-  Mutator* pselect_or_range = pselect;
-
-  // if we are tracking ranges, insert a RangeMutator
-  // between RepeatMutator and individual mutators
-  if (GetBinaryOption("-track_ranges", argc, argv, false)) {
-    RangeMutator* range_mutator = new RangeMutator(pselect);
-    pselect_or_range = range_mutator;
+  shm_data = (unsigned char*)MapViewOfFile(map_file, FILE_MAP_ALL_ACCESS, 0, 0, SHM_SIZE);
+  if (shm_data == NULL) {
+    printf("Error accessing shared memory\n");
+    CloseHandle(map_file);
+    return 0;
   }
 
-  // potentially repeat the mutation
-  // (do two or more mutations in a single cycle
-  // 0 indicates that actual mutation rate will be adapted
-  RepeatMutator *repeater = new RepeatMutator(pselect_or_range, 0);
+  return 1;
+}
 
-  if(!use_deterministic_mutations && !deterministic_only) {
+#else
+
+int setup_shmem(const char *name) {
+  int fd = shm_open(name, O_RDONLY, S_IRUSR | S_IWUSR);
+  if (fd == -1) {
+    printf("Error in shm_open\n");
+    return 0;
+  }
+
+  shm_data = (unsigned char *)mmap(NULL, SHM_SIZE, PROT_READ, MAP_SHARED, fd, 0);
+  if (shm_data == MAP_FAILED) {
+    printf("Error in mmap\n");
+    close(fd);
+    return 0;
+  }
+
+  return 1;
+}
+
+#endif
+
+// Function modifiers for the fuzz target
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
+#define FUZZ_TARGET_MODIFIERS __declspec(dllexport)
+#else
+#define FUZZ_TARGET_MODIFIERS __attribute__ ((noinline))
+#endif
+
+// Debugging aid
+void debugLog(NSString *message) {
+    NSLog(@"[DEBUG]: %@", message);
+}
+
+// External function declarations
+extern bool CGRenderingStateGetAllowsAcceleration(void*);
+extern bool CGRenderingStateSetAllowsAcceleration(void*, bool);
+extern void* CGContextGetRenderingState(CGContextRef);
+extern void ImageIOSetLoggingProc(void*);
+
+// Dummy logging procedure for ImageIO
+void dummyLogProc() {}
+
+// Context reference global variable
+CGContextRef ctx;
+
+// Function to create a bitmap context with HDR and floating-point components
+CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceExtendedSRGB);
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents;
+    size_t bitsPerComponent = 32;
+    size_t bytesPerRow = 4 * width * sizeof(float);
     
-    // and have nrounds of this per sample cycle
-    NRoundMutator *mutator = new NRoundMutator(repeater, nrounds);
-    return mutator;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+// Function to create a bitmap context optimized for alpha-only components
+CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGBitmapInfo bitmapInfo = kCGImageAlphaOnly;
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = width;
     
-  } else {
-    
-    MutatorSequence *deterministic_sequence = new MutatorSequence(false, true);
-    // do deterministic byte flip mutations (around hot bits)
-    deterministic_sequence->AddMutator(new DeterministicByteFlipMutator());
-    // ..followed by deterministc interesting values
-    deterministic_sequence->AddMutator(new DeterministicInterestingValueMutator(true));
-    
-    size_t deterministic_rounds, nondeterministic_rounds;
-    if (deterministic_only) {
-      deterministic_rounds = nrounds;
-    } else {
-      deterministic_rounds = nrounds / 2;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
+    debugLog(@"Creating bitmap context with premultiplied first alpha");
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
+    debugLog(@"Creating bitmap context with non-premultiplied alpha");
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaLast;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
+    debugLog(@"Creating bitmap context with 16-bit depth");
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 16;
+    size_t bytesPerRow = 8 * width; // 2 bytes per component * 4 components per pixel
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder16Big;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+// Fuzz target function
+void FUZZ_TARGET_MODIFIERS fuzz(char *name) {
+  NSImage* img = NULL;
+  char *sample_bytes = NULL;
+  uint32_t sample_size = 0;
+
+  if(use_shared_memory) {
+    sample_size = *(uint32_t *)(shm_data);
+    if(sample_size > MAX_SAMPLE_SIZE) sample_size = MAX_SAMPLE_SIZE;
+    sample_bytes = (char *)malloc(sample_size);
+    if (!sample_bytes) {
+      printf("Memory allocation failed\n");
+      return;
     }
-    nondeterministic_rounds = nrounds - deterministic_rounds;
-
-    // do 1000 rounds of derministic mutations, will switch to nondeterministic mutations
-    // once deterministic mutator is "done"
-    DtermininsticNondeterministicMutator *mutator =
-      new DtermininsticNondeterministicMutator(
-        deterministic_sequence,
-        deterministic_rounds,
-        repeater,
-        nondeterministic_rounds);
-
-    return mutator;
-  }
-}
-
-class GrammarFuzzer : public Fuzzer {
-public:
-  GrammarFuzzer(const char *grammar_file);
-protected:
-  Grammar grammar;
-  Mutator* CreateMutator(int argc, char** argv, ThreadContext* tc) override;
-  Minimizer* CreateMinimizer(int argc, char** argv, ThreadContext* tc) override;
-  bool OutputFilter(Sample* original_sample, Sample* output_sample, ThreadContext* tc) override;
-
-  bool IsReturnValueInteresting(uint64_t return_value) override;
-};
-
-GrammarFuzzer::GrammarFuzzer(const char* grammar_file) {
-  if (!grammar.Read(grammar_file)) {
-    FATAL("Error reading grammar");
-  }
-}
-
-Mutator* GrammarFuzzer::CreateMutator(int argc, char** argv, ThreadContext* tc) {
-  GrammarMutator* grammar_mutator = new GrammarMutator(&grammar);
-
-  NRoundMutator* mutator = new NRoundMutator(grammar_mutator, 20);
-
-  return mutator;
-}
-
-Minimizer* GrammarFuzzer::CreateMinimizer(int argc, char** argv, ThreadContext* tc) {
-  return new GrammarMinimizer(&grammar);
-}
-
-bool GrammarFuzzer::OutputFilter(Sample* original_sample, Sample* output_sample, ThreadContext* tc) {
-  uint64_t string_size = *((uint64_t*)original_sample->bytes);
-  if (original_sample->size < (string_size + sizeof(string_size))) {
-    FATAL("Incorrectly encoded grammar sample");
-  }
-
-  output_sample->Init(original_sample->bytes + sizeof(string_size), string_size);
-  return true;
-}
-
-bool GrammarFuzzer::IsReturnValueInteresting(uint64_t return_value) {
-  return (return_value == 0);
-}
-
-void TestGrammar(char* grammar_path) {
-  Grammar grammar;
-  grammar.Read(grammar_path);
-  PRNG* prng = new MTPRNG();
-  Grammar::TreeNode *tree = grammar.GenerateTree("root", prng);
-  if (!tree) {
-    printf("Grammar failed to generate sample\n");
+    memcpy(sample_bytes, shm_data + 4, sample_size);
+    img = [[NSImage alloc] initWithData:[NSData dataWithBytesNoCopy:sample_bytes length:sample_size freeWhenDone:YES]];
   } else {
-    std::string out;
-    grammar.ToString(tree, out);
-    printf("Generated sample:\n%s\n", out.c_str());
+    img = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithUTF8String:name]];
+  }
+
+  if (img) {
+    CGImageRef cgImg = [img CGImageForProposedRect:nil context:nil hints:nil];
+    if (cgImg) {
+      size_t width = CGImageGetWidth(cgImg);
+      size_t height = CGImageGetHeight(cgImg);
+      CGRect rect = CGRectMake(0, 0, width, height);
+      CGContextDrawImage(ctx, rect, cgImg);
+      CGImageRelease(cgImg);
+    }
   }
 }
 
+// Main function
 int main(int argc, char **argv) {
-    // Setup signal handlers for debugging
-    Instrumentation::SetupDebugMode();
-
-    // Log start of the program with timestamp, program name, and arguments
-    Instrumentation::LogDebug("Program started with arguments:", 1);
-    for (int i = 0; i < argc; ++i) {
-        Instrumentation::LogDebug(std::string(argv[i]), 1);
+    // Set environment variables
+    char *vars[] = {
+        "CG_PDF_VERBOSE=1",
+        "CG_CONTEXT_SHOW_BACKTRACE=1",
+        "CG_CONTEXT_SHOW_BACKTRACE_ON_ERROR=1",
+        "CG_IMAGE_SHOW_MALLOC=1",
+        "CG_LAYER_SHOW_BACKTRACE=1",
+        "CGBITMAP_CONTEXT_LOG=1",
+        "CGCOLORDATAPROVIDER_VERBOSE=1",
+        "CGPDF_LOG_PAGES=1",
+        "CGBITMAP_CONTEXT_LOG_ERRORS=1",
+        "CG_RASTERIZER_VERBOSE=1",
+        "CG_VERBOSE_COPY_IMAGE_BLOCK_DATA=1",
+        "CG_VERBOSE=1",
+        "CGPDF_VERBOSE=1",
+        "CG_FONT_RENDERER_VERBOSE=1",
+        "CGPDF_DRAW_VERBOSE=1",
+        "CG_POSTSCRIPT_VERBOSE=1",
+        "CG_COLOR_CONVERSION_VERBOSE=1",
+        "CG_IMAGE_LOG_FORCE=1",
+        "CG_INFO=1",
+        "CGPDFCONTEXT_VERBOSE=1",
+        "QuartzCoreDebugEnabled=1",
+        "CI_PRINT_TREE=1",
+        "CORESVG_VERBOSE=1",
+        NULL
+    };
+    for (int i = 0; vars[i] != NULL; ++i) {
+        char *var = vars[i];
+        char *key = strtok(var, "=");
+        char *value = strtok(NULL, "");
+        setenv(key, value, 1);
     }
 
-    Fuzzer* fuzzer = nullptr;
+    @autoreleasepool {
+        if(argc != 3) {
+            NSLog(@"Usage: %s <-f|-m> <file or shared memory name>", argv[0]);
+            return 0;
+        }
 
-    char* grammar = GetOption("-test_grammar", argc, argv);
-    if (grammar) {
-        TestGrammar(grammar); // Ensure this function exists and is implemented
-        Instrumentation::LogDebug("TestGrammar completed.", 1);
-        return 0;
+        BOOL use_shared_memory = !strcmp(argv[1], "-m");
+        NSLog(@"Shared memory usage is set to: %@", use_shared_memory ? @"YES" : @"NO");
+
+        if(use_shared_memory && !setup_shmem(argv[2])) {
+            NSLog(@"Error mapping shared memory");
+            return 0;
+        }
+
+        ImageIOSetLoggingProc(&dummyLogProc);
+
+        CGContextRef (*contextCreationFunctions[])(size_t, size_t) = {
+            createBitmapContextPremultipliedFirstAlpha,
+            createBitmapContextNonPremultipliedAlpha,
+            createBitmapContext16BitDepth,
+            createBitmapContextHDRFloatComponents,
+            createBitmapContextAlphaOnly
+        };
+        int numberOfFunctions = sizeof(contextCreationFunctions) / sizeof(contextCreationFunctions[0]);
+
+        for (int i = 0; i < numberOfFunctions; i++) {
+            CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+
+            NSLog(@"Creating bitmap context with function index: %d", i);
+            CGContextRef ctx = contextCreationFunctions[i](32, 32);
+
+            if (ctx == NULL) {
+                NSLog(@"Failed to create bitmap context for function index %d", i);
+                CGColorSpaceRelease(colorspace);
+                continue;
+            }
+
+            void* renderingState = CGContextGetRenderingState(ctx);
+            CGRenderingStateSetAllowsAcceleration(renderingState, false);
+
+            NSLog(@"Fuzzing with the created bitmap context");
+            fuzz(argv[2]);
+
+            CGContextRelease(ctx);
+            CGColorSpaceRelease(colorspace);
+            NSLog(@"Bitmap context and color space released");
+        }
+
+        NSLog(@"Completed all iterations");
     }
-
-    grammar = GetOption("-grammar", argc, argv);
-    if (grammar) {
-        fuzzer = new GrammarFuzzer(grammar); // Ensure the constructor for GrammarFuzzer is defined
-    } else {
-        fuzzer = new BinaryFuzzer(); // Ensure the default constructor for BinaryFuzzer is defined
-    }
-
-    if (fuzzer) {
-        fuzzer->Run(argc, argv);
-        Instrumentation::LogDebug("Fuzzing completed.", 1);
-    } else {
-        Instrumentation::LogDebug("Failed to initialize fuzzer.", 1);
-        return 1; // Indicates an error occurred
-    }
-
-    // Log end of the program with timestamp
-    Instrumentation::LogDebug("Program ended.", 1);
-
     return 0;
 }
