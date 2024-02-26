@@ -1,0 +1,43 @@
+# Makefile for building and running the iOSOnMac xnuimagefuzzer
+#
+# Compiler and Linker Config
+SDK_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.2.sdk
+CC = xcrun -sdk iphoneos clang
+ARCH_FLAGS = -arch arm64
+SYSROOT_FLAGS = -isysroot $(SDK_PATH)
+FRAMEWORKS = -framework UIKit -framework Foundation -framework CoreGraphics
+MIN_IOS_VERSION = -miphoneos-version-min=12.0
+CFLAGS = $(ARCH_FLAGS) $(SYSROOT_FLAGS) $(FRAMEWORKS) $(MIN_IOS_VERSION) -g
+
+# Source and Target Config
+SOURCE = xnuimagefuzzer.m
+DYLIB = interpose.dylib
+EXECUTABLE = fuzzer
+BUNDLE = $(EXECUTABLE).app
+PLIST = Info.plist
+ENTITLEMENTS = entitlements.xml
+DEVELOPER_ID = "$Developer_Id"
+RUNNER = ./runner
+SEED_FILE = ./seed.png
+
+# Default Target
+all: build sign run
+
+# Compile the application
+build:
+        mkdir -p $(BUNDLE)
+        $(CC) $(CFLAGS) -o $(EXECUTABLE) $(SOURCE) $(DYLIB)
+        mv $(EXECUTABLE) $(BUNDLE)/
+        cp $(PLIST) $(BUNDLE)/
+
+# Sign the application
+sign:
+        codesign -s "$(DEVELOPER_ID)" --entitlements $(ENTITLEMENTS) --force $(BUNDLE)
+
+# Run the application
+run:
+        $(RUNNER) $(BUNDLE)/$(EXECUTABLE) $(SEED_FILE) -1
+
+# Clean up
+clean:
+        rm -rf $(BUNDLE)
