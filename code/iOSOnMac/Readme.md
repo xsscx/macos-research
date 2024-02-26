@@ -68,13 +68,7 @@ codesign -s "@@Apple Developer Id or Ad Hoc@@" --entitlements entitlements.xml -
 ```
 
 #### File Access
-Enable File Sharing for Your App
-First, you need to enable iTunes File Sharing or make your app's documents available in the Files app:
-
-- Modify Info.plist: Add the UIFileSharingEnabled (Application supports iTunes file sharing) key and set it to YES
-
-Then, To make files accessible in the Files app, also add:
-  - LSSupportsOpeningDocumentsInPlace key and set it to YES
+- This is already enabled in the .plist
 
 #### Access Files via iTunes or the Files App
 
