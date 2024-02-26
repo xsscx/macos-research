@@ -27,7 +27,15 @@ The code originated from Google Project Zero
   - main.cpp
 
 ## My Code Modifications Notes
-- The Example Code are just expansions of the original code
+- The Example Code begin with instrumenting a few functions as Examples
+```
+// Functions to create a bitmap context 
+CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
+CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
+CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
+CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
+CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
+```
 - The Scripts and Example Code show how to Target other Dylibs depending on the Image Type, or Fuzz them all with the sample Script [https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/imageio-fuzzer.zsh]
 - There is a larger code base for iOS Fuzzing that has yet to be implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/xnuimagefuzzer.m
 - The arm64 code is my current focus to get consistent results from A/B testing with X86_64 and arm64 Platform ABI's, See https://github.com/xsscx/macos-research/issues/3
