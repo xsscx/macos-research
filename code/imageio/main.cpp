@@ -3,6 +3,11 @@
 // Should be used with your Stub Programs in CMakeLists.txt until Stable
 // Ninja Mode with bleeded edge code
 
+// Modified by @h02332 David Hoyt to aid in Debugging in Jackalope
+// Modified main.cpp for Live Debugging Mode Implementation
+// Should be used with your Stub Programs in CMakeLists.txt until Stable
+// Ninja Mode with bleeded edge code
+
 #include "common.h"
 #include "fuzzer.h"
 #include "mutator.h"
@@ -12,65 +17,45 @@
 #include "mutators/grammar/grammarminimizer.h"
 #include <iostream>
 #include <csignal>
-#include <fstream>  // For std::ofstream
-#include <execinfo.h> // For backtrace and backtrace_symbols, available on Unix-like systems
-#include <cstring> // For strerror
-#include <cerrno>  // For errno
-
-// Global debug flag
-bool debugMode = true;
-int verbosityLevel = 1; // 0: Errors only, 1: Info, 2: Debug, 3: Verbose Debug
+#include <fstream>
+#include <execinfo.h>
+#include <unistd.h>
+#include <ctime>
+#include "instrumentation.h"
 
 std::ofstream debugLogFile("fuzzer_debug_log.txt", std::ios::app);
 
-void LogDebug(const std::string& message, int level) {
-    if (debugMode && level <= verbosityLevel) {
-        auto now = std::chrono::system_clock::now();
-        auto now_time_t = std::chrono::system_clock::to_time_t(now);
-        debugLogFile << "{ \"time\": \"" << std::ctime(&now_time_t)
-                     << "\", \"level\": \"" << level
-                     << "\", \"message\": \"" << message << "\" }\n";
-    }
+void LogDebug(const std::string& message) {
+    debugLogFile << message << std::endl;
 }
 
 void DebugBreakpoint(const std::string& message) {
-    if (debugMode) {
-        std::cout << "[DEBUG BREAK] " << message << "\n";
-        std::cout << "Press enter to continue...\n";
-        std::cin.get();
-    }
+    std::cout << "[DEBUG BREAK] " << message << std::endl;
+    std::cout << "Press enter to continue..." << std::endl;
+    std::cin.get();
 }
 
-// In the SignalHandler function, wrap the usage of backtrace and backtrace_symbols with ifdef checks
 void SignalHandler(int signal) {
-    std::cout << "Caught signal " << signal << "\n";
-    switch(signal) {
-        case SIGINT:
-            LogDebug("Interrupt signal received.", 1);
-            break;
-        case SIGSEGV:
-#ifdef __GNUC__
-            void* callstack[128];
-            int frames = backtrace(callstack, 128);
-            char** strs = backtrace_symbols(callstack, frames);
-            LogDebug("Segmentation fault. Generating stack trace...", 1);
-            for (int i = 0; i < frames; ++i) {
-                debugLogFile << strs[i] << std::endl;
-            }
-            free(strs);
-#else
-            LogDebug("Segmentation fault. Stack trace not available.", 1);
-#endif
-            break;
-        // Add more cases as necessary
-    }
-    debugMode = true;
+    std::cout << "Caught signal " << signal << std::endl;
+    void* array[10];
+    size_t size;
+
+    // get void*'s for all entries on the stack
+    size = backtrace(array, 10);
+    // print out all the frames to stderr
+    fprintf(stderr, "Error: signal %d:\n", signal);
+//    backtrace_symbols_fd(array, size, STDERR_FILENO);
+    backtrace_symbols_fd(array, static_cast<int>(size), STDERR_FILENO);
+
+    exit(1);
 }
 
-void SetupDebugMode() {
+void SetupSignalHandlers() {
     signal(SIGINT, SignalHandler);
-    signal(SIGSEGV, SignalHandler); // Catch segmentation faults
+    signal(SIGSEGV, SignalHandler);
 }
+
+// BinaryFuzzer and GrammarFuzzer class implementations remain unchanged
 
 class BinaryFuzzer : public Fuzzer {
   Mutator *CreateMutator(int argc, char **argv, ThreadContext *tc) override;
@@ -235,26 +220,41 @@ void TestGrammar(char* grammar_path) {
 }
 
 int main(int argc, char **argv) {
-    SetupDebugMode();
+    // Setup signal handlers for debugging
+    Instrumentation::SetupDebugMode();
 
-    Fuzzer* fuzzer;
+    // Log start of the program with timestamp, program name, and arguments
+    Instrumentation::LogDebug("Program started with arguments:", 1);
+    for (int i = 0; i < argc; ++i) {
+        Instrumentation::LogDebug(std::string(argv[i]), 1);
+    }
+
+    Fuzzer* fuzzer = nullptr;
 
     char* grammar = GetOption("-test_grammar", argc, argv);
     if (grammar) {
-        TestGrammar(grammar);
+        TestGrammar(grammar); // Ensure this function exists and is implemented
+        Instrumentation::LogDebug("TestGrammar completed.", 1);
         return 0;
     }
 
     grammar = GetOption("-grammar", argc, argv);
     if (grammar) {
-        fuzzer = new GrammarFuzzer(grammar);
+        fuzzer = new GrammarFuzzer(grammar); // Ensure the constructor for GrammarFuzzer is defined
     } else {
-        fuzzer = new BinaryFuzzer();
+        fuzzer = new BinaryFuzzer(); // Ensure the default constructor for BinaryFuzzer is defined
     }
 
-    fuzzer->Run(argc, argv);
+    if (fuzzer) {
+        fuzzer->Run(argc, argv);
+        Instrumentation::LogDebug("Fuzzing completed.", 1);
+    } else {
+        Instrumentation::LogDebug("Failed to initialize fuzzer.", 1);
+        return 1; // Indicates an error occurred
+    }
 
-    DebugBreakpoint("Fuzzing session ended.");
+    // Log end of the program with timestamp
+    Instrumentation::LogDebug("Program ended.", 1);
 
     return 0;
 }
