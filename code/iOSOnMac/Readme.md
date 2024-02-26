@@ -57,8 +57,8 @@ sudo reboot
 - make
 
 ## Compile and Run my Code
-make
-make -f Makefile.xnuimagefuzzer
+- make
+- make -f Makefile.xnuimagefuzzer
 
 ### Roll Your Own
 ```
