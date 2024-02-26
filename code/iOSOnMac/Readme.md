@@ -1,8 +1,9 @@
 
 # XNU Image Fuzzer | iOSOnMac | Interposing iOS Applications
-The Source can be run as either iOSOnMac OR Native iOS
-
 Last Modified: Thursday, 22 FEB 2024 at 1055 EST
+
+## whoami
+I am David Hoyt. I was in the Apple Security Research Device Program for 2021 & 2022. Apple sent me an iPhone 11 & iPhone 12 for A/B testing, very helpful. This Project is some of the Code I wrote for debugging on the SRD.
 
 ### Source Origin
 - Original Source URL https://github.com/googleprojectzero/p0tools/tree/master/iOSOnMac
