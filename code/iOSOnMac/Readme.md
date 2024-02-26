@@ -58,13 +58,16 @@ sudo reboot
 
 ## Compile and Run my Code
 make
+make -f Makefile.xnuimagefuzzer
+
+### Roll Your Own
 ```
 xcrun -sdk iphoneos clang -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.2.sdk -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o fuzzer xnuimagefuzzer.m interpose.dylib
 mkdir fuzzer.app
 mv fuzzer fuzzer.app/
 cp Info.plist fuzzer.app/
 codesign -s "@@Apple Developer Id or Ad Hoc@@" --entitlements entitlements.xml --force fuzzer.app
-./runner fuzzer.app/fuzzer /mnt/png/seed.png
+./runner fuzzer.app/fuzzer /mnt/png/seed.png -1
 ```
 ### Reproduction
 ```
