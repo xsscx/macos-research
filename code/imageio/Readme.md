@@ -515,9 +515,6 @@ qlmanage -r
 qlmanage -r cache
 ```
 
-## Problems & troubleshooting
-- See Issue [https://github.com/xsscx/macos-research/issues/1]
-
 ## Companions 
 ### XNU Image Fuzzer
 - iOS App Proof of Concept https://github.com/xsscx/xnuimagefuzzer
