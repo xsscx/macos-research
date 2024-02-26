@@ -14,6 +14,8 @@
 #include <csignal>
 #include <fstream>  // For std::ofstream
 #include <execinfo.h> // For backtrace and backtrace_symbols, available on Unix-like systems
+#include <cstring> // For strerror
+#include <cerrno>  // For errno
 
 // Global debug flag
 bool debugMode = true;
