@@ -1,12 +1,14 @@
 // Modified by @h02332 David Hoyt to aid in Debugging in Jackalope
-// Modified instrumentation.cpp for Live Debugging Mode Implementation
+// Modified instrumentation.h for Live Debugging Mode Implementation
 // Should be used with your Stub Programs in CMakeLists.txt until Stable
 // Ninja Mode with bleeded edge code
 
 #include "instrumentation.h"
 #include <csignal>
 #include <execinfo.h> // Include for backtrace functionality
-#include <cstdlib> // For free()
+#include <unistd.h> // for getpid()
+#include <cstdlib> // for system()
+#include <cstdio> // for snprintf()
 #include <fstream>
 #include <iostream>
 #include <chrono>
@@ -58,10 +60,24 @@ void Instrumentation::DebugBreakpoint(const std::string& message) {
 void Instrumentation::SignalHandler(int signal) {
     std::cout << "Caught signal " << signal << "\n";
     switch(signal) {
-        case SIGINT:
-            LogDebug("Interrupt signal received.", 1);
+        case SIGINT: {
+            LogDebug("Interrupt signal received, launching LLDB.", 1);
+            pid_t pid = getpid();
+            char command[256];
+
+            // Prepare command to launch LLDB and attach it to the current process
+            snprintf(command, sizeof(command), "lldb -p %d", pid);
+
+            // Print the command to the debug log for reference
+            LogDebug(std::string("Executing: ") + command, 2);
+
+            // Using system() to invoke LLDB directly; consider security implications and alternatives
+            if (system(command) != 0) {
+                LogDebug("Failed to launch LLDB.", 1);
+            }
             break;
-        case SIGSEGV:
+        }
+        case SIGSEGV: {
 #ifdef __GNUC__
             void* callstack[128];
             size_t frames = backtrace(callstack, 128);
@@ -75,6 +91,7 @@ void Instrumentation::SignalHandler(int signal) {
             LogDebug("Segmentation fault. Stack trace not available.", 1);
 #endif
             break;
+        }
         // Additional cases as necessary
     }
     debugMode = true;
@@ -97,4 +114,3 @@ void Instrumentation::LogDebug(const std::string& message, int level) {
         debugLogFile.flush(); // Ensure the message is immediately written to the file
     }
 }
-
