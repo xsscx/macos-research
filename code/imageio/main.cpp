@@ -3,6 +3,11 @@
 // Should be used with your Stub Programs in CMakeLists.txt until Stable
 // Ninja Mode with bleeded edge code
 
+// Modified by @h02332 David Hoyt to aid in Debugging in Jackalope
+// Modified main.cpp for Live Debugging Mode Implementation
+// Should be used with your Stub Programs in CMakeLists.txt until Stable
+// Ninja Mode with bleeded edge code
+
 #include "common.h"
 #include "fuzzer.h"
 #include "mutator.h"
@@ -12,9 +17,24 @@
 #include "mutators/grammar/grammarminimizer.h"
 #include <iostream>
 #include <csignal>
+#include <fstream>  // For std::ofstream
+#include <execinfo.h> // For backtrace and backtrace_symbols, available on Unix-like systems
 
 // Global debug flag
 bool debugMode = true;
+int verbosityLevel = 1; // 0: Errors only, 1: Info, 2: Debug, 3: Verbose Debug
+
+std::ofstream debugLogFile("fuzzer_debug_log.txt", std::ios::app);
+
+void LogDebug(const std::string& message, int level) {
+    if (debugMode && level <= verbosityLevel) {
+        auto now = std::chrono::system_clock::now();
+        auto now_time_t = std::chrono::system_clock::to_time_t(now);
+        debugLogFile << "{ \"time\": \"" << std::ctime(&now_time_t)
+                     << "\", \"level\": \"" << level
+                     << "\", \"message\": \"" << message << "\" }\n";
+    }
+}
 
 void DebugBreakpoint(const std::string& message) {
     if (debugMode) {
@@ -24,13 +44,35 @@ void DebugBreakpoint(const std::string& message) {
     }
 }
 
+// In the SignalHandler function, wrap the usage of backtrace and backtrace_symbols with ifdef checks
 void SignalHandler(int signal) {
-    std::cout << "Caught signal " << signal << ". Entering debug mode.\n";
+    std::cout << "Caught signal " << signal << "\n";
+    switch(signal) {
+        case SIGINT:
+            LogDebug("Interrupt signal received.", 1);
+            break;
+        case SIGSEGV:
+#ifdef __GNUC__
+            void* callstack[128];
+            int frames = backtrace(callstack, 128);
+            char** strs = backtrace_symbols(callstack, frames);
+            LogDebug("Segmentation fault. Generating stack trace...", 1);
+            for (int i = 0; i < frames; ++i) {
+                debugLogFile << strs[i] << std::endl;
+            }
+            free(strs);
+#else
+            LogDebug("Segmentation fault. Stack trace not available.", 1);
+#endif
+            break;
+        // Add more cases as necessary
+    }
     debugMode = true;
 }
 
 void SetupDebugMode() {
     signal(SIGINT, SignalHandler);
+    signal(SIGSEGV, SignalHandler); // Catch segmentation faults
 }
 
 class BinaryFuzzer : public Fuzzer {
@@ -126,9 +168,9 @@ Mutator * BinaryFuzzer::CreateMutator(int argc, char **argv, ThreadContext *tc) 
 
     // do 1000 rounds of derministic mutations, will switch to nondeterministic mutations
     // once deterministic mutator is "done"
-    DtermininsticNondeterministicMutator *mutator = 
+    DtermininsticNondeterministicMutator *mutator =
       new DtermininsticNondeterministicMutator(
-        deterministic_sequence, 
+        deterministic_sequence,
         deterministic_rounds,
         repeater,
         nondeterministic_rounds);
