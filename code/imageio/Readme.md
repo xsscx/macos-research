@@ -26,7 +26,7 @@ The code originated from Google Project Zero
 - The main.cpp is complete Replacement of Source, optional
   - main.cpp
 
-## My Code Modifications Notes
+## My Code Modifications
 - The Example Code begin with instrumenting a few functions as Examples
 ```
 // Functions to create a bitmap context 
@@ -37,13 +37,12 @@ CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t heigh
 CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
 ```
 - The Scripts and Example Code show how to Target other Dylibs depending on the Image Type, or Fuzz them all with the sample Script [https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/imageio-fuzzer.zsh]
-- There is a larger code base for iOS Fuzzing that has yet to be implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/xnuimagefuzzer.m
-- The arm64 code is my current focus to get consistent results from A/B testing with X86_64 and arm64 Platform ABI's, See https://github.com/xsscx/macos-research/issues/3
+- There is a larger code base for iOS Fuzzing that can implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/xnuimagefuzzer.m
 
 ## Setup this Code & Build
-- Copy CMakeLists.txt, imageio-test-002.m, imageio-test-003.m, imageio-test-004.m to ./Jackalope-main/examples/ImageIO/
+- Copy my CMakeLists.txt, and sample Sources to ./Jackalope-main/examples/ImageIO/
 - cd ./Jackalope
-- Follow the Build Instructions at https://github.com/googleprojectzero/Jackalope 
+
 ## My Suggested Build
 ```
 cd ./Jackalope
@@ -59,7 +58,7 @@ cmake --build . --target clean
 ```
 ## Bigger Picture
 - Whether a specific target function is defined or not changes the behavior of the fuzzing process in Jackalope.
-  - This Code provides other specific target functions that are defined and gain further Fuzzing Coverage
+  - This Code provides other specific target functions that are defined to gain further Fuzzing Coverage
 - These changes includes how the fuzzing iterations are handled, when to clear coverage data, and how timeouts are managed. 
 - The presence of a specific target function is a targeted fuzzing approach, as opposed to a broader, more general fuzzing strategy as shown in the original, Example Code.
 - The presence or absence of a defined target function influences the behavior of the fuzzing process. This is seen in the conditional checks like if (instrumentation->IsTargetFunctionDefined()). 
@@ -69,6 +68,7 @@ cmake --build . --target clean
   
 ### How to Instrument a Function
 - Look at the Examples Provided
+  - Example #5 is most recent https://github.com/xsscx/macos-research/blob/main/code/imageio/imageio-test-005.m
 
 Learn using the companion App with 12 Target Functions as Examples 
 - XNU Image Fuzzer
@@ -263,7 +263,7 @@ AddressSanitizer:DEADLYSIGNAL
 -target_env DYLD_INSERT_LIBRARIES={path}libclang_rt.tsan_osx_dynamic.dylib
 -target_env DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib
 ```
-### Build Other Fuzzing Runners via examples/Imageio/CMakeLists.txt for Fuzzing other Bitmap Contexts shown below
+### Build Other Fuzzing Runners via examples/Imageio/CMakeLists.txt
 ```
   add_executable(imageio-test-002_imageio
     imageio-test-002.m
@@ -284,12 +284,10 @@ AddressSanitizer:DEADLYSIGNAL
     "-framework AppKit"
     "-framework CoreGraphics"
   )
+...
 ```
 
-#### Example Implementation for 10+ Functions
-See URL https://raw.githubusercontent.com/xsscx/macos-research/main/code/iOSOnMac/xnuimagefuzzer.m so you can understand the Code shown below and have it running locally.
-
-### Bitmap Context Notes
+### Bitmap Context Overview
 
 Creating a bitmap context with CGBitmapContextCreate involves several parameters that define the characteristics of the context, such as the width, height, bit depth, bytes per row, color space, and alpha info. Varying these parameters can significantly alter the behavior and output of the context. Below are 10 permutations of the CGBitmapContextCreate function call, each demonstrating a different configuration:
 ```
@@ -327,7 +325,7 @@ CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, colo
 ```
 Each permutation represents a different way of handling pixel formats, alpha channels, color spaces, and bit depths. The choice of parameters depends on the specific requirements of the image processing task at hand. For example, a grayscale context might be suitable for processing black-and-white images, while a context with HDR and float components would be more appropriate for high-quality image rendering.
 
-### Example Implementation for createBitmapContext8BitInvertedColors(size_t width, size_t height)
+### createBitmapContext8BitInvertedColors(size_t width, size_t height)
 ```
 +CGContextRef createBitmapContext8BitInvertedColors(size_t width, size_t height) {
 +    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -352,7 +350,7 @@ Each permutation represents a different way of handling pixel formats, alpha cha
 +}
 +
 ```
-### Example Pixel Functions in CoreVideo - Potential Function Targets
+### Potential Function Targets in CoreVideo
 Reference URL https://developer.apple.com/documentation/corevideo/cvpixelformatdescription/1563591-pixel_format_identifiers
 ```
   kCVPixelFormatType_1Monochrome    = 0x00000001, /* 1 bit indexed */
@@ -509,50 +507,27 @@ libraries=(
 )
 ```
 
-### Coverage Functions - Example functions you may want to Target once Instrumented
-```
-11  libAppleEXR.dylib             	    0x7ffa0d7b7fce axr_error_t LaunchBlocks<ReadPixelsArgs>(void (*)(void*, unsigned long), ReadPixelsArgs const*, unsigned long, axr_flags_t) + 355
-12  libAppleEXR.dylib             	    0x7ffa0d7bb422 TileDecoder::ReadYccRGBAPixels(double, YccMatrix const&, void*, unsigned long) const + 2242
-13  libAppleEXR.dylib             	    0x7ffa0d7ad5f9 Part::ReadRGBAPixels(axr_decoder*, void*, unsigned long, double, axr_flags_t) const + 2511
-14  ImageIO                       	    0x7ff812001783 EXRReadPlugin::decodeBlockAppleEXR(void*, unsigned long) + 337
-15  ImageIO                       	    0x7ff8120014d4 EXRReadPlugin::decodeImageImp(IIODecodeParameter*, IIOImageType, __IOSurface**, __CVBuffer**, CGImageBlockSet**) + 688
-16  ImageIO                       	    0x7ff811fc0625 IIOReadPlugin::callDecodeImage(IIODecodeParameter*, IIOImageType, __IOSurface**, __CVBuffer**, CGImageBlockSet**) + 851
-17  ImageIO                       	    0x7ff811f31e00 IIO_Reader::CopyImageBlockSetProc(void*, CGImageProvider*, CGRect, CGSize, __CFDictionary const*) + 836
-18  ImageIO                       	    0x7ff811f4f682 IIOImageProviderInfo::copyImageBlockSetWithOptions(CGImageProvider*, CGRect, CGSize, __CFDictionary const*) + 684
-19  ImageIO                       	    0x7ff811f31999 IIOImageProviderInfo::CopyImageBlockSetWithOptions(void*, CGImageProvider*, CGRect, CGSize, __CFDictionary const*) + 871
-20  CoreGraphics                  	    0x7ff80cdb2dbf imageProvider_retain_data + 77
-21  CoreGraphics                  	    0x7ff80cdb2d32 CGDataProviderRetainData + 75
-22  CoreGraphics                  	    0x7ff80cdb2d57 provider_for_destination_retain_data + 17
-23  CoreGraphics                  	    0x7ff80cdb2d32 CGDataProviderRetainData + 75
-24  CoreGraphics                  	    0x7ff80cdb2bee CGAccessSessionCreate + 98
-25  CoreGraphics                  	    0x7ff80cdb1bf6 img_data_lock + 3006
-26  CoreGraphics                  	    0x7ff80cdad5b3 CGSImageDataLock + 1286
-27  CoreGraphics                  	    0x7ff80cdad075 RIPImageDataInitializeShared + 170
-28  CoreGraphics                  	    0x7ff80cdacd22 RIPImageCacheGetRetained + 679
-29  CoreGraphics                  	    0x7ff80cdac817 ripc_AcquireRIPImageData + 371
-30  CoreGraphics                  	    0x7ff80cdab5ff ripc_DrawImage + 919
-31  CoreGraphics                  	    0x7ff80cdaaa88 CGContextDrawImageWithOptions + 676
-32  ImageIO                       	    0x7ff811faadf0 CGImageCreateCopyWithParametersNew(CGImage*, CGColor*, CGAffineTransform, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, CGColorSpace*, unsigned int, bool, CGColorRenderingIntent, CGInterpolationQuality, bool) + 2095
-33  ImageIO                       	    0x7ff811f8c076 IIOImageSource::createThumbnailAtIndex(unsigned long, IIODictionary*) + 3902
-34  ImageIO                       	    0x7ff811f70fdd CGImageSourceCreateThumbnailAtIndex + 466
-35  ImageKit                      	    0x7ff90d4affa0 +[IKImageViewUtils _newScaledImageFromSource:index:imageScale:canUseExistingThumbnail:displayProperties:] + 503
-36  ImageKit                      	    0x7ff90d4afd8b +[IKImageViewUtils newCGImageFromImgSrc:index:displayProperties:imageScale:forceScale:canUseExistingThumbnail:createBitmapImmediately:] + 171
-37  ImageKit                      	    0x7ff90d4865be __82-[IKImageContentView _setImageFromImageSource:imageAtIndex:withDisplayProperties:]_block_invoke + 67
-38  ImageKit                      	    0x7ff90d48693d __82-[IKImageContentView _setImageFromImageSource:imageAtIndex:withDisplayProperties:]_block_invoke.284 + 21
-```
-
-### Coverage Samples
-- Sample for libPng https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/coverage-sample-libPng.txt
-- Sample for LibGif https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/coverage-sample-libGIF.txt
-- Sample for CoreSVG https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/coverage-sample-CoreSVG.txt
-- Sample for CoreGraphics https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/coverage-sample-CoreGraphics.txt
-
 ### qlmanage Cache Reset
+- Crashes will also appear in Console App if thumbnailing is ON
 - Bugs in the Thumbnailer in the Sub-sampling Code as shown above in libAppleEXR.dylib | TileDecoder::ReadYccRGBAPixels(double, YccMatrix const&, void*, unsigned long) const + 2384
 ```
 qlmanage -r
 qlmanage -r cache
 ```
+
+## Problems & troubleshooting
+- See Issue [https://github.com/xsscx/macos-research/issues/1]
+
+## Companions 
+### XNU Image Fuzzer
+- iOS App Proof of Concept https://github.com/xsscx/xnuimagefuzzer
+- Generate Fuzzed Images At Scale https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
+- Generate Ballistic and Random PNG Images for Fuzzing
+
+## Suggestion
+- Use A/B/C/D/E Testing of Code via the Examples shown in https://github.com/xsscx/macos-research/blob/main/code/imageio/CMakeLists.txt
+- Benchmark code modifications and results against the baseline code included in the Project
+
 ### env vars
 ```
 export CG_PDF_VERBOSE=1
@@ -579,65 +554,3 @@ export QuartzCoreDebugEnabled=1
 export CI_PRINT_TREE=1
 export CORESVG_VERBOSE=1
 ```
-## Problems & troubleshooting
-- See Issue [https://github.com/xsscx/macos-research/issues/1]
-
-IF you are seeing these messages:
-```
-    if (status != DEBUGGER_TARGET_START) {
-      switch (status) {
-      case DEBUGGER_CRASHED:
-        FATAL("Process crashed before reaching the target method\n");
-        break;
-      case DEBUGGER_HANGED:
-        FATAL("Process hanged before reaching the target method\n");
-        break;
-      case DEBUGGER_PROCESS_EXIT:
-        FATAL("Process exited before reaching the target method\n");
-
-## Trophy Case
-- CVE-2023-46602 https://nvd.nist.gov/vuln/detail/CVE-2023-46602
-- CVE-2023-46603 https://nvd.nist.gov/vuln/detail/CVE-2023-46603
-- CVE-2023-46866 https://nvd.nist.gov/vuln/detail/CVE-2023-46866
-- CVE-2023-46867 https://nvd.nist.gov/vuln/detail/CVE-2023-46867
-- CVE-2023-47249 https://nvd.nist.gov/vuln/detail/CVE-2023-47249
-- CVE-2023-48736 https://nvd.nist.gov/vuln/detail/CVE-2023-48736
-- libAppleEXR - Abort()  https://github.com/xsscx/macos-research/blob/main/code/imageio/crashes/libAppleEXR-discussion-analysis.md
-
-## References
-- https://github.com/InternationalColorConsortium/DemoIccMAX/pull/53
-- https://github.com/InternationalColorConsortium/DemoIccMAX/issues/54
-- https://github.com/InternationalColorConsortium/DemoIccMAX/issues/58
-- https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/crashes/crash-function-YCCAtoRGBA-libappleexr-sample-001.txt
-
-## Companions 
-### XNU Image Fuzzer
-- iOS App Proof of Concept https://github.com/xsscx/xnuimagefuzzer
-- Generate Fuzzed Images At Scale https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
-- Generate Ballistic and Random PNG Images for Fuzzing
-  - https://github.com/xsscx/macos-research/tree/main/code/png
-        break;
-      default:
-        FATAL("An unknown problem occured before reaching the target method\n");
-        break;
-      }
-    }
-
-```
-- Try incresing the -t1 to -t5
-- Try using fewer Threads
-
-## Suggestion
-- Use A/B/C Testing of Code via the Examples shown in https://github.com/xsscx/macos-research/blob/main/code/imageio/CMakeLists.txt
-```
-  add_executable(imageio-test-003_imageio
-    imageio-test-003.m
-  )
-
-  target_link_libraries(imageio-test-003_imageio
-    "-framework ImageIO"
-    "-framework AppKit"
-    "-framework CoreGraphics"
-  )
-```
-- Benchmark code modifications and results against the baseline code included in the Project
