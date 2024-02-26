@@ -10,41 +10,39 @@
 #include <iostream>
 #include <sstream>
 #include <signal.h>
+#include <fstream>  // For std::ofstream
 #include "coverage.h"
 #include "runresult.h"
 
 class Instrumentation {
 public:
-  virtual ~Instrumentation() { }
+    virtual ~Instrumentation() {}
 
-  virtual void Init(int argc, char **argv) = 0;
-  virtual RunResult Run(int argc, char **argv, uint32_t init_timeout, uint32_t timeout) = 0;
+    virtual void Init(int argc, char **argv) = 0;
+    virtual RunResult Run(int argc, char **argv, uint32_t init_timeout, uint32_t timeout) = 0;
+    virtual RunResult RunWithCrashAnalysis(int argc, char** argv, uint32_t init_timeout, uint32_t timeout) {
+        return Run(argc, argv, init_timeout, timeout);
+    }
+    virtual void CleanTarget() = 0;
+    virtual bool HasNewCoverage() = 0;
+    virtual void GetCoverage(Coverage &coverage, bool clear_coverage) = 0;
+    virtual void ClearCoverage() = 0;
+    virtual void IgnoreCoverage(Coverage &coverage) = 0;
+    virtual std::string GetCrashName() { return "crash"; }
+    virtual uint64_t GetReturnValue() { return 0; }
+    std::string AnonymizeAddress(void* addr);
 
-  virtual RunResult RunWithCrashAnalysis(int argc, char** argv, uint32_t init_timeout, uint32_t timeout) {
-    return Run(argc, argv, init_timeout, timeout);
-  }
+    // Debugging aids
+    static void DebugBreakpoint(const std::string& message);
+    static void SignalHandler(int signal);
+    static void SetupDebugMode();
+    static void LogDebug(const std::string& message, int level = 1);
 
-  virtual void CleanTarget() = 0;
-
-  virtual bool HasNewCoverage() = 0;
-  virtual void GetCoverage(Coverage &coverage, bool clear_coverage) = 0;
-  virtual void ClearCoverage() = 0;
-  virtual void IgnoreCoverage(Coverage &coverage) = 0;
-
-  virtual std::string GetCrashName() { return "crash"; };
-
-  virtual uint64_t GetReturnValue() { return 0; }
-
-  // Anonymize memory address for logging purposes
-  std::string AnonymizeAddress(void* addr);
-
-  // Debugging aids
-  static void DebugBreakpoint(const std::string& message);
-  static void SignalHandler(int signal);
-  static void SetupDebugMode();
+    // Declare the static member variable for verbosity level
+    static int verbosityLevel;
 
 private:
-  // Flag to control debug mode
-  static bool debugMode;
+    // Flag to control debug mode
+    static bool debugMode;
+    static std::ofstream debugLogFile; // Log file for debug output
 };
-
