@@ -22,8 +22,9 @@ std::string Instrumentation::AnonymizeAddress(void* addr) {
     char buf[20];
     snprintf(buf, sizeof(buf), "%p", addr);
 
-    if (!strcmp(buf, "(nil)")) {
-        std::cerr << "[" << __TIME__ << "] AnonymizeAddress: Address is nil" << std::endl;
+    // Check if address is nullptr or entirely zeros
+    if (!strcmp(buf, "(nil)") || !strspn(buf, "0x0")) {
+        std::cerr << "[" << __TIME__ << "] AnonymizeAddress: Address is nil or zero" << std::endl;
         return std::string("0");
     }
 
@@ -37,8 +38,13 @@ std::string Instrumentation::AnonymizeAddress(void* addr) {
         }
     }
 
-    assert(firstnonzero < len); // Sanity check
+    // If no non-zero character was found, return the address as-is but log the unusual situation
+    if (firstnonzero == len) {
+        std::cerr << "[" << __TIME__ << "] AnonymizeAddress: No non-zero character found in address. Address: " << addr << std::endl;
+        return std::string(buf); // Return the original address string
+    }
 
+    // Proceed with anonymization for the rest of the address
     for (int i = firstnonzero; i < len - 3; i++) {
         buf[i] = 'x';
     }
@@ -57,31 +63,32 @@ void Instrumentation::DebugBreakpoint(const std::string& message) {
     }
 }
 
+#include <signal.h> // For signal constants
+#include <stdlib.h> // For exit()
+#include <unistd.h> // For getpid()
+#include <stdio.h>  // For snprintf()
+#include <iostream> // For std::cout
+#include <fstream>  // For std::ofstream
+
+// Assuming other necessary includes and namespace declarations are already in place
+
 void Instrumentation::SignalHandler(int signal) {
     std::cout << "Caught signal " << signal << "\n";
     switch(signal) {
         case SIGINT: {
-            LogDebug("Interrupt signal received, launching LLDB.", 1);
-            pid_t pid = getpid();
-            char command[256];
-
-            // Prepare command to launch LLDB and attach it to the current process
-            snprintf(command, sizeof(command), "lldb -p %d", pid);
-
-            // Print the command to the debug log for reference
-            LogDebug(std::string("Executing: ") + command, 2);
-
-            // Using system() to invoke LLDB directly; consider security implications and alternatives
-            if (system(command) != 0) {
-                LogDebug("Failed to launch LLDB.", 1);
-            }
+            LogDebug("Interrupt signal (SIGINT) received. Program will exit.", 1);
+            // Optionally, perform any cleanup here
+            
+            // Exit the program or take other appropriate action
+            // For immediate program termination, consider using _exit() if cleanup isn't needed
+            exit(EXIT_FAILURE); // Use std::exit() for invoking global destructors, if necessary
             break;
         }
         case SIGSEGV: {
 #ifdef __GNUC__
             void* callstack[128];
             size_t frames = backtrace(callstack, 128);
-            char** strs = backtrace_symbols(callstack, static_cast<int>(frames));
+            char** strs = backtrace_symbols(callstack, frames);
             LogDebug("Segmentation fault. Generating stack trace...", 1);
             for (size_t i = 0; i < frames; ++i) {
                 debugLogFile << strs[i] << std::endl;
@@ -90,11 +97,13 @@ void Instrumentation::SignalHandler(int signal) {
 #else
             LogDebug("Segmentation fault. Stack trace not available.", 1);
 #endif
+            // Consider whether to terminate the program or attempt recovery
+            exit(EXIT_FAILURE); // or _exit(EXIT_FAILURE) for immediate termination
             break;
         }
-        // Additional cases as necessary
+        // Handle other signals as necessary
     }
-    debugMode = true;
+    debugMode = true; // Consider the implications of changing global state within a signal handler
 }
 
 void Instrumentation::SetupDebugMode() {
