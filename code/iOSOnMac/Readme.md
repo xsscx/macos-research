@@ -4,7 +4,10 @@ The Source can be run as either iOSOnMac OR Native iOS
 
 Last Modified: Thursday, 22 FEB 2024 at 1055 EST
 
-## Based on XNU Image Fuzzer
+### Source Origin
+- Original Source URL https://github.com/googleprojectzero/p0tools/tree/master/iOSOnMac
+
+## Modifications Based on XNU Image Fuzzer
 - https://github.com/xsscx/xnuimagefuzzer
 - Refactored for Fuzzing at Scale
 
@@ -13,11 +16,9 @@ Last Modified: Thursday, 22 FEB 2024 at 1055 EST
 - Tool Developer
 - Fuzzing
 
-### Origin
-- Original Source URL https://github.com/googleprojectzero/p0tools/tree/master/iOSOnMac
-
 ## XNU Image Fuzzer Samples
 - PermaLink https://srd.cx/xnu-image-fuzzer/
+- Generate Random & Ballistic Images for Fuzzing https://github.com/xsscx/macos-research/tree/main/code/png
 - Project Zero Bug 2225 Seed <img src="https://xss.cx/2024/02/20/img/2225.png" alt="Seed - P0-2225" style="height:32px; width:32px;"/>
 - Fuzzed RBG #1 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_standard_rgb.png" alt="XNU Image Fuzzer Standard RBG" style="height:32px; width:32px;"/> Fuzzed RBG #2 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_standard_rgb_series2.png" alt="XNU Image Fuzzer Standard RBG #2" style="height:32px; width:32px;"/>
 - Fuzzed 16-bit Depth #1 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_16bit_depth.png" alt="XNU Image Fuzzer 16-bit Depth" style="height:32px; width:32px;"/> Fuzzed 16-bit Depth #2 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_16bit_depth_series2.png" alt="XNU Image Fuzzer 16-bit Depth #2" style="height:32px; width:32px;"/>
@@ -25,20 +26,16 @@ Last Modified: Thursday, 22 FEB 2024 at 1055 EST
 - NonMultipliedAlpha #1 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_non_premultiplied_alpha.png" alt="XNU Image Fuzzer NonPreMultipliedAlpha" style="height:32px; width:32px;"/> NonMultipliedAlpha #2 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_non_premultiplied_alpha_series2.png" alt="XNU Image Fuzzer NonPreMultipliedAlpha #2" style="height:32px; width:32px;"/>
 - MultipliedAlpha #1 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_premultiplied_first_alpha.png" alt="XNU Image Fuzzer PreMultipliedAlpha" style="height:32px; width:32px;"/> MultipliedAlpha #2 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_premultiplied_first_alpha_series2.png" alt="XNU Image Fuzzer PreMultipliedAlpha #2" style="height:32px; width:32px;"/>
 
-## Replay
+## My Code Modifications
+- The Example Code begin with instrumenting a few functions as Examples
 ```
-sw_vers
-ProductName:		macOS
-ProductVersion:		14.1.2
+// Functions to create a bitmap context 
+CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
+CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
+CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
+CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
+CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
 ```
-## Updates
-This Repo does the following:
-- Updates the Makefile to Build the Example Project on macOS 14.1.2
-- Adds some print statements to runner
-- Removes legacy compile comments at top of interpose.c
-- Added arm64e compile and run instructions & examples
-- Added Image App Sample for command line - fuzzing is possible too...
-- Added sample Fuzzing Code for Bitmap Drawing Context (ctx) .. example...
 
 ### Required
 ```
