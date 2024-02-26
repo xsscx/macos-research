@@ -3,6 +3,11 @@
 // Should be used with your Stub Programs in CMakeLists.txt until Stable
 // Ninja Mode with bleeded edge code
 
+// Modified by @h02332 David Hoyt to aid in Debugging in Jackalope
+// Modified instrumentation.h for Live Debugging Mode Implementation
+// Should be used with your Stub Programs in CMakeLists.txt until Stable
+// Ninja Mode with bleeded edge code
+
 #pragma once
 
 #include <inttypes.h>
@@ -37,9 +42,7 @@ public:
     static void SignalHandler(int signal);
     static void SetupDebugMode();
     static void LogDebug(const std::string& message, int level = 1);
-
-    // Declare the static member variable for verbosity level
-    static int verbosityLevel;
+    static int verbosityLevel; // Controls the verbosity of the debug output
 
 private:
     // Flag to control debug mode
