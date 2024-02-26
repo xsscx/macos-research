@@ -1,5 +1,9 @@
 # macOS | XNU Research | Source Code | PoC's and more....
-## Last Updated: 22 FEB 2024 at 1130 EST
+
+## whoami
+I am David Hoyt. I was in the Apple Security Research Device Program for 2021 & 2022. Apple sent me an iPhone 11 & iPhone 12 for A/B testing, very helpful. This Project is some of the Code I wrote for debugging on the SRD.
+
+## Last Updated: 26 FEB 2024 at 1745 EST
 - P0's iOSOnMac with Mods https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
 - Moved XNU Image Fuzzer https://github.com/xsscx/xnuimagefuzzer
 - Added CVE-2022-26730 and CVE-2023-32443 using ICC Color Profile Sample PoC's
