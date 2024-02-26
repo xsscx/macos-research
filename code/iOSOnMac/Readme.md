@@ -69,6 +69,22 @@ cp Info.plist fuzzer.app/
 codesign -s "@@Apple Developer Id or Ad Hoc@@" --entitlements entitlements.xml --force fuzzer.app
 ./runner fuzzer.app/fuzzer /mnt/png/seed.png -1
 ```
+
+#### File Access
+Enable File Sharing for Your App
+First, you need to enable iTunes File Sharing or make your app's documents available in the Files app:
+
+- Modify Info.plist: Add the UIFileSharingEnabled (Application supports iTunes file sharing) key and set it to YES
+
+Then, To make files accessible in the Files app, also add:
+  - LSSupportsOpeningDocumentsInPlace key and set it to YES
+
+#### Access Files via iTunes or the Files App
+
+- iTunes File Sharing: Connect your iPhone to a computer, open iTunes, select your device, go to the "File Sharing" section, select your app, and you should see the files listed. You can then save them to your computer.
+
+- Files App: Open the Files app on your iPhone, navigate to the "On My iPhone" section, find your app's folder, and you'll see the saved images. From here, you can select and share files via AirDrop or other 
+
 ### Reproduction
 ```
 % make clean
