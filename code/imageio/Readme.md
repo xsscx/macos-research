@@ -1,6 +1,6 @@
 # Jackalope Fuzzer for ImageIO + Other Dylibs
 
-Last Updated 22 FEB 2024 at 1100 EST
+Last Updated 25 FEB 2024 at 1900 EST
 
 ### Target Audience
 - Security Research
@@ -13,7 +13,7 @@ The code originated from Google Project Zero
 - I modified the Example Code to enhance coverage with companion Apps for Fuzzed Image Generation
 
 ### Instrumentation mods
-- These Files are complete Replacements of Source
+- These Files are complete Replacements of Source, optional
 - instruments.cpp
 - instruments.h
   - ninja mode
@@ -23,7 +23,7 @@ The code originated from Google Project Zero
     - Bleeding Edge Enhancements for A/B Testing
 
 ### Jackalope mods
-- The main.cpp is complete Replacement of Source
+- The main.cpp is complete Replacement of Source, optional
   - main.cpp
 
 ## XNU Image Fuzzer Seeds
@@ -35,13 +35,13 @@ The code originated from Google Project Zero
 - MultipliedAlpha #1 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_premultiplied_first_alpha.png" alt="XNU Image Fuzzer PreMultipliedAlpha" style="height:32px; width:32px;"/> MultipliedAlpha #2 <img src="https://xss.cx/2024/02/20/img/fuzzed_image_premultiplied_first_alpha_series2.png" alt="XNU Image Fuzzer PreMultipliedAlpha #2" style="height:32px; width:32px;"/>
 
 ## My Code Modifications
-- The Example Code adds a few supported file types and cleans up the autorelease pool use on macOS
+- The Example Code are just expansions of the original code
 - The Scripts and Example Code show how to Target other Dylibs depending on the Image Type, or Fuzz them all with the sample Script [https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/imageio-fuzzer.zsh]
 - There is a larger code base for iOS Fuzzing that has yet to be implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/xnuimagefuzzer.m
 - The arm64 code is my current focus to get consistent results from A/B testing with X86_64 and arm64 Platform ABI's, See https://github.com/xsscx/macos-research/issues/3
 
 ## Setup this Code & Build
-- Copy CMakeLists.txt, imageio-test-002.m, imageio-test-003.m to ./Jackalope-main/examples/ImageIO/
+- Copy CMakeLists.txt, imageio-test-002.m, imageio-test-003.m, imageio-test-004.m to ./Jackalope-main/examples/ImageIO/
 - cd ./Jackalope
 - Follow the Build Instructions at https://github.com/googleprojectzero/Jackalope 
 ## My Suggested Build
@@ -51,25 +51,28 @@ cmake  -G Xcode
 cmake --build . --config Release
 ```
 - Now you have Xcode Project
-- Now you have cmake build system
+- Now you have cmake build system and binaries
 ## Suggested cmake clean
 ```
-rm -rf CMakeScripts CMakeFiles Release Debug build
+rm -rf CMakeScripts CMakeFiles Release Debug build examples/ImageIO/Release examples/ImageIO/Debug
 cmake --build . --target clean
 ```
 ## Bigger Picture
-- Whether a specific target function is defined or not changes the behavior of the fuzzing process in Jackalope. 
+- Whether a specific target function is defined or not changes the behavior of the fuzzing process in Jackalope.
+  - This Code provides other specific target functions that are defined and gain further Fuzzing Coverage
 - These changes includes how the fuzzing iterations are handled, when to clear coverage data, and how timeouts are managed. 
-- The presence of a specific target function is a targeted fuzzing approach, as opposed to a broader, more general fuzzing strategy as shown in the Example Code.
+- The presence of a specific target function is a targeted fuzzing approach, as opposed to a broader, more general fuzzing strategy as shown in the original, Example Code.
 - The presence or absence of a defined target function influences the behavior of the fuzzing process. This is seen in the conditional checks like if (instrumentation->IsTargetFunctionDefined()). 
 
-### How to Instrument a Function?
-Learn using the companion App  
+### How to Instrument a Function
+- Look at the Examples Provided
+
+Learn using the companion App with 12 Target Functions as Examples 
 - XNU Image Fuzzer
   - iOS App Proof of Concept
   - https://github.com/xsscx/xnuimagefuzzer
 
-Continue learning with the companion App
+Continue learning with the companion App with 12 Target Functions as Examples.
 - iOSOnMac
   - iOS On Mac implementation for At Scale generation of Fuzzed Imaged
   - https://github.com/xsscx/macos-research/tree/main/code/iOSOnMac
