@@ -67,18 +67,6 @@ codesign -s "@@Apple Developer Id or Ad Hoc@@" --entitlements entitlements.xml -
 ./runner fuzzer.app/fuzzer /mnt/png/seed.png -1
 ```
 
-#### File Access
-- This is already enabled in the .plist
-
-#### Access Files via iTunes or the Files App
-
-- iTunes File Sharing: Connect your iPhone to a computer, open iTunes, select your device, go to the "File Sharing" section, select your app, and you should see the files listed. You can then save them to your computer.
-
-- Files App: Open the Files app on your iPhone, navigate to the "On My iPhone" section, find your app's folder, and you'll see the saved images. From here, you can select and share files via AirDrop or other 
-
-#### XNU Image Fuzzer iPhone 14 Pro Max Render 
-<img src="https://xss.cx/2024/02/26/img/xnuimagefuzzer-arm64e-sample-output-files_app-sample-file-render-iphone14promax-001.png" alt="XNU Image Fuzzer iPhone 14 Pro Max Render" style="height:550px; width:340px;"/> 
-
 ### Build Reproduction
 ```
 % make clean
