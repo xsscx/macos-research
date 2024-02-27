@@ -12,7 +12,7 @@
  * - [26/11/2023] [h02332] - Initial commit
  * - [27/11/2023] [h02332] - Removed Grayscale Feature pending Implementation
  * - [28/11/2023] [h02332] - Refactor Code & fuzzing
- * - [27/02/2024] [h02332] - Refactor Code & fuzzing & logging
+ * - [27/02/2024] [h02332] - Refactor Code & fuzzing & logging & pragma marks
  *
  * @section    TODO
  * - [ ] Grayscale Implementation
@@ -31,6 +31,8 @@
 #include <stdlib.h>
 #include <sys/mman.h>
 #include <assert.h>
+
+#pragma mark - Macros and Constants
 
 // Define constants for fuzzing control
 #define ALL -1 // Assuming this is used to indicate that all items should be processed
@@ -52,8 +54,12 @@
         } \
     } while(0)
 
+#pragma mark - Global Variables
+
 // Global variable to control verbosity
 int verboseLogging = 0; // Set to 1 for detailed logging, 0 for minimal logging
+
+#pragma mark - Function Declarations
 
 // Function declarations
 BOOL isValidImagePath(NSString *path);
@@ -63,6 +69,8 @@ void processPermutation(UIImage *image, int permutation, NSString *sessionDirect
 NSString *createUniqueDirectoryForSavingImages(void);
 void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message);
 void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height);
+
+#pragma mark - Bitmap Context Creation
 
 // Bitmap context creation functions
 void createBitmapContextStandardRGB(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
@@ -79,6 +87,8 @@ void createBitmapContext32BitFloat4Component(CGImageRef cgImg, NSString *session
 
 // TODO: Implement Grayscale context creation
 void createBitmapContextGrayscale(CGImageRef cgImg);
+
+#pragma mark - Directory Management
 
 NSString *createUniqueDirectoryForSavingImages(void) {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -101,6 +111,8 @@ NSString *createUniqueDirectoryForSavingImages(void) {
 
     return uniqueDirPath;
 }
+
+#pragma mark - Pixel Data Logging
 
 void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message) {
     if (!rawData || width == 0 || height == 0) {
@@ -132,6 +144,8 @@ void logPixelData(unsigned char *rawData, size_t width, size_t height, const cha
         NSLog(@"%s - Basic pixel logging executed.", message);
     }
 }
+
+#pragma mark - Fuzzing Methods
 
 void applyEnhancedFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height) {
     if (!rawData || width == 0 || height == 0) {
@@ -281,6 +295,8 @@ void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t he
     logPixelData(rawData, width, height, "After fuzzing");
 }
 
+#pragma mark - Memory Handling
+
 void debugMemoryHandling(void) {
     const size_t sz = 0x10000;
     char* chunks[64] = { NULL };
@@ -305,6 +321,8 @@ void debugMemoryHandling(void) {
         }
     }
 }
+
+#pragma mark - Main Function
 
 int main(int argc, const char * argv[]) {
     NSLog(@"Starting up...");
