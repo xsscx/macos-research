@@ -2,7 +2,8 @@
  * @file       xnuimagefuzzer.m
  * @brief      Proof of concept iOS Image Fuzzer
  * @author     @h02332 | David Hoyt
- * @date       Modified 22 FEB 2024 | 1045 EST
+ * @date       Modified 27 FEB 2024
+ * @time                 0845 EST
  *
  * Detailed description of the file, if necessary.
  *
@@ -11,16 +12,16 @@
  * - [26/11/2023] [h02332] - Initial commit
  * - [27/11/2023] [h02332] - Removed Grayscale Feature pending Implementation
  * - [28/11/2023] [h02332] - Refactor Code & fuzzing
- * - [29/11/2023] [h02332] - Refactor Code & fuzzing & logging
+ * - [27/02/2024] [h02332] - Refactor Code & fuzzing & logging
  *
  * @section    TODO
  * - [ ] Grayscale Implementation
  * - [ ] ICC Color Profiles
- * - [ ] Refactor Example Fuzzer 
+ * - [ ] Refactor Example Fuzzer
  * - [ ] Add Logging Toggle as global variable  - testing in createBitmapContextStandardRGB function
  * - [ ] Modify File Name at function()
  * Compile : xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o imagefuzzer ios-image-fuzzer-example.m  interpose.dylib
- * 
+ *
  */
 
 #include <Foundation/Foundation.h>
@@ -29,9 +30,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/mman.h>
-// Define constants for ALL and MAX_PERMUTATION
-#define ALL -1
-#define MAX_PERMUTATION 12
+#include <assert.h>
+
+// Define constants for fuzzing control
+#define ALL -1 // Assuming this is used to indicate that all items should be processed
+#define MAX_PERMUTATION 12 // Maximum number of permutations allowed, adjust according to your needs
+
+// Enable detailed logging for debug builds only
+#ifdef DEBUG
+#define DebugLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define DebugLog(...)
+#endif
+
+// Assert with message - Extends assert to include a message on failure, useful for debugging
+#define AssertWithMessage(condition, message, ...) \
+    do { \
+        if (!(condition)) { \
+            NSLog((@"Assertion failed: %s " message), #condition, ##__VA_ARGS__); \
+            assert(condition); \
+        } \
+    } while(0)
 
 // Global variable to control verbosity
 int verboseLogging = 0; // Set to 1 for detailed logging, 0 for minimal logging
@@ -41,7 +60,7 @@ BOOL isValidImagePath(NSString *path);
 UIImage *loadImageFromFile(NSString *path);
 void processImage(UIImage *image, int permutation, NSString *sessionDirectory);
 void processPermutation(UIImage *image, int permutation, NSString *sessionDirectory);
-NSString *createUniqueDirectoryForSavingImages();
+NSString *createUniqueDirectoryForSavingImages(void);
 void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message);
 void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height);
 
@@ -61,7 +80,7 @@ void createBitmapContext32BitFloat4Component(CGImageRef cgImg, NSString *session
 // TODO: Implement Grayscale context creation
 void createBitmapContextGrayscale(CGImageRef cgImg);
 
-NSString *createUniqueDirectoryForSavingImages() {
+NSString *createUniqueDirectoryForSavingImages(void) {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd_HH-mm-ss-SSS"];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
@@ -99,6 +118,7 @@ void logPixelData(unsigned char *rawData, size_t width, size_t height, const cha
             unsigned int randomY = arc4random_uniform((unsigned int)height);
             size_t pixelIndex = (randomY * width + randomX) * 4;
 
+            // Ensure we're not accessing out of bounds
             if (pixelIndex + 3 < width * height * 4) {
                 NSLog(@"%s - Pixel[%u, %u]: R=%d, G=%d, B=%d, A=%d",
                       message, randomX, randomY,
@@ -196,6 +216,17 @@ void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t he
         return;
     }
 
+    // Example assertion for non-null data, not enough to ensure full initialization
+    assert(rawData != NULL);
+
+    // Potentially, add runtime checks for expected value ranges in a debug mode
+    // This is more for illustration; actual implementation would depend on expected data characteristics
+    #ifdef DEBUG
+    for (size_t i = 0; i < width * height * 4; ++i) {
+        assert(rawData[i] >= 0 && rawData[i] <= 255); // Given unsigned char, this is always true, but similar checks could be applied based on expected data state
+    }
+    #endif
+
     logPixelData(rawData, width, height, "Before fuzzing");
 
     for (size_t y = 0; y < height; y++) {
@@ -208,46 +239,40 @@ void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t he
                 switch (fuzzMethod) {
                     case 0: // Inversion
                         rawData[pixelIndex + i] = 255 - rawData[pixelIndex + i];
-                        if (verboseLogging) {
-                            NSLog(@"Inversion applied at Pixel[%zu, %zu]: New Value=%d", x, y, rawData[pixelIndex + i]);
-                        }
                         break;
                     case 1: // Random addition/subtraction
                         {
-                            int fuzzFactor = (int)arc4random_uniform(201) - 100;
+                            int fuzzFactor = (int)arc4random_uniform(201) - 100; // Range: [-100, 100]
                             int newValue = rawData[pixelIndex + i] + fuzzFactor;
-                            rawData[pixelIndex + i] = (unsigned char)fmax(0, fmin(255, newValue));
-                            if (verboseLogging) {
-                                NSLog(@"Random addition/subtraction applied at Pixel[%zu, %zu]: FuzzFactor=%d, New Value=%d", x, y, fuzzFactor, rawData[pixelIndex + i]);
-                            }
+                            // Ensure newValue is within unsigned char bounds
+                            newValue = fmax(0, fmin(255, newValue));
+                            rawData[pixelIndex + i] = (unsigned char)newValue;
                         }
                         break;
                     case 2: // Conditional alteration
                         if ((x + y + i) % 5 == 0) {
                             rawData[pixelIndex + i] = arc4random_uniform(256);
-                            if (verboseLogging) {
-                                NSLog(@"Conditional alteration applied at Pixel[%zu, %zu]: New Value=%d", x, y, rawData[pixelIndex + i]);
-                            }
                         }
                         break;
                     case 3: // Noise addition
                         {
-                            int noise = (int)arc4random_uniform(50) - 25;
+                            int noise = (int)arc4random_uniform(50) - 25; // Range: [-25, 25]
                             int newValue = rawData[pixelIndex + i] + noise;
-                            rawData[pixelIndex + i] = (unsigned char)fmax(0, fmin(255, newValue));
-                            if (verboseLogging) {
-                                NSLog(@"Noise addition applied at Pixel[%zu, %zu]: Noise=%d, New Value=%d", x, y, noise, rawData[pixelIndex + i]);
-                            }
+                            // Ensure newValue is within unsigned char bounds
+                            newValue = fmax(0, fmin(255, newValue));
+                            rawData[pixelIndex + i] = (unsigned char)newValue;
                         }
                         break;
                     case 4: // Periodic pattern introduction
                         if ((x / 10 + y / 10) % 2 == 0) {
                             rawData[pixelIndex + i] = (rawData[pixelIndex + i] + 128) % 256;
-                            if (verboseLogging) {
-                                NSLog(@"Periodic pattern introduction applied at Pixel[%zu, %zu]: New Value=%d", x, y, rawData[pixelIndex + i]);
-                            }
                         }
                         break;
+                }
+
+                // Log the action if verboseLogging is enabled
+                if (verboseLogging) {
+                    NSLog(@"Fuzzing applied at Pixel[%zu, %zu]: New Value=%d", x, y, rawData[pixelIndex + i]);
                 }
             }
         }
@@ -256,7 +281,7 @@ void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t he
     logPixelData(rawData, width, height, "After fuzzing");
 }
 
-void debugMemoryHandling() {
+void debugMemoryHandling(void) {
     const size_t sz = 0x10000;
     char* chunks[64] = { NULL };
     for (int i = 0; i < 64; i++) {
@@ -283,7 +308,7 @@ void debugMemoryHandling() {
 
 int main(int argc, const char * argv[]) {
     NSLog(@"Starting up...");
-    debugMemoryHandling(); // Call the debug function
+//    debugMemoryHandling(); // Call the debug function
     @autoreleasepool {
         if (argc < 3) {
             NSLog(@"Usage: %s path/to/image permutation_number", argv[0]);
