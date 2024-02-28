@@ -3,28 +3,28 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
 #include <sys/utsname.h>
 #include <ucontext.h>
-#include <stdlib.h>
 
-static void sev_handler(int signo, siginfo_t *info, void *cx_)
-{
-    (void)signo;
-    (void)info;
-    ucontext_t *cx = cx_;
+static void segv_handler(int signo, siginfo_t *info, void *cx_) {
+    (void)signo; // Explicitly ignore parameter
+    (void)info; // Explicitly ignore parameter
+    ucontext_t *cx = (ucontext_t *)cx_;
+    // Modify general purpose register 0 (x0) to a test value
     cx->uc_mcontext->__ss.__x[0] = 0xdeadbeef;
-    cx->uc_mcontext->__ss.__pc = cx->uc_mcontext->__ss.__lr;
-//    cx->uc_mcontext->__ss.__pc = cx->uc_mcontext->__ss.__lr += 4;
+    // Adjust PC based on LR, incrementing by 4 to skip an instruction
+    cx->uc_mcontext->__ss.__pc = cx->uc_mcontext->__ss.__lr += 4;
 }
 
-static void bus_handler(int signo, siginfo_t *info, void *cx_)
-{
+static void bus_handler(int signo, siginfo_t *info, void *cx_) {
     (void)signo;
     (void)info;
-    ucontext_t *cx = cx_;
+    ucontext_t *cx = (ucontext_t *)cx_;
     cx->uc_mcontext->__ss.__x[0] = 0xdeadbeef;
+    // Increment PC by 4 to potentially recover from the bus error
     cx->uc_mcontext->__ss.__pc += 4;
 }
 
@@ -109,7 +109,6 @@ static void sprr_test(void *ptr, uint64_t v)
            can_exec(ptr) ? 'x' : '-');
 }
 
-
 static uint64_t repeat_4bit_value(uint8_t value)
 {
     if (value > 0xF) {
@@ -126,40 +125,41 @@ static uint64_t repeat_4bit_value(uint8_t value)
 }
 
 
-int main(int argc, char *argv[])
-{
-    (void)argc;
-    (void)argv;
+int main(int argc, char *argv[]) {
+    (void)argc; // Explicitly ignore parameter
+    (void)argv; // Explicitly ignore parameter
 
     struct sigaction sa;
+    memset(&sa, 0, sizeof(sa)); // Initialize struct to zero
     sigfillset(&sa.sa_mask);
     sa.sa_sigaction = bus_handler;
     sa.sa_flags = SA_RESTART | SA_SIGINFO;
-    if (sigaction(SIGBUS, &sa, 0) == -1) {
+    if (sigaction(SIGBUS, &sa, NULL) == -1) {
         perror("sigaction for SIGBUS failed");
         return EXIT_FAILURE;
     }
-    sa.sa_sigaction = sev_handler;
-    if (sigaction(SIGSEGV, &sa, 0) == -1) {
+    
+    sa.sa_sigaction = segv_handler; // Use consistent naming for handlers
+    if (sigaction(SIGSEGV, &sa, NULL) == -1) {
         perror("sigaction for SIGSEGV failed");
         return EXIT_FAILURE;
     }
-
+    
     uint32_t *ptr = mmap(NULL, 0x4000, PROT_READ | PROT_WRITE | PROT_EXEC,
                          MAP_PRIVATE | MAP_ANONYMOUS | MAP_JIT, -1, 0);
     if (ptr == MAP_FAILED) {
         perror("mmap failed");
         return EXIT_FAILURE;
     }
-
+    
     write_sprr_perm(0x3333333333333333);
     ptr[0] = 0xd65f03c0; // ret
-
+    
     for (int i = 0; i < 4; ++i)
         sprr_test(ptr, repeat_4bit_value(i));
-
+    
     // Freeing the mapped memory (added clean-up)
     munmap(ptr, 0x4000);
-
+    
     return EXIT_SUCCESS;
 }
