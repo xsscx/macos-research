@@ -1,10 +1,9 @@
 /**
- * @file       xnuimagefuzzer.m
- * @brief      Proof of concept iOS Image Fuzzer
- * @author     @h02332 | David Hoyt
- * @date       Modified 27 FEB 2024
- * @time                 0845 EST
- *
+ *  @file xnuimagefuzzer.m
+ *  @brief XNU Image Fuzzer for iOS On Mac Project.
+ *  @author @h02332 | David Hoyt
+ *  @date 29 FEB 2024
+ *  @version 1.2.2
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,23 +18,19 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * @section    CHANGES
- * [Date] [Author] - [Description of Changes]
- * - [26/11/2023] [h02332] - Initial commit of xnuimagefuzzer.m for iOSonMac Project
- * - [27/11/2023] [h02332] - Removed Grayscale Feature pending Implementation
- * - [28/11/2023] [h02332] - Refactor Code & fuzzing
- * - [27/02/2024] [h02332] - Refactor Code & fuzzing & logging
+ *  @section CHANGES
+ *  - 26/11/2023, h02332: Initial commit.
+ *  - 21/02/2024, h02332: Refactor Fuzzing Contexts for Floats & Alpha, Fix Coverage, Math & Programming Mistakes.
+ *  - 21/02/2024, h02332: PermaLink https://srd.cx/xnu-image-fuzzer/.
+ *  - 28/02/2024, h02332: Refactor Xcode Quick Help Formatting, Add Debug Code for Checking Memory Pattern, Dump CommPage, Device Details, os.log implementation
  *
- * @section    TODO
- * - [ ] Grayscale Implementation
- * - [ ] ICC Color Profiles
- * - [ ] Refactor Example Fuzzer
- * - [ ] Add Logging Toggle as global variable  - testing in createBitmapContextStandardRGB function
- * - [ ] Modify File Name at function()
- * Compile : xcrun -sdk iphoneos clang -arch arm64 -framework UIKit -framework Foundation -framework CoreGraphics -miphoneos-version-min=12.0 -g -o imagefuzzer ios-image-fuzzer-example.m  interpose.dylib
- *
+ *  @section TODO
+ *  - Grayscale Implementation.
+ *  - ICC Color Profiles.
+ *  - Refactor Example Fuzzer.
  */
-#pragma mark - Heaaders
+
+#pragma mark - Headers
 
 /**
 @brief Core and external libraries necessary for the fuzzer functionality.
@@ -45,7 +40,6 @@ standard input/output, standard library, memory management, mathematical functio
 Boolean type, floating-point limits, and string functions. These libraries support
 image processing, UI interaction, and basic C operations essential for the application.
 */
-#include <Foundation/Foundation.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
@@ -60,7 +54,6 @@ image processing, UI interaction, and basic C operations essential for the appli
 #include <string.h>
 #include <stdint.h>
 #include <sys/sysctl.h>
-#include <assert.h>
 
 #pragma mark - Constants
 
@@ -89,65 +82,6 @@ Note: These constants are designed to be used across various components of the a
 #define MAX_PERMUTATION 12 // Maximum permutations in image processing.
 #define COMM_PAGE64_BASE_ADDRESS (0x0000000FFFFFC000ULL)
 #define COMM_PAGE_CPU_CAPABILITIES64 (COMM_PAGE64_BASE_ADDRESS + 0x010)
-
-#pragma mark - Debugging Macros
-
-/**
-@brief Provides macros for enhanced logging and assertions during development.
-
-This section defines two key macros designed to assist in the debugging process, ensuring that developers can log detailed information and perform assertions with customized messages. These macros are especially useful in DEBUG builds, where additional context can significantly aid in diagnosing issues.
-
-## Features:
-- `DebugLog`: This macro is used for logging detailed debug information, including the name of the current function and the line number from where it's called. It's instrumental in tracing the execution flow or pinpointing the location of specific events or states in the code.
-- `AssertWithMessage`: This macro allows for the execution of assertions that, upon failure, log a custom message. It's valuable for validating assumptions within the code and providing immediate feedback if those assumptions are violated.
-
-## Usage:
-
-### DebugLog
-Use the `DebugLog` macro to log messages with additional context, such as the function name and line number. This macro is only active in DEBUG builds, helping to avoid the potential exposure of sensitive information in release builds.
-```objective-c
-DebugLog(@"An informative debug message with context.");
-*/
-#ifdef DEBUG
-#define DebugLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#else
-#define DebugLog(...)
-#endif
-
-#define AssertWithMessage(condition, message, ...) \
-    do { \
-        if (!(condition)) { \
-            NSLog((@"Assertion failed: %s " message), #condition, ##__VA_ARGS__); \
-            assert(condition); \
-        } \
-    } while(0)
-
-#pragma mark - Global Variables
-
-/**
-@brief Controls the verbosity of logging throughout the application.
-
-This global variable acts as a switch to toggle verbose logging on or off across the application's various components. Verbose logging is crucial for debugging, as it provides detailed insights into the application's operations, including function calls, process flows, and data management.
-
-## Features:
-- When set to `1`, verbose logging is enabled. This setting is ideal for development and debugging phases, where understanding the intricate details of application behavior is necessary.
-- Setting this variable to `0` disables verbose logging, which is recommended for release builds to reduce overhead and prevent the exposure of potentially sensitive information.
-
-## Usage:
-
-To enable verbose logging throughout the application, ensure this variable is set to `1`. This can typically be done at the application's initialization phase or dynamically adjusted based on certain conditions or user input.
-
-Example:
-```objective-c
-verboseLogging = 1; // Enable verbose logging
-Conversely, to disable verbose logging, especially in preparation for a release build, set the variable to 0:
-
-objective
-Copy code
-verboseLogging = 0; // Disable verbose logging
-@note It's important to manage the state of this variable carefully, as excessive logging can lead to performance degradation and cluttered log outputs. Consider implementing a mechanism to adjust this setting dynamically based on the build configuration or user preferences.
-*/
-static int verboseLogging = 1; // 1 enables detailed logging, 0 disables it.
 
 #pragma mark - Color Definitions
 
@@ -222,34 +156,64 @@ char* injectStrings[NUMBER_OF_STRINGS] = {
     INJECT_STRING_4
 };
 
-#pragma mark - Function Declarations
+#pragma mark - Debugging Macros
 
-// Function declarations
-BOOL isValidImagePath(NSString *path);
-UIImage *loadImageFromFile(NSString *path);
-void processImage(UIImage *image, int permutation, NSString *sessionDirectory);
-void processPermutation(UIImage *image, int permutation, NSString *sessionDirectory);
-NSString *createUniqueDirectoryForSavingImages(void);
-// void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message);
-void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height);
+/**
+@brief Provides macros for enhanced logging and assertions during development.
 
-#pragma mark - Bitmap Context Creation
+This section defines two key macros designed to assist in the debugging process, ensuring that developers can log detailed information and perform assertions with customized messages. These macros are especially useful in DEBUG builds, where additional context can significantly aid in diagnosing issues.
 
-// Bitmap context creation functions
-void createBitmapContextStandardRGB(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContextPremultipliedFirstAlpha(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContextNonPremultipliedAlpha(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContext16BitDepth(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContextHDRFloatComponents(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContextAlphaOnly(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContext1BitMonochrome(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContextBigEndian(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContextLittleEndian(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContext8BitInvertedColors(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
-void createBitmapContext32BitFloat4Component(CGImageRef cgImg, NSString *sessionDirectory, int permutation);
+## Features:
+- `DebugLog`: This macro is used for logging detailed debug information, including the name of the current function and the line number from where it's called. It's instrumental in tracing the execution flow or pinpointing the location of specific events or states in the code.
+- `AssertWithMessage`: This macro allows for the execution of assertions that, upon failure, log a custom message. It's valuable for validating assumptions within the code and providing immediate feedback if those assumptions are violated.
 
-// TODO: Implement Grayscale context creation
-void createBitmapContextGrayscale(CGImageRef cgImg);
+## Usage:
+
+### DebugLog
+Use the `DebugLog` macro to log messages with additional context, such as the function name and line number. This macro is only active in DEBUG builds, helping to avoid the potential exposure of sensitive information in release builds.
+```objective-c
+DebugLog(@"An informative debug message with context.");
+*/
+#ifdef DEBUG
+#define DebugLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define DebugLog(...)
+#endif
+
+#define AssertWithMessage(condition, message, ...) \
+    do { \
+        if (!(condition)) { \
+            NSLog((@"Assertion failed: %s " message), #condition, ##__VA_ARGS__); \
+            assert(condition); \
+        } \
+    } while(0)
+
+#pragma mark - Global Variables
+
+/**
+@brief Controls the verbosity of logging throughout the application.
+
+This global variable acts as a switch to toggle verbose logging on or off across the application's various components. Verbose logging is crucial for debugging, as it provides detailed insights into the application's operations, including function calls, process flows, and data management.
+
+## Features:
+- When set to `1`, verbose logging is enabled. This setting is ideal for development and debugging phases, where understanding the intricate details of application behavior is necessary.
+- Setting this variable to `0` disables verbose logging, which is recommended for release builds to reduce overhead and prevent the exposure of potentially sensitive information.
+
+## Usage:
+
+To enable verbose logging throughout the application, ensure this variable is set to `1`. This can typically be done at the application's initialization phase or dynamically adjusted based on certain conditions or user input.
+
+Example:
+```objective-c
+verboseLogging = 1; // Enable verbose logging
+Conversely, to disable verbose logging, especially in preparation for a release build, set the variable to 0:
+
+objective
+Copy code
+verboseLogging = 0; // Disable verbose logging
+@note It's important to manage the state of this variable carefully, as excessive logging can lead to performance degradation and cluttered log outputs. Consider implementing a mechanism to adjust this setting dynamically based on the build configuration or user preferences.
+*/
+static int verboseLogging = 1; // 1 enables detailed logging, 0 disables it.
 
 #pragma mark - Date and Time Utilities
 
@@ -506,37 +470,6 @@ void dump_comm_page(void) {
     NSLog(@"[*] Done dumping comm page.");
 }
 
-#pragma mark - Utility Function Prototypes
-
-/**
-@brief Prototypes for utility functions used in image processing.
-
-@details This section declares functions essential for the image processing pipeline,
-ranging from path validation to image manipulation and utility operations. These functions
-facilitate tasks such as validating image paths, loading images from files, applying various
-image processing permutations, and managing output directories and string hashing.
-
-- `isValidImagePath`: Validates the specified image path.
-- `loadImageFromFile`: Loads an image from the given file path.
-- `processImage`: Processes the image with a specified permutation algorithm.
-- Additional utilities include noise application, color inversion, value adjustments, and string hashing.
-
-@return Various return types depending on the function's purpose.
-
-@note Some functions, such as `processImage`, might modify the input image directly.
-*/
-BOOL isValidImagePath(NSString *path);
-UIImage *loadImageFromFile(NSString *path);
-// void processImage(UIImage *image, int permutation);
-// Further prototype declarations for omitted details
-NSString *createUniqueDirectoryForSavingImages(void);
-void addAdditiveNoise(float *pixel);
-void applyMultiplicativeNoise(float *pixel);
-void invertColor(float *pixel);
-void applyExtremeValues(float *pixel);
-void assignSpecialFloatValues(float *pixel);
-unsigned long hashString(const char* str);
-
 #pragma mark - Print Color Function
 
 /**
@@ -567,6 +500,141 @@ ANSI color codes documentation for more information on how colors are represente
 void printColored(const char* color, const char* message) {
     NSLog(@"%s%s%s", color, message, RESET_COLOR);
 }
+
+#pragma mark - Utility Function Prototypes
+
+/**
+@brief Prototypes for utility functions used in image processing.
+
+@details This section declares functions essential for the image processing pipeline,
+ranging from path validation to image manipulation and utility operations. These functions
+facilitate tasks such as validating image paths, loading images from files, applying various
+image processing permutations, and managing output directories and string hashing.
+
+- `isValidImagePath`: Validates the specified image path.
+- `loadImageFromFile`: Loads an image from the given file path.
+- `processImage`: Processes the image with a specified permutation algorithm.
+- Additional utilities include noise application, color inversion, value adjustments, and string hashing.
+
+@return Various return types depending on the function's purpose.
+
+@note Some functions, such as `processImage`, might modify the input image directly.
+*/
+BOOL isValidImagePath(NSString *path);
+UIImage *loadImageFromFile(NSString *path);
+void processImage(UIImage *image, int permutation);
+// Further prototype declarations for omitted details
+NSString *createUniqueDirectoryForSavingImages(void);
+void addAdditiveNoise(float *pixel);
+void applyMultiplicativeNoise(float *pixel);
+void invertColor(float *pixel);
+void applyExtremeValues(float *pixel);
+void assignSpecialFloatValues(float *pixel);
+unsigned long hashString(const char* str);
+
+#pragma mark - Image Processing Prototypes
+
+/**
+@brief Creates a bitmap context with standard RGB color space.
+@details Suitable for most images, this context supports a wide range of colors and is the go-to choice for standard image processing.
+*/
+void createBitmapContextStandardRGB(CGImageRef cgImg, int permutation);
+
+/**
+@brief Creates a bitmap context with premultiplied first alpha.
+@details Premultiplied alpha simplifies blending operations, commonly used in graphics processes for efficiency.
+*/
+void createBitmapContextPremultipliedFirstAlpha(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context where the alpha is not premultiplied.
+@details Useful for precise color manipulation and direct manipulation of alpha values without the blending simplifications of premultiplied alpha.
+*/
+void createBitmapContextNonPremultipliedAlpha(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context with 16-bit depth per component.
+@details Allows for high-fidelity image processing, suitable for professional photography or detailed graphical work requiring higher color depth.
+*/
+void createBitmapContext16BitDepth(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context for grayscale images.
+@details Focuses on luminance values, simplifying processing for images where color is not a factor. Ideal for black and white photography or effects.
+*/
+void createBitmapContextGrayscale(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context with HDR using floating-point components.
+@details Ideal for images with a wide range of luminance values, providing more detail in shadows and highlights for HDR content.
+*/
+void createBitmapContextHDRFloatComponents(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context that processes only the alpha channel.
+@details Useful for working with or generating mask images, focusing solely on transparency values.
+*/
+void createBitmapContextAlphaOnly(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context for 1-bit monochrome images.
+@details Simplifies images to black and white, useful for stark contrasts, stylistic effects, or reducing complexity.
+*/
+void createBitmapContext1BitMonochrome(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context with a big endian pixel format.
+@details Important for compatibility with certain systems or file formats, as endianness affects how pixel data is read and written.
+*/
+void createBitmapContextBigEndian(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context with a little endian pixel format.
+@details Like big endian, crucial for ensuring correct image representation and compatibility with specific systems or formats.
+*/
+void createBitmapContextLittleEndian(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context that inverts the colors of an 8-bit image.
+@details Inverting colors can be used to highlight differences, for visual effects, or to analyze images in a different visual context.
+*/
+void createBitmapContext8BitInvertedColors(CGImageRef cgImg);
+
+/**
+@brief Creates a bitmap context with a 32-bit floating-point format per component, supporting four components.
+@details Allows for extremely detailed and wide-range image processing, accommodating HDR content and advanced color grading with high precision.
+*/
+void createBitmapContext32BitFloat4Component(CGImageRef cgImg);
+
+/**
+@brief Applies fuzzing to a bitmap context's raw pixel data.
+@details Introduces random changes to test the resilience of image processing algorithms and uncover bugs, essential for robustness testing.
+*/
+void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height);
+
+/**
+@brief Logs pixel data from a bitmap context for analysis or debugging.
+@details Includes an option for verbose output, aiding in the detailed examination of image processing results or issues.
+*/
+void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message, bool verbose);
+
+/**
+@brief Applies enhanced fuzzing to a bitmap context's raw pixel data.
+@details Provides a more aggressive testing approach to uncover potential issues, with a parameter to enable verbose logging for detailed analysis.
+*/
+void applyEnhancedFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height, BOOL verbose);
+
+/**
+@brief Converts the raw pixel data of an image to 1-bit monochrome.
+@details Simplifies the image to basic black and white, used for stylistic effects or to reduce complexity for certain processing tasks.
+*/
+void convertTo1BitMonochrome(unsigned char *rawData, size_t width, size_t height);
+
+/**
+@brief Saves a monochrome image with a specified identifier.
+@details Useful for persisting processed images, allowing for easy retrieval or comparison. This function supports documentation and analysis of results.
+*/
+void saveMonochromeImage(UIImage *image, NSString *identifier);
 
 #pragma mark - Conversion and Saving Functions
 
@@ -615,25 +683,42 @@ extern void saveMonochromeImage(UIImage *image, NSString *identifier) {
 
 #pragma mark - Directory Management
 
+/**
+@brief Creates a unique directory for saving images within the documents directory.
+
+@details Generates a unique directory name by combining the current date-time stamp and a random component,
+ensuring uniqueness. This directory is created within the application's documents directory, intended for
+storing processed images. Useful in scenarios requiring organized storage without naming conflicts, maintaining
+chronological order. The inclusion of a random component further ensures directory name uniqueness, even when
+created in rapid succession.
+
+@return The path to the newly created unique directory, or nil if an error occurred. This path can be used
+directly to save files within the new directory.
+*/
 NSString *createUniqueDirectoryForSavingImages(void) {
+    // Initialize date formatter for timestamp
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd_HH-mm-ss-SSS"];
+    formatter.dateFormat = @"yyyy-MM-dd_HH-mm-ss-SSS";
+    
+    // Generate unique directory name with current date-time and a random component
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
-
-    // Generating a random component to append to the directory name for uniqueness
-    uint32_t randomComponent = arc4random_uniform(10000);
+    uint32_t randomComponent = arc4random_uniform(10000); // Ensures additional uniqueness
     NSString *uniqueDirectoryName = [NSString stringWithFormat:@"%@_%u", dateString, randomComponent];
-
+    
+    // Retrieve path to the documents directory
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    
+    // Construct the path for the new unique directory
     NSString *uniqueDirPath = [documentsDirectory stringByAppendingPathComponent:uniqueDirectoryName];
 
-    NSError *error;
+    // Attempt to create the directory
+    NSError *error = nil;
     if (![[NSFileManager defaultManager] createDirectoryAtPath:uniqueDirPath withIntermediateDirectories:YES attributes:nil error:&error]) {
         NSLog(@"Error creating directory for saving images: %@", error.localizedDescription);
-        // Consider additional error handling logic here, depending on application requirements
-        return nil;
+        return nil; // Return nil in case of failure
     }
 
+    // Return the path of the successfully created directory
     return uniqueDirPath;
 }
 
@@ -1155,7 +1240,7 @@ void saveFuzzedImage(UIImage *image, NSString *contextDescription) {
         NSLog(@"Context description is invalid.");
         return;
     }
-    
+
     // Determine the image format and file extension from contextDescription
     NSString *fileExtension = @"png"; // Default to PNG
     NSData *imageData;
@@ -1167,7 +1252,7 @@ void saveFuzzedImage(UIImage *image, NSString *contextDescription) {
         // Default case handles PNG and other unspecified formats as PNG
         imageData = UIImagePNGRepresentation(image);
     }
-    
+
     // Generate file name based on the context description
     NSString *fileName = [NSString stringWithFormat:@"fuzzed_image_%@.%@", contextDescription, fileExtension];
     
@@ -1206,7 +1291,6 @@ void saveFuzzedImage(UIImage *image, NSString *contextDescription) {
  are for debugging and may need adjustment depending on deployment.
  */
 int main(int argc, const char * argv[]) {
-    NSLog(@"Starting up...");
     @autoreleasepool {
         NSString *currentTime = formattedCurrentDateTime();
         NSLog(@"XNU Image Fuzzer Version 1.1.6 starting %@", currentTime);
@@ -1227,250 +1311,440 @@ int main(int argc, const char * argv[]) {
         }
 
         if (argc < 3) {
-            NSLog(@"Usage: %s path/to/image permutation_number", argv[0]);
-            return 0;
+            NSLog(@"Usage: %s image_name permutation_number", argv[0]);
+            return 1; // Corrected to return 1 to indicate error on insufficient arguments
         }
 
-        NSString* imagePath = [NSString stringWithUTF8String:argv[1]];
+        NSString *imageName = [NSString stringWithUTF8String:argv[1]];
         int permutation = atoi(argv[2]);
 
-        if (!isValidImagePath(imagePath)) {
-            NSLog(@"Invalid image path: %@", imagePath);
-            return 1;
-        }
-
-        UIImage *image = loadImageFromFile(imagePath);
+        // Assume loadImageFromFile and processImage are defined elsewhere
+        UIImage *image = loadImageFromFile(imageName);
         if (!image) {
-            NSLog(@"Failed to load image: %@", imagePath);
+            NSLog(@"Failed to load image: %@", imageName);
             return 1;
         }
 
-        NSString *sessionDirectory = createUniqueDirectoryForSavingImages();
-        if (!sessionDirectory) {
-            NSLog(@"Failed to create a session directory.");
-            return 1;
-        }
-
-        // Process the image based on the permutation
-        if (permutation == ALL) {
-            for (int i = 1; i <= MAX_PERMUTATION; i++) {
-                processPermutation(image, i, sessionDirectory);
-            }
-        } else {
-            processPermutation(image, permutation, sessionDirectory);
-        }
-        
+        // This
+        processImage(image, permutation);
         dump_comm_page();
         dumpDeviceInfo();
         dumpMacDeviceInfo();
-        NSLog(@"End of Run...");
+
+        NSLog(@"XNU Image Fuzzer Version 1.1.6 ending %@", currentTime);
     }
 
     return 0;
 }
 
+#pragma mark - isImagePathValid
+
+/**
+@brief Validates the existence of a file at a specified path.
+@details Checks if an image file exists at a given path, essential for applications that require the presence of a file before performing further operations. Utilizes `NSFileManager`'s `fileExistsAtPath:` to assess file presence, ensuring the path's validity for subsequent processing or operations. This function is crucial in contexts where the accuracy of file paths directly impacts application behavior or user experience.
+
+@param path NSString representing the file path to validate.
+
+@return Returns YES if the file exists at the specified path; otherwise, returns NO.
+
+@note
+- **Implementation**: Leverages `NSFileManager` for reliable file existence checks. Logs the outcome to provide clear feedback on path validity.
+- **Versatility**: While demonstrated for image files, this method can be adapted for any file type, enhancing its utility across various application needs.
+
+### Example Usage:
+```objective-c
+BOOL valid = isImagePathValid(@"/path/to/image.png");
+if (valid) {
+    NSLog(@"The image path is valid. Proceed with loading or processing.");
+} else {
+    NSLog(@"The image path is invalid. Check the path or notify the user.");
+}
+*/
 BOOL isValidImagePath(NSString *path) {
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
     NSLog(fileExists ? @"Valid image path: %@" : @"Invalid image path: %@", path);
     return fileExists;
 }
 
-UIImage *loadImageFromFile(NSString *path) {
-    NSLog(@"Loading file from path: %@", path);
-    NSData *content = [NSData dataWithContentsOfFile:path];
-    if (!content) {
-        NSLog(@"Failed to load data from file: %@", path);
+#pragma mark - loadImageFromFile
+
+/**
+@brief Loads an image from the application bundle into a UIImage object.
+@details Essential for iOS applications, this function loads images stored within the app's resources, facilitating the display or processing of those images. It abstracts filesystem complexities, allowing developers to concentrate on resource utilization.
+
+@param imageName NSString representing the file name (including its extension) of the image to load.
+
+@return A `UIImage` object initialized with the specified image file's contents or nil if the image could not be loaded.
+
+@note
+- **Path Retrieval**: Uses `NSBundle`'s `pathForResource:ofType:` to locate the image file, simplifying access to app resources.
+- **Data Conversion**: Converts the file content into `NSData`, a format compatible with `UIImage`'s `imageWithData:` initializer.
+- **UIImage Initialization**: Creates a `UIImage` from `NSData`. On success, logs image details like dimensions and scale for debugging or information.
+
+### Example Usage:
+```objective-c
+UIImage *loadedImage = loadImageFromFile(@"exampleImage.png");
+if (loadedImage) {
+    NSLog(@"Image loaded successfully with dimensions: %f x %f", loadedImage.size.width, loadedImage.size.height);
+} else {
+    NSLog(@"Failed to load image.");
+}
+*/
+UIImage *loadImageFromFile(NSString *imageName) {
+    NSLog(@"Loading file: %@", imageName);
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageName ofType:nil];
+    if (!imagePath) {
+        NSLog(@"Failed to find path for image: %@", imageName);
         return nil;
     }
-    NSLog(@"Data loaded from file: %@", path);
+    NSLog(@"Image path: %@", imagePath);
 
-    UIImage *image = [[UIImage alloc] initWithData:content];
+    NSData *content = [NSData dataWithContentsOfFile:imagePath];
+    if (!content) {
+        NSLog(@"Failed to load data from file: %@", imagePath);
+        return nil;
+    }
+
+    UIImage *image = [UIImage imageWithData:content];
     if (!image) {
         NSLog(@"Failed to create UIImage from data.");
         return nil;
     }
-    NSLog(@"UIImage created: %@", image);
+
+    NSLog(@"UIImage created: %@, Size: {width: %.2f, height: %.2f}, Scale: %f, Orientation: %ld",
+          image, image.size.width, image.size.height, image.scale, (long)image.imageOrientation);
+
     return image;
 }
 
-void processPermutation(UIImage *image, int permutation, NSString *sessionDirectory) {
+#pragma mark - Process Image
+
+/**
+@brief Processes an image using various bitmap context configurations.
+@details Central to testing different bitmap context configurations, this function allows for the exploration and application of a wide range of image processing techniques. Configurations vary by color space, alpha settings, bit depth, and pixel format, enabling comprehensive testing across different image processing scenarios.
+
+@param image The `UIImage` object to be processed, which must contain a valid `CGImage`.
+@param permutation An integer specifying the bitmap context configuration to apply. A value of -1 applies all configurations in a loop, while any other value selects a specific configuration.
+
+@note
+- **CGImage Retrieval**: Begins by extracting the `CGImage` from the `UIImage`. Logs an error and exits if this step fails.
+- **Configuration Application**: Iterates through or selects a specific bitmap context configuration to apply. Logs each action and utilizes corresponding functions for creating and processing the bitmap context.
+- **Modular Processing Logic**: Processing for each configuration is handled in separate functions, facilitating easy adjustments or expansions to processing capabilities.
+
+### Usage Example:
+```objective-c
+// Process with all configurations
+processImage(myImage, -1);
+
+// Process with a specific configuration
+processImage(myImage, 3); // Example: Applies Non-Premultiplied Alpha settings
+*/
+void processImage(UIImage *image, int permutation) {
     CGImageRef cgImg = [image CGImage];
     if (!cgImg) {
         NSLog(@"Failed to get CGImage from UIImage.");
         return;
     }
+    NSLog(@"CGImage created from UIImage. Dimensions: %zu x %zu", CGImageGetWidth(cgImg), CGImageGetHeight(cgImg));
 
-    switch (permutation) {
-        case 1:
-            NSLog(@"Case: Creating bitmap context with Standard RGB settings");
-            createBitmapContextStandardRGB(cgImg, sessionDirectory, permutation);
-            break;
-        case 2:
-            NSLog(@"Case: Creating bitmap context with Premultiplied First Alpha settings");
-            createBitmapContextPremultipliedFirstAlpha(cgImg, sessionDirectory, permutation);
-            break;
-        case 3:
-            NSLog(@"Case: Creating bitmap context with Non-Premultiplied Alpha settings");
-            createBitmapContextNonPremultipliedAlpha(cgImg, sessionDirectory, permutation);
-            break;
-        case 4:
-            NSLog(@"Case: Creating bitmap context with 16-bit depth settings");
-            createBitmapContext16BitDepth(cgImg, sessionDirectory, permutation);
-            break;
-        case 5:
-            NSLog(@"Grayscale image processing is currently pending implementation.");
-            break;
-        case 6:
-            NSLog(@"Case: Creating bitmap context with HDR Float Components settings");
-            createBitmapContextHDRFloatComponents(cgImg, sessionDirectory, permutation);
-            break;
-        case 7:
-            NSLog(@"Case: Creating bitmap context with Alpha Only settings");
-            createBitmapContextAlphaOnly(cgImg, sessionDirectory, permutation);
-            break;
-        case 8:
-            NSLog(@"Case: Creating bitmap context with 1-bit Monochrome settings");
-            createBitmapContext1BitMonochrome(cgImg, sessionDirectory, permutation);
-            break;
-        case 9:
-            NSLog(@"Case: Creating bitmap context with Big Endian pixel format settings");
-            createBitmapContextBigEndian(cgImg, sessionDirectory, permutation);
-            break;
-        case 10:
-            NSLog(@"Case: Creating bitmap context with Little Endian pixel format settings");
-            createBitmapContextLittleEndian(cgImg, sessionDirectory, permutation);
-            break;
-        case 11:
-            NSLog(@"Case: Creating bitmap context with 8-bit depth, inverted colors settings");
-            createBitmapContext8BitInvertedColors(cgImg, sessionDirectory, permutation);
-            break;
-        case 12:
-            NSLog(@"Case: Creating bitmap context with 32-bit float, 4-component settings");
-            createBitmapContext32BitFloat4Component(cgImg, sessionDirectory, permutation);
-            break;
-        default:
-            NSLog(@"Case: Invalid permutation number %d", permutation);
-            break;
-    }
-    NSLog(@"Completed image processing for permutation %d", permutation);
-}
-
-void processImage(UIImage *image, int permutation, NSString *sessionDirectory) {
-    CGImageRef cgImg = [image CGImage];
-    if (!cgImg) {
-        NSLog(@"Failed to get CGImage from UIImage.");
-        return;
-    }
-
-    if (permutation == ALL) {
-        for (int i = 1; i <= MAX_PERMUTATION; i++) {
-            processPermutation(image, i, sessionDirectory);
+    if (permutation == -1) {
+        for (int i = 1; i <= 12; i++) {
+            switch (i) {
+                case 1:
+                    NSLog(@"Case: Creating bitmap context with Standard RGB settings");
+                    createBitmapContextStandardRGB(cgImg, permutation);
+                    break;
+                case 2:
+                    NSLog(@"Case: Creating bitmap context with Premultiplied First Alpha settings");
+                    createBitmapContextPremultipliedFirstAlpha(cgImg);
+                    break;
+                case 3:
+                    NSLog(@"Case: Creating bitmap context with Non-Premultiplied Alpha settings");
+                    createBitmapContextNonPremultipliedAlpha(cgImg);
+                    break;
+                case 4:
+                    NSLog(@"Case: Creating bitmap context with 16-bit depth settings");
+                    createBitmapContext16BitDepth(cgImg);
+                    break;
+                case 5:
+                    NSLog(@"Grayscale image processing is currently pending implementation.");
+                    break;
+                case 6:
+                    NSLog(@"Case: Creating bitmap context with HDR Float Components settings");
+                    createBitmapContextHDRFloatComponents(cgImg);
+                    break;
+                case 7:
+                    NSLog(@"Case: Creating bitmap context with Alpha Only settings");
+                    createBitmapContextAlphaOnly(cgImg);
+                    break;
+                case 8:
+                    NSLog(@"Case: Creating bitmap context with 1-bit Monochrome settings");
+                    createBitmapContext1BitMonochrome(cgImg);
+                    break;
+                case 9:
+                    NSLog(@"Case: Creating bitmap context with Big Endian pixel format settings");
+                    createBitmapContextBigEndian(cgImg);
+                    break;
+                case 10:
+                    NSLog(@"Case: Creating bitmap context with Little Endian pixel format settings");
+                    createBitmapContextLittleEndian(cgImg);
+                    break;
+                case 11:
+                    NSLog(@"Case: Creating bitmap context with 8-bit depth, inverted colors settings");
+                    createBitmapContext8BitInvertedColors(cgImg);
+                    break;
+                case 12:
+                    NSLog(@"Case: Creating bitmap context with 32-bit float, 4-component settings");
+                    createBitmapContext32BitFloat4Component(cgImg);
+                    break;
+                default:
+                    NSLog(@"Case: Invalid permutation number %d", permutation);
+                    break;
+            }
+            NSLog(@"Completed image processing for permutation %d", i);
         }
     } else {
-        processPermutation(image, permutation, sessionDirectory);
+        switch (permutation) {
+            case 1:
+                NSLog(@"Case: Creating bitmap context with Standard RGB settings");
+                createBitmapContextStandardRGB(cgImg, permutation);
+                break;
+            case 2:
+                NSLog(@"Case: Creating bitmap context with Premultiplied First Alpha settings");
+                createBitmapContextPremultipliedFirstAlpha(cgImg);
+                break;
+            case 3:
+                NSLog(@"Case: Creating bitmap context with Non-Premultiplied Alpha settings");
+                createBitmapContextNonPremultipliedAlpha(cgImg);
+                break;
+            case 4:
+                NSLog(@"Case: Creating bitmap context with 16-bit depth settings");
+                createBitmapContext16BitDepth(cgImg);
+                break;
+            case 5:
+                NSLog(@"Grayscale image processing is currently pending implementation.");
+                return;
+            case 6:
+                NSLog(@"Case: Creating bitmap context with HDR Float Components settings");
+                createBitmapContextHDRFloatComponents(cgImg);
+                break;
+            case 7:
+                NSLog(@"Case: Creating bitmap context with Alpha Only settings");
+                createBitmapContextAlphaOnly(cgImg);
+                break;
+            case 8:
+                NSLog(@"Case: Creating bitmap context with 1-bit Monochrome settings");
+                createBitmapContext1BitMonochrome(cgImg);
+                break;
+            case 9:
+                NSLog(@"Case: Creating bitmap context with Big Endian pixel format settings");
+                createBitmapContextBigEndian(cgImg);
+                break;
+            case 10:
+                NSLog(@"Case: Creating bitmap context with Little Endian pixel format settings");
+                createBitmapContextLittleEndian(cgImg);
+                break;
+            case 11:
+                NSLog(@"Case: Creating bitmap context with 8-bit depth, inverted colors settings");
+                createBitmapContext8BitInvertedColors(cgImg);
+                break;
+            case 12:
+                NSLog(@"Case: Creating bitmap context with 32-bit float, 4-component settings");
+                createBitmapContext32BitFloat4Component(cgImg);
+                break;
+            default:
+                NSLog(@"Case: Invalid permutation number %d", permutation);
+                break;        }
+        NSLog(@"Completed image processing for permutation %d", permutation);
     }
+}
+
+#pragma mark - createBitmapContextStandardRBG
+
+/**
+@brief Creates a bitmap context with standard RGB settings, applies a fuzzing process to alter the image, and saves the fuzzed image. Useful for testing image processing functionalities or creating varied visual effects.
+
+@details This function demonstrates how to create a bitmap context, manipulate image pixel data through a fuzzing process, and save the modified image. It covers validating input images, creating bitmap contexts with specific configurations, and applying image processing algorithms to explore and enhance image processing techniques.
+
+@param cgImg The source image from which to create the bitmap context, represented as a `CGImageRef`.
+@param permutation An integer representing the type or level of fuzzing to apply. Though not utilized in this simplified example, it is designed to dictate different fuzzing algorithms or intensities.
+
+@note
+- **Memory Management**: Demonstrates careful release of resources, including color space and bitmap context, and freeing of dynamically allocated memory.
+- **Debugging**: Includes commented-out calls to `debugMemoryHandling` to illustrate potential insertion points for memory diagnostics.
+- **Extensibility**: The `permutation` parameter demonstrates the function's potential to apply various fuzzing types based on input parameters, enhancing modularity and maintainability.
+- **Logging**: Utilizes `NSLog` for debugging purposes. A more sophisticated logging framework is recommended for production code.
+- **Separation of Concerns**: Abstracts the actual fuzzing logic into the `applyEnhancedFuzzingToBitmapContext` function, promoting code modularity and maintainability.
+
+### Process Overview:
+1. Validates the `CGImageRef` input to ensure a source image is provided.
+2. Retrieves source image dimensions and calculates bytes per row for an RGBA pixel format.
+3. Allocates memory for raw pixel data.
+4. Creates a `CGColorSpaceRef` in the device RGB color space.
+5. Specifies bitmap information for alpha channel handling and byte order.
+6. Creates the bitmap context with allocated memory, color space, and specified bitmap info.
+7. Draws the source image into the bitmap context.
+8. Applies a fuzzing algorithm to manipulate the pixel data directly.
+9. Generates a new `CGImageRef` from the bitmap context, converts it to `UIImage`, and saves the result.
+10. Releases allocated resources, including the bitmap context and pixel data memory.
+
+### Usage Example:
+```objective-c
+// Process with all configurations
+processImage(myImage, -1);
+
+// Process with a specific configuration
+processImage(myImage, 3); // Example: Applies Non-Premultiplied Alpha settings
+*/
+
+void createBitmapContextStandardRGB(CGImageRef cgImg, int permutation) {
+    NSLog(@"Creating bitmap context with Standard RGB settings and applying fuzzing");
+//    debugMemoryHandling();
     
-    NSLog(@"Completed image processing for permutation %d", permutation);
-}
-
-void createBitmapContextStandardRGB(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    if (verboseLogging) {
-        NSLog(@"Creating bitmap context with Standard RGB settings and applying fuzzing");
-    }
-    size_t width = CGImageGetWidth(cgImg);
-    size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 4; // 4 bytes per pixel for RGBA
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
-
-    if (!rawData) {
-        NSLog(@"Failed to allocate memory for image processing");
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
         return;
     }
 
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 8, bytesPerRow, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedFirst);
-    if (!ctx) {
-        NSLog(@"Failed to create bitmap context with Standard RGB settings");
-        free(rawData);
-        return;
-    }
-
-    if (verboseLogging) {
-        NSLog(@"Drawing image into the bitmap context");
-    }
-    CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
-
-    if (verboseLogging) {
-        NSLog(@"Applying enhanced fuzzing logic to the bitmap context");
-    }
-    applyEnhancedFuzzingToBitmapContext(rawData, width, height, ALL);  // Assume this function applies more sophisticated fuzzing
-
-    if (verboseLogging) {
-        NSLog(@"Creating CGImage from the modified bitmap context");
-    }
-    CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
-    if (!newCgImg) {
-        NSLog(@"Failed to create CGImage from context");
-    } else {
-        UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
-        CGImageRelease(newCgImg);
-
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextStandardRGB_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
-
-        if (verboseLogging) {
-            NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-            NSLog(@"Modified UIImage created successfully");
-            NSLog(@"New image size: %@, scale: %f, rendering mode: %ld",
-                  NSStringFromCGSize(newImage.size),
-                  newImage.scale,
-                  (long)newImage.renderingMode);
-        }
-    }
-
-    CGContextRelease(ctx);
-    free(rawData);
-
-    if (verboseLogging) {
-        NSLog(@"Bitmap context processing complete");
-        NSLog(@"Bitmap context with Standard RGB settings created and fuzzing applied");
-    }
-}
-
-void createBitmapContextPremultipliedFirstAlpha(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with Premultiplied First Alpha settings and applying fuzzing");
     size_t width = CGImageGetWidth(cgImg);
     size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 4; // 4 bytes per pixel for RGBA
+    size_t bytesPerRow = width * 4; // 4 bytes per pixel (RGBA)
 
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
+    unsigned char *rawData = (unsigned char *)calloc(height * bytesPerRow, sizeof(unsigned char));
     if (!rawData) {
         NSLog(@"Failed to allocate memory for image processing");
+//        debugMemoryHandling();
         return;
     }
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrderDefault;
-    
+    if (!colorSpace) {
+        NSLog(@"Failed to create color space");
+        free(rawData);
+//        debugMemoryHandling();
+        return;
+    }
+
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big;
+    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 8, bytesPerRow, colorSpace, bitmapInfo);
+
+    CGColorSpaceRelease(colorSpace);
+
+    if (!ctx) {
+        NSLog(@"Failed to create bitmap context");
+        free(rawData);
+//        debugMemoryHandling();
+        return;
+    }
+
+    CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
+
+    NSLog(@"Applying enhanced fuzzing logic to the bitmap context");
+    applyEnhancedFuzzingToBitmapContext(rawData, width, height, verboseLogging);
+
+    CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
+    if (!newCgImg) {
+        NSLog(@"Failed to create CGImage from context");
+    } else {
+        UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
+        CGImageRelease(newCgImg);
+
+        saveFuzzedImage(newImage, @"standard_rgb");
+
+        NSLog(@"Modified UIImage created and saved successfully.");
+    }
+
+    CGContextRelease(ctx);
+    free(rawData);
+//    debugMemoryHandling();
+}
+
+#pragma mark - createBitmapContextPremultipliedFirstAlpha
+
+/**
+@brief Creates a bitmap context with Premultiplied First Alpha settings and applies image processing.
+
+This function initializes a bitmap context optimized for image processing with premultiplied first alpha settings, drawing a provided CGImage into this context. It fills the allocated memory with a 0x41 pattern to facilitate debugging and security analysis by identifying unused or inefficiently managed memory regions. After processing the image, it checks for any unchanged memory areas and logs their locations, offering insights into memory utilization.
+
+@param cgImg A CGImageRef representing the source image to be transformed. Must not be NULL.
+
+@discussion Utilizing a 0x41 pattern fill and subsequent check, this function aids in debugging memory handling and potentially identifying security vulnerabilities related to buffer overflow or improper memory management. It's designed for enhanced debugging and should be used with consideration for its performance impact in production environments.
+
+Example usage:
+@code
+CGImageRef sourceImage = CGImageCreate(...); // Create or obtain a CGImageRef
+createBitmapContextPremultipliedFirstAlpha(sourceImage);
+CGImageRelease(sourceImage); // Clean up the source image if it's no longer needed
+@endcode
+
+@note Ensure that the CGImageRef provided to this function is valid. The function logs detailed information about its operation, especially detecting unchanged memory areas after processing, which can be instrumental in identifying inefficiencies or vulnerabilities.
+*/
+void createBitmapContextPremultipliedFirstAlpha(CGImageRef cgImg) {
+    NSLog(@"Creating bitmap context with Premultiplied First Alpha settings");
+
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
+        return;
+    }
+
+    size_t width = CGImageGetWidth(cgImg);
+    size_t height = CGImageGetHeight(cgImg);
+    size_t bytesPerRow = width * 4;
+
+    unsigned char *rawData = (unsigned char *)calloc(height * bytesPerRow, sizeof(unsigned char));
+    if (!rawData) {
+        NSLog(@"Failed to allocate memory for image processing");
+        return;
+    }
+
+    // Initialize memory with 0x41 pattern
+    memset(rawData, 0x41, height * bytesPerRow);
+
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    if (!colorSpace) {
+        NSLog(@"Failed to create color space");
+        free(rawData);
+        return;
+    }
+
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Big;
     CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 8, bytesPerRow, colorSpace, bitmapInfo);
     CGColorSpaceRelease(colorSpace);
 
     if (!ctx) {
-        NSLog(@"Failed to create bitmap context with Premultiplied First Alpha settings");
+        NSLog(@"Failed to create bitmap context");
         free(rawData);
         return;
     }
 
-    // Draw the image into the context
-    NSLog(@"Drawing image into the bitmap context");
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to the bitmap context");
-    applyFuzzingToBitmapContext(rawData, width, height);
+    NSLog(@"Applying enhanced fuzzing logic to the bitmap context");
+    applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES);
 
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified bitmap context");
+    // Initialize a variable to keep track of unchanged and changed bytes
+    size_t unchangedCount = 0;
+    size_t changedCount = 0;
+
+    // Check for 0x41 pattern after operations and detect changes
+    for (size_t i = 0; i < height * bytesPerRow; i++) {
+        if (rawData[i] == 0x41) {
+            unchangedCount++;
+        } else {
+            // Log the first few changes to avoid flooding the log
+            if (changedCount < 10) { // Limiting to the first 10 changes for brevity
+                NSLog(@"Detected change from 0x41 at byte offset %zu, new value: 0x%X", i, rawData[i]);
+            }
+            changedCount++;
+        }
+    }
+
+    // Summarize findings
+    if (unchangedCount > 0) {
+        NSLog(@"Detected unchanged 0x41 pattern in %zu places.", unchangedCount);
+    }
+    NSLog(@"Detected changes in %zu places.", changedCount);
+
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from context");
@@ -1478,57 +1752,93 @@ void createBitmapContextPremultipliedFirstAlpha(CGImageRef cgImg, NSString *sess
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
         CGImageRelease(newCgImg);
 
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextPremultipliedFirstAlpha_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
+        // Save the image in both PNG and JPEG formats
+        // The contextDescription now should indicate the desired format
+        saveFuzzedImage(newImage, @"premultiplied_first_alpha_png");
+        saveFuzzedImage(newImage, @"premultiplied_first_alpha_jpeg");
 
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-
-        // Log newImage details
-        NSLog(@"Modified UIImage created successfully");
-        NSLog(@"New image size: %@, scale: %f, rendering mode: %ld",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale,
-              (long)newImage.renderingMode);
+        NSLog(@"Modified UIImage created and saved successfully in both PNG and JPEG formats.");
     }
-
+    
     CGContextRelease(ctx);
     free(rawData);
-
-    NSLog(@"Bitmap context processing complete");
-    NSLog(@"Bitmap context with Premultiplied First Alpha settings created and fuzzing applied");
 }
 
-void createBitmapContextNonPremultipliedAlpha(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with Non-Premultiplied Alpha settings and applying fuzzing");
+#pragma mark - createBitmapContextNonPremultipliedAlpha
+
+/**
+@brief Creates a bitmap graphics context with Non-Premultiplied Alpha settings for processing a CGImage.
+@details Tailored for scenarios where non-premultiplied alpha handling is crucial, this function facilitates precise control over the alpha channel during image processing. It's particularly useful where premultiplication could obscure details or degrade quality. The function outlines a structured approach to creating a bitmap context that maintains the integrity of the alpha channel, applying modifications through an "enhanced fuzzing" process, and concluding with the saving of the altered image.
+
+The procedure includes validating the CGImageRef, memory allocation for pixel data, setting up a Device RGB color space, configuring bitmap context parameters for non-premultiplied alpha, image rendering, applying custom processing logic, and resource cleanup.
+
+@param cgImg The `CGImageRef` representing the image to be processed, used as the source for the bitmap context.
+
+@note
+- Emphasizes meticulous memory management to prevent leaks, including the release of the bitmap context and allocated pixel data.
+- Incorporates diagnostic logging at various stages to support debugging and ensure processing accuracy.
+
+### Process:
+1. **Validation**: Ensures the `CGImageRef` is non-null and valid for processing.
+2. **Memory Allocation**: Determines the required dimensions and allocates memory for storing the image's pixel data.
+3. **Color Space Setup**: Creates a Device RGB color space for the bitmap context, essential for accurate color reproduction.
+4. **Bitmap Context Configuration**: Establishes a bitmap context tailored for non-premultiplied alpha, specifying relevant bitmap info flags.
+5. **Image Rendering**: Draws the source CGImage into the bitmap context, preserving raw pixel data integrity.
+6. **Custom Processing**: Applies an "enhanced fuzzing" algorithm to the pixel data, modifying the image's appearance or characteristics.
+7. **Image Generation and Saving**: Converts the processed bitmap context into a new CGImage and a UIImage, saving the result with a distinctive identifier.
+8. **Resource Cleanup**: Carefully releases the bitmap context and frees the memory allocated for pixel data, ensuring no memory leaks occur.
+
+### Usage Example:
+```objective-c
+// Assuming cgImg is a valid CGImageRef
+createBitmapContextNonPremultipliedAlpha(cgImg);
+*/
+void createBitmapContextNonPremultipliedAlpha(CGImageRef cgImg) {
+    NSLog(@"Creating bitmap context with Non-Premultiplied Alpha settings");
+
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
+        return;
+    }
+
     size_t width = CGImageGetWidth(cgImg);
     size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 4; // 4 bytes per pixel for RGBA
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
+    size_t bytesPerRow = width * 4; // RGBA format
 
+    // Allocate memory for raw image data
+    unsigned char *rawData = (unsigned char *)calloc(height * bytesPerRow, sizeof(unsigned char));
     if (!rawData) {
         NSLog(@"Failed to allocate memory for image processing");
         return;
     }
 
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 8, bytesPerRow, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaLast);
-    if (!ctx) {
-        NSLog(@"Failed to create bitmap context with Non-Premultiplied Alpha settings");
+    // Create a color space for the bitmap context
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    if (!colorSpace) {
+        NSLog(@"Failed to create color space");
         free(rawData);
         return;
     }
 
-    // Draw the image into the context
-    NSLog(@"Drawing image into the bitmap context");
+    // Define bitmap info with non-premultiplied alpha
+    CGBitmapInfo bitmapInfo = kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big;
+    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 8, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+
+    if (!ctx) {
+        NSLog(@"Failed to create bitmap context");
+        free(rawData);
+        return;
+    }
+
+    // Draw the CGImage into the bitmap context
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to the bitmap context");
-    applyFuzzingToBitmapContext(rawData, width, height);
+    // Apply fuzzing logic directly to the bitmap's raw data
+    NSLog(@"Applying enhanced fuzzing logic to the bitmap context with non-premultiplied alpha");
+    applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES); // Assuming verbose logging is desired
 
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified bitmap context");
+    // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from context");
@@ -1536,56 +1846,98 @@ void createBitmapContextNonPremultipliedAlpha(CGImageRef cgImg, NSString *sessio
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
         CGImageRelease(newCgImg);
 
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextNonPremultipliedAlpha_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
+        // Save the fuzzed image with a context-specific identifier
+        saveFuzzedImage(newImage, @"non_premultiplied_alpha");
 
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-
-        // Log newImage details
-        NSLog(@"Modified UIImage created successfully");
-        NSLog(@"New image size: %@, scale: %f, rendering mode: %ld",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale,
-              (long)newImage.renderingMode);
+        NSLog(@"Modified UIImage with non-premultiplied alpha created and saved successfully.");
     }
 
+    // Cleanup
     CGContextRelease(ctx);
     free(rawData);
-
-    NSLog(@"Bitmap context with Non-Premultiplied Alpha settings created and fuzzing applied");
 }
 
-void createBitmapContext16BitDepth(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with 16-bit Depth settings and applying fuzzing");
+#pragma mark - createBitmapContext16BitDepth
+
+/**
+@brief Creates a bitmap graphics context for 16-bit depth per channel processing.
+@details This function is tailored for scenarios requiring high color fidelity, utilizing 16-bit depth per channel to enhance color range and reduce artifacts. It's ideal for high-quality image processing and editing, ensuring the highest fidelity in color information. The process involves validating the source image, allocating a memory buffer with adequate depth, setting up a suitable color space, configuring and rendering into the bitmap context, applying custom image processing, and managing resources efficiently.
+
+@param cgImg The `CGImageRef` representing the source image for processing in the 16-bit depth bitmap context.
+
+@note
+- Prioritizes detailed logging for debugging and error tracking, particularly useful given the function's complexity and higher memory demands.
+- Includes commented-out sections for memory diagnostics, indicating a considered approach to monitoring and managing memory usage in high-depth processing scenarios.
+
+### Process:
+1. **Input Validation**: Checks the `CGImageRef` for nullity, logging any errors encountered.
+2. **Dimension Calculation**: Determines the necessary dimensions for the bitmap context and pixel data buffer based on the source image's size.
+3. **Memory Allocation**: Allocates memory for the raw pixel data, factoring in the increased requirements for 16-bit depth per channel.
+4. **Color Space Creation**: Establishes a Device RGB color space to ensure accurate color reproduction within the context.
+5. **Bitmap Context Configuration**: Sets up the bitmap context to support 16-bit depth per color channel, including considerations for premultiplied alpha.
+6. **Image Rendering**: Captures the source CGImage within the bitmap context, maintaining high color depth.
+7. **Custom Processing**: Applies an "enhanced fuzzing" algorithm to the high-depth pixel data, with an emphasis on thorough diagnostic logging.
+8. **Image Generation and Saving**: Creates a new CGImage from the context, encapsulates it in a UIImage, and saves the result, denoting its 16-bit depth processing.
+9. **Resource Cleanup**: Ensures the release of all allocated resources, including the bitmap context and pixel data buffer, to maintain operational cleanliness.
+
+### Usage Example:
+```objective-c
+// Assuming cgImg is a valid CGImageRef
+createBitmapContext16BitDepth(cgImg);
+*/
+void createBitmapContext16BitDepth(CGImageRef cgImg) {
+    NSLog(@"Creating bitmap context with 16-bit depth per channel");
+
+    // Pre-operation memory diagnostic
+//    debugMemoryHandling();
+
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
+        return;
+    }
+
     size_t width = CGImageGetWidth(cgImg);
     size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 8; // 8 bytes per pixel for 16-bit RGBA
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
+    // Considering 8 bytes per pixel (2 bytes per component * 4 components: RGBA)
+    size_t bytesPerRow = width * 8;
 
+    // Allocate memory for raw image data
+    unsigned char *rawData = (unsigned char *)calloc(height * bytesPerRow, sizeof(unsigned char));
     if (!rawData) {
         NSLog(@"Failed to allocate memory for image processing");
+//        debugMemoryHandling(); // Post-failure diagnostic
         return;
     }
 
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 16, bytesPerRow, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedFirst);
-    if (!ctx) {
-        NSLog(@"Failed to create bitmap context with 16-bit Depth settings");
+    // Create a color space for the bitmap context
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    if (!colorSpace) {
+        NSLog(@"Failed to create color space");
         free(rawData);
+//        debugMemoryHandling(); // Diagnostic before early exit
         return;
     }
 
-    // Draw the image into the context
-    NSLog(@"Drawing image into the bitmap context");
+    // Define bitmap info for 16-bit depth per channel
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapByteOrderDefault;
+    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 16, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+
+    if (!ctx) {
+        NSLog(@"Failed to create bitmap context");
+        free(rawData);
+//        debugMemoryHandling(); // Diagnostic if context creation fails
+        return;
+    }
+
+    // Draw the CGImage into the bitmap context
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to the bitmap context");
-    applyFuzzingToBitmapContext(rawData, width, height);
+    // Apply fuzzing logic directly to the bitmap's raw data
+    NSLog(@"Applying enhanced fuzzing logic to the bitmap context with 16-bit depth");
+    applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES); // Assuming verbose logging is desired
 
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified bitmap context");
+    // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from context");
@@ -1593,423 +1945,573 @@ void createBitmapContext16BitDepth(CGImageRef cgImg, NSString *sessionDirectory,
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
         CGImageRelease(newCgImg);
 
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContext16BitDepth_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
+        // Save the fuzzed image with a context-specific identifier
+        saveFuzzedImage(newImage, @"16bit_depth");
 
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-
-        // Log newImage details
-        NSLog(@"Modified UIImage created successfully");
-        NSLog(@"New image size: %@, scale: %f, rendering mode: %ld",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale,
-              (long)newImage.renderingMode);
+        NSLog(@"Modified UIImage with 16-bit depth created and saved successfully.");
     }
 
+    // Cleanup
     CGContextRelease(ctx);
     free(rawData);
-
-    NSLog(@"Bitmap context with 16-bit Depth settings created and fuzzing applied");
+//    debugMemoryHandling(); // Post-operation diagnostic
 }
+
+#pragma mark - createBitmapContextGrayscale
 
 void createBitmapContextGrayscale(CGImageRef cgImg) {
     NSLog(@"Grayscale image processing is not yet implemented.");
     // No further processing or memory allocations
 }
 
-void createBitmapContextHDRFloatComponents(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with HDR Float Components settings and applying fuzzing");
-    size_t width = CGImageGetWidth(cgImg);
-    size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 16; // 16 bytes per pixel for HDR RGBA (4 components x 4 bytes per component)
+#pragma mark - createBitmapContextHDRFloatComponents
 
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
-    if (!rawData) {
-        NSLog(@"Failed to allocate memory for HDR image processing");
+/**
+@brief Initializes a bitmap context for HDR content with floating-point components.
+@details This function is pivotal for handling High Dynamic Range (HDR) images, enabling the precise manipulation of extended color and brightness ranges. By employing floating-point components and an HDR-compatible color space, it facilitates the processing of images with significantly broader luminance and color gamut than traditional 8-bit or 16-bit formats allow. The function outlines steps for validating the source image, allocating memory for HDR data, setting up an HDR-compatible color space and bitmap context, and applying custom image processing.
+
+@param cgImg The `CGImageRef` representing the source image for processing in the HDR bitmap context.
+
+@note
+- The function's design caters to advanced image processing experiments, including dynamic manipulation and fuzzing based on varying data inputs.
+- Assumes the use of a mechanism to cycle through predefined strings for the fuzzing process, illustrating the method's adaptability to different parameters or data influences.
+
+### Process:
+1. **Input Validation**: Confirms the `CGImageRef` is valid and not null.
+2. **Memory Allocation**: Allocates a buffer for floating-point raw data, accounting for HDR's extensive data size requirements.
+3. **Color Space Creation**: Initiates an HDR-compatible color space (`kCGColorSpaceExtendedLinearSRGB`) to accurately handle HDR images' expanded gamut and luminance.
+4. **Bitmap Context Setup**: Configures the bitmap context with 32 bits per component in floating-point format, suitable for HDR content's nuanced representation.
+5. **Image Rendering**: Draws the source CGImage into the context, ensuring it captures the high precision of HDR.
+6. **Custom Processing**: Applies a custom fuzzing process to the bitmap data, using predefined strings to demonstrate or test specific effects.
+7. **Image Generation and Saving**: Creates a new CGImage from the modified context, then a UIImage, facilitating its use within UIKit applications. Saves the processed image with a relevant identifier.
+8. **Resource Cleanup**: Releases all allocated resources, including the color space, bitmap context, and memory buffer, to prevent memory leaks.
+
+### Usage Example:
+```objective-c
+// Assuming cgImg is a valid CGImageRef
+createBitmapContextHDRFloatComponents(cgImg);
+*/
+void createBitmapContextHDRFloatComponents(CGImageRef cgImg) {
+    NSLog(@"Creating bitmap context with HDR and floating-point components");
+
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
         return;
     }
 
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 32, bytesPerRow, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents);
-    if (!ctx) {
-        NSLog(@"Failed to create bitmap context with HDR Float Components settings");
+    size_t width = CGImageGetWidth(cgImg);
+    size_t height = CGImageGetHeight(cgImg);
+    size_t bytesPerRow = width * 16; // Considering 16 bytes per pixel for HDR
+
+    // Allocate memory for raw image data
+    float *rawData = (float *)calloc(height * bytesPerRow, sizeof(float));
+    if (!rawData) {
+        NSLog(@"Failed to allocate memory for image processing");
+        return;
+    }
+
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
+    if (!colorSpace) {
+        NSLog(@"Failed to create HDR color space");
         free(rawData);
         return;
     }
 
-    // Draw the image into the context
-    NSLog(@"Drawing image into the HDR bitmap context");
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents | kCGBitmapByteOrder32Little;
+    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 32, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+
+    if (!ctx) {
+        NSLog(@"Failed to create bitmap context for HDR");
+        free(rawData);
+        return;
+    }
+
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to the HDR bitmap context");
-    applyFuzzingToBitmapContext(rawData, width, height);
+    NSLog(@"Applying enhanced fuzzing logic to the HDR bitmap context");
 
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified HDR bitmap context");
+    // Cycle through injection strings or select based on specific criteria
+    static int currentStringIndex = 0; // Example: simple cycling mechanism
+    applyEnhancedFuzzingToBitmapContextWithFloats(rawData, width, height, YES);
+    currentStringIndex = (currentStringIndex + 1) % NUMBER_OF_STRINGS; // Move to the next string for the next call
+
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from HDR context");
     } else {
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
         CGImageRelease(newCgImg);
-        
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextHDRFloatComponents_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
 
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-
-        // Here, newImage contains the modified HDR image
-        // You can log or use newImage as needed
-        NSLog(@"Modified HDR UIImage created successfully");
-
-        // Example: Logging newImage details
-        NSLog(@"New HDR image size: %@, scale: %f",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale);
+        saveFuzzedImage(newImage, @"hdr_float");
+        NSLog(@"Modified UIImage with HDR and floating-point components created and saved successfully.");
     }
 
     CGContextRelease(ctx);
     free(rawData);
-
-    NSLog(@"Bitmap context with HDR Float Components settings created and fuzzing applied");
 }
 
-void createBitmapContextAlphaOnly(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with Alpha Only settings");
+#pragma mark - createBitmapContextAlphaOnly
+
+/**
+@brief Creates a bitmap context for alpha channel manipulation of a CGImageRef.
+@details This function is specifically designed for scenarios requiring isolated handling of image transparency, excluding color data. It supports applications in graphics editing, custom rendering, and transparency management by focusing exclusively on the alpha channel. The function validates the source image, configures a dedicated bitmap context for alpha data, applies custom modifications to transparency levels, and manages resource cleanup effectively.
+
+@param cgImg The `CGImageRef` representing the source image from which the alpha channel will be extracted and processed.
+
+Implementation Notes:
+- Assumes the presence of an alpha channel in the input image. In the absence of transparency in the source image, extracted alpha data may lack significance.
+- References the `applyEnhancedFuzzingToBitmapContextAlphaOnly` function for specific alpha data manipulation, aimed at testing or enhancing transparency effects.
+- Highlighting the challenge of utilizing processed alpha data for image reconstruction, as this operation concentrates on transparency without color components.
+- Includes indications for `debugMemoryHandling` to facilitate memory management diagnostics, crucial for optimizing resource use in constrained environments.
+
+### Process:
+1. **Input Validation**: Ensures the `CGImageRef` is suitable for transparency extraction and processing.
+2. **Dimension Retrieval**: Accurately configures the bitmap context based on the source image's dimensions.
+3. **Memory Allocation**: Dedicates a memory buffer for storing alpha data, reflecting opacity with one byte per pixel.
+4. **Bitmap Context Creation**: Establishes a context focused on alpha channel information, omitting color space configuration.
+5. **Alpha Extraction**: Draws the source image into the context, isolating the alpha channel data.
+6. **Transparency Manipulation**: Applies custom fuzzing to the alpha data, adjusting transparency for specific effects or testing.
+7. **Resource Cleanup**: Releases the bitmap context and alpha data array, ensuring no memory leaks.
+
+### Usage Example:
+```objective-c
+// Assuming cgImg is a valid CGImageRef with an alpha channel
+createBitmapContextAlphaOnly(cgImg);
+*/
+void createBitmapContextAlphaOnly(CGImageRef cgImg) {
+    NSLog(@"Creating bitmap context for Alpha channel only");
+
+    // Pre-operation memory diagnostic
+//    debugMemoryHandling();
+
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
+        return;
+    }
+
     size_t width = CGImageGetWidth(cgImg);
     size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width *16; // Need to check spec for bits
+    size_t bytesPerRow = width; // 1 byte per pixel for Alpha only
 
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
-    if (!rawData) {
-        NSLog(@"Failed to allocate memory for Alpha Only image processing");
+    // Allocate memory for raw alpha data
+    unsigned char *alphaData = (unsigned char *)calloc(height * bytesPerRow, sizeof(unsigned char));
+    if (!alphaData) {
+        NSLog(@"Failed to allocate memory for alpha channel processing");
+//        debugMemoryHandling(); // Post-failure diagnostic
         return;
     }
 
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 8, width, NULL, kCGImageAlphaOnly);
+    // Since we're dealing with alpha only, no color space is required
+    // Adjusting bitmap info to accommodate alpha data correctly
+    CGBitmapInfo bitmapInfo = kCGImageAlphaOnly | kCGBitmapByteOrderDefault;
+
+    CGContextRef ctx = CGBitmapContextCreate(alphaData, width, height, 8, bytesPerRow, NULL, bitmapInfo);
+
     if (!ctx) {
-        NSLog(@"Failed to create bitmap context with Alpha Only settings");
+        NSLog(@"Failed to create bitmap context for Alpha channel");
+        free(alphaData);
+//        debugMemoryHandling(); // Diagnostic if context creation fails
         return;
     }
-    
-    // Draw the image into the context
-    NSLog(@"Drawing image into the Alpha Only bitmap context");
+
+    // Drawing the alpha channel into the context
+    // Assuming the cgImg already contains the alpha channel we want to process
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to theAlpha Only bitmap context");
-    applyFuzzingToBitmapContext(rawData, width, height);
+    // Apply fuzzing logic directly to the alpha data
+    NSLog(@"Applying enhanced fuzzing logic to the Alpha-only bitmap context");
+    // Note: The applyEnhancedFuzzingToBitmapContext function needs to be adjusted to work with alphaData
+    applyEnhancedFuzzingToBitmapContextAlphaOnly(alphaData, width, height, YES); // Assuming verbose logging is desired
 
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified Alpha Only bitmap context");
-    CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
-    if (!newCgImg) {
-        NSLog(@"Failed to create CGImage from Alpha Only context");
-    } else {
-        UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
-        CGImageRelease(newCgImg);
+    // Creating a new image from the modified context might not be directly applicable
+    // as we're dealing with alpha channel only. Further processing might be required
+    // to utilize this alpha data with another image or for masking.
 
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextAlphaOnly_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
-
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-
-    NSLog(@"Bitmap context with Alpha Only settings created successfully");
-    
-    // Example: Logging newImage details
-        NSLog(@"New Alpha Only image size: %@, scale: %f",
-        NSStringFromCGSize(newImage.size),
-        newImage.scale);
-    }
-
+    // Cleanup and resource management
     CGContextRelease(ctx);
-    free(rawData);
+    free(alphaData);
+//    debugMemoryHandling(); // Post-operation diagnostic
 
-    NSLog(@"Bitmap context with Alpha Only settings created and fuzzing applied");
+    NSLog(@"Alpha-only bitmap context processing completed.");
 }
 
-void createBitmapContext1BitMonochrome(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with 1-bit Monochrome settings");
-    size_t width = CGImageGetWidth(cgImg);
-    size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = ceil((double)width / 8.0); // 1 byte = 8 pixels in 1-bit Monochrome
+#pragma mark - createBitmapContext1BitMonochrome
 
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
-    if (!rawData) {
-        NSLog(@"Failed to allocate memory for 1-bit Monochrome image processing");
+/**
+@brief Creates a bitmap context for 1-bit monochrome image processing.
+@details This function is crafted for applications that convert color or grayscale images to monochrome using a 1-bit per pixel format. It's particularly suited for environments where reducing data size is crucial, such as in low-bandwidth or memory-constrained situations, or to achieve a certain aesthetic. The function covers the process from validating the input image, through creating a monochrome bitmap context, to finalizing and releasing resources.
+
+@param cgImg The `CGImageRef` representing the source image to be converted to 1-bit monochrome.
+
+Note:
+- The conversion might incorporate techniques like dithering, contrast adjustments, or edge enhancement to optimize the monochrome output. This description assumes a basic approach but acknowledges the potential for more complex processing strategies tailored to specific requirements.
+
+### Process:
+1. **Input Validation**: Confirms the `CGImageRef` is valid and non-null.
+2. **Dimension and Byte Calculation**: Sets up the bitmap context based on the source image's dimensions and calculates the minimum bytes per row for 1-bit data.
+3. **Bitmap Context Creation**: Establishes a monochrome bitmap context without a color space or alpha channel.
+4. **Background Initialization**: Prepares the bitmap with a white background for consistent monochrome conversion.
+5. **Image Drawing**: Renders the input image into the context, initiating the conversion to 1-bit color depth.
+6. **Bitmap Manipulation**: Directly adjusts the bitmap data to refine the monochrome output as needed.
+7. **CGImage Generation**: Produces a new CGImage reflecting the monochrome conversion.
+8. **UIImage Creation**: Converts the new CGImage into a UIImage for UIKit compatibility or additional processing.
+9. **Optional Saving**: Tags and saves the monochrome image for easy storage or retrieval.
+10. **Resource Cleanup**: Ensures the release of the bitmap context and any other allocated resources.
+
+### Usage Example:
+```objective-c
+// Assuming cgImg is a valid CGImageRef
+createBitmapContext1BitMonochrome(cgImg);
+*/
+void createBitmapContext1BitMonochrome(CGImageRef cgImg) {
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
         return;
     }
 
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 1, bytesPerRow, NULL, kCGImageAlphaNone);
+    NSLog(@"Creating bitmap context with 1-bit Monochrome settings");
+
+    size_t width = CGImageGetWidth(cgImg);
+    size_t height = CGImageGetHeight(cgImg);
+    // Calculate bytes per row for 1 bit per pixel, rounded up to the nearest byte
+    size_t bytesPerRow = (width + 7) / 8; // Round up to account for partial bytes
+    CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 1, bytesPerRow, NULL, kCGImageAlphaNone);
     if (!ctx) {
         NSLog(@"Failed to create bitmap context with 1-bit Monochrome settings");
-        free(rawData);
         return;
     }
 
-    NSLog(@"Drawing image into the 1-bit Monochrome bitmap context");
+    // Set the fill color to white and fill the context to start with a blank slate
+    CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextFillRect(ctx, CGRectMake(0, 0, width, height));
+
+    // Draw the CGImage into the bitmap context, adjusting it to fit the 1-bit color depth
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    NSLog(@"Applying fuzzing logic to 1-bit Monochrome bitmap context");
-    applyFuzzingToBitmapContext(rawData, width, height);
+    // Access the raw pixel data
+    unsigned char *rawData = CGBitmapContextGetData(ctx);
+    if (rawData) {
+        NSLog(@"Converting bitmap data to 1-bit Monochrome");
+        convertTo1BitMonochrome(rawData, width, height);
+    }
 
-    NSLog(@"Creating CGImage from the modified 1-bit Monochrome bitmap context");
+    // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from 1-bit Monochrome context");
     } else {
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
-        CGImageRelease(newCgImg);
+        CGImageRelease(newCgImg); // Release the created CGImage
 
-        // Save the fuzzed image
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContext1BitMonochrome_fuzzed_image_1bit_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
-
-        NSLog(@"Fuzzed 1-bit Monochrome image saved at: %@", fuzzedImagePath);
-        NSLog(@"New 1-bit Monochrome image size: %@, scale: %f",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale);
+        // Save the monochrome image with a context-specific identifier
+        saveMonochromeImage(newImage, @"1Bit_Monochrome");
+        NSLog(@"Modified UIImage with 1-bit Monochrome settings created and saved successfully.");
     }
 
+    NSLog(@"Bitmap context with 1-bit Monochrome settings created and handled successfully");
     CGContextRelease(ctx);
-    free(rawData);
-
-    NSLog(@"Bitmap context with 1-bit Monochrome settings created and fuzzing applied");
 }
 
-void createBitmapContextBigEndian(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
+#pragma mark - createBitmapContextBigEndian
+
+/**
+@brief Creates a bitmap context with Big Endian byte ordering for image data processing.
+@details This function is designed for scenarios where Big Endian representation is crucial for the consistency of pixel color data in memory, particularly in systems or applications expecting this byte order. It validates the input image, establishes an appropriate RGB color space, configures a bitmap context for Big Endian processing, applies an "enhanced fuzzing logic" to the pixel data for testing or artistic purposes, and finalizes the process by releasing resources and saving the modified image.
+
+@param cgImg The `CGImageRef` representing the original image for processing. It is essential that this image is not null to proceed with the transformation.
+
+### Process:
+1. **Input Validation**: Ensures the `CGImageRef` provided is valid and not null.
+2. **Color Space Creation**: Sets up a color space suitable for RGB data manipulation.
+3. **Bitmap Context Configuration**: Initiates a bitmap context with Big Endian byte ordering to prioritize the most significant byte in pixel color data.
+4. **Image Rendering**: Draws the original image into the configured bitmap context, preparing for data manipulation.
+5. **Pixel Data Fuzzing**: Applies an "enhanced fuzzing logic" directly to the raw pixel data, aiming to test algorithm resilience, simulate effects, or introduce noise.
+6. **CGImage Generation**: Creates a new CGImage from the context to encapsulate the modifications.
+7. **Resource Cleanup**: Releases the color space, bitmap context, and any other allocated resources to ensure efficient memory management.
+8. **Image Saving**: Marks the transformation's completion by saving the modified image with a unique identifier.
+
+### Usage Example:
+```objective-c
+// Assuming cgImg is a valid CGImageRef
+createBitmapContextBigEndian(cgImg);
+*/
+void createBitmapContextBigEndian(CGImageRef cgImg) {
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
+        return;
+    }
+
     NSLog(@"Creating bitmap context with Big Endian settings");
+
     size_t width = CGImageGetWidth(cgImg);
     size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 16; // need to check Spec
-
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
-    if (!rawData) {
-        NSLog(@"Failed to allocate memory for Big Endian processing");
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); // Create color space
+    if (!colorSpace) {
+        NSLog(@"Failed to create color space for Big Endian settings");
         return;
     }
 
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 32, bytesPerRow, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents);
+    CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace); // Release the color space object
+
     if (!ctx) {
         NSLog(@"Failed to create bitmap context with Big Endian settings");
-        free(rawData);
         return;
     }
 
-    // Draw the image into the context
-    NSLog(@"Drawing image into the Big Endian context");
+    // Draw the CGImage into the bitmap context
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to the Big Endian context");
-    applyFuzzingToBitmapContext(rawData, width, height);
+    // Access the raw pixel data
+    unsigned char *rawData = CGBitmapContextGetData(ctx);
+    if (rawData) {
+        NSLog(@"Applying enhanced fuzzing logic to the Big Endian bitmap context");
+        applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES);
+    }
 
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified Big Endian context");
+    // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from Big Endian context");
     } else {
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
-        CGImageRelease(newCgImg);
+        CGImageRelease(newCgImg); // Release the created CGImage
 
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextBigEndian_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
-
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-        
-        // Here, newImage contains the modified HDR image
-        // You can log or use newImage as needed
-        NSLog(@"Modified Big Endian created successfully");
-
-        // Example: Logging newImage details
-        NSLog(@"New Big Endian image size: %@, scale: %f",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale);
+        // Save the fuzzed image with a context-specific identifier
+        saveFuzzedImage(newImage, @"Big_Endian");
+        NSLog(@"Modified UIImage with Big Endian settings created and saved successfully.");
     }
 
-    CGContextRelease(ctx);
-    free(rawData);
-
-    NSLog(@"Bitmap context with Big Endian settings created and fuzzing applied");
+    NSLog(@"Bitmap context with Big Endian settings created and handled successfully");
+    CGContextRelease(ctx); // Release the bitmap context
 }
 
-void createBitmapContextLittleEndian(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with Little Endian settings");
-    size_t width = CGImageGetWidth(cgImg);
-    size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 16; // need to check Spec
-    
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
-    if (!rawData) {
-        NSLog(@"Failed to allocate memory for Big Endian processing");
+#pragma mark - createBitmapContextLittleEndian
+
+/**
+@brief Initializes a bitmap context with Little Endian settings for image data processing.
+@details This function focuses on preparing and manipulating a bitmap graphics context optimized for Little Endian byte ordering, suitable for systems and applications that require the least significant byte to be stored first. It involves creating an RGB color space, setting up the bitmap context for Little Endian processing, applying predefined fuzzing algorithms to pixel data, and finalizing the modified image. The process is aimed at testing image processing capabilities, creating visual effects, or introducing distortions through direct pixel manipulation.
+
+@param cgImg The `CGImageRef` representing the image to be processed, which must not be null to ensure successful transformation.
+
+### Process:
+1. **Input Validation**: Confirms that the provided `CGImageRef` is valid and non-null.
+2. **Color Space and Context Setup**: Establishes an RGB color space and creates a bitmap context tailored for Little Endian byte ordering.
+3. **Image Drawing and Pixel Manipulation**: Renders the original image into the context, then employs "enhanced fuzzing logic" for direct pixel data alteration.
+4. **CGImage Creation**: Generates a new CGImage from the modified bitmap context, capturing the changes.
+5. **Resource Management**: Releases the color space and bitmap context to manage memory usage effectively.
+6. **Image Saving**: Completes the modification process by saving the altered image with a specific identifier, integrating external routines for saving and potentially additional processing.
+
+### Usage Example:
+```objective-c
+// Assuming cgImg is a valid CGImageRef
+createBitmapContextLittleEndian(cgImg);
+*/
+void createBitmapContextLittleEndian(CGImageRef cgImg) {
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
         return;
     }
-    
-    CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 8, width * 4, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+
+    NSLog(@"Creating bitmap context with Little Endian settings");
+
+    size_t width = CGImageGetWidth(cgImg);
+    size_t height = CGImageGetHeight(cgImg);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); // Create color space
+    if (!colorSpace) {
+        NSLog(@"Failed to create color space for Little Endian settings");
+        return;
+    }
+
+    CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+    CGColorSpaceRelease(colorSpace); // Release the color space object
+
     if (!ctx) {
         NSLog(@"Failed to create bitmap context with Little Endian settings");
         return;
     }
-    // Draw the image into the context
-    NSLog(@"Drawing image into the Little Endian context");
+
+    // Draw the CGImage into the bitmap context
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to the Little Endian context");
-    applyFuzzingToBitmapContext(rawData, width, height);
+    // Access the raw pixel data
+    unsigned char *rawData = CGBitmapContextGetData(ctx);
+    if (rawData) {
+        NSLog(@"Applying enhanced fuzzing logic to the Little Endian bitmap context");
+        applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES);
+    }
 
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified Little Endian context");
+    // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from Little Endian context");
     } else {
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
-        CGImageRelease(newCgImg);
+        CGImageRelease(newCgImg); // Release the created CGImage
 
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContextLittleEndian_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
-
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-        
-        // Here, newImage contains the modified HDR image
-        // You can log or use newImage as needed
-        NSLog(@"Modified Little Endian created successfully");
-
-        // Example: Logging newImage details
-        NSLog(@"New Little Endian image size: %@, scale: %f",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale);
+        // Save the fuzzed image with a context-specific identifier
+        saveFuzzedImage(newImage, @"Little_Endian");
+        NSLog(@"Modified UIImage with Little Endian settings created and saved successfully.");
     }
 
-    CGContextRelease(ctx);
-    free(rawData);
-
-    NSLog(@"Bitmap context with Little Endian settings created and fuzzing applied");
+    NSLog(@"Bitmap context with Little Endian settings created successfully");
+    CGContextRelease(ctx); // Release the bitmap context
 }
 
-void createBitmapContext8BitInvertedColors(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with 8-bit depth, inverted colors");
-    size_t width = CGImageGetWidth(cgImg);
-    size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 8; // need to check Spec
-    
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
-    if (!rawData) {
-        NSLog(@"Failed to allocate memory for 8-bit depth, inverted colors processing");
+#pragma mark - createBitmapContext8BitInvertedColors
+
+/**
+@brief Transforms the color representation of an image by inverting its colors and applying an 8-bit color depth.
+
+@discussion This function is designed for manipulating a bitmap graphics context to invert the RGB values of each pixel in a given CGImageRef, while keeping the alpha channel unchanged. It applies an "enhanced fuzzing logic" to the modified pixel data, making it suitable for creating visual negatives, enhancing image contrast, or evaluating the robustness of image processing algorithms. The color inversion process creates complementary colors for each pixel, offering a straightforward method for achieving visual effects or testing.
+
+The setup includes configuring a bitmap context optimized for color inversion and specifying byte order and alpha channel handling. It involves iterating over raw pixel data for manual color inversion and integrating enhanced fuzzing routines for further pixel manipulation. The function concludes by generating a new CGImage that encapsulates all modifications, which is then saved with a unique identifier.
+
+Resource management is a key aspect, ensuring efficient memory use and necessitating the implementation of fuzzing and saving routines elsewhere within the application's codebase.
+
+@param cgImg The CGImageRef representing the source image to be transformed. This parameter must not be NULL to ensure proper function execution.
+
+@note Utilizing this function requires careful consideration of the source image's format and the intended outcome, particularly in terms of color depth and the specific effects of the enhanced fuzzing logic. The reliance on external methods for the fuzzing process and saving the modified image highlights the need for a comprehensive approach to image processing within the application.
+
+Example Usage:
+@code
+CGImageRef sourceImage = ...; // Assume this is a valid CGImageRef
+createBitmapContextForColorInversionAndFuzzing(sourceImage);
+@endcode
+*/
+void createBitmapContext8BitInvertedColors(CGImageRef cgImg) {
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
         return;
     }
-    
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 8, width * 4, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Little);
+
+    NSLog(@"Creating bitmap context with 8-bit depth, inverted colors");
+
+    size_t width = CGImageGetWidth(cgImg);
+    size_t height = CGImageGetHeight(cgImg);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); // Create color space
+    if (!colorSpace) {
+        NSLog(@"Failed to create color space for 8-bit depth, inverted colors");
+        return;
+    }
+
+    CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 8, width * 4, colorSpace, kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Little);
+    CGColorSpaceRelease(colorSpace); // Release the color space object
+
     if (!ctx) {
         NSLog(@"Failed to create bitmap context with 8-bit depth, inverted colors");
         return;
     }
-    // Draw the image into the context
-    NSLog(@"Drawing image into the 8-bit depth, inverted colors context");
+
+    // Draw the CGImage into the bitmap context
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
-    
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to the 8-bit depth, inverted colors context");
-    applyFuzzingToBitmapContext(rawData, width, height);
-    
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified 8-bit depth, inverted colors context");
+
+    // Access the raw pixel data
+    unsigned char *rawData = CGBitmapContextGetData(ctx);
+    if (rawData) {
+        // Invert colors for each pixel
+        for (size_t i = 0; i < width * height * 4; i += 4) {
+            rawData[i] = 255 - rawData[i]; // Invert Red
+            rawData[i + 1] = 255 - rawData[i + 1]; // Invert Green
+            rawData[i + 2] = 255 - rawData[i + 2]; // Invert Blue
+            // Alpha is skipped
+        }
+
+        // Apply enhanced fuzzing with string injection logic
+        applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES);
+    }
+
+    // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
-        NSLog(@"Failed to create CGImage from 8-bit depth, inverted colors context");
+        NSLog(@"Failed to create CGImage from 8-bit depth, inverted colors");
     } else {
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
-        CGImageRelease(newCgImg);
+        CGImageRelease(newCgImg); // Release the created CGImage
 
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContext8BitInvertedColors_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
-
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-        
-        // Here, newImage contains the modified HDR image
-        // You can log or use newImage as needed
-        NSLog(@"Modified 8-bit depth, inverted colors created successfully");
-        
-        // Example: Logging newImage details
-        NSLog(@"New 8-bit depth, inverted colors image size: %@, scale: %f",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale);
+        // Save the fuzzed image with a specific identifier
+        saveFuzzedImage(newImage, @"8Bit_InvertedColors");
+        NSLog(@"Modified UIImage with createBitmapContext8BitInvertedColors settings created and saved successfully.");
     }
-    
-    CGContextRelease(ctx);
-    free(rawData);
-    
-    NSLog(@"Bitmap context with 8-bit depth, inverted colors settings created and fuzzing applied");
+
+    CGContextRelease(ctx); // Release the bitmap context
 }
-    
-void createBitmapContext32BitFloat4Component(CGImageRef cgImg, NSString *sessionDirectory, int permutation) {
-    NSLog(@"Creating bitmap context with 32-bit float, 4-component settings");
-    size_t width = CGImageGetWidth(cgImg);
-    size_t height = CGImageGetHeight(cgImg);
-    size_t bytesPerRow = width * 32; // need to check Spec
-    
-    unsigned char *rawData = (unsigned char *)malloc(height * bytesPerRow);
-    if (!rawData) {
-        NSLog(@"Failed to allocate memory for 32-bit float, 4-component processing");
+
+#pragma mark - Bitmap Context Creation with os_signpost Logging
+
+// Define a log object for os_signpost
+static os_log_t createBitmapContextLog;
+
+/**
+ Creates a bitmap graphics context optimized for 32-bit floating-point components, suitable for high dynamic range (HDR) image processing.
+
+ This function establishes a bitmap graphics context with advanced capabilities for detailed image manipulation, including color grading and exposure adjustments. It's tailored for scenarios requiring extended dynamic range and precision. Performance logging with `os_signpost` aids in performance analysis, providing insights into execution time and potential bottlenecks.
+
+ @param cgImg A `CGImageRef` representing the source image. This image is used as the basis for creating the bitmap context. The image must not be `NULL`.
+
+ @discussion The function initializes an `os_log_t` object for logging and uses `os_signpost` to mark the start and end of the bitmap context creation process. It configures the context for 32-bit floating-point components in the RGBA color model, ensuring high-fidelity image processing. If the creation fails at any step, such as failing to create the color space or the context itself, the function logs an error and exits early.
+
+ Example usage:
+ ```objective-c
+ CGImageRef sourceImage = [UIImage imageNamed:@"example.png"].CGImage;
+ createBitmapContext32BitFloat4Component(sourceImage);
+@note Ensure the source image (cgImg) is valid before passing it to this function. The "cx.srd.xnuimagefuzzer" identifier in os_log_create should be replaced with your actual reverse DNS to avoid logging conflicts.
+*/
+void createBitmapContext32BitFloat4Component(CGImageRef cgImg) {
+    static dispatch_once_t onceToken;
+    static os_log_t createBitmapContextLog;
+    dispatch_once(&onceToken, ^{
+        createBitmapContextLog = os_log_create("cx.srd.xnuimagefuzzer", "CreateBitmapContext");
+    });
+
+    os_signpost_id_t spid = os_signpost_id_generate(createBitmapContextLog);
+    os_signpost_event_emit(createBitmapContextLog, spid, "Start creating bitmap context");
+
+    if (!cgImg) {
+        NSLog(@"Invalid CGImageRef provided.");
         return;
     }
-    
-    CGContextRef ctx = CGBitmapContextCreate(rawData, width, height, 32, width * 16, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents);
+
+    NSLog(@"Creating bitmap context with 32-bit float, 4-component settings");
+
+    size_t width = CGImageGetWidth(cgImg);
+    size_t height = CGImageGetHeight(cgImg);
+    size_t bytesPerRow = width * 4 * sizeof(float);
+
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    if (!colorSpace) {
+        NSLog(@"Failed to create color space");
+        return;
+    }
+
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents;
+    CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 32, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+
     if (!ctx) {
         NSLog(@"Failed to create bitmap context with 32-bit float, 4-component settings");
         return;
     }
-    // Draw the image into the context
-    NSLog(@"Drawing image into the 32-bit float, 4-component context");
+
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
-    
-    // Apply fuzzing logic
-    NSLog(@"Applying fuzzing logic to the 32-bit float, 4-component context");
-    applyFuzzingToBitmapContext(rawData, width, height);
-    
-    // Optionally, you can convert back to UIImage to see the result
-    NSLog(@"Creating CGImage from the modified 32-bit float, 4-component context");
+
+    NSLog(@"Applying enhanced fuzzing logic to the bitmap context");
+    // Placeholder for enhanced fuzzing logic application. Implement this function based on your fuzzing requirements.
+    applyEnhancedFuzzingToBitmapContextWithFloats((float*)CGBitmapContextGetData(ctx), width, height, YES);
+
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
-        NSLog(@"Failed to create CGImage from 8-bit depth, 32-bit float, 4-component context");
+        NSLog(@"Failed to create CGImage from context");
     } else {
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
         CGImageRelease(newCgImg);
-        
-        // Save the fuzzed image in the session directory
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        NSString *fuzzedImagePath = [sessionDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"BitmapContext32BitFloat4Component_fuzzed_image_%d.png", permutation]];
-        [imageData writeToFile:fuzzedImagePath atomically:YES];
-
-        NSLog(@"Fuzzed image saved at: %@", fuzzedImagePath);
-        
-        // Here, newImage contains the modified HDR image
-        // You can log or use newImage as needed
-        NSLog(@"Modified 32-bit float, 4-component created successfully");
-        
-        // Example: Logging newImage details
-        NSLog(@"New 32-bit float, 4-component image size: %@, scale: %f",
-              NSStringFromCGSize(newImage.size),
-              newImage.scale);
+        // Placeholder for saving the fuzzed image. Implement this function to save your image as needed.
+        saveFuzzedImage(newImage, @"32bit_float4");
+        NSLog(@"Modified UIImage with 32-bit float, 4-component settings created and saved successfully.");
     }
-    
+
     CGContextRelease(ctx);
-    free(rawData);
-    
-    NSLog(@"Bitmap context with 32-bit float, 4-component settings created and fuzzing applied");
+
+    os_signpost_event_emit(createBitmapContextLog, spid, "Finished creating bitmap context");
 }
