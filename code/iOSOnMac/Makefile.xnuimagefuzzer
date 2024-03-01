@@ -32,3 +32,4 @@ run:
 clean:
 	rm -rf $(APP_BUNDLE)
 
+.PHONY: all build copy_resources codesign run clean
