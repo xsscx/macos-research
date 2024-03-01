@@ -1,9 +1,9 @@
 /**
  *  @file xnuimagefuzzer.m
- *  @brief XNU Image Fuzzer for iOS On Mac Project.
+ *  @brief Proof of concept XNU Image Fuzzer.
  *  @author @h02332 | David Hoyt
  *  @date 29 FEB 2024
- *  @version 1.2.2
+ *  @version 1.2.4
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  *  - 26/11/2023, h02332: Initial commit.
  *  - 21/02/2024, h02332: Refactor Fuzzing Contexts for Floats & Alpha, Fix Coverage, Math & Programming Mistakes.
  *  - 21/02/2024, h02332: PermaLink https://srd.cx/xnu-image-fuzzer/.
- *  - 28/02/2024, h02332: Refactor Xcode Quick Help Formatting, Add Debug Code for Checking Memory Pattern, Dump CommPage, Device Details, os.log implementation
+ *  - 29/02/2024, h02332: Refactor Xcode Quick Help Formatting, Add Debug Code for Checking Memory Pattern, Dump CommPage, Device Details, os.log implementation
  *
  *  @section TODO
  *  - Grayscale Implementation.
@@ -43,6 +43,7 @@ image processing, UI interaction, and basic C operations essential for the appli
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import "AppDelegate.h"
 #import <os/log.h>
 #import <os/signpost.h>
 #include <stdio.h>
@@ -238,33 +239,34 @@ NSString* formattedCurrentDateTime(void) {
 #pragma mark - Signature
 
 /**
-@brief Fetches the system's commpage signature.
+ Retrieves a signature from a predefined memory address.
 
-This function is designed to read a specific segment of the system's commpage, often used to retrieve system or hardware-specific signatures. It dynamically allocates memory to store the signature, which is then copied from a predefined memory address (`COMM_PAGE64_BASE_ADDRESS`).
+ This function allocates memory and copies a 16-byte signature from a specified base address in memory, commonly used for retrieving system or application-specific signatures stored in a secure memory region.
 
-@return A dynamically allocated, null-terminated string containing the commpage signature. It is the caller's responsibility to free this memory using `free` to avoid memory leaks.
+ The memory is allocated with calloc, ensuring all bytes are initialized to zero, including the byte following the signature, effectively null-terminating the string.
 
-@discussion The function allocates an extra byte to the required signature length (`0x10`) to accommodate the null terminator, ensuring the returned string is properly formatted for use in C and Objective-C contexts. Proper error handling is implemented to return `NULL` if memory allocation fails, allowing callers to safely handle error scenarios.
+ @return A pointer to a null-terminated string containing the signature. The caller is responsible for freeing this memory using free(). Returns NULL if memory allocation fails.
 
-Example usage:
-```objective-c
-char *systemSignature = signature();
-if (systemSignature != NULL) {
-    NSLog(@"System Signature: %s", systemSignature);
-    free(systemSignature);
-} else {
-    NSLog(@"Failed to obtain system signature.");
-}
-@note Care must be taken to ensure that the memory allocated for the signature string is freed after use. Failure to do so will result in memory leaks. This function assumes that the caller is familiar with dynamic memory management in C.
+ @note This function directly accesses memory and should be used with caution, ensuring that COMM_PAGE64_BASE_ADDRESS points to a valid, accessible memory address to prevent undefined behavior.
+
+ Example usage:
+ char *sig = signature();
+ if (sig) {
+     printf("Signature: %s\n", sig);
+     free(sig);
+ } else {
+     fprintf(stderr, "Failed to retrieve signature.\n");
+ }
 */
 char *signature(void) {
-    char *signature = malloc(0x10 + 1); // +1 for null terminator
+    // Allocate memory using calloc; +1 for null terminator, initializing all bits to zero
+    char *signature = calloc(1, 0x10 + 1); // Replaces malloc(0x10 + 1) and initializes memory
     if (!signature) {
         fprintf(stderr, "Error: Failed to allocate memory for signature.\n");
         return NULL;
     }
     memcpy(signature, (const char *)COMM_PAGE64_BASE_ADDRESS, 0x10);
-    signature[0x10] = '\0'; // Ensure null termination
+    // No need to explicitly set the null terminator since calloc initializes the memory to zero
     return signature;
 }
 
@@ -1293,7 +1295,7 @@ void saveFuzzedImage(UIImage *image, NSString *contextDescription) {
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSString *currentTime = formattedCurrentDateTime();
-        NSLog(@"XNU Image Fuzzer Version 1.1.6 starting %@", currentTime);
+        NSLog(@"XNU Image Fuzzer Version 1.2.4 starting %@", currentTime);
 
         // Environment Variables for Debugging
         const char *envVars[] = {
@@ -1331,7 +1333,12 @@ int main(int argc, const char * argv[]) {
         dumpDeviceInfo();
         dumpMacDeviceInfo();
 
-        NSLog(@"XNU Image Fuzzer Version 1.1.6 ending %@", currentTime);
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate transitionToFuzzedImagesViewController];
+        NSLog(@"XNU Image Fuzzer Version 1.2.4 ending %@", currentTime);
+        return UIApplicationMain(argc, (char * _Nonnull * _Nonnull)argv, nil, NSStringFromClass([AppDelegate class]));
+    
+
     }
 
     return 0;
@@ -2515,3 +2522,4 @@ void createBitmapContext32BitFloat4Component(CGImageRef cgImg) {
 
     os_signpost_event_emit(createBitmapContextLog, spid, "Finished creating bitmap context");
 }
+
