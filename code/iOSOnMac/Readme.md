@@ -11,6 +11,10 @@ I am David Hoyt. I was in the Apple Security Research Device Program for 2021 & 
 ## Modifications Based on XNU Image Fuzzer
 - https://github.com/xsscx/xnuimagefuzzer
 - Refactored for Fuzzing at Scale
+- Dual Purpose
+  - iOS App
+  - macOS Command Line
+    -Interposing Code
 
 ### Target Audience
 - Security Research
