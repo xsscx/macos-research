@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for iOs On Mac Interposing Project
  *  @author @h02332 | David Hoyt
  *  @date 29 FEB 2024
- *  @version 1.2.8.i
+ *  @version 1.2.9.i
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -208,9 +208,6 @@ Example:
 ```objective-c
 verboseLogging = 1; // Enable verbose logging
 Conversely, to disable verbose logging, especially in preparation for a release build, set the variable to 0:
-
-objective
-Copy code
 verboseLogging = 0; // Disable verbose logging
 @note It's important to manage the state of this variable carefully, as excessive logging can lead to performance degradation and cluttered log outputs. Consider implementing a mechanism to adjust this setting dynamically based on the build configuration or user preferences.
 */
@@ -2518,4 +2515,3 @@ void createBitmapContext32BitFloat4Component(CGImageRef cgImg) {
 
     os_signpost_event_emit(createBitmapContextLog, spid, "Finished creating bitmap context");
 }
-
