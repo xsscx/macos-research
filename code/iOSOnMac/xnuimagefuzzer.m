@@ -2,8 +2,8 @@
  *  @file xnuimagefuzzer.m
  *  @brief XNU Image Fuzzer for iOs On Mac Interposing Project
  *  @author @h02332 | David Hoyt
- *  @date 29 FEB 2024
- *  @version 1.2.9.i
+ *  @date 01 MAR 2024
+ *  @version 1.3.0.i
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -1293,7 +1293,7 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // Initial log with timestamp
         NSString *currentTime = formattedCurrentDateTime();
-        NSLog(@"XNU Image Fuzzer Version 1.2.4 starting %@", currentTime);
+        NSLog(@"XNU Image Fuzzer Version 1.3.1.i starting %@", currentTime);
 
         // Set environment variables for detailed logging and debugging
         const char *envVars[] = {
@@ -1326,7 +1326,7 @@ int main(int argc, const char * argv[]) {
             dumpDeviceInfo();
             dumpMacDeviceInfo();
 
-            NSLog(@"XNU Image Fuzzer Version 1.2.6 transferring to appDelegate %@", currentTime);
+            NSLog(@"XNU Image Fuzzer 1.3.1.i transferring to appDelegate %@", currentTime);
             return 0; // Successful completion of command-line image processing
         } // else {
             // Standard iOS app launch
