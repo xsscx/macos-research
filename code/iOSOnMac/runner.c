@@ -1,3 +1,32 @@
+/**
+ *  @file runner.c
+ *  @brief Interposing Code for iOS on Mac
+ *  @author @h02332 | David Hoyt
+ *  @date 01 MAR 2024
+ *  @version 1.0.2
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  @section CHANGES
+ *  - 01/03/2023, h02332: Update Logging and Quick Help
+ *
+ *  @section TODO
+ *  - Logging
+ */
+
+#pragma mark - Headers
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -14,15 +43,26 @@
 #define PLATFORM_IOS 2
 
 extern char **environ;
+
+#pragma mark - External Declarations
+
 extern int posix_spawnattr_set_platform_np(posix_spawnattr_t*, int, int);
 
+#pragma mark - Instrumentation Function
+
+/*!
+ * @brief Instruments the specified process for patching.
+ * @discussion This function attaches to a given process ID and performs a series of memory manipulations
+ * to patch specific points in the target's memory. It's primarily used for bypassing certain security checks.
+ * @param pid The process ID of the target application.
+ */
 void instrument(pid_t pid) {
     kern_return_t kr;
     task_t task;
 
     printf("[*] Instrumenting process with PID %d...\n", pid);
 
-    // Attempt to attach to the task
+    // Attach to the task
     printf("[*] Attempting to attach to task with PID %d...\n", pid);
     kr = task_for_pid(mach_task_self(), pid, &task);
     if (kr != KERN_SUCCESS) {
@@ -44,14 +84,15 @@ void instrument(pid_t pid) {
     }
     printf("[*] _amfi_check_dyld_policy_self at offset 0x%x in /usr/lib/dyld\n", patch_offset);
 
-    // Attach to the target process
+    // Re-attach to the target process
     printf("[*] Attaching to target process...\n");
     kr = task_for_pid(mach_task_self(), pid, &task);
     if (kr != KERN_SUCCESS) {
         fprintf(stderr, "[-] task_for_pid failed: %s\n", mach_error_string(kr));
         return;
     }
-    
+
+    // Scan for /usr/lib/dyld in target's memory
     printf("[*] Scanning for /usr/lib/dyld in target's memory...\n");
     vm_address_t dyld_addr = 0;
     int headers_found = 0;
@@ -63,31 +104,19 @@ void instrument(pid_t pid) {
     unsigned int depth = 0;
 
     while (1) {
-        // get next memory region
         kr = vm_region_recurse_64(task, &addr, &size, &depth, (vm_region_info_t)&info, &info_count);
-
-        if (kr != KERN_SUCCESS)
-            break;
+        if (kr != KERN_SUCCESS) break;
 
         unsigned int header;
         vm_size_t bytes_read;
         kr = vm_read_overwrite(task, addr, 4, (vm_address_t)&header, &bytes_read);
-        if (kr != KERN_SUCCESS) {
+        if (kr != KERN_SUCCESS || bytes_read != 4) {
             printf("[-] vm_read_overwrite failed\n");
             return;
         }
 
-        if (bytes_read != 4) {
-            printf("[-] vm_read read too few bytes\n");
-            return;
-        }
-
-        if (header == 0xfeedfacf) {
-            headers_found++;
-        }
-
+        if (header == 0xfeedfacf) headers_found++;
         if (headers_found == 2) {
-            // This is dyld
             dyld_addr = addr;
             break;
         }
@@ -104,19 +133,14 @@ void instrument(pid_t pid) {
 
     vm_address_t patch_addr = dyld_addr + patch_offset;
 
-    // VM_PROT_COPY forces COW, probably, see vm_map_protect in vm_map.c
     printf("[*] Patching _amfi_check_dyld_policy_self...\n");
     kr = vm_protect(task, page_align(patch_addr), vm_page_size, false, VM_PROT_READ | VM_PROT_WRITE | VM_PROT_COPY);
     if (kr != KERN_SUCCESS) {
         printf("[-] vm_protect failed\n");
         return;
     }
-    
-    // MOV X8, 0x5f
-    // STR X8, [X1]
-    // RET
-    const char* code = "\xe8\x0b\x80\xd2\x28\x00\x00\xf9\xc0\x03\x5f\xd6";
 
+    const char* code = "\xe8\x0b\x80\xd2\x28\x00\x00\xf9\xc0\x03\x5f\xd6";
     kr = vm_write(task, patch_addr, (vm_offset_t)code, 12);
     if (kr != KERN_SUCCESS) {
         printf("[-] vm_write failed\n");
@@ -129,9 +153,19 @@ void instrument(pid_t pid) {
         return;
     }
 
-    puts("[+] Sucessfully patched _amfi_check_dyld_policy_self");
+    puts("[+] Successfully patched _amfi_check_dyld_policy_self");
 }
 
+#pragma mark - Run Function
+
+/*!
+ * @brief Runs the target application with the given arguments.
+ * @discussion This function initializes the spawn attributes, sets the target platform, and spawns the target
+ * application process. It then instruments the process for patching.
+ * @param argc The argument count.
+ * @param argv The argument vector.
+ * @return Returns 0 on success, -1 on failure.
+ */
 int run(int argc, char* argv[]) {
     pid_t pid;
     int rv;
@@ -157,7 +191,6 @@ int run(int argc, char* argv[]) {
         return -1;
     }
 
-    // Pass all arguments to the spawned process
     rv = posix_spawn(&pid, argv[1], NULL, &attr, &argv[1], environ);
     if (rv != 0) {
         perror("posix_spawn");
@@ -165,7 +198,7 @@ int run(int argc, char* argv[]) {
         return -1;
     }
 
-    printf("[+] Child process created with pid: %i\n", pid);
+    printf("[+] Child process created with PID: %i\n", pid);
 
     instrument(pid);
 
@@ -186,6 +219,14 @@ int run(int argc, char* argv[]) {
     return 0;
 }
 
+#pragma mark - Main Function
+
+/*!
+ * @brief Main entry point of the runner application.
+ * @param argc The argument count.
+ * @param argv The argument vector.
+ * @return Returns 0 on success, 1 on incorrect usage.
+ */
 int main(int argc, char* argv[]) {
     if (argc <= 1) {
         fprintf(stderr, "Usage: %s path/to/ios_binary [args...]\n", argv[0]);
