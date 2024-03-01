@@ -1,9 +1,9 @@
 /**
  *  @file xnuimagefuzzer.m
- *  @brief Proof of concept XNU Image Fuzzer.
+ *  @brief XNU Image Fuzzer for iOs On Mac Interposing Project
  *  @author @h02332 | David Hoyt
  *  @date 29 FEB 2024
- *  @version 1.2.4
+ *  @version 1.2.8.i
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  *  - 26/11/2023, h02332: Initial commit.
  *  - 21/02/2024, h02332: Refactor Fuzzing Contexts for Floats & Alpha, Fix Coverage, Math & Programming Mistakes.
  *  - 21/02/2024, h02332: PermaLink https://srd.cx/xnu-image-fuzzer/.
- *  - 29/02/2024, h02332: Refactor Xcode Quick Help Formatting, Add Debug Code for Checking Memory Pattern, Dump CommPage, Device Details, os.log implementation
+ *  - 29/02/2024, h02332: Add appDelegate Transition
  *
  *  @section TODO
  *  - Grayscale Implementation.
@@ -1294,10 +1294,11 @@ void saveFuzzedImage(UIImage *image, NSString *contextDescription) {
  */
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        // Initial log with timestamp
         NSString *currentTime = formattedCurrentDateTime();
         NSLog(@"XNU Image Fuzzer Version 1.2.4 starting %@", currentTime);
 
-        // Environment Variables for Debugging
+        // Set environment variables for detailed logging and debugging
         const char *envVars[] = {
             "CGBITMAP_CONTEXT_LOG_ERRORS", "CG_PDF_VERBOSE", "CG_CONTEXT_SHOW_BACKTRACE",
             "CG_CONTEXT_SHOW_BACKTRACE_ON_ERROR", "CG_IMAGE_SHOW_MALLOC", "CG_LAYER_SHOW_BACKTRACE",
@@ -1308,40 +1309,35 @@ int main(int argc, const char * argv[]) {
         const char *envValues[] = {
             "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "YES", "YES", "YES", "oslogToStdio"
         };
-        for (int i = 0; i < sizeof(envVars) / sizeof(envVars[0]); i++) {
+        for (int i = 0; i < sizeof(envVars) / sizeof(char *); i++) {
             setenv(envVars[i], envValues[i], 1);
         }
 
-        if (argc < 3) {
-            NSLog(@"Usage: %s image_name permutation_number", argv[0]);
-            return 1; // Corrected to return 1 to indicate error on insufficient arguments
-        }
+        // Detect if launched with command-line arguments for image processing
+        if (argc > 2) {
+            NSString *imageName = [NSString stringWithUTF8String:argv[1]];
+            int permutation = atoi(argv[2]);
 
-        NSString *imageName = [NSString stringWithUTF8String:argv[1]];
-        int permutation = atoi(argv[2]);
+            UIImage *image = loadImageFromFile(imageName);
+            if (!image) {
+                NSLog(@"Failed to load image: %@", imageName);
+                return 1; // Error due to failed image loading
+            }
 
-        // Assume loadImageFromFile and processImage are defined elsewhere
-        UIImage *image = loadImageFromFile(imageName);
-        if (!image) {
-            NSLog(@"Failed to load image: %@", imageName);
-            return 1;
-        }
+            processImage(image, permutation);
+            dump_comm_page();
+            dumpDeviceInfo();
+            dumpMacDeviceInfo();
 
-        // This
-        processImage(image, permutation);
-        dump_comm_page();
-        dumpDeviceInfo();
-        dumpMacDeviceInfo();
-
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate transitionToFuzzedImagesViewController];
-        NSLog(@"XNU Image Fuzzer Version 1.2.4 ending %@", currentTime);
-        return UIApplicationMain(argc, (char * _Nonnull * _Nonnull)argv, nil, NSStringFromClass([AppDelegate class]));
-    
-
+            NSLog(@"XNU Image Fuzzer Version 1.2.6 transferring to appDelegate %@", currentTime);
+            return 0; // Successful completion of command-line image processing
+        } // else {
+            // Standard iOS app launch
+           //  AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+           //  [appDelegate transitionToFuzzedImagesViewController];
+           //  return UIApplicationMain(argc, (char * _Nonnull * _Nonnull)argv, nil, NSStringFromClass([AppDelegate class]));
+       //  }
     }
-
-    return 0;
 }
 
 #pragma mark - isImagePathValid
