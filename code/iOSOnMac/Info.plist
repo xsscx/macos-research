@@ -27,5 +27,11 @@
     </dict>
     <key>UIFileSharingEnabled</key>
     <true/>
+    <!-- Add support for opening documents in place -->
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+    <!-- Optional: Add support for document browser, if your app requires it -->
+    <!-- <key>UISupportsDocumentBrowser</key>
+    <true/> -->
 </dict>
 </plist>
