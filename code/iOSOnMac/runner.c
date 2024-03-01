@@ -3,7 +3,7 @@
  *  @brief Interposing Code for iOS on Mac
  *  @author @h02332 | David Hoyt
  *  @date 01 MAR 2024
- *  @version 1.0.2
+ *  @version 1.0.3
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  *  @section CHANGES
- *  - 01/03/2023, h02332: Update Logging and Quick Help
+ *  - 01/03/2023, h02332: Update Logging and Quick Help, setup libgmalloc
  *
  *  @section TODO
  *  - Logging
@@ -191,6 +191,13 @@ int run(int argc, char* argv[]) {
         return -1;
     }
 
+    printf("[*] Preparing to set DYLD_INSERT_LIBRARIES for fuzzing...\n");
+    // Uncomment the following line to activate the specified environment variable for fuzzing purposes.
+    // Note: Ensure that using libgmalloc.dylib is appropriate for your fuzzing context.
+    setenv("DYLD_INSERT_LIBRARIES", "/usr/lib/libgmalloc.dylib", 1);
+    printf("[+] DYLD_INSERT_LIBRARIES set to /usr/lib/libgmalloc.dylib for fuzzing.\n");
+
+    
     rv = posix_spawn(&pid, argv[1], NULL, &attr, &argv[1], environ);
     if (rv != 0) {
         perror("posix_spawn");
