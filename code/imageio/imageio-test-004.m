@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for Jackalope Harness Example 4
  *  @author @h02332 | David Hoyt
  *  @date 02 MAR 2024
- *  @version 1.4.1
+ *  @version 1.4.2
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -246,38 +246,62 @@ void FUZZ_TARGET_MODIFIERS fuzz(char *name) {
     if(sample_bytes) free(sample_bytes);
 }
 
+#pragma mark - Main Entry Point
+
+/**
+ *  @brief The main entry point for the fuzzing application.
+ *  @discussion This function initializes the fuzzing environment based on command line arguments,
+ *  sets up shared memory if required, and initiates the fuzzing process by calling the fuzz function.
+ *  It supports running the fuzz target either from a specified file or from shared memory.
+ *
+ *  @param argc The count of command-line arguments.
+ *  @param argv The array of command-line arguments.
+ *  @return Returns 0 on successful execution, or a non-zero error code on failure.
+ */
 int main(int argc, char **argv)
 {
-  if(argc != 3) {
-    printf("Usage: %s <-f|-m> <file or shared memory name>\n", argv[0]);
-    return 0;
-  }
-
-  if(!strcmp(argv[1], "-m")) {
-    use_shared_memory = true;
-  } else if(!strcmp(argv[1], "-f")) {
-    use_shared_memory = false;
-  } else {
-    printf("Usage: %s <-f|-m> <file or shared memory name>\n", argv[0]);
-    return 0;
-  }
-
-  // map shared memory here as we don't want to do it
-  // for every operation
-  if(use_shared_memory) {
-    if(!setup_shmem(argv[2])) {
-      printf("Error mapping shared memory\n");
+    // Validate command-line arguments
+    if(argc != 3) {
+        printf("Usage: %s <-f|-m> <file or shared memory name>\n", argv[0]);
+        return 0;
     }
-  }
 
-  ImageIOSetLoggingProc(&dummyLogProc);
-  CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-  ctx = CGBitmapContextCreate(0, 32, 32, 8, 0, colorspace, 1);
-  void* renderingState = CGContextGetRenderingState(ctx);
-  CGRenderingStateSetAllowsAcceleration(renderingState, false);
+    // Determine the mode of operation based on command-line arguments
+    if(!strcmp(argv[1], "-m")) {
+        use_shared_memory = true; // Shared memory mode
+    } else if(!strcmp(argv[1], "-f")) {
+        use_shared_memory = false; // File mode
+    } else {
+        // Incorrect usage
+        printf("Usage: %s <-f|-m> <file or shared memory name>\n", argv[0]);
+        return 0;
+    }
 
-  fuzz(argv[2]);
+    // Setup shared memory if running in shared memory mode
+    if(use_shared_memory) {
+        if(!setup_shmem(argv[2])) {
+            printf("Error mapping shared memory\n");
+            return 0; // Exit if shared memory setup fails
+        }
+    }
 
-  return 0;
+    // Setup ImageIO logging to use a custom, no-op logging procedure
+    ImageIOSetLoggingProc(&dummyLogProc);
+
+    // Create a graphics context for image rendering
+    CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+    ctx = CGBitmapContextCreate(NULL, 32, 32, 8, 0, colorspace, kCGImageAlphaPremultipliedFirst);
+    void* renderingState = CGContextGetRenderingState(ctx);
+
+    // Disable hardware acceleration for rendering, if necessary
+    CGRenderingStateSetAllowsAcceleration(renderingState, false);
+
+    // Start the fuzzing process with the provided input
+    fuzz(argv[2]);
+
+    // Cleanup
+    CGContextRelease(ctx);
+    CGColorSpaceRelease(colorspace);
+
+    return 0; // Successful execution
 }
-
