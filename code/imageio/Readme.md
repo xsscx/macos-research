@@ -1,6 +1,6 @@
 # Jackalope Fuzzer for ImageIO + Other Dylibs
 
-Last Updated 25 FEB 2024 at 1900 EST
+Last Updated 02 MAR 2024 at 1535 EST
 
 ### Target Audience
 - Security Research
@@ -11,33 +11,6 @@ Last Updated 25 FEB 2024 at 1900 EST
 The code originated from Google Project Zero
 - https://github.com/googleprojectzero/Jackalope/blob/main/examples/ImageIO/imageio.m
 - I modified the Example Code to enhance coverage with companion Apps for Fuzzed Image Generation
-
-### Instrumentation mods
-- These Files are complete Replacements of Source, optional
-- instruments.cpp
-- instruments.h
-  - ninja mode
-    - Monitor Signals
-    - Drop to LLDB Debugger
-    - Anonymized Memory for Collaboration
-    - Bleeding Edge Enhancements for A/B Testing
-
-### Jackalope mods
-- The main.cpp is complete Replacement of Source, optional
-  - main.cpp
-
-## My Code Modifications
-- The Example Code begin with instrumenting a few functions as Examples
-```
-// Functions to create a bitmap context 
-CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
-CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
-CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
-CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
-CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
-```
-- The Scripts and Example Code show how to Target other Dylibs depending on the Image Type, or Fuzz them all with the sample Script [https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/imageio-fuzzer.zsh]
-- There is a larger code base for iOS Fuzzing that can implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/xnuimagefuzzer.m
 
 ## Setup this Code & Build
 - Copy my CMakeLists.txt, and sample Sources to ./Jackalope-main/examples/ImageIO/
@@ -56,6 +29,143 @@ cmake --build . --config Release
 rm -rf CMakeScripts CMakeFiles Release Debug build examples/ImageIO/Release examples/ImageIO/Debug
 cmake --build . --target clean
 ```
+
+### Instrumentation mods
+- These Files are complete Replacements of Source, optional
+- instruments.cpp
+- instruments.h
+  - ninja mode
+    - Monitor Signals
+    - Drop to LLDB Debugger
+    - Anonymized Memory for Collaboration
+    - Bleeding Edge Enhancements for A/B Testing
+
+### Jackalope mods
+- The main.cpp is complete Replacement of Source, optional
+  - main.cpp
+
+## My Code Modifications
+- The Example Code 2-5 begin with instrumenting a few functions as Examples
+
+### Example 1
+- Example Code by Google for ImageIO
+
+### Example 2
+```
+// Function to create a bitmap context with HDR and floating-point components
+CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceExtendedSRGB);
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents;
+    size_t bitsPerComponent = 32;
+    size_t bytesPerRow = 4 * width * sizeof(float);
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+// Function to create a bitmap context optimized for alpha-only components
+CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGBitmapInfo bitmapInfo = kCGImageAlphaOnly;
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = width;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
+    debugLog(@"Creating bitmap context with premultiplied first alpha");
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
+    debugLog(@"Creating bitmap context with non-premultiplied alpha");
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaLast;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
+    debugLog(@"Creating bitmap context with 16-bit depth");
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 16;
+    size_t bytesPerRow = 8 * width; // 2 bytes per component * 4 components per pixel
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder16Big;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+````
+
+### Example 3
+```
+        CGImageRef cgImg = [img CGImageForProposedRect:nil context:nil hints:nil];
+        if (cgImg) {
+            size_t width = CGImageGetWidth(cgImg);
+            size_t height = CGImageGetHeight(cgImg);
+            NSLog(@"Processing image: %s, Width: %lu, Height: %lu", name, width, height);
+
+            CGContextRef invertedCtx = createBitmapContext8BitInvertedColors(width, height);
+            if (invertedCtx) {
+                CGRect rect = CGRectMake(0, 0, width, height);
+                CGContextDrawImage(invertedCtx, rect, cgImg);
+
+                CGContextRelease(invertedCtx);
+            } else {
+                NSLog(@"Failed to create inverted colors context for image: %s", name);
+            }
+            CGImageRelease(cgImg);
+        }
+    }
+}
+```
+
+### Example 4
+```
+    if (sample_size >= 8 && !png_sig_cmp((png_const_bytep)sample_bytes, 0, 8)) { // Check if it's a valid PNG
+        png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+        if (png_ptr != NULL) {
+            png_infop info_ptr = png_create_info_struct(png_ptr);
+            if (info_ptr != NULL) {
+                // Use custom read function to read PNG from memory
+                png_set_read_fn(png_ptr, sample_bytes, png_read_from_mem);
+
+                if (!setjmp(png_jmpbuf(png_ptr))) {
+                    png_read_info(png_ptr, info_ptr);
+                    // Perform additional libpng operations as needed
+                }
+                png_destroy_info_struct(png_ptr, &info_ptr);
+            }
+            png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
+        }
+    }
+```
+
+### Example 5
+```
+// Functions to create a bitmap context 
+CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
+CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
+CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
+CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
+CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
+```
+- The Scripts and Example Code show how to Target other Dylibs depending on the Image Type, or Fuzz them all with the sample Script [https://raw.githubusercontent.com/xsscx/macos-research/main/code/imageio/imageio-fuzzer.zsh]
+- There is a larger code base for iOS Fuzzing that can implemented in these examples, see URL https://github.com/xsscx/macos-research/blob/main/code/iOSOnMac/xnuimagefuzzer.m
+
 ## Bigger Picture
 - Whether a specific target function is defined or not changes the behavior of the fuzzing process in Jackalope.
   - This Code provides other specific target functions that are defined to gain further Fuzzing Coverage
