@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for Jackalope Harness Example 6
  *  @author @h02332 | David Hoyt
  *  @date 03 MAR 2024
- *  @version 1.6.5
+ *  @version 1.6.7
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -489,6 +489,108 @@ CGContextRef createBitmapContextHighEfficiency(size_t width, size_t height) {
     return context;
 }
 
+/**
+ Creates a bitmap graphics context optimized for non-interleaved planar images.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextNonInterleavedPlanar(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = width; // Non-interleaved planar format requires separate planes
+    CGBitmapInfo bitmapInfo = kCGImageAlphaNone;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ Creates a bitmap graphics context optimized for indexed color images.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextIndexedColor(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateIndexed(CGColorSpaceCreateDeviceRGB(), 255, NULL); // Example uses a NULL color table which should be replaced with actual color table data
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = width; // 1 byte per pixel for indexed colors
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaNone);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ Creates a bitmap graphics context optimized for sRGB color space with linear gamma.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextsRGBLinear(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width; // Assuming RGBA
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ Creates a bitmap graphics context optimized for 10-bit grayscale images.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContext10BitGrayscale(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    size_t bitsPerComponent = 10;
+    size_t bytesPerRow = (width * 10 + 7) / 8; // Calculate bytes per row for 10-bit components
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaNone);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ Creates a bitmap graphics context using a custom L*a*b* color space.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextCustomLabColorSpace(size_t width, size_t height) {
+    CGFloat whitePoint[3] = {0.9505, 1.0, 1.0890}; // D65 white point
+    CGFloat blackPoint[3] = {0, 0, 0};
+    CGFloat range[4] = {-128, 127, -128, 127}; // L*a*b* range
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateLab(whitePoint, blackPoint, range);
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width; // Assuming L*a*b*a (4 components)
+    CGBitmapInfo bitmapInfo = kCGImageAlphaNoneSkipLast;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+
 #pragma mark - Fuzzing Function
 
 /**
@@ -570,7 +672,12 @@ int main(int argc, char **argv) {
         &createBitmapContextWideColor,
         &createBitmapContextCMYKColorSpace,
         &createBitmapContextForPattern,
-        &createBitmapContextHighEfficiency
+        &createBitmapContextHighEfficiency,
+        &createBitmapContextNonInterleavedPlanar,
+        &createBitmapContextIndexedColor,
+        &createBitmapContextsRGBLinear,
+        &createBitmapContext10BitGrayscale,
+        &createBitmapContextCustomLabColorSpace
     };
     int numberOfFunctions = sizeof(contextCreationFunctions) / sizeof(contextCreationFunctions[0]);
 
