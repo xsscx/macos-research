@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for Jackalope Harness Example 6
  *  @author @h02332 | David Hoyt
  *  @date 03 MAR 2024
- *  @version 1.6.3
+ *  @version 1.6.4
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -204,7 +204,15 @@ CGContextRef ctx;
 
 #pragma mark - Context Creation Functions
 
-// Function to create a bitmap context with HDR and floating-point components
+/**
+ Creates a bitmap graphics context with High Dynamic Range (HDR) and floating-point components.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
     printf("Creating bitmap context with HDR and floating-point components\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceExtendedSRGB);
@@ -217,7 +225,15 @@ CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) 
     return context;
 }
 
-// Function to create a bitmap context optimized for alpha-only components
+/**
+ Creates a bitmap graphics context optimized for alpha-only components.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
     printf("Creating bitmap context with AlphaOnly\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
@@ -230,6 +246,15 @@ CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
     return context;
 }
 
+/**
+ Creates a bitmap graphics context with premultiplied first alpha component.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
     printf("Creating bitmap context with PreMultipliedFirstAlpha\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -241,6 +266,15 @@ CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t hei
     return context;
 }
 
+/**
+ Creates a bitmap graphics context with non-premultiplied alpha component.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
     printf("Creating bitmap context with NonPreMultipliedFirstAlpha\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -252,6 +286,15 @@ CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t heigh
     return context;
 }
 
+/**
+ Creates a bitmap graphics context with 16-bit depth per component.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
     printf("Creating bitmap context with 16-bit Depth\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -263,7 +306,15 @@ CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
     return context;
 }
 
-// Function to create a bitmap context with standard RGB settings
+/**
+ Creates a bitmap graphics context with standard RGB settings.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContextStandardRGB(size_t width, size_t height) {
     printf("Creating bitmap context with Standard RGB settings\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -276,7 +327,15 @@ CGContextRef createBitmapContextStandardRGB(size_t width, size_t height) {
     return context;
 }
 
-// Function to create a bitmap context for 1-bit monochrome images
+/**
+ Creates a bitmap graphics context for 1-bit monochrome images.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContext1BitMonochrome(size_t width, size_t height) {
     printf("Creating bitmap context for 1-bit Monochrome\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
@@ -288,7 +347,15 @@ CGContextRef createBitmapContext1BitMonochrome(size_t width, size_t height) {
     return context;
 }
 
-// Function to create a bitmap context with big endian pixel format
+/**
+ Creates a bitmap graphics context with big endian pixel format.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContextBigEndian(size_t width, size_t height) {
     printf("Creating bitmap context with Big Endian pixel format\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -301,7 +368,15 @@ CGContextRef createBitmapContextBigEndian(size_t width, size_t height) {
     return context;
 }
 
-// Function to create a bitmap context with little endian pixel format
+/**
+ Creates a bitmap graphics context with little endian pixel format.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
 CGContextRef createBitmapContextLittleEndian(size_t width, size_t height) {
     printf("Creating bitmap context with Little Endian pixel format\n");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
