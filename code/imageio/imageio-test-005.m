@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for Jackalope Harness Example #5
  *  @author @h02332 | David Hoyt
  *  @date 01 MAR 2024
- *  @version 1.5.2
+ *  @version 1.5.3
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -132,7 +132,7 @@ int setup_shmem(const char *name) {
  *  @details This function is a simple utility to log debug messages, which can be useful for tracking the execution flow or identifying issues.
  */
 void debugLog(NSString *message) {
-    NSLog(@"[DEBUG]: %@", message);
+    debugLog(@"[DEBUG]: %@", message);
 }
 
 
@@ -267,7 +267,7 @@ int main(int argc, char **argv) {
     @autoreleasepool {
         // Validate command-line arguments
         if(argc != 3) {
-            NSLog(@"Usage: %s <-f|-m> <file or shared memory name>", argv[0]);
+            debugLog(@"Usage: %s <-f|-m> <file or shared memory name>", argv[0]);
             return 0;
         }
 
