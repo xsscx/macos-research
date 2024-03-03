@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for Jackalope Harness Example 6
  *  @author @h02332 | David Hoyt
  *  @date 03 MAR 2024
- *  @version 1.6.4
+ *  @version 1.6.5
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -389,6 +389,106 @@ CGContextRef createBitmapContextLittleEndian(size_t width, size_t height) {
     return context;
 }
 
+/**
+ Creates a bitmap graphics context optimized for grayscale images with alpha.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextGrayscaleWithAlpha(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = width;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ Creates a bitmap graphics context optimized for wide color content.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextWideColor(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceDisplayP3);
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Big;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ Creates a bitmap graphics context optimized for CMYK color space.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextCMYKColorSpace(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceCMYK();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 5 * width; // CMYK+Alpha
+    CGBitmapInfo bitmapInfo = kCGImageAlphaNoneSkipLast;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ Creates a bitmap graphics context optimized for pattern rendering.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextForPattern(size_t width, size_t height) {
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width; // Assuming RGBA for pattern
+    CGColorSpaceRef colorSpace = CGColorSpaceCreatePattern(NULL);
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ Creates a bitmap graphics context optimized for high efficiency image formats.
+ 
+ - Parameters:
+    - width: The width of the bitmap context in pixels.
+    - height: The height of the bitmap context in pixels.
+ 
+ - Returns: A CGContextRef representing the created bitmap context.
+ */
+CGContextRef createBitmapContextHighEfficiency(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceITUR_2020);
+    size_t bitsPerComponent = 10;
+    size_t bytesPerRow = 4 * width; // Assuming 10-bit HDR content
+    CGBitmapInfo bitmapInfo = kCGImageAlphaNone | kCGBitmapByteOrder32Little;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
 #pragma mark - Fuzzing Function
 
 /**
@@ -465,7 +565,12 @@ int main(int argc, char **argv) {
         &createBitmapContextStandardRGB,
         &createBitmapContextBigEndian,
         &createBitmapContextLittleEndian,
-        &createBitmapContext1BitMonochrome
+        &createBitmapContext1BitMonochrome,
+        &createBitmapContextGrayscaleWithAlpha,
+        &createBitmapContextWideColor,
+        &createBitmapContextCMYKColorSpace,
+        &createBitmapContextForPattern,
+        &createBitmapContextHighEfficiency
     };
     int numberOfFunctions = sizeof(contextCreationFunctions) / sizeof(contextCreationFunctions[0]);
 
