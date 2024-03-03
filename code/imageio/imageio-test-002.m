@@ -1,9 +1,9 @@
 /**
  *  @file imageio-test-002.m
- *  @brief XNU Image Fuzzer for Jackalope Harness Example #5
+ *  @brief XNU Image Fuzzer for Jackalope Harness Example 2
  *  @author @h02332 | David Hoyt
- *  @date 01 MAR 2024
- *  @version 1.2.7
+ *  @date 03 MAR 2024
+ *  @version 1.2.8
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,22 +22,22 @@
  *  - 26/11/2023, h02332: Initial commit.
  *  - 21/02/2024, h02332: Refactor Fuzzing Contexts for Floats & Alpha, Fix Coverage, Math & Programming Mistakes.
  *  - 21/02/2024, h02332: PermaLink https://srd.cx/xnu-image-fuzzer/.
+ *  - 03/03/2024, h02332: Fix use of strok() causing Crash when Injection env vars
  *
  *  @section TODO
- *  - Grayscale Implementation.
+ *  - Expand PNG Scope
  *  - ICC Color Profiles.
- *  - Refactor Example Fuzzer.
  */
 
 #pragma mark - Headers
 
 /**
  *  @brief Core and external libraries necessary for the fuzzer functionality.
- *  @discussion This section includes the necessary headers for the Foundation framework, UIKit, Core Graphics,
- *  standard input/output, standard library, memory management, mathematical functions,
- *  Boolean type, floating-point limits, and string functions. These libraries support
- *  image processing, UI interaction, and basic C operations essential for the application.
+ *  @details Includes headers for the Foundation framework, Core Graphics,
+ *  standard input/output, memory management, and other utilities. These support
+ *  image processing, UI interaction, and basic operations essential for the application.
  */
+
 #include <Foundation/Foundation.h>
 #include <Foundation/NSURL.h>
 #include <dlfcn.h>
@@ -45,245 +45,377 @@
 #include <sys/shm.h>
 #include <dirent.h>
 #include <sys/resource.h>
+#include <png.h>
+#include <sys/mman.h> // Used for shared memory setup on all platforms
 
 #import <ImageIO/ImageIO.h>
 #import <AppKit/AppKit.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-#pragma mark - Shared Memory Configuration
-
-/**
- * @brief Defines for cross-platform compatibility.
- */
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
-#include <windows.h>
-#else
-#include <sys/mman.h>
-#endif
-
-/**
- * @brief Maximum size for the sample data.
- */
 #define MAX_SAMPLE_SIZE 1000000
-
-/**
- * @brief Size of the shared memory segment.
- */
 #define SHM_SIZE (4 + MAX_SAMPLE_SIZE)
-
-/**
- * @brief Pointer to the shared memory data.
- */
 unsigned char *shm_data;
-
-/**
- * @brief Flag to indicate if shared memory is being used.
- */
 bool use_shared_memory;
 
-#pragma mark - Shared Memory Setup Functions
+#pragma mark - Shared Memory Setup
+
+/**
+ *  @brief Sets up shared memory for inter-process communication.
+ *  @details Attempts to open and map a shared memory segment for reading. This is crucial for
+ *  fuzzing processes that share data between different instances or with the fuzzing harness.
+ *  @param name The unique identifier for the shared memory segment.
+ *  @return Returns 1 on success and 0 on failure, indicating problems with accessing or mapping the shared memory.
+ */
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
 
-/**
- * @brief Sets up shared memory on Windows platforms.
- * @param name The name of the shared memory segment.
- * @return 1 on success, 0 on failure.
- */
+#include <windows.h>
+
 int setup_shmem(const char* name) {
-    HANDLE map_file;
-
-    // Open the named file mapping object.
-    map_file = OpenFileMapping(
-        FILE_MAP_ALL_ACCESS,   // read/write access
-        FALSE,                 // do not inherit the name
-        name);                 // name of mapping object
-
+    // Windows-specific shared memory setup
+    HANDLE map_file = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, name); // Open shared memory
     if (map_file == NULL) {
-        printf("Error accessing shared memory\n");
+        printf("Error accessing shared memory: %s\n", name);
         return 0;
     }
 
-    // Map the shared memory to the process's address space.
-    shm_data = (unsigned char*)MapViewOfFile(map_file, // handle to map object
-                                             FILE_MAP_ALL_ACCESS,  // read/write permission
-                                             0,
-                                             0,
-                                             SHM_SIZE);
-
+    shm_data = (unsigned char*)MapViewOfFile(map_file, FILE_MAP_ALL_ACCESS, 0, 0, SHM_SIZE);
     if (shm_data == NULL) {
-        printf("Error accessing shared memory\n");
+        printf("Error mapping shared memory: %s\n", name);
+        CloseHandle(map_file);
         return 0;
     }
 
     return 1;
 }
 
-#else
+#else // UNIX-like systems shared memory setup
 
-/**
- * @brief Sets up shared memory on POSIX-compliant systems.
- * @param name The name of the shared memory segment.
- * @return 1 on success, 0 on failure.
- */
-int setup_shmem(const char *name) {
-    int fd;
+#include <sys/mman.h>
+#include <fcntl.h> // For O_* constants
 
-    // Open the shared memory segment.
-    fd = shm_open(name, O_RDONLY, S_IRUSR | S_IWUSR);
-    if (fd == -1) {
-        printf("Error in shm_open\n");
-        return 0;
-    }
+int setup_shmem(const char *name)
+{
+  int fd;
 
-    // Map the shared memory to the process's address space.
-    shm_data = (unsigned char *)mmap(NULL, SHM_SIZE, PROT_READ, MAP_SHARED, fd, 0);
-    if (shm_data == MAP_FAILED) {
-        printf("Error in mmap\n");
-        return 0;
-    }
+  // get shared memory file descriptor (NOT a file)
+  fd = shm_open(name, O_RDONLY, S_IRUSR | S_IWUSR);
+  if (fd == -1)
+  {
+    printf("Error in shm_open\n");
+    return 0;
+  }
 
-    return 1;
+  // map shared memory to process address space
+  shm_data = (unsigned char *)mmap(NULL, SHM_SIZE, PROT_READ, MAP_SHARED, fd, 0);
+  if (shm_data == MAP_FAILED)
+  {
+    printf("Error in mmap\n");
+      close(fd);
+      return 0;
+  }
+
+  return 1;
 }
 
 #endif
 
-#pragma mark - Configuration and External Declarations
+#pragma mark - Function Modifiers
 
-// Ensures compatibility across platforms by modifying the target function's linkage and visibility
+/**
+ *  @brief Defines function visibility and optimization attributes.
+ *  @details Adjusts the visibility and optimization of the fuzz target function depending on the platform.
+ *  This ensures the function is accessible where needed and that compiler optimizations do not inline the function,
+ *  which is crucial for accurate fuzzing behavior.
+ */
+
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32)
 #define FUZZ_TARGET_MODIFIERS __declspec(dllexport)
 #else
 #define FUZZ_TARGET_MODIFIERS __attribute__ ((noinline))
 #endif
 
-#pragma mark - External Functions
+#pragma mark - External Function Declarations
 
 /**
- @abstract Retrieves the current acceleration state of the rendering context.
- @param context The rendering context to query.
- @return A Boolean value indicating whether acceleration is allowed.
+ *  @brief Declarations for external graphics state management functions.
+ *  @details These functions are used to manage graphics rendering states, specifically for enabling or disabling
+ *  hardware acceleration. This can be crucial for reproducing certain types of bugs or ensuring consistent behavior
+ *  across different hardware configurations.
  */
-extern bool CGRenderingStateGetAllowsAcceleration(void* context);
+extern bool CGRenderingStateGetAllowsAcceleration(void*);
+extern bool CGRenderingStateSetAllowsAcceleration(void*, bool);
+extern void* CGContextGetRenderingState(CGContextRef);
+
+#pragma mark - Logging Procedure
 
 /**
- @abstract Sets the acceleration state of the rendering context.
- @param context The rendering context to modify.
- @param allow A Boolean value indicating whether to allow acceleration.
- @return A Boolean value indicating the success of the operation.
- */
-extern bool CGRenderingStateSetAllowsAcceleration(void* context, bool allow);
-
-/**
- @abstract Retrieves the rendering state from a CGContext.
- @param context The CGContext from which to retrieve the rendering state.
- @return A pointer to the rendering state object.
- */
-extern void* CGContextGetRenderingState(CGContextRef context);
-
-#pragma mark - Logging Setup
-
-/**
- @abstract A dummy logging procedure to suppress ImageIO logging output.
- @discussion This function serves as a placeholder to pass to ImageIOSetLoggingProc, effectively silencing
- logging from the ImageIO framework. It's used to reduce noise during fuzzing operations.
+ *  @brief Dummy logging procedure for ImageIO.
+ *  @details Intended to replace the default logging procedure of ImageIO with a no-operation (noop) implementation.
+ *  This can be useful for suppressing verbose logging during fuzzing, which can clutter output and slow down execution.
  */
 void dummyLogProc() { }
 
+#pragma mark - ImageIO Logging Configuration
+
 /**
- @abstract Configures the logging procedure for ImageIO operations.
- @discussion This function allows customizing the logging behavior of ImageIO, which is particularly useful
- for controlling output during fuzzing. Here, it's used to set a dummy procedure to suppress logs.
+ *  @brief Configures the logging procedure for ImageIO.
+ *  @details This external function allows setting a custom logging procedure for ImageIO operations. By default,
+ *  this implementation sets a dummy (noop) logging procedure to minimize noise during fuzzing.
  */
 extern void ImageIOSetLoggingProc(void*);
 
-#pragma mark - Graphics Context
-
-// Global variable for the graphics context used in image rendering.
-CGContextRef ctx;
-
-#pragma mark - Fuzzing Function
+#pragma mark - Graphics Context Reference
 
 /**
- @function fuzz
- @abstract Fuzzes an image file or shared memory data using ImageIO.
- @discussion This function performs fuzz testing on an image by loading it into an NSImage object,
- either from a file or shared memory, and then drawing it onto a graphics context. This can help
- identify vulnerabilities or issues within the image processing pipeline.
- @param name The name of the file or shared memory segment containing the image data.
+ *  @brief Global reference to the graphics context.
+ *  @details Holds a reference to the graphics context used for drawing operations. This context is configured
+ *  and used for rendering images loaded during fuzzing, allowing for the examination of rendering behavior
+ *  and potential vulnerabilities in image processing.
+ */
+CGContextRef ctx;
+
+#pragma mark - Bitmap Context Creation Functions
+
+/**
+ *  @brief Creates a bitmap graphics context with High Dynamic Range (HDR) and floating-point components.
+ *  @param width The width of the context in pixels.
+ *  @param height The height of the context in pixels.
+ *  @return A new bitmap graphics context.
+ */
+CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceExtendedSRGB);
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents;
+    size_t bitsPerComponent = 32;
+    size_t bytesPerRow = 4 * width * sizeof(float);
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ *  @brief Creates a bitmap graphics context optimized for alpha-only components.
+ *  @param width The width of the context in pixels.
+ *  @param height The height of the context in pixels.
+ *  @return A new bitmap graphics context.
+ */
+CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGBitmapInfo bitmapInfo = kCGImageAlphaOnly;
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = width;
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ *  @brief Creates a bitmap graphics context with premultiplied first alpha component.
+ *  @param width The width of the context in pixels.
+ *  @param height The height of the context in pixels.
+ *  @return A new bitmap graphics context.
+ */
+CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ *  @brief Creates a bitmap graphics context with non-premultiplied alpha components.
+ *  @param width The width of the context in pixels.
+ *  @param height The height of the context in pixels.
+ *  @return A new bitmap graphics context.
+ */
+CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaLast;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+/**
+ *  @brief Creates a bitmap graphics context with 16-bit depth per component.
+ *  @param width The width of the context in pixels.
+ *  @param height The height of the context in pixels.
+ *  @return A new bitmap graphics context.
+ */
+CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    size_t bitsPerComponent = 16;
+    size_t bytesPerRow = 8 * width; // 2 bytes per component * 4 components per pixel
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder16Big;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGColorSpaceRelease(colorSpace);
+    return context;
+}
+
+
+#pragma mark - Fuzz Target Function
+
+/**
+ *  @brief Processes the given image name or shared memory for fuzzing.
+ *  @discussion This function attempts to load image data from a specified file or shared memory segment.
+ *  It then renders the image using a Core Graphics context to validate image processing and potentially
+ *  uncover vulnerabilities within the rendering pipeline.
+ *  @param name The file path to the image or an identifier for a shared memory segment containing image data.
  */
 void FUZZ_TARGET_MODIFIERS fuzz(char *name) {
-    // Local variables for image processing
     NSImage* img = NULL;
     char *sample_bytes = NULL;
     uint32_t sample_size = 0;
 
-    // Determine the source of the image data and prepare the NSImage object
+    // Load image data from shared memory or from a file
     if(use_shared_memory) {
-        // Reading image data from shared memory
+        // Extract the size of the image data from shared memory
         sample_size = *(uint32_t *)(shm_data);
-        if(sample_size > MAX_SAMPLE_SIZE) sample_size = MAX_SAMPLE_SIZE;
+        if(sample_size > MAX_SAMPLE_SIZE) sample_size = MAX_SAMPLE_SIZE; // Clamp to max size
         sample_bytes = (char *)malloc(sample_size);
-        memcpy(sample_bytes, shm_data + sizeof(uint32_t), sample_size);
-        img = [[NSImage alloc] initWithData:[NSData dataWithBytes:sample_bytes length:sample_size]];
+        if (!sample_bytes) {
+            printf("Memory allocation failed\n");
+            return;
+        }
+        memcpy(sample_bytes, shm_data + 4, sample_size); // Copy data from shared memory
+        img = [[NSImage alloc] initWithData:[NSData dataWithBytesNoCopy:sample_bytes length:sample_size freeWhenDone:YES]];
     } else {
-        // Loading image from file
+        // Load the image from a file path
         img = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithUTF8String:name]];
     }
 
-    // Drawing the image onto the graphics context
-    CGImageRef cgImg = [img CGImageForProposedRect:nil context:nil hints:nil];
-    if (cgImg) {
-        size_t width = CGImageGetWidth(cgImg);
-        size_t height = CGImageGetHeight(cgImg);
-        CGRect rect = CGRectMake(0, 0, width, height);
-        CGContextDrawImage(ctx, rect, cgImg);
-        CGImageRelease(cgImg);
+    // Attempt to render the image if it was successfully loaded
+    if (img) {
+        CGImageRef cgImg = [img CGImageForProposedRect:nil context:nil hints:nil];
+        if (cgImg) {
+            size_t width = CGImageGetWidth(cgImg);
+            size_t height = CGImageGetHeight(cgImg);
+            CGRect rect = CGRectMake(0, 0, width, height);
+            CGContextDrawImage(ctx, rect, cgImg); // Render the image
+            CGImageRelease(cgImg); // Release the CGImageRef
+        }
     }
 
-    // Cleanup
-    if(sample_bytes) free(sample_bytes);
+    // Clean up dynamically allocated memory
+    if(sample_bytes) {
+        free(sample_bytes);
+    }
 }
 
-#pragma mark - Program Entry Point
+#pragma mark - Environment Variable Setup
 
 /**
- *  @brief The main entry point for the fuzzer.
- *  @discussion Initializes the fuzzing environment, including shared memory setup
- *  and graphics context preparation. It then invokes the fuzz function to analyze
- *  the input image data.
+ *  @brief Configures environment variables for detailed graphics debugging.
+ *  @discussion Sets numerous environment variables to enable verbose logging for various graphics operations.
+ *  This can significantly aid in diagnosing issues with image processing and rendering, providing insight into
+ *  the internal workings of graphics frameworks used by the application.
  */
-int main(int argc, char **argv)
-{
-  if(argc != 3) {
-    printf("Usage: %s <-f|-m> <file or shared memory name>\n", argv[0]);
-    return 0;
-  }
-
-  if(!strcmp(argv[1], "-m")) {
-    use_shared_memory = true;
-  } else if(!strcmp(argv[1], "-f")) {
-    use_shared_memory = false;
-  } else {
-    printf("Usage: %s <-f|-m> <file or shared memory name>\n", argv[0]);
-    return 0;
-  }
-
-  // map shared memory here as we don't want to do it
-  // for every operation
-  if(use_shared_memory) {
-    if(!setup_shmem(argv[2])) {
-      printf("Error mapping shared memory\n");
+void setupEnvironmentVariables() {
+    char *vars[] = {
+        "CG_PDF_VERBOSE=1",
+        "CG_CONTEXT_SHOW_BACKTRACE=1",
+        "CG_CONTEXT_SHOW_BACKTRACE_ON_ERROR=1",
+        "CG_IMAGE_SHOW_MALLOC=1",
+        "CG_LAYER_SHOW_BACKTRACE=1",
+        "CGBITMAP_CONTEXT_LOG=1",
+        "CGCOLORDATAPROVIDER_VERBOSE=1",
+        "CGPDF_LOG_PAGES=1",
+        "CGBITMAP_CONTEXT_LOG_ERRORS=1",
+        "CG_RASTERIZER_VERBOSE=1",
+        "CG_VERBOSE_COPY_IMAGE_BLOCK_DATA=1",
+        "CG_VERBOSE=1",
+        "CGPDF_VERBOSE=1",
+        "CG_FONT_RENDERER_VERBOSE=1",
+        "CGPDF_DRAW_VERBOSE=1",
+        "CG_POSTSCRIPT_VERBOSE=1",
+        "CG_COLOR_CONVERSION_VERBOSE=1",
+        "CG_IMAGE_LOG_FORCE=1",
+        "CG_INFO=1",
+        "CGPDFCONTEXT_VERBOSE=1",
+        "QuartzCoreDebugEnabled=1",
+        "CI_PRINT_TREE=1",
+        "CORESVG_VERBOSE=1",
+        NULL
+    };
+    for (int i = 0; vars[i] != NULL; ++i) {
+        char *var = strdup(vars[i]); // Duplicate the string.
+        char *key = strtok(var, "=");
+        char *value = strtok(NULL, "");
+        setenv(key, value, 1);
+        free(var); // Free the duplicated string.
     }
-  }
 
-  ImageIOSetLoggingProc(&dummyLogProc);
-  CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-  ctx = CGBitmapContextCreate(0, 32, 32, 8, 0, colorspace, 1);
-  void* renderingState = CGContextGetRenderingState(ctx);
-  CGRenderingStateSetAllowsAcceleration(renderingState, false);
+}
 
-  fuzz(argv[2]);
+#pragma mark - Main Function
 
-  return 0;
+/**
+ *  @brief The main entry point of the fuzzing application.
+ *  @param argc Argument count.
+ *  @param argv Argument vector.
+ *  @return Returns 0 on successful execution, or a non-zero value on error.
+ *  @discussion Initializes the fuzzing environment, including setting up shared memory if necessary,
+ *  and iterates through different bitmap context creation functions to perform fuzzing operations.
+ */
+int main(int argc, char **argv) {
+    @autoreleasepool {
+        setupEnvironmentVariables();
+
+        if(argc != 3) {
+            NSLog(@"Usage: %s <-f|-m> <file or shared memory name>", argv[0]);
+            return 0;
+        }
+
+        BOOL use_shared_memory = !strcmp(argv[1], "-m");
+        NSLog(@"Shared memory usage is set to: %@", use_shared_memory ? @"YES" : @"NO");
+
+        if(use_shared_memory && !setup_shmem(argv[2])) {
+            NSLog(@"Error mapping shared memory");
+            return 0;
+        }
+
+        ImageIOSetLoggingProc(&dummyLogProc);
+
+        CGContextRef (*contextCreationFunctions[])(size_t, size_t) = {
+            createBitmapContextPremultipliedFirstAlpha,
+            createBitmapContextNonPremultipliedAlpha,
+            createBitmapContext16BitDepth,
+            createBitmapContextHDRFloatComponents,
+            createBitmapContextAlphaOnly
+        };
+        int numberOfFunctions = sizeof(contextCreationFunctions) / sizeof(contextCreationFunctions[0]);
+
+        for (int i = 0; i < numberOfFunctions; i++) {
+            CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+
+            NSLog(@"Creating bitmap context with function index: %d", i);
+            CGContextRef ctx = contextCreationFunctions[i](32, 32);
+
+            if (ctx == NULL) {
+                NSLog(@"Failed to create bitmap context for function index %d", i);
+                CGColorSpaceRelease(colorspace);
+                continue;
+            }
+
+            void* renderingState = CGContextGetRenderingState(ctx);
+            CGRenderingStateSetAllowsAcceleration(renderingState, false);
+
+            NSLog(@"Fuzzing with the created bitmap context");
+            fuzz(argv[2]);
+
+            CGContextRelease(ctx);
+            CGColorSpaceRelease(colorspace);
+            NSLog(@"Bitmap context and color space released");
+        }
+
+        NSLog(@"Completed all iterations");
+    }
+    return 0;
 }
