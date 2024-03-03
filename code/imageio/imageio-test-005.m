@@ -1,9 +1,9 @@
 /**
  *  @file imageio-test-005.m
- *  @brief XNU Image Fuzzer for Jackalope Harness Example #5
+ *  @brief XNU Image Fuzzer for Jackalope Harness Example 5
  *  @author @h02332 | David Hoyt
  *  @date 01 MAR 2024
- *  @version 1.5.3
+ *  @version 1.5.4
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ unsigned char *shm_data;
 
 #pragma mark - Shared Memory Configuration
 
-bool use_shared_memory = false;
+bool use_shared_memory;
 
 /**
  *  @brief Setup shared memory for cross-platform compatibility.
