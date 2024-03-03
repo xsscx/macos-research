@@ -2,8 +2,8 @@
  *  @file imageio-test-005.m
  *  @brief XNU Image Fuzzer for Jackalope Harness Example #5
  *  @author @h02332 | David Hoyt
- *  @date 02 MAR 2024
- *  @version 1.0.6
+ *  @date 01 MAR 2024
+ *  @version 1.5.2
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
  *  - 26/11/2023, h02332: Initial commit.
  *  - 21/02/2024, h02332: Refactor Fuzzing Contexts for Floats & Alpha, Fix Coverage, Math & Programming Mistakes.
  *  - 21/02/2024, h02332: PermaLink https://srd.cx/xnu-image-fuzzer/.
+ *  - 03/03/2024, h02332:
  *
  *  @section TODO
  *  - Grayscale Implementation.
@@ -235,7 +236,8 @@ void FUZZ_TARGET_MODIFIERS fuzz(char *name) {
             return;
         }
         memcpy(sample_bytes, shm_data + 4, sample_size);
-        img = [[NSImage alloc] initWithData:[NSData dataWithBytesNoCopy:sample_bytes length:sample_size freeWhenDone:YES]];
+//        img = [[NSImage alloc] initWithData:[NSData dataWithBytesNoCopy:sample_bytes length:sample_size freeWhenDone:YES]];
+        img = [[NSImage alloc] initWithData:[NSData dataWithBytes:sample_bytes length:sample_size]];
     } else {
         img = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithUTF8String:name]];
     }
