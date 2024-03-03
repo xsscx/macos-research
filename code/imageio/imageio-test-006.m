@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for Jackalope Harness Example 6
  *  @author @h02332 | David Hoyt
  *  @date 03 MAR 2024
- *  @version 1.6.7
+ *  @version 1.6.8
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -45,6 +45,8 @@
 #include <sys/shm.h>
 #include <dirent.h>
 #include <sys/resource.h>
+#include <CoreGraphics/CoreGraphics.h>
+#include <stdlib.h>
 
 #import <ImageIO/ImageIO.h>
 #import <AppKit/AppKit.h>
@@ -147,6 +149,38 @@ int setup_shmem(const char *name) {
 }
 
 #endif
+
+/**
+ * Creates a simple color table with predefined colors.
+ *
+ * - Parameters:
+ *   - colorTable: A pointer to an array where the color table data will be stored.
+ *   - maxColors: The maximum number of colors that can be stored in the color table.
+ */
+void createSimpleColorTable(uint8_t *colorTable, size_t maxColors) {
+    // Ensure the color table can hold at least 4 colors
+    if (maxColors < 4) return;
+
+    // Color 0: Black
+    colorTable[0] = 0; // R
+    colorTable[1] = 0; // G
+    colorTable[2] = 0; // B
+
+    // Color 1: Red
+    colorTable[3] = 255; // R
+    colorTable[4] = 0;   // G
+    colorTable[5] = 0;   // B
+
+    // Color 2: Green
+    colorTable[6] = 0;   // R
+    colorTable[7] = 255; // G
+    colorTable[8] = 0;   // B
+
+    // Color 3: Blue
+    colorTable[9] = 0;   // R
+    colorTable[10] = 0;  // G
+    colorTable[11] = 255;// B
+}
 
 #pragma mark - Configuration and External Declarations
 
@@ -511,20 +545,30 @@ CGContextRef createBitmapContextNonInterleavedPlanar(size_t width, size_t height
 
 /**
  Creates a bitmap graphics context optimized for indexed color images.
- 
+
  - Parameters:
     - width: The width of the bitmap context in pixels.
     - height: The height of the bitmap context in pixels.
- 
+
  - Returns: A CGContextRef representing the created bitmap context.
  */
 CGContextRef createBitmapContextIndexedColor(size_t width, size_t height) {
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateIndexed(CGColorSpaceCreateDeviceRGB(), 255, NULL); // Example uses a NULL color table which should be replaced with actual color table data
+    // Define a color table with 4 entries (3 bytes per color)
+    uint8_t colorTable[4 * 3];
+    createSimpleColorTable(colorTable, 4);
+
+    // Create the indexed color space using the color table
+    CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateIndexed(baseSpace, 3, colorTable);
+    CGColorSpaceRelease(baseSpace); // Release the base color space after use
+
     size_t bitsPerComponent = 8;
     size_t bytesPerRow = width; // 1 byte per pixel for indexed colors
     
+    // Create the bitmap context with the indexed color space
     CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaNone);
-    CGColorSpaceRelease(colorSpace);
+    CGColorSpaceRelease(colorSpace); // Release the color space after creating the context
+
     return context;
 }
 
@@ -589,7 +633,6 @@ CGContextRef createBitmapContextCustomLabColorSpace(size_t width, size_t height)
     CGColorSpaceRelease(colorSpace);
     return context;
 }
-
 
 #pragma mark - Fuzzing Function
 
