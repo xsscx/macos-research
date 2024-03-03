@@ -12,7 +12,7 @@ if(APPLE)
 
   add_executable(test_imageio imageio.m)
   target_link_libraries(test_imageio
-    "${PNG_LIBRARY}"
+#    "${PNG_LIBRARY}"
     "-framework ImageIO"
     "-framework AppKit"
     "-framework CoreGraphics"
@@ -20,7 +20,7 @@ if(APPLE)
 
   add_executable(imageio-test-002_imageio imageio-test-002.m)
   target_link_libraries(imageio-test-002_imageio
-    "${PNG_LIBRARY}"
+#    "${PNG_LIBRARY}"
     "-framework ImageIO"
     "-framework AppKit"
     "-framework CoreGraphics"
@@ -28,7 +28,7 @@ if(APPLE)
 
   add_executable(imageio-test-003_imageio imageio-test-003.m)
   target_link_libraries(imageio-test-003_imageio
-    "${PNG_LIBRARY}"
+#    "${PNG_LIBRARY}"
     "-framework ImageIO"
     "-framework AppKit"
     "-framework CoreGraphics"
@@ -44,7 +44,7 @@ if(APPLE)
 
   add_executable(imageio-test-005_imageio imageio-test-005.m)
   target_link_libraries(imageio-test-005_imageio
-    "${PNG_LIBRARY}"
+#    "${PNG_LIBRARY}"
     "-framework ImageIO"
     "-framework AppKit"
     "-framework CoreGraphics"
@@ -52,7 +52,7 @@ if(APPLE)
 
   add_executable(imageio-test-006_imageio imageio-test-006.m)
   target_link_libraries(imageio-test-006_imageio
-    "${PNG_LIBRARY}"
+#    "${PNG_LIBRARY}"
     "-framework ImageIO"
     "-framework AppKit"
     "-framework CoreGraphics"
