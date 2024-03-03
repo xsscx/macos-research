@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for Jackalope Harness Example #5
  *  @author @h02332 | David Hoyt
  *  @date 01 MAR 2024
- *  @version 1.2.6
+ *  @version 1.2.7
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -244,6 +244,8 @@ void FUZZ_TARGET_MODIFIERS fuzz(char *name) {
     // Cleanup
     if(sample_bytes) free(sample_bytes);
 }
+
+#pragma mark - Program Entry Point
 
 /**
  *  @brief The main entry point for the fuzzer.
