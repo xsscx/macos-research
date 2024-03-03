@@ -3,7 +3,7 @@
  *  @brief XNU Image Fuzzer for Jackalope Harness Example 5
  *  @author @h02332 | David Hoyt
  *  @date 01 MAR 2024
- *  @version 1.5.4
+ *  @version 1.5.6
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -131,10 +131,14 @@ int setup_shmem(const char *name) {
  *  @param message The message to log.
  *  @details This function is a simple utility to log debug messages, which can be useful for tracking the execution flow or identifying issues.
  */
-void debugLog(NSString *message) {
-    debugLog(@"[DEBUG]: %@", message);
+void debugLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2) {
+    va_list args;
+    va_start(args, format);
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    
+    NSLog(@"%@", message);
 }
-
 
 // External function declarations for advanced graphics operations
 extern bool CGRenderingStateGetAllowsAcceleration(void*);
@@ -158,6 +162,7 @@ CGContextRef ctx;
 
 // Function to create a bitmap context with HDR and floating-point components
 CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) {
+    debugLog(@"%@", @"Creating bitmap context with HDRFloatComponents");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceExtendedSRGB);
     CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapFloatComponents;
     size_t bitsPerComponent = 32;
@@ -170,6 +175,7 @@ CGContextRef createBitmapContextHDRFloatComponents(size_t width, size_t height) 
 
 // Function to create a bitmap context optimized for alpha-only components
 CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
+    debugLog(@"%@", @"Creating bitmap context with ContextAlphaOnly");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
     CGBitmapInfo bitmapInfo = kCGImageAlphaOnly;
     size_t bitsPerComponent = 8;
@@ -181,7 +187,7 @@ CGContextRef createBitmapContextAlphaOnly(size_t width, size_t height) {
 }
 
 CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t height) {
-    debugLog(@"Creating bitmap context with premultiplied first alpha");
+    debugLog(@"%@", @"Creating bitmap context with PremultipliedFirstAlpha");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     size_t bitsPerComponent = 8;
     size_t bytesPerRow = 4 * width;
@@ -192,7 +198,7 @@ CGContextRef createBitmapContextPremultipliedFirstAlpha(size_t width, size_t hei
 }
 
 CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t height) {
-    debugLog(@"Creating bitmap context with non-premultiplied alpha");
+    debugLog(@"%@", @"Creating bitmap context NonPremultipliedAlpha");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     size_t bitsPerComponent = 8;
     size_t bytesPerRow = 4 * width;
@@ -203,7 +209,7 @@ CGContextRef createBitmapContextNonPremultipliedAlpha(size_t width, size_t heigh
 }
 
 CGContextRef createBitmapContext16BitDepth(size_t width, size_t height) {
-    debugLog(@"Creating bitmap context with 16-bit depth");
+    debugLog(@"%@", @"Creating bitmap context with 16-bit depth");
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     size_t bitsPerComponent = 16;
     size_t bytesPerRow = 8 * width; // 2 bytes per component * 4 components per pixel
@@ -267,19 +273,19 @@ int main(int argc, char **argv) {
     @autoreleasepool {
         // Validate command-line arguments
         if(argc != 3) {
-            debugLog(@"Usage: %s <-f|-m> <file or shared memory name>", argv[0]);
+//            debugLog(@"Usage: %s <-f|-m> <file or shared memory name>", argv[0]);
             return 0;
         }
 
-        debugLog([NSString stringWithFormat:@"Starting with arguments: %s %s", argv[1], argv[2]]);
+//        debugLog([NSString stringWithFormat:@"Starting with arguments: %s %s", argv[1], argv[2]]);
 
         // Determine the mode of operation based on command-line arguments
         use_shared_memory = !strcmp(argv[1], "-m");
-        debugLog([NSString stringWithFormat:@"Shared memory usage is set to: %@", use_shared_memory ? @"YES" : @"NO"]);
+//        debugLog([NSString stringWithFormat:@"Shared memory usage is set to: %@", use_shared_memory ? @"YES" : @"NO"]);
 
         // Setup shared memory if required
         if(use_shared_memory && !setup_shmem(argv[2])) {
-            debugLog(@"Error mapping shared memory");
+//            debugLog(@"Error mapping shared memory");
             return 0;
         }
 
@@ -300,11 +306,11 @@ int main(int argc, char **argv) {
         for (int i = 0; i < numberOfFunctions; i++) {
             CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
 
-            debugLog([NSString stringWithFormat:@"Creating bitmap context with function index: %d", i]);
+//            debugLog([NSString stringWithFormat:@"Creating bitmap context with function index: %d", i]);
             ctx = contextCreationFunctions[i](32, 32);
 
             if (ctx == NULL) {
-                debugLog([NSString stringWithFormat:@"Failed to create bitmap context for function index %d", i]);
+//                debugLog([NSString stringWithFormat:@"Failed to create bitmap context for function index %d", i]);
                 CGColorSpaceRelease(colorspace);
                 continue;
             }
@@ -314,16 +320,16 @@ int main(int argc, char **argv) {
             CGRenderingStateSetAllowsAcceleration(renderingState, false);
 
             // Perform fuzzing with the created bitmap context
-            debugLog(@"Fuzzing with the created bitmap context");
+//            debugLog(@"Fuzzing with the created bitmap context");
             fuzz(argv[2]);
 
             // Clean up resources
             CGContextRelease(ctx);
             CGColorSpaceRelease(colorspace);
-            debugLog(@"Bitmap context and color space released");
+//            debugLog(@"Bitmap context and color space released");
         }
 
-        debugLog(@"Completed all iterations");
+//        debugLog(@"Completed all iterations");
     }
     return 0;
 }
