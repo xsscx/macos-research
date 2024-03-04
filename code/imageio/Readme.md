@@ -12,8 +12,7 @@ The code originated from Google Project Zero
 - https://github.com/googleprojectzero/Jackalope/blob/main/examples/ImageIO/imageio.m
 - I modified the Example Code to enhance coverage with companion Apps for Fuzzed Image Generation
 
-## Why
-### Issues with TinyInst on arm64
+## Issues with TinyInst on arm64
 
 - Complex Regex Parsing Failure: The attempt to utilize a comprehensive regex pattern for parsing a dyld map file led to failures, where the program was unable to correctly parse and populate the required data structures. 
   - This was evidenced by continuous errors and the inability to process lines expected to match the regex pattern.
