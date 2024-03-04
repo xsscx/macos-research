@@ -3,7 +3,7 @@
  *  @brief Jackalope- arm64 Program Modifications
  *  @author @h02332 | David Hoyt
  *  @date 04 MAR 2024
- *  @version 1.0.2
+ *  @version 1.0.3
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  *  - 03/03/2024, h02332: Initial commit.
  *
  *  @section TODO
- *  - Continue Fixes for Null Pointer Deref
+ *  - Continue Fixes for Null Pointer Derefs
  */
 
 #pragma mark - Headers
@@ -43,7 +43,7 @@
 #include "common.h"
 
 // FATAL macro
-#define FATAL(msg) do { fprintf(stderr, "%s\n", msg); exit(EXIT_FAILURE); } while (0)
+// #define FATAL(msg) do { fprintf(stderr, "%s\n", msg); exit(EXIT_FAILURE); } while (0)
 
 #pragma mark - Time Utilities
 
@@ -192,8 +192,11 @@ return (int)strtol(option, NULL, 0);
  */
 int GetIntOption(const char *name, int argc, char** argv, int default_value) {
   char *option = GetOption(name, argc, argv);
-  if (!option) return default_value;
-  return (int)strtol(option, NULL, 0);
+  if (option == NULL) {
+    return default_value;
+  } else {
+    return (int)strtol(option, NULL, 0);
+  }
 }
 
 #pragma mark - Command Line Argument Escaping
