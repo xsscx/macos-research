@@ -1,9 +1,9 @@
 /**
  *  @file dyld_cache_map_parser.cpp
- *  @brief Jackalope - arm64 Program Modifications
+ *  @brief tinyinst - arm64 Program Modifications
  *  @author @h02332 | David Hoyt
  *  @date 04 MAR 2024
- *  @version 1.0.2
+ *  @version 1.0.3
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
