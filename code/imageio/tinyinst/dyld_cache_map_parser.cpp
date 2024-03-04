@@ -19,8 +19,7 @@
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  *  @section CHANGES
- *  - 26/11/2023, h02332: Initial commit.
- *  - 21/02/2024, h02332: Refactor Fuzzing Contexts for Floats & Alpha, Fix Coverage, Math & Programming Mistakes.
+ *  - 03/03/2024, h02332: Initial commit.
  *
  *  @section TODO
  *  - Continue Fixing regex handling
