@@ -2,7 +2,52 @@
 
 Updated 04 MAR 2024
 
-### Issue
+## Issues
+
+### issue 1
+```
+(std::smatch) m = {
+  __matches_ = size=0 {}
+  __unmatched_ = {
+    std::__1::pair<std::__1::__wrap_iter<const char *>, std::__1::__wrap_iter<const char *> > = {
+      first = (item = '\0')
+      second = (item = '\0')
+    }
+    matched = false
+  }
+  __prefix_ = {
+    std::__1::pair<std::__1::__wrap_iter<const char *>, std::__1::__wrap_iter<const char *> > = {
+      first = (item = '/')
+      second = (item = '/')
+    }
+    matched = false
+  }
+  __suffix_ = {
+    std::__1::pair<std::__1::__wrap_iter<const char *>, std::__1::__wrap_iter<const char *> > = {
+      first = (item = '\0')
+      second = (item = '\0')
+    }
+    matched = false
+  }
+  __ready_ = true
+  __position_start_ = (item = '/')
+}
+(bool) lib = true
+(std::string) lib_name = "libswiftCoreMediaIO.dylib"
+(const std::exception &) e = 0x00006000013f0080 {}
+(uint64_t) start = 9148940288
+(uint64_t) end = 9148956669
+*** Some of the displayed variables have more members than the debugger will show by default. To show all of them, you can either use the --show-all-children option to frame variable or raise the limit by changing the target.max-children-count setting.
+(lldb) fr se 0
+frame #0: 0x0000000184000d48 libc++.1.dylib`std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) + 20
+libc++.1.dylib`std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::basic_string:
+->  0x184000d48 <+20>: ldrsb  w8, [x1, #0x17]
+    0x184000d4c <+24>: tbnz   w8, #0x1f, 0x184000d64    ; <+48>
+    0x184000d50 <+28>: ldr    q0, [x1]
+    0x184000d54 <+32>: ldr    x8, [x1, #0x10]
+```
+
+### Issue 2
 ```
 Entering find_dyld_map
 Found dyld_shared_cache at: /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e.map
