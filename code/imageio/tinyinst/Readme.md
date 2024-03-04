@@ -6,10 +6,9 @@ Updated 04 MAR 2024
 
 ## Issues
 
-- Complex Regex Parsing Failure: The attempt to utilize a comprehensive regex pattern for parsing a dyld map file led to failures, where the program was unable to correctly parse and populate the required data structures. This was evidenced by continuous errors and the inability to process lines expected to match the regex pattern.
-- Data Structure Mismanagement: Problems with how certain data structures were utilized, leading to errors like unprocessed lines, empty module groups, and failure to handle exceptions correctly.
 - Complex Regex Parsing Failure: The attempt to utilize a comprehensive regex pattern for parsing a dyld map file led to failures, where the program was unable to correctly parse and populate the required data structures. 
- - This was evidenced by continuous errors and the inability to process lines expected to match the regex pattern.
+  -This was evidenced by continuous errors and the inability to process lines expected to match the regex pattern.
+- Data Structure Mismanagement: Problems with how certain data structures were utilized, leading to errors like unprocessed lines, empty module groups, and failure to handle exceptions correctly.
 - Tool-Specific Limitations and Bugs: Encountered limitations and potential bugs within the used tools (e.g., compilers, debuggers, static analysis tools), which complicated the debugging process and error resolution.
 - Code Refactoring Needs: Identified areas where code refactoring could enhance readability, maintainability, and reliability, particularly concerning complex logic and memory management routines.
 
