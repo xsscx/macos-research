@@ -54,6 +54,20 @@ def get_file_type(magic_bytes):
 		b'\xab\xc9\xae\x19': 'Custom ICC-Related Format',
 		b'\xab\x4b\xae\x19': 'Custom ICC-Related Format',
 		b'\x49\x49\xae\x19': 'Custom ICC-Related Format',
+		b'\x00\x00\x1d\x24': 'HOYT ICC Buffer Overflow Profile',  # Hoyt ICC Exploit Format
+		b'\x00\x00\x1d\x24': 'HOYT Exploit Format',  # Hoyt Exploit Format
+		b'\x38\x63\x59\x1b': 'HOYT Exploit Format',  # Hoyt Exploit Format
+		b'\x52\x00\x01\x46': 'HOYT Exploit Format',  # Hoyt Exploit Format
+		b'\x1a\x0a\x00\x00': 'HOYT Exploit Format',  # Hoyt Exploit Format
+		b'\xff\xe0\x46\xae': 'HOYT Exploit Format',  # Hoyt Exploit Format
+		b'\x52\x5e\x8d\x5c': 'HOYT Exploit Format',  # Hoyt Exploit Format
+		b'\x01\x49\x46\x46': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
+		b'\x52\x49\x46\xb9': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
+		b'\x10\x74\xbc\x25': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
+		b'\x52\x49\x46\x25': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
+		b'\x52\x49\x46\xb9': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
+		b'\x52\xab\x2a\x46': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
+		
 	}
 	for signature, filetype in file_signatures.items():
 		if magic_bytes.startswith(signature):
