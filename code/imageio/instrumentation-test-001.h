@@ -1,7 +1,29 @@
-// Modified by @h02332 David Hoyt to aid in Debugging in Jackalope
-// Modified instrumentation.h for Live Debugging Mode Implementation
-// Should be used with your Stub Programs in CMakeLists.txt until Stable
-// Ninja Mode with bleeded edge code
+/**
+ *  @file instrumentation.h
+ *  @brief Changes for debugmode() to instrumentation.h
+ *  @author @h02332 | David Hoyt
+ *  @date 03 MAR 2024
+ *  @version 1.0.2
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  @section CHANGES
+ *  - 05/MAR/2024, h02332: Initial commit.
+ *
+ *  @section TODO
+ *  - Add more logging and context
+ */
 
 #pragma once
 
