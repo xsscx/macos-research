@@ -1,32 +1,32 @@
-/**
- *  @file CMakeLists.xnu
- *  @brief CMakeLists.xnu for Jackalope when Building Source for XNU Run Targets
- *  @author @h02332 | David Hoyt
- *  @date 04 MAR 2024
- *  @version 2.0.2
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- *  @section CHANGES
- *  - 05/MAR/2024, h02332: Initial commit.
- *
- *  @section TODO
- *  - Add Logging
- */
+#
+# @file CMakeLists.xnu
+# @brief CMakeLists.xnu for Jackalope when Building Source for XNU Run Targets
+# @author @h02332 | David Hoyt
+# @date 04 MAR 2024
+# @version 2.0.3
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# @section CHANGES
+# - 05/MAR/2024, h02332: Initial commit.
+#
+# @section TODO
+# - Add Logging
+#
 
 cmake_minimum_required(VERSION 3.1)
-project(fuzzer VERSION 2.0.2 DESCRIPTION "Fuzzer Run Targets for XNU Platform")
+project(fuzzer VERSION 2.0.3 DESCRIPTION "Fuzzer Run Targets for XNU Platform")
 set(CMAKE_CXX_STANDARD 17)
 
 # Enforce build type to be Debug if not specified to ensure symbols are included
@@ -128,4 +128,3 @@ target_link_libraries(test fuzzerlib)
 
 # Examples subdirectory
 add_subdirectory(examples)
-
