@@ -10,7 +10,6 @@ Last Updated: March 5, 2024, 1400Z
 - CVE-2023-46867 https://nvd.nist.gov/vuln/detail/CVE-2023-46867
 - CVE-2023-47249 https://nvd.nist.gov/vuln/detail/CVE-2023-47249
 - CVE-2023-48736 https://nvd.nist.gov/vuln/detail/CVE-2023-48736
-- libAppleEXR - Abort() in RBG Channel Sub Sampling
 
 ## DemoIccMax Bug Reports & Pull Requests
 - https://github.com/InternationalColorConsortium/DemoIccMAX/pull/53
@@ -20,6 +19,7 @@ Last Updated: March 5, 2024, 1400Z
 ## Apple Image dylib Crash Samples
 - libAppleEXR in Function YCCAtoRGBA()
 - AppleJPEG in Function decode_get_chroma_subsampling()
+- MediaToolbox in Function 0x18f3c9000 + 6396752 
 
 ## Thanks
 ```
