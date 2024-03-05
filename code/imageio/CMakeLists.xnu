@@ -19,9 +19,7 @@
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  *  @section CHANGES
- *  - 26/11/2023, h02332: Initial commit.
- *  - 21/02/2024, h02332: Refactor Fuzzing Contexts for Floats & Alpha, Fix Coverage, Math & Programming Mistakes.
- *  - 21/02/2024, h02332: PermaLink https://srd.cx/xnu-image-fuzzer/.
+ *  - 05/MAR/2024, h02332: Initial commit.
  *
  *  @section TODO
  *  - Add Logging
