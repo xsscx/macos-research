@@ -1,90 +1,91 @@
-// Modified by @h02332 David Hoyt to aid in Debugging in Jackalope
-// Modified instrumentation.h for Live Debugging Mode Implementation
-// Should be used with your Stub Programs in CMakeLists.txt until Stable
-// Ninja Mode with bleeded edge code
-
-#include "instrumentation.h"
+/**
+ *  @file instrumentation.cpp
+ *  @brief Changes for debugmode() to instrumentation.h
+ *  @author @h02332 | David Hoyt
+ *  @date 03 MAR 2024
+ *  @version 1.0.4
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  @section CHANGES
+ *  - 05/MAR/2024, h02332: Initial commit.
+ *
+ *  @section TODO
+ *  - Add more logging and context
+ */
 #include <csignal>
-#include <execinfo.h> // Include for backtrace functionality
-#include <unistd.h> // for getpid()
-#include <cstdlib> // for system()
-#include <cstdio> // for snprintf()
-#include <fstream>
+#include <cstdlib>
+#include <cstdio>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <chrono>
 #include <cassert>
+#include <cstring> // For strcmp and strlen
+#include <execinfo.h> // For backtrace functionality on Unix-like systems
 
-bool Instrumentation::debugMode = true;
-int Instrumentation::verbosityLevel = 1; // Ensure this matches the declaration in instrumentation.h
+#include "instrumentation.h"
+#include "common.h"
+
+// Definitions (Consider the necessity and placement of this definition, especially if compiling on non-Windows platforms)
+#define _CRT_SECURE_NO_WARNINGS
+
+bool Instrumentation::debugMode = false;
+int Instrumentation::verbosityLevel = 1;
 std::ofstream Instrumentation::debugLogFile("fuzzer_debug_log.txt", std::ios::app);
 
 std::string Instrumentation::AnonymizeAddress(void* addr) {
     char buf[20];
     snprintf(buf, sizeof(buf), "%p", addr);
 
-    // Check if address is nullptr or entirely zeros
-    if (!strcmp(buf, "(nil)") || !strspn(buf, "0x0")) {
-        std::cerr << "[" << __TIME__ << "] AnonymizeAddress: Address is nil or zero" << std::endl;
-        return std::string("0");
+    // Simplified check for nullptr or entirely zeros
+    std::string addrStr(buf);
+    if (addrStr == "(nil)" || addrStr.find_first_not_of("0x0") == std::string::npos) {
+        LogDebug("AnonymizeAddress: Address is nil or zero", 1);
+        return "0";
     }
 
-    int addr_start = (buf[0] == '0' && (buf[1] == 'x' || buf[1] == 'X')) ? 2 : 0;
-    int len = static_cast<int>(strlen(buf));
-    int firstnonzero = len;
-    for (int i = addr_start; i < len; i++) {
-        if (buf[i] != '0') {
-            firstnonzero = i;
-            break;
-        }
-    }
-
-    // If no non-zero character was found, return the address as-is but log the unusual situation
-    if (firstnonzero == len) {
-        std::cerr << "[" << __TIME__ << "] AnonymizeAddress: No non-zero character found in address. Address: " << addr << std::endl;
-        return std::string(buf); // Return the original address string
+    // Find first non-zero character after "0x" if present
+    size_t addr_start = addrStr.find_first_not_of('0', addrStr.find("0x") != std::string::npos ? 2 : 0);
+    if (addr_start == std::string::npos) {
+        LogDebug("AnonymizeAddress: No non-zero character found in address. Address: " + addrStr, 1);
+        return addrStr;
     }
 
     // Proceed with anonymization for the rest of the address
-    for (int i = firstnonzero; i < len - 3; i++) {
-        buf[i] = 'x';
-    }
+    std::fill(addrStr.begin() + addr_start, addrStr.end() - 3, 'x');
+    LogDebug("AnonymizeAddress: Original: " + std::string(buf) + ", Anonymized: " + addrStr, 1);
 
-    std::string anonymizedAddr(buf);
-    std::cerr << "[" << __TIME__ << "] AnonymizeAddress: Original: " << addr
-              << ", Anonymized: " << anonymizedAddr << std::endl;
-    return anonymizedAddr;
+    return addrStr;
 }
 
 void Instrumentation::DebugBreakpoint(const std::string& message) {
     if (debugMode) {
-        std::cout << "[DEBUG BREAK] " << message << "\n";
-        std::cout << "Press enter to continue...\n";
+        std::cerr << "[DEBUG BREAK] " << message << "\n";
+        std::cerr << "Press enter to continue...\n";
         std::cin.get();
     }
 }
 
-#include <signal.h> // For signal constants
-#include <stdlib.h> // For exit()
-#include <unistd.h> // For getpid()
-#include <stdio.h>  // For snprintf()
-#include <iostream> // For std::cout
-#include <fstream>  // For std::ofstream
-
-// Assuming other necessary includes and namespace declarations are already in place
-
 void Instrumentation::SignalHandler(int signal) {
-    std::cout << "Caught signal " << signal << "\n";
+    LogDebug("Caught signal " + std::to_string(signal), 1);
     switch(signal) {
-        case SIGINT: {
-            LogDebug("Interrupt signal (SIGINT) received. Program will exit.", 1);
-            // Optionally, perform any cleanup here
-            
-            // Exit the program or take other appropriate action
-            // For immediate program termination, consider using _exit() if cleanup isn't needed
-            exit(EXIT_FAILURE); // Use std::exit() for invoking global destructors, if necessary
+        case SIGINT:
+            LogDebug("Interrupt signal (SIGINT) received. Exiting.", 1);
+            exit(EXIT_FAILURE);
             break;
-        }
-        case SIGSEGV: {
+        case SIGSEGV:
 #ifdef __GNUC__
             void* callstack[128];
             size_t frames = backtrace(callstack, 128);
@@ -97,18 +98,17 @@ void Instrumentation::SignalHandler(int signal) {
 #else
             LogDebug("Segmentation fault. Stack trace not available.", 1);
 #endif
-            // Consider whether to terminate the program or attempt recovery
-            exit(EXIT_FAILURE); // or _exit(EXIT_FAILURE) for immediate termination
+            exit(EXIT_FAILURE);
             break;
-        }
-        // Handle other signals as necessary
+        // Consider handling other signals as necessary
     }
-    debugMode = true; // Consider the implications of changing global state within a signal handler
+    debugMode = true; // Changing global state here; be aware of potential issues
 }
 
 void Instrumentation::SetupDebugMode() {
     std::signal(SIGINT, SignalHandler);
-    std::signal(SIGSEGV, SignalHandler); // Setup to catch segmentation faults
+    std::signal(SIGSEGV, SignalHandler); // Catch segmentation faults
+    debugMode = true;
 }
 
 void Instrumentation::LogDebug(const std::string& message, int level) {
@@ -120,6 +120,6 @@ void Instrumentation::LogDebug(const std::string& message, int level) {
         debugLogFile << "{ \"time\": \"" << buffer
                      << "\", \"level\": " << level
                      << ", \"message\": \"" << message << "\" }\n";
-        debugLogFile.flush(); // Ensure the message is immediately written to the file
+        debugLogFile.flush(); // Ensure immediate writing to the file
     }
 }
