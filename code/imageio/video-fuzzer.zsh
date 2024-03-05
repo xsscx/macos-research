@@ -3,7 +3,7 @@
 # Output file for logging command lines
 output_file="clivideo.txt"
 
-@ Input Dir
+# Input Dir
 input_dir="/mnt/fuzz/video/"
 
 # List of graphics-related dylibs
