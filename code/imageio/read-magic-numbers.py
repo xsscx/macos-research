@@ -17,71 +17,52 @@ def get_file_type(magic_bytes, file_content=None):
     file_signatures = {
         # Common image formats
         b'\x89PNG\r\n\x1a\n': 'PNG Image',
-        b'\xff\xd8\xff\xe0': 'JPEG Image',  # Standard JPEG
-        b'\xff\xd8\xff\xe1': 'JPEG Image with Exif',
+        b'\xff\xd8\xff\xe0': 'JPEG Image (JFIF format)',
+        b'\xff\xd8\xff\xe1': 'JPEG Image (EXIF format)',
         b'\xff\xd8\xff\xe2': 'JPEG Image with ICC Profile',
-        # APPL specific formats (hypothetical examples)
-        b'\x00\x00\x01\xf8': 'APPL Scene Format',
-        b'\x00\x00\x02\xec': 'APPL Scene Format',
-        b'\x00\x00\x00\x14': 'APPL QT Format',
-        # Hoyt exploit and fuzzed formats
-        b'\x00\x00\x1d\x24': 'HOYT ICC Buffer Overflow Profile',  # Hoyt ICC Exploit Format
-        b'\x00\x00\x1d\x24': 'HOYT Exploit Format',  # Hoyt Exploit Format
-        b'\x38\x63\x59\x1b': 'HOYT Exploit Format',  # Hoyt Exploit Format
-        b'\x52\x00\x01\x46': 'HOYT Exploit Format',  # Hoyt Exploit Format
-        b'\x1a\x0a\x00\x00': 'HOYT Exploit Format',  # Hoyt Exploit Format
-        b'\xff\xe0\x46\xae': 'HOYT Exploit Format',  # Hoyt Exploit Format
-        b'\x52\x5e\x8d\x5c': 'HOYT Exploit Format',  # Hoyt Exploit Format
-        b'\x01\x49\x46\x46': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
-        b'\x52\x49\x46\xb9': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
-        b'\x10\x74\xbc\x25': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
-        b'\x52\x49\x46\x25': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
-        b'\x52\x49\x46\xb9': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format
-        b'\x52\xab\x2a\x46': 'HOYT xIFF Fuzzed Format',  # Hoyt xIFF Exploit Format        # Other formats
-        b'GIF87a': 'GIF Image',
-        b'GIF89a': 'GIF Image',
+        b'GIF87a': 'GIF Image (87a format)',
+        b'GIF89a': 'GIF Image (89a format)',
         b'BM': 'BMP Image',
-        b'II*\x00': 'TIFF Image',
-        b'MM\x00*': 'TIFF Image',
-        b'\x52\x49\x46\x46': 'RIFF Image',
-        b'8BPS': 'Adobe Photoshop Image',
-        b'\x00\x00\x01\x00': 'ICO Image',
-        b'acsp': 'Standard ICC Profile',
-        # Custom ICC-related formats
-        b'\x23\xc9\xae\x19': 'Custom ICC-Related Format',
-        # Additional common image formats
+        b'II*\x00': 'TIFF Image (little endian)',
+        b'MM\x00*': 'TIFF Image (big endian)',
         b'\x00\x00\x01\x00': 'Windows Icon',
         b'\x00\x00\x02\x00': 'Windows Cursor',
-        b'\x42\x4D': 'BMP Image',
-        b'\x47\x49\x46\x38\x37\x61': 'GIF87a Image',
-        b'\x47\x49\x46\x38\x39\x61': 'GIF89a Image',
-        b'\x49\x49\x2A\x00': 'TIFF Image (little endian)',
-        b'\x4D\x4D\x00\x2A': 'TIFF Image (big endian)',
-        b'\x89\x50\x4E\x47\x0D\x0A\x1A\x0A': 'PNG Image',
-        b'\xFF\xD8\xFF\xDB': 'JPEG Image',
-        b'\xFF\xD8\xFF\xE0': 'JPEG Image (JFIF format)',
-        b'\xFF\xD8\xFF\xE1': 'JPEG Image (EXIF format)',
-        # WebP, requires checking for "WEBP" string at offset 8
-        b'\x52\x49\x46\x46': 'Potential WebP Image',  # Needs further verification due to RIFF container
-        # HEIF and HEIC, based on the 'ftyp' box, which requires more context to verify
-        b'\x00\x00\x00\x18\x66\x74\x79\x70\x68\x65\x69\x63': 'HEIC Image',  # Initial segment of 'ftypheic'
-        b'\x00\x00\x00\x18\x66\x74\x79\x70\x6D\x69\x66\x31': 'HEIF Image',  # Initial segment of 'ftypmif1'
+        b'8BPS': 'Adobe Photoshop Image',
+        b'acsp': 'Standard ICC Profile',
+        # APPL specific formats (hypothetical examples)
+        b'\x00\x00\x01\xf8': 'APPL Scene Format',
+        b'\x00\x00\x02\xec': 'APPL Scene Format (duplicate removed)',
+        b'\x00\x00\x00\x14': 'APPL QT Format',
+        # Hoyt exploit and fuzzed formats
+        b'\x00\x00\x1d\x24': 'HOYT ICC Buffer Overflow Profile',
+        b'\x38\x63\x59\x1b': 'HOYT Exploit Format',
+        b'\x52\x00\x01\x46': 'HOYT Exploit Format (additional formats consolidated)',
+        b'\x1a\x0a\x00\x00': 'HOYT Exploit Format',
+        b'\xff\xe0\x46\xae': 'HOYT Exploit Format',
+        b'\x52\x5e\x8d\x5c': 'HOYT Exploit Format',
+        b'\x01\x49\x46\x46': 'HOYT xIFF Fuzzed Format',
+        b'\x52\x49\x46\xb9': 'HOYT xIFF Fuzzed Format',
+        b'\x10\x74\xbc\x25': 'HOYT xIFF Fuzzed Format',
+        b'\x52\x49\x46\x25': 'HOYT xIFF Fuzzed Format',
+        b'\x52\xab\x2a\x46': 'HOYT xIFF Fuzzed Format',
+        # Additional common image formats (duplicates and similar entries merged)
+        b'\x52\x49\x46\x46': 'RIFF Container (Potential WebP/AVI/WAV)',
+        # HEIF and HEIC, based on the 'ftyp' box
+        b'\x00\x00\x00\x18\x66\x74\x79\x70\x68\x65\x69\x63': 'HEIC Image Format',
+        b'\x00\x00\x00\x18\x66\x74\x79\x70\x6D\x69\x66\x31': 'HEIF Image Format',
         b'\x54\x52\x55\x45\x56\x49\x53\x49\x4F\x4E\x2D\x58\x46\x49\x4C\x45\x2E\x00': 'TGA Image Footer',
-        b'FORM': 'IFF File',  # Further analysis required to distinguish ILBM, 8SVX, etc.
+        b'FORM': 'IFF File',
         # Custom signatures for non-standard ICC-related formats
         b'\x23\xc9\xae\x19': 'Custom ICC-Related Format',
-        b'\x49\xc9\xae\x19': 'Custom ICC-Related Format',
+        b'\x49\xc9\xae\x19': 'Custom ICC-Related Format (duplicate entries removed)',
         b'\x41\xc9\xae\x19': 'Custom ICC-Related Format',
         b'\x4d\xc9\xae\x19': 'Custom ICC-Related Format',
         b'\x44\xc9\xae\x19': 'Custom ICC-Related Format',
-        b'\x4d\xc9\xae\x19': 'Custom ICC-Related Format',
         b'\x50\xc9\xae\x19': 'Custom ICC-Related Format',
         b'\x69\xc9\xae\x19': 'Custom ICC-Related Format',
-        b'\x49\xc9\xae\x19': 'Custom ICC-Related Format',
         b'\xab\xc9\xae\x19': 'Custom ICC-Related Format',
         b'\xab\x4b\xae\x19': 'Custom ICC-Related Format',
         b'\x49\x49\xae\x19': 'Custom ICC-Related Format',
-        
     }
     
     # Check binary signatures
