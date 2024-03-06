@@ -2,8 +2,8 @@
  *  @file xnuimagefuzzer.m
  *  @brief XNU Image Fuzzer for iOs On Mac Interposing Project
  *  @author @h02332 | David Hoyt
- *  @date 01 MAR 2024
- *  @version 1.3.0.i
+ *  @date 06 MAR 2024
+ *  @version 1.3.3.i
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
  *  - 21/02/2024, h02332: Refactor Fuzzing Contexts for Floats & Alpha, Fix Coverage, Math & Programming Mistakes.
  *  - 21/02/2024, h02332: PermaLink https://srd.cx/xnu-image-fuzzer/.
  *  - 29/02/2024, h02332: Add appDelegate Transition
+ *  - 05/03/2024, h02332: Fix BOOL not bool
  *
  *  @section TODO
  *  - Grayscale Implementation.
@@ -211,7 +212,7 @@ Conversely, to disable verbose logging, especially in preparation for a release 
 verboseLogging = 0; // Disable verbose logging
 @note It's important to manage the state of this variable carefully, as excessive logging can lead to performance degradation and cluttered log outputs. Consider implementing a mechanism to adjust this setting dynamically based on the build configuration or user preferences.
 */
-static int verboseLogging = 1; // 1 enables detailed logging, 0 disables it.
+static int verboseLogging = 0; // 1 enables detailed logging, 0 disables it.
 
 #pragma mark - Date and Time Utilities
 
@@ -615,7 +616,7 @@ void applyFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t he
 @brief Logs pixel data from a bitmap context for analysis or debugging.
 @details Includes an option for verbose output, aiding in the detailed examination of image processing results or issues.
 */
-void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message, bool verbose);
+void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message, BOOL verbose);
 
 /**
 @brief Applies enhanced fuzzing to a bitmap context's raw pixel data.
@@ -738,7 +739,7 @@ providing insights into the image's content or image processing results. Assumes
 
 @note Ensure the provided raw data correctly corresponds to the specified width and height to avoid out-of-bounds access.
 */
-void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message, bool verboseLogging) {
+void logPixelData(unsigned char *rawData, size_t width, size_t height, const char *message, BOOL verboseLogging) {
     if (!rawData || width == 0 || height == 0) {
         NSLog(@"%s - Invalid data or dimensions. Logging aborted.", message);
         return;
@@ -823,7 +824,7 @@ void LogRandomPixelData(unsigned char *rawData, size_t width, size_t height, con
 
 @note The rawData buffer is expected to accommodate width * height pixels, each represented by 4 bytes. The function directly modifies this buffer, reflecting the applied fuzzing techniques without returning any value. It serves as a critical tool for enhancing the security and robustness of image processing algorithms by exposing them to a broad spectrum of test conditions.
 */
-void applyEnhancedFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height, bool verboseLogging) {
+void applyEnhancedFuzzingToBitmapContext(unsigned char *rawData, size_t width, size_t height, BOOL verboseLogging) {
     if (!rawData || width == 0 || height == 0) {
         NSLog(@"No valid raw data or dimensions available for enhanced fuzzing.");
         return;
@@ -1037,29 +1038,6 @@ void applyEnhancedFuzzingToBitmapContextWithFloats(float *rawData, size_t width,
     }
 }
 
-#pragma mark - Hash Function
-
-/**
-@brief Computes a hash value for a given string.
-@details This function implements the djb2 algorithm, a simple and effective hash function for strings. The algorithm iterates over each character in the input string, combining the previous hash value and the current character to produce a new hash. This method is known for its simplicity and decent distribution properties, making it suitable for a variety of hashing needs where extreme cryptographic security is not required.
-
-@param str Pointer to the input string to be hashed. The string is assumed to be null-terminated.
-@return Returns an unsigned long representing the hash value of the input string.
-
-@note The hash value is computed using a specific formula: hash * 33 + c, where hash is the current hash value, and c is the ASCII value of the current character. This formula is applied iteratively over each character of the string, starting with an initial hash value of 5381, which is a commonly used starting point for the djb2 algorithm.
-*/
-unsigned long hashString(const char* str) {
-    unsigned long hash = 5381; // Initial value for djb2 algorithm
-    int c;
-
-    // Iteratively compute the hash value for each character
-    while ((c = *str++)) {
-        hash = ((hash << 5) + hash) + c; // hash * 33 + c
-    }
-
-    return hash; // Return the computed hash value
-}
-
 #pragma mark - applyEnhancedFuzzingToBitmapContextAlphaOnly
 
 /**
@@ -1269,6 +1247,29 @@ void saveFuzzedImage(UIImage *image, NSString *contextDescription) {
     }
 }
 
+#pragma mark - Hash Function
+
+/**
+@brief Computes a hash value for a given string.
+@details This function implements the djb2 algorithm, a simple and effective hash function for strings. The algorithm iterates over each character in the input string, combining the previous hash value and the current character to produce a new hash. This method is known for its simplicity and decent distribution properties, making it suitable for a variety of hashing needs where extreme cryptographic security is not required.
+
+@param str Pointer to the input string to be hashed. The string is assumed to be null-terminated.
+@return Returns an unsigned long representing the hash value of the input string.
+
+@note The hash value is computed using a specific formula: hash * 33 + c, where hash is the current hash value, and c is the ASCII value of the current character. This formula is applied iteratively over each character of the string, starting with an initial hash value of 5381, which is a commonly used starting point for the djb2 algorithm.
+*/
+unsigned long hashString(const char* str) {
+    unsigned long hash = 5381; // Initial value for djb2 algorithm
+    int c;
+
+    // Iteratively compute the hash value for each character
+    while ((c = *str++)) {
+        hash = ((hash << 5) + hash) + c; // hash * 33 + c
+    }
+
+    return hash; // Return the computed hash value
+}
+
 #pragma mark - Application Entry Point
 
 /**
@@ -1326,14 +1327,14 @@ int main(int argc, const char * argv[]) {
             dumpDeviceInfo();
             dumpMacDeviceInfo();
 
-            NSLog(@"XNU Image Fuzzer 1.3.1.i transferring to appDelegate %@", currentTime);
+            NSLog(@"XNU Image Fuzzer 1.3.1.i transferring to AppDelegate Version 1.0.5.i at %@", currentTime);
             return 0; // Successful completion of command-line image processing
-        } // else {
-            // Standard iOS app launch
-           //  AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-           //  [appDelegate transitionToFuzzedImagesViewController];
-           //  return UIApplicationMain(argc, (char * _Nonnull * _Nonnull)argv, nil, NSStringFromClass([AppDelegate class]));
-       //  }
+        }  else {
+             // Standard iOS app launch
+             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+             [appDelegate transitionToFuzzedImagesViewController];
+             return UIApplicationMain(argc, (char * _Nonnull * _Nonnull)argv, nil, NSStringFromClass([AppDelegate class]));
+         }
     }
 }
 
@@ -1640,8 +1641,31 @@ void createBitmapContextStandardRGB(CGImageRef cgImg, int permutation) {
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
     NSLog(@"Applying enhanced fuzzing logic to the bitmap context");
-    applyEnhancedFuzzingToBitmapContext(rawData, width, height, verboseLogging);
+    applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES);
 
+    // Initialize a variable to keep track of unchanged and changed bytes
+    size_t unchangedCount = 0;
+    size_t changedCount = 0;
+
+    // Check for 0x41 pattern after operations and detect changes
+    for (size_t i = 0; i < height * bytesPerRow; i++) {
+        if (rawData[i] == 0x41) {
+            unchangedCount++;
+        } else {
+            // Log the first few changes to avoid flooding the log
+            if (changedCount < 10) { // Limiting to the first 10 changes for brevity
+                NSLog(@"Detected change from 0x41 at byte offset %zu, new value: 0x%X", i, rawData[i]);
+            }
+            changedCount++;
+        }
+    }
+
+    // Summarize findings
+    if (unchangedCount > 0) {
+        NSLog(@"Detected unchanged 0x41 pattern in %zu places.", unchangedCount);
+    }
+    NSLog(@"Detected changes in %zu places.", changedCount);
+    
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from context");
@@ -1834,10 +1858,32 @@ void createBitmapContextNonPremultipliedAlpha(CGImageRef cgImg) {
     // Draw the CGImage into the bitmap context
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Apply fuzzing logic directly to the bitmap's raw data
-    NSLog(@"Applying enhanced fuzzing logic to the bitmap context with non-premultiplied alpha");
-    applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES); // Assuming verbose logging is desired
+    NSLog(@"Applying enhanced fuzzing logic to the bitmap context");
+    applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES);
 
+    // Initialize a variable to keep track of unchanged and changed bytes
+    size_t unchangedCount = 0;
+    size_t changedCount = 0;
+
+    // Check for 0x41 pattern after operations and detect changes
+    for (size_t i = 0; i < height * bytesPerRow; i++) {
+        if (rawData[i] == 0x41) {
+            unchangedCount++;
+        } else {
+            // Log the first few changes to avoid flooding the log
+            if (changedCount < 10) { // Limiting to the first 10 changes for brevity
+                NSLog(@"Detected change from 0x41 at byte offset %zu, new value: 0x%X", i, rawData[i]);
+            }
+            changedCount++;
+        }
+    }
+
+    // Summarize findings
+    if (unchangedCount > 0) {
+        NSLog(@"Detected unchanged 0x41 pattern in %zu places.", unchangedCount);
+    }
+    NSLog(@"Detected changes in %zu places.", changedCount);
+    
     // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
@@ -1934,9 +1980,32 @@ void createBitmapContext16BitDepth(CGImageRef cgImg) {
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
     // Apply fuzzing logic directly to the bitmap's raw data
-    NSLog(@"Applying enhanced fuzzing logic to the bitmap context with 16-bit depth");
-    applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES); // Assuming verbose logging is desired
+    NSLog(@"Applying enhanced fuzzing logic to the bitmap context");
+    applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES);
 
+    // Initialize a variable to keep track of unchanged and changed bytes
+    size_t unchangedCount = 0;
+    size_t changedCount = 0;
+
+    // Check for 0x41 pattern after operations and detect changes
+    for (size_t i = 0; i < height * bytesPerRow; i++) {
+        if (rawData[i] == 0x41) {
+            unchangedCount++;
+        } else {
+            // Log the first few changes to avoid flooding the log
+            if (changedCount < 10) { // Limiting to the first 10 changes for brevity
+                NSLog(@"Detected change from 0x41 at byte offset %zu, new value: 0x%X", i, rawData[i]);
+            }
+            changedCount++;
+        }
+    }
+
+    // Summarize findings
+    if (unchangedCount > 0) {
+        NSLog(@"Detected unchanged 0x41 pattern in %zu places.", unchangedCount);
+    }
+    NSLog(@"Detected changes in %zu places.", changedCount);
+    
     // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
@@ -2032,9 +2101,43 @@ void createBitmapContextHDRFloatComponents(CGImageRef cgImg) {
     NSLog(@"Applying enhanced fuzzing logic to the HDR bitmap context");
 
     // Cycle through injection strings or select based on specific criteria
+    NSLog(@"Applying enhanced fuzzing logic to the HDR bitmap context");
+
+    // Cycle through injection strings or select based on specific criteria
     static int currentStringIndex = 0; // Example: simple cycling mechanism
     applyEnhancedFuzzingToBitmapContextWithFloats(rawData, width, height, YES);
     currentStringIndex = (currentStringIndex + 1) % NUMBER_OF_STRINGS; // Move to the next string for the next call
+
+    // Initialize a variable to keep track of unchanged and changed bytes
+    size_t unchangedCount = 0;
+    size_t changedCount = 0;
+
+    // Check for 0x41 pattern after operations and detect changes
+    for (size_t i = 0; i < height * bytesPerRow; i++) {
+        if (rawData[i] == 0x41) {
+            unchangedCount++;
+        } else {
+            // Log the first few changes to avoid flooding the log
+            if (changedCount < 10) { // Limiting to the first 10 changes for brevity
+                // Using a union to reinterpret the float's bits as an unsigned int for logging
+                union {
+                    float f;
+                    unsigned int u;
+                } floatToHex;
+                
+                floatToHex.f = rawData[i]; // Assign the float value to the union
+
+                NSLog(@"Detected change from 0x41 at byte offset %zu, new value: 0x%X", i, floatToHex.u);
+            }
+            changedCount++;
+        }
+    }
+
+    // Summarize findings
+    if (unchangedCount > 0) {
+        NSLog(@"Detected unchanged 0x41 pattern in %zu places.", unchangedCount);
+    }
+    NSLog(@"Detected changes in %zu places.", changedCount);
 
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
@@ -2170,47 +2273,62 @@ void createBitmapContext1BitMonochrome(CGImageRef cgImg) {
         return;
     }
 
-    NSLog(@"Creating bitmap context with 1-bit Monochrome settings");
+    NSLog(@"Creating bitmap context with 8-bit Grayscale settings for 1-bit processing");
 
     size_t width = CGImageGetWidth(cgImg);
     size_t height = CGImageGetHeight(cgImg);
-    // Calculate bytes per row for 1 bit per pixel, rounded up to the nearest byte
-    size_t bytesPerRow = (width + 7) / 8; // Round up to account for partial bytes
-    CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 1, bytesPerRow, NULL, kCGImageAlphaNone);
+    size_t bytesPerRow = width; // 8 bits per pixel in a grayscale image
+
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+
+    CGContextRef ctx = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaNone);
     if (!ctx) {
-        NSLog(@"Failed to create bitmap context with 1-bit Monochrome settings");
+        NSLog(@"Failed to create bitmap context");
+        CGColorSpaceRelease(colorSpace);
         return;
     }
 
-    // Set the fill color to white and fill the context to start with a blank slate
     CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
     CGContextFillRect(ctx, CGRectMake(0, 0, width, height));
-
-    // Draw the CGImage into the bitmap context, adjusting it to fit the 1-bit color depth
     CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImg);
 
-    // Access the raw pixel data
     unsigned char *rawData = CGBitmapContextGetData(ctx);
     if (rawData) {
-        NSLog(@"Converting bitmap data to 1-bit Monochrome");
-        convertTo1BitMonochrome(rawData, width, height);
+        NSLog(@"Applying enhanced fuzzing logic to the bitmap context");
+        applyEnhancedFuzzingToBitmapContext(rawData, width, height, YES);
+
+        size_t unchangedCount = 0;
+        size_t changedCount = 0;
+
+        for (size_t i = 0; i < height * bytesPerRow; i++) {
+            if (rawData[i] == 0x41) {
+                unchangedCount++;
+            } else {
+                if (changedCount < 10) {
+                    NSLog(@"Detected change from 0x41 at byte offset %zu, new value: 0x%X", i, rawData[i]);
+                }
+                changedCount++;
+            }
+        }
+
+        if (unchangedCount > 0) {
+            NSLog(@"Detected unchanged 0x41 pattern in %zu places.", unchangedCount);
+        }
+        NSLog(@"Detected changes in %zu places.", changedCount);
     }
 
-    // Create a new image from the modified context
     CGImageRef newCgImg = CGBitmapContextCreateImage(ctx);
     if (!newCgImg) {
         NSLog(@"Failed to create CGImage from 1-bit Monochrome context");
     } else {
         UIImage *newImage = [UIImage imageWithCGImage:newCgImg];
         CGImageRelease(newCgImg); // Release the created CGImage
-
-        // Save the monochrome image with a context-specific identifier
         saveMonochromeImage(newImage, @"1Bit_Monochrome");
         NSLog(@"Modified UIImage with 1-bit Monochrome settings created and saved successfully.");
     }
 
-    NSLog(@"Bitmap context with 1-bit Monochrome settings created and handled successfully");
     CGContextRelease(ctx);
+    CGColorSpaceRelease(colorSpace);
 }
 
 #pragma mark - createBitmapContextBigEndian
