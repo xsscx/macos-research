@@ -1,9 +1,9 @@
-/*!
+/**
  *  @file ViewController.h
- *  @brief XNU Image Fuzzer
- *  @author David Hoyt
- *  @date 01 JUN 2024
- *  @version 1.8.2
+ *  @brief XNU Image Fuzzer.
+ *  @author @h02332 | David Hoyt
+ *  @date 29 FEB 2024
+ *  @version 1.0.0
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
+ *  @section CHANGES
+ *  - 29/02/2024, h02332: Initial commit.
  *
  */
 
@@ -35,4 +37,3 @@ image processing, UI interaction, and basic C operations essential for the appli
 
 @interface ViewController : UIViewController
 @end
-
