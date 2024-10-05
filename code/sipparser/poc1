@@ -1,0 +1,4 @@
+INVITE sip:conf-fac
+@example.com SIP/2.0
+Alert-Info: aaa
+Alert-Info: bbb

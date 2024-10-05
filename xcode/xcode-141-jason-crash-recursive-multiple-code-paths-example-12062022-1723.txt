@@ -1,0 +1,1131 @@
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+
+Process:               Xcode [1203]
+Path:                  /Applications/Xcode.app/Contents/MacOS/Xcode
+Identifier:            com.apple.dt.Xcode
+Version:               14.1 (21534.1)
+Build Info:            IDEFrameworks-21534001000000000~2 (14B47b)
+Code Type:             X86-64 (Native)
+Parent Process:        launchd [1]
+User ID:               501
+
+Date/Time:             2022-12-06 09:03:46.6671 -0500
+OS Version:            macOS 13.0.1 (22A400)
+Report Version:        12
+Bridge OS Version:     7.0 (20P420)
+
+Time Awake Since Boot: 6400 seconds
+
+System Integrity Protection: enabled
+
+Notes:
+dyld_process_snapshot_create_for_process failed with 5
+
+Crashed Thread:        15  Dispatch queue: DVTFilePathEventWatcher - event queue
+
+Exception Type:        EXC_BAD_ACCESS (SIGBUS)
+Exception Codes:       KERN_PROTECTION_FAILURE at 0x0000700004f8dff8
+Exception Codes:       0x0000000000000002, 0x0000700004f8dff8
+
+Termination Reason:    Namespace SIGNAL, Code 10 Bus error: 10
+Terminating Process:   exc handler [1203]
+
+VM Region Info: 0x700004f8dff8 is in 0x700004f8d000-0x700004f8e000;  bytes after start: 4088  bytes before end: 7
+      REGION TYPE                    START - END         [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL
+      Stack                    700004f0b000-700004f8d000 [  520K] rw-/rwx SM=PRV  thread 7
+--->  STACK GUARD              700004f8d000-700004f8e000 [    4K] ---/rwx SM=NUL  ...for thread 15
+      Stack                    700004f8e000-700005010000 [  520K] rw-/rwx SM=PRV  thread 15
+
+Error Formulating Crash Report:
+dyld_process_snapshot_create_for_process failed with 5
+
+Thread 0::  Dispatch queue: com.apple.main-thread
+0   libdispatch.dylib             	    0x7ff8033d7091 voucher_mach_msg_fill_aux + 9
+1   libsystem_kernel.dylib        	    0x7ff8034fa5b9 mach_msg_overwrite + 370
+2   libsystem_kernel.dylib        	    0x7ff8034f3989 mach_msg + 19
+3   SkyLight                      	    0x7ff808296db1 SLSStructuralRegionSetClippedByWindow + 133
+4   AppKit                        	    0x7ff806dd7ed5 -[_NSTrackingAreaAKManager _updateStructuralRegionCreateIfNeeded:] + 504
+5   AppKit                        	    0x7ff806dded72 -[_NSTrackingAreaAKManager displayCycleUpdateStructuralRegions] + 118
+6   AppKit                        	    0x7ff8067f3a84 __NSWindowGetDisplayCycleObserverForUpdateStructuralRegions_block_invoke + 390
+7   AppKit                        	    0x7ff8067ee701 NSDisplayCycleObserverInvoke + 142
+8   AppKit                        	    0x7ff8067ee331 NSDisplayCycleFlush + 878
+9   QuartzCore                    	    0x7ff80b067f46 CA::Transaction::run_commit_handlers(CATransactionPhase) + 98
+10  QuartzCore                    	    0x7ff80b066a10 CA::Transaction::commit() + 380
+11  AppKit                        	    0x7ff80688bedf __62+[CATransaction(NSCATransaction) NS_setFlushesWithDisplayLink]_block_invoke + 285
+12  AppKit                        	    0x7ff8070a2513 ___NSRunLoopObserverCreateWithHandler_block_invoke + 41
+13  CoreFoundation                	    0x7ff80360c0e2 __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + 23
+14  CoreFoundation                	    0x7ff80360c00a __CFRunLoopDoObservers + 482
+15  CoreFoundation                	    0x7ff80360b590 __CFRunLoopRun + 870
+16  CoreFoundation                	    0x7ff80360abb0 CFRunLoopRunSpecific + 560
+17  HIToolbox                     	    0x7ff80ceecbd6 RunCurrentEventLoopInMode + 292
+18  HIToolbox                     	    0x7ff80ceec9e6 ReceiveNextEventCommon + 679
+19  HIToolbox                     	    0x7ff80ceec723 _BlockUntilNextEventMatchingListInModeWithFilter + 70
+20  AppKit                        	    0x7ff80672db37 _DPSNextEvent + 909
+21  AppKit                        	    0x7ff80672c9b8 -[NSApplication(NSEvent) _nextEventMatchingEventMask:untilDate:inMode:dequeue:] + 1219
+22  DVTKit                        	       0x109ab4bb2 -[DVTApplication nextEventMatchingMask:untilDate:inMode:dequeue:] + 354
+23  AppKit                        	    0x7ff80671eff3 -[NSApplication run] + 586
+24  DVTKit                        	       0x109ab3beb -[DVTApplication run] + 54
+25  AppKit                        	    0x7ff8066f3058 NSApplicationMain + 817
+26  dyld                          	    0x7ff803201310 start + 2432
+
+Thread 1:
+0   libsystem_kernel.dylib        	    0x7ff8034f36a2 mach_msg2_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff80350167d mach_msg2_internal + 82
+2   libsystem_kernel.dylib        	    0x7ff8034fa71a mach_msg_overwrite + 723
+3   libsystem_kernel.dylib        	    0x7ff8034f3989 mach_msg + 19
+4   CoreFoundation                	    0x7ff80360cd0e __CFRunLoopServiceMachPort + 145
+5   CoreFoundation                	    0x7ff80360b77a __CFRunLoopRun + 1360
+6   CoreFoundation                	    0x7ff80360abb0 CFRunLoopRunSpecific + 560
+7   Foundation                    	    0x7ff80446349a -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 216
+8   DTDeviceKitBase               	       0x1183d4133 +[DTDKRemoteDeviceConnection startServiceBrowsers] + 194
+9   Foundation                    	    0x7ff80445c82c __NSThread__start__ + 1009
+10  libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+11  libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 2:
+0   libsystem_kernel.dylib        	    0x7ff8034f36a2 mach_msg2_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff80350167d mach_msg2_internal + 82
+2   libsystem_kernel.dylib        	    0x7ff8034fa71a mach_msg_overwrite + 723
+3   libsystem_kernel.dylib        	    0x7ff8034f3989 mach_msg + 19
+4   CoreFoundation                	    0x7ff80360cd0e __CFRunLoopServiceMachPort + 145
+5   CoreFoundation                	    0x7ff80360b77a __CFRunLoopRun + 1360
+6   CoreFoundation                	    0x7ff80360abb0 CFRunLoopRunSpecific + 560
+7   Foundation                    	    0x7ff80446349a -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 216
+8   DTDeviceKitBase               	       0x1183e1b1a -[DTDKRemoteDeviceDataListener listenerThreadImplementation] + 248
+9   Foundation                    	    0x7ff80445c82c __NSThread__start__ + 1009
+10  libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+11  libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 3:: com.apple.CFSocket.private
+0   libsystem_kernel.dylib        	    0x7ff8034fc3b6 __select + 10
+1   CoreFoundation                	    0x7ff8036344ea __CFSocketManager + 643
+2   libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+3   libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 4:: NIO-ELT-0-#0
+0   libsystem_kernel.dylib        	    0x7ff8034f82fe kevent + 10
+1   XCResultKit                   	       0x10ca9d18b specialized static KQueue.kevent(kq:changelist:nchanges:eventlist:nevents:timeout:) + 43
+2   XCResultKit                   	       0x10ca884c4 specialized Selector.whenReady0(strategy:onLoopBegin:_:) + 420
+3   XCResultKit                   	       0x10ca852e3 SelectableEventLoop.run() + 451
+4   XCResultKit                   	       0x10ca49958 closure #1 in static MultiThreadedEventLoopGroup.setupThreadAndEventLoop(name:selectorFactory:initializer:) + 280
+5   XCResultKit                   	       0x10ca4eb1a partial apply for closure #1 in static MultiThreadedEventLoopGroup.setupThreadAndEventLoop(name:selectorFactory:initializer:) + 42
+6   XCResultKit                   	       0x10ca764ef thunk for @escaping @callee_guaranteed (@guaranteed NIOThread) -> () + 15
+7   XCResultKit                   	       0x10ca9e671 closure #1 in static ThreadOpsPosix.run(handle:args:detachThread:) + 481
+8   libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+9   libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 5:: com.apple.NSEventThread
+0   libsystem_kernel.dylib        	    0x7ff8034f36a2 mach_msg2_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff80350167d mach_msg2_internal + 82
+2   libsystem_kernel.dylib        	    0x7ff8034fa71a mach_msg_overwrite + 723
+3   libsystem_kernel.dylib        	    0x7ff8034f3989 mach_msg + 19
+4   CoreFoundation                	    0x7ff80360cd0e __CFRunLoopServiceMachPort + 145
+5   CoreFoundation                	    0x7ff80360b77a __CFRunLoopRun + 1360
+6   CoreFoundation                	    0x7ff80360abb0 CFRunLoopRunSpecific + 560
+7   AppKit                        	    0x7ff80688d696 _NSEventThread + 132
+8   libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+9   libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 6:: DYMobileDeviceManager
+0   libsystem_kernel.dylib        	    0x7ff8034f36a2 mach_msg2_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff80350167d mach_msg2_internal + 82
+2   libsystem_kernel.dylib        	    0x7ff8034fa71a mach_msg_overwrite + 723
+3   libsystem_kernel.dylib        	    0x7ff8034f3989 mach_msg + 19
+4   CoreFoundation                	    0x7ff80360cd0e __CFRunLoopServiceMachPort + 145
+5   CoreFoundation                	    0x7ff80360b77a __CFRunLoopRun + 1360
+6   CoreFoundation                	    0x7ff80360abb0 CFRunLoopRunSpecific + 560
+7   Foundation                    	    0x7ff80446349a -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 216
+8   Foundation                    	    0x7ff8044e5efc -[NSRunLoop(NSRunLoop) run] + 76
+9   GPUToolsMobileFoundation      	       0x14c0c56d4 -[DYMobileDeviceManager _deviceNotificationThread:] + 127
+10  Foundation                    	    0x7ff80445c82c __NSThread__start__ + 1009
+11  libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+12  libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 7:: com.apple.NSURLConnectionLoader
+0   libsystem_kernel.dylib        	    0x7ff8034f36a2 mach_msg2_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff80350167d mach_msg2_internal + 82
+2   libsystem_kernel.dylib        	    0x7ff8034fa71a mach_msg_overwrite + 723
+3   libsystem_kernel.dylib        	    0x7ff8034f3989 mach_msg + 19
+4   CoreFoundation                	    0x7ff80360cd0e __CFRunLoopServiceMachPort + 145
+5   CoreFoundation                	    0x7ff80360b77a __CFRunLoopRun + 1360
+6   CoreFoundation                	    0x7ff80360abb0 CFRunLoopRunSpecific + 560
+7   CFNetwork                     	    0x7ff807ff0760 0x7ff807dad000 + 2373472
+8   Foundation                    	    0x7ff80445c82c __NSThread__start__ + 1009
+9   libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+10  libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 8:: Connection::RunLoop() packet reading thread
+0   libsystem_kernel.dylib        	    0x7ff8034f40c6 read + 10
+1   LLDBRPC                       	       0x118ef2d8c rpc_common::RPCConnectionSocket::Read(std::__1::basic_string<unsigned char, std::__1::char_traits<unsigned char>, std::__1::allocator<unsigned char> >&, bool) + 156
+2   LLDBRPC                       	       0x118eeb4a5 rpc_common::Connection::ReceivePacket(rpc_common::RPCPacket&) + 229
+3   LLDBRPC                       	       0x118eeb27d rpc_common::Connection::RunLoop() + 189
+4   LLDBRPC                       	       0x118ef12fd void* std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, rpc_common::Connection::AdoptUnixSocket(int)::$_0> >(void*) + 45
+5   libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+6   libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 9:: IOReader::ReadThread() for fd 90
+0   libsystem_kernel.dylib        	    0x7ff8034fc3b6 __select + 10
+1   LLDBRPC                       	       0x118ee7662 IOReader::ReadThread(std::__1::function<bool (void const*, unsigned long)>) + 482
+2   LLDBRPC                       	       0x118ee7c31 void* std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, IOReader::StartReadThread(std::__1::function<bool (void const*, unsigned long)>)::$_0> >(void*) + 113
+3   libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+4   libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 10:
+0   libsystem_kernel.dylib        	    0x7ff8034f9326 __wait4 + 10
+1   LLDBRPC                       	       0x118ee8f67 PosixSpawn::ReapProcess(int, int*, int*) + 71
+2   LLDBRPC                       	       0x118ef1897 void* std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, rpc_common::Connection::SpawnRPCServerProcess()::$_2> >(void*) + 71
+3   libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+4   libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 11:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 12:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 13:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 14::  Dispatch queue: com.apple.root.default-qos
+0   libsystem_kernel.dylib        	    0x7ff8034f40c6 read + 10
+1   Foundation                    	    0x7ff804431710 _NSReadFromFileDescriptorWithProgress + 256
+2   Foundation                    	    0x7ff804451d0d -[NSConcreteFileHandle readDataOfLength:] + 405
+3   XcodeCloudKit                 	       0x11b2d2367 closure #1 in closure #1 in static ShellCommandRunner.run(command:) + 711
+4   XcodeCloudKit                 	       0x11b3fa3f9 thunk for @escaping @callee_guaranteed () -> () + 25
+5   libdispatch.dylib             	    0x7ff8033b17fb _dispatch_call_block_and_release + 12
+6   libdispatch.dylib             	    0x7ff8033b2a44 _dispatch_client_callout + 8
+7   libdispatch.dylib             	    0x7ff8033b516e _dispatch_queue_override_invoke + 811
+8   libdispatch.dylib             	    0x7ff8033c26a2 _dispatch_root_queue_drain + 343
+9   libdispatch.dylib             	    0x7ff8033c2e4d _dispatch_worker_thread2 + 160
+10  libsystem_pthread.dylib       	    0x7ff80352ec9d _pthread_wqthread + 256
+11  libsystem_pthread.dylib       	    0x7ff80352dc67 start_wqthread + 15
+
+Thread 15 Crashed::  Dispatch queue: DVTFilePathEventWatcher - event queue
+0   libobjc.A.dylib               	    0x7ff8031cbc01 objc_loadWeakRetained + 4
+1   DVTFoundation                 	       0x10a96e970 -[_DVTFilePathAssoc object] + 13
+2   DVTFoundation                 	       0x10a976e73 __107-[DVTFilePath _addInfoForObserversOfChangedFilePath:toObjects:roles:blocks:dispatchQueues:operationQueues:]_block_invoke + 123
+3   DVTFoundation                 	       0x10a96eec0 -[DVTFilePath _invokeWithLockedAssociates:] + 43
+4   DVTFoundation                 	       0x10a976c48 -[DVTFilePath _addInfoForObserversOfChangedFilePath:toObjects:roles:blocks:dispatchQueues:operationQueues:] + 390
+5   DVTFoundation                 	       0x10a97712c -[DVTFilePath _hasChangeObservers] + 78
+6   DVTFoundation                 	       0x10a972e9b -[DVTFilePath _invalidateKnownDoesNotExist:explicitlyInvalidateChildren:] + 183
+7   DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+8   DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+9   DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+10  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+11  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+12  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+13  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+14  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+15  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+16  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+17  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+18  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+19  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+20  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+21  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+22  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+23  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+24  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+25  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+26  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+27  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+28  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+29  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+30  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+31  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+32  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+33  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+34  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+35  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+36  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+37  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+38  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+39  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+40  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+41  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+42  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+43  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+44  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+45  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+46  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+47  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+48  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+49  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+50  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+51  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+52  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+53  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+54  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+55  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+56  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+57  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+58  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+59  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+60  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+61  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+62  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+63  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+64  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+65  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+66  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+67  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+68  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+69  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+70  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+71  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+72  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+73  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+74  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+75  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+76  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+77  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+78  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+79  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+80  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+81  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+82  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+83  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+84  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+85  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+86  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+87  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+88  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+89  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+90  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+91  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+92  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+93  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+94  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+95  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+96  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+97  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+98  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+99  DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+100 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+101 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+102 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+103 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+104 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+105 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+106 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+107 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+108 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+109 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+110 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+111 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+112 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+113 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+114 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+115 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+116 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+117 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+118 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+119 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+120 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+121 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+122 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+123 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+124 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+125 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+126 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+127 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+128 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+129 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+130 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+131 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+132 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+133 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+134 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+135 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+136 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+137 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+138 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+139 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+140 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+141 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+142 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+143 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+144 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+145 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+146 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+147 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+148 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+149 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+150 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+151 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+152 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+153 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+154 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+155 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+156 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+157 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+158 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+159 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+160 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+161 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+162 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+163 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+164 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+165 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+166 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+167 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+168 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+169 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+170 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+171 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+172 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+173 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+174 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+175 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+176 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+177 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+178 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+179 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+180 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+181 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+182 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+183 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+184 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+185 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+186 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+187 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+188 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+189 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+190 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+191 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+192 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+193 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+194 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+195 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+196 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+197 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+198 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+199 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+200 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+201 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+202 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+203 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+204 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+205 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+206 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+207 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+208 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+209 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+210 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+211 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+212 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+213 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+214 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+215 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+216 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+217 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+218 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+219 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+220 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+221 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+222 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+223 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+224 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+225 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+226 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+227 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+228 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+229 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+230 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+231 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+232 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+233 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+234 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+235 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+236 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+237 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+238 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+239 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+240 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+241 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+242 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+243 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+244 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+245 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+246 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+247 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+248 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+249 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+250 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+251 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+252 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+253 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+254 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+255 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+256 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+257 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+258 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+259 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+260 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+261 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+262 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+263 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+264 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+265 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+266 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+267 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+268 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+269 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+270 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+271 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+272 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+273 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+274 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+275 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+276 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+277 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+278 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+279 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+280 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+281 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+282 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+283 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+284 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+285 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+286 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+287 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+288 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+289 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+290 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+291 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+292 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+293 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+294 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+295 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+296 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+297 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+298 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+299 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+300 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+301 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+302 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+303 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+304 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+305 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+306 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+307 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+308 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+309 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+310 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+311 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+312 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+313 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+314 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+315 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+316 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+317 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+318 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+319 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+320 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+321 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+322 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+323 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+324 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+325 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+326 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+327 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+328 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+329 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+330 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+331 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+332 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+333 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+334 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+335 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+336 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+337 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+338 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+339 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+340 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+341 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+342 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+343 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+344 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+345 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+346 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+347 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+348 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+349 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+350 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+351 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+352 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+353 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+354 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+355 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+356 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+357 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+358 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+359 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+360 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+361 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+362 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+363 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+364 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+365 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+366 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+367 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+368 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+369 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+370 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+371 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+372 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+373 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+374 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+375 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+376 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+377 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+378 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+379 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+380 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+381 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+382 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+383 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+384 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+385 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+386 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+387 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+388 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+389 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+390 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+391 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+392 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+393 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+394 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+395 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+396 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+397 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+398 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+399 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+400 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+401 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+402 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+403 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+404 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+405 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+406 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+407 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+408 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+409 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+410 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+411 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+412 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+413 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+414 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+415 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+416 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+417 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+418 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+419 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+420 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+421 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+422 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+423 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+424 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+425 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+426 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+427 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+428 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+429 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+430 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+431 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+432 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+433 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+434 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+435 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+436 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+437 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+438 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+439 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+440 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+441 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+442 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+443 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+444 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+445 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+446 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+447 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+448 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+449 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+450 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+451 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+452 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+453 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+454 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+455 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+456 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+457 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+458 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+459 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+460 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+461 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+462 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+463 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+464 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+465 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+466 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+467 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+468 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+469 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+470 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+471 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+472 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+473 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+474 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+475 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+476 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+477 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+478 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+479 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+480 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+481 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+482 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+483 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+484 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+485 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+486 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+487 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+488 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+489 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+490 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+491 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+492 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+493 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+494 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+495 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+496 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+497 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+498 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+499 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+500 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+501 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+502 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+503 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+504 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+505 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+506 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+507 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+508 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+509 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+510 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+511 DVTFoundation                 	       0x10a972cbc -[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:] + 547
+
+Thread 16:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 17:
+0   libsystem_kernel.dylib        	    0x7ff8034f36a2 mach_msg2_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff80350167d mach_msg2_internal + 82
+2   libsystem_kernel.dylib        	    0x7ff8034fa71a mach_msg_overwrite + 723
+3   libsystem_kernel.dylib        	    0x7ff8034f3989 mach_msg + 19
+4   CoreFoundation                	    0x7ff80360cd0e __CFRunLoopServiceMachPort + 145
+5   CoreFoundation                	    0x7ff80360b77a __CFRunLoopRun + 1360
+6   CoreFoundation                	    0x7ff80360abb0 CFRunLoopRunSpecific + 560
+7   CoreFoundation                	    0x7ff80368f7ea CFRunLoopRun + 40
+8   SwiftPM                       	       0x11c2bafee closure #1 in FSEventStream.start() + 254
+9   SwiftPM                       	       0x11c2899fa closure #1 in Thread.init(task:) + 106
+10  SwiftPM                       	       0x11c2897a9 thunk for @escaping @callee_guaranteed () -> () + 25
+11  SwiftPM                       	       0x11c289bb6 @objc ThreadImpl.main() + 38
+12  Foundation                    	    0x7ff80445c82c __NSThread__start__ + 1009
+13  libsystem_pthread.dylib       	    0x7ff803532259 _pthread_start + 125
+14  libsystem_pthread.dylib       	    0x7ff80352dc7b thread_start + 15
+
+Thread 18:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 19:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 20:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 21:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 22:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 23:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+Thread 24:
+0   libsystem_pthread.dylib       	    0x7ff80352dc58 start_wqthread + 0
+
+
+Thread 15 crashed with X86 Thread State (64-bit):
+  rax: 0x00007ff823570b4c  rbx: 0x00007ff8031c5e00  rcx: 0x0100000000000000  rdx: 0x021d80010af9784d
+  rdi: 0x000060000a1dcd38  rsi: 0x00007ff823571a8f  rbp: 0x0000700004f8e000  rsp: 0x0000700004f8e000
+   r8: 0x00007ffffffffff8   r9: 0x0000000000000000  r10: 0x000000010af97848  r11: 0x000000010a96e963
+  r12: 0x0000700004f8e0b0  r13: 0x00006000093a1760  r14: 0x000060000a1dcd00  r15: 0x0000000000000000
+  rip: 0x00007ff8031cbc01  rfl: 0x0000000000010202  cr2: 0x0000700004f8dff8
+  
+Logical CPU:     4
+Error Code:      0x00000006 (no mapping for user data write)
+Trap Number:     14
+
+Thread 15 instruction stream:
+  26 48 89 df 5b 41 5e 5d-e9 6e f8 ff ff 65 48 c7  &H..[A^].n...eH.
+  04 25 60 01 00 00 01 00-00 00 65 48 c7 04 25 68  .%`.......eH..%h
+  01 00 00 00 00 00 00 48-89 d8 5b 41 5e 5d c3 90  .......H..[A^]..
+  90 90 90 90 90 90 90 90-90 90 90 90 90 55 48 89  .............UH.
+  e5 48 83 3f 00 74 0e e8-10 00 00 00 48 89 c7 5d  .H.?.t......H..]
+  e9 0a f5 ff ff 31 c0 5d-c3 90 90 90 55 48 89 e5  .....1.]....UH..
+ [41]57 41 56 41 55 41 54-53 50 4c 8b 27 4d 85 e4  AWAVAUATSPL.'M..	<==
+  0f 84 c5 01 00 00 44 89-e0 83 e0 01 48 85 c0 0f  ......D.....H...
+  85 b6 01 00 00 49 89 ff-48 be f8 ff ff ff ff 7f  .....I..H.......
+  00 00 4c 8d 2d 86 05 c9-43 44 89 e0 c1 e8 09 44  ..L.-...CD.....D
+  89 e1 c1 e9 04 31 c1 83-e1 3f 48 c1 e1 06 4e 8d  .....1...?H...N.
+  34 29 65 8b 14 25 18 00-00 00 31 c0 f0 42 0f b1  4)e..%....1..B..
+
+Binary Images:
+    0x7ff8033b0000 -     0x7ff8033f6ff3 libdispatch.dylib (*) <817339a1-d03e-3e54-9c47-acacf69f6193> /usr/lib/system/libdispatch.dylib
+    0x7ff8034f2000 -     0x7ff80352bff7 libsystem_kernel.dylib (*) <0c2fd2c9-777c-3355-b70f-7b1b6e9d1b0b> /usr/lib/system/libsystem_kernel.dylib
+    0x7ff8081f5000 -     0x7ff8085ddff8 com.apple.SkyLight (1.600.0) <89844c6a-7225-3b2c-97e7-904aae33adda> /System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/SkyLight
+    0x7ff8066ef000 -     0x7ff8076f3ff6 com.apple.AppKit (6.9) <817d572e-eb8c-3999-b7a0-68e1c4b47266> /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+    0x7ff80b064000 -     0x7ff80b3b3ffd com.apple.QuartzCore (1.11) <10a00482-d136-3e49-bbd5-e9691cc8f82d> /System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore
+    0x7ff80358e000 -     0x7ff803a26fff com.apple.CoreFoundation (6.9) <dbc459f3-81bb-398a-8f74-3f7392392bb7> /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+    0x7ff80cebd000 -     0x7ff80d1b4ff2 com.apple.HIToolbox (2.1.1) <ff73b93b-3c5b-3f73-948f-0a35a80f7fad> /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox
+       0x109a9e000 -        0x109c29fff com.apple.dt.DVTKit (14.1) <d8210780-d173-317f-85d1-67a07dba0391> /Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Versions/A/DVTKit
+    0x7ff8031fb000 -     0x7ff80328f54f dyld (*) <28fd2071-57f3-3873-87bf-e4f674a82de6> /usr/lib/dyld
+    0x7ff804404000 -     0x7ff804e15ff6 com.apple.Foundation (6.9) <eca88952-d3af-357e-80d8-4d31b2dc0c26> /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation
+       0x1183b9000 -        0x11844cfff com.apple.DTDeviceKitBase (14.1) <55af1ba6-5eae-3127-a761-57187852b174> /Applications/Xcode.app/Contents/SharedFrameworks/DTDeviceKitBase.framework/Versions/A/DTDeviceKitBase
+    0x7ff80352c000 -     0x7ff803537ff7 libsystem_pthread.dylib (*) <13b5e252-77d1-31e1-888d-1c5f4426ea87> /usr/lib/system/libsystem_pthread.dylib
+       0x10c8be000 -        0x10cc31fff com.apple.dt.XCResultKit (1.0) <cb5738f0-2a7d-314a-96b0-f80c08c11d79> /Applications/Xcode.app/Contents/SharedFrameworks/XCResultKit.framework/Versions/A/XCResultKit
+       0x14c0bb000 -        0x14c0cefff com.apple.GPUToolsMobileFoundation (1.0) <e0d79870-5754-3e46-ae3c-defc3b65a098> /Applications/Xcode.app/Contents/SharedFrameworks/GPUToolsMobileFoundation.framework/Versions/A/GPUToolsMobileFoundation
+    0x7ff807dad000 -     0x7ff808151ff7 com.apple.CFNetwork (1399.4) <a0d23d24-26f2-3180-a05b-61ac1175d230> /System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork
+       0x118ee4000 -        0x118f47fff com.apple.LLDBRPC (1400.0.38.13) <5422d7b5-b714-3cc1-8618-3c27395a3f09> /Applications/Xcode.app/Contents/SharedFrameworks/LLDBRPC.framework/Versions/A/LLDBRPC
+       0x11af80000 -        0x11b59ffff com.apple.dt.XcodeCloudKit (1.0) <bbb486bd-5a10-3587-84a0-7665d66f6f3a> /Applications/Xcode.app/Contents/SharedFrameworks/XcodeCloudKit.framework/Versions/A/XcodeCloudKit
+    0x7ff8031bf000 -     0x7ff8031fafd8 libobjc.A.dylib (*) <aca7ef61-2853-3699-8c1f-1c0ab93ad6be> /usr/lib/libobjc.A.dylib
+       0x10a8b1000 -        0x10aee4fff com.apple.dt.DVTFoundation (14.1) <e81334ff-cf0d-3751-8f95-af98c1ecd300> /Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/DVTFoundation
+       0x11bc8c000 -        0x11c4effff com.apple.dt.IDE.SwiftPM (1.0) <ec996070-2683-3480-804b-7c495f88555d> /Applications/Xcode.app/Contents/PlugIns/IDESwiftPackageCore.framework/Versions/A/Frameworks/SwiftPM.framework/Versions/A/SwiftPM
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000000000000> ???
+
+External Modification Summary:
+  Calls made by other processes targeting this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by all processes on this machine:
+    task_for_pid: 10
+    thread_create: 0
+    thread_set_state: 178
+
+
+-----------
+Full Report
+-----------
+
+{"app_name":"Xcode","timestamp":"2022-12-06 09:04:00.00 -0500","app_version":"14.1","slice_uuid":"291f56ef-ce08-3daf-9d0b-ead5c951cad7","build_version":"21534.1","platform":1,"bundleID":"com.apple.dt.Xcode","share_with_app_devs":0,"is_first_party":0,"bug_type":"309","os_version":"macOS 13.0.1 (22A400)","roots_installed":0,"name":"Xcode","incident_id":"6963228A-F15D-4221-A3C2-4472DD8B6268"}
+{
+  "uptime" : 6400,
+  "procRole" : "Foreground",
+  "version" : 2,
+  "userID" : 501,
+  "deployVersion" : 210,
+  "modelCode" : "Macmini8,1",
+  "coalitionID" : 1078,
+  "osVersion" : {
+    "train" : "macOS 13.0.1",
+    "build" : "22A400",
+    "releaseType" : "User"
+  },
+  "captureTime" : "2022-12-06 09:03:46.6671 -0500",
+  "incident" : "6963228A-F15D-4221-A3C2-4472DD8B6268",
+  "pid" : 1203,
+  "cpuType" : "X86-64",
+  "roots_installed" : 0,
+  "bug_type" : "309",
+  "procLaunch" : "2022-12-06 08:40:59.7276 -0500",
+  "procStartAbsTime" : 5119652697233,
+  "procExitAbsTime" : 6486540089200,
+  "procName" : "Xcode",
+  "procPath" : "\/Applications\/Xcode.app\/Contents\/MacOS\/Xcode",
+  "bundleInfo" : {"CFBundleShortVersionString":"14.1","CFBundleVersion":"21534.1","CFBundleIdentifier":"com.apple.dt.Xcode"},
+  "buildInfo" : {"ProjectName":"IDEFrameworks","SourceVersion":"21534001000000000","ProductBuildVersion":"14B47b","BuildVersion":"2"},
+  "storeInfo" : {"deviceIdentifierForVendor":"959403CF-BF08-5154-85D3-F6BC5832731A","thirdParty":true},
+  "parentProc" : "launchd",
+  "parentPid" : 1,
+  "coalitionName" : "com.apple.dt.Xcode",
+  "crashReporterKey" : "9547D8B0-D35D-3401-C64E-CF0C51C28F6C",
+  "bridgeVersion" : {"build":"20P420","train":"7.0"},
+  "sleepWakeUUID" : "13395B1D-4E17-43BA-A87B-E6D883D7F8B6",
+  "sip" : "enabled",
+  "vmRegionInfo" : "0x700004f8dff8 is in 0x700004f8d000-0x700004f8e000;  bytes after start: 4088  bytes before end: 7\n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      Stack                    700004f0b000-700004f8d000 [  520K] rw-\/rwx SM=PRV  thread 7\n--->  STACK GUARD              700004f8d000-700004f8e000 [    4K] ---\/rwx SM=NUL  ...for thread 15\n      Stack                    700004f8e000-700005010000 [  520K] rw-\/rwx SM=PRV  thread 15",
+  "exception" : {"codes":"0x0000000000000002, 0x0000700004f8dff8","rawCodes":[2,123145385730040],"type":"EXC_BAD_ACCESS","signal":"SIGBUS","subtype":"KERN_PROTECTION_FAILURE at 0x0000700004f8dff8"},
+  "termination" : {"flags":0,"code":10,"namespace":"SIGNAL","indicator":"Bus error: 10","byProc":"exc handler","byPid":1203},
+  "vmregioninfo" : "0x700004f8dff8 is in 0x700004f8d000-0x700004f8e000;  bytes after start: 4088  bytes before end: 7\n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      Stack                    700004f0b000-700004f8d000 [  520K] rw-\/rwx SM=PRV  thread 7\n--->  STACK GUARD              700004f8d000-700004f8e000 [    4K] ---\/rwx SM=NUL  ...for thread 15\n      Stack                    700004f8e000-700005010000 [  520K] rw-\/rwx SM=PRV  thread 15",
+  "extMods" : {"caller":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"system":{"thread_create":0,"thread_set_state":178,"task_for_pid":10},"targeted":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"warnings":0},
+  "faultingThread" : 15,
+  "threads" : [{"id":34922,"queue":"com.apple.main-thread","frames":[{"imageOffset":159889,"symbol":"voucher_mach_msg_fill_aux","symbolLocation":9,"imageIndex":0},{"imageOffset":34233,"symbol":"mach_msg_overwrite","symbolLocation":370,"imageIndex":1},{"imageOffset":6537,"symbol":"mach_msg","symbolLocation":19,"imageIndex":1},{"imageOffset":662961,"symbol":"SLSStructuralRegionSetClippedByWindow","symbolLocation":133,"imageIndex":2},{"imageOffset":7245525,"symbol":"-[_NSTrackingAreaAKManager _updateStructuralRegionCreateIfNeeded:]","symbolLocation":504,"imageIndex":3},{"imageOffset":7273842,"symbol":"-[_NSTrackingAreaAKManager displayCycleUpdateStructuralRegions]","symbolLocation":118,"imageIndex":3},{"imageOffset":1067652,"symbol":"__NSWindowGetDisplayCycleObserverForUpdateStructuralRegions_block_invoke","symbolLocation":390,"imageIndex":3},{"imageOffset":1046273,"symbol":"NSDisplayCycleObserverInvoke","symbolLocation":142,"imageIndex":3},{"imageOffset":1045297,"symbol":"NSDisplayCycleFlush","symbolLocation":878,"imageIndex":3},{"imageOffset":16198,"symbol":"CA::Transaction::run_commit_handlers(CATransactionPhase)","symbolLocation":98,"imageIndex":4},{"imageOffset":10768,"symbol":"CA::Transaction::commit()","symbolLocation":380,"imageIndex":4},{"imageOffset":1691359,"symbol":"__62+[CATransaction(NSCATransaction) NS_setFlushesWithDisplayLink]_block_invoke","symbolLocation":285,"imageIndex":3},{"imageOffset":10171667,"symbol":"___NSRunLoopObserverCreateWithHandler_block_invoke","symbolLocation":41,"imageIndex":3},{"imageOffset":516322,"symbol":"__CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__","symbolLocation":23,"imageIndex":5},{"imageOffset":516106,"symbol":"__CFRunLoopDoObservers","symbolLocation":482,"imageIndex":5},{"imageOffset":513424,"symbol":"__CFRunLoopRun","symbolLocation":870,"imageIndex":5},{"imageOffset":510896,"symbol":"CFRunLoopRunSpecific","symbolLocation":560,"imageIndex":5},{"imageOffset":195542,"symbol":"RunCurrentEventLoopInMode","symbolLocation":292,"imageIndex":6},{"imageOffset":195046,"symbol":"ReceiveNextEventCommon","symbolLocation":679,"imageIndex":6},{"imageOffset":194339,"symbol":"_BlockUntilNextEventMatchingListInModeWithFilter","symbolLocation":70,"imageIndex":6},{"imageOffset":256823,"symbol":"_DPSNextEvent","symbolLocation":909,"imageIndex":3},{"imageOffset":252344,"symbol":"-[NSApplication(NSEvent) _nextEventMatchingEventMask:untilDate:inMode:dequeue:]","symbolLocation":1219,"imageIndex":3},{"imageOffset":93106,"symbol":"-[DVTApplication nextEventMatchingMask:untilDate:inMode:dequeue:]","symbolLocation":354,"imageIndex":7},{"imageOffset":196595,"symbol":"-[NSApplication run]","symbolLocation":586,"imageIndex":3},{"imageOffset":89067,"symbol":"-[DVTApplication run]","symbolLocation":54,"imageIndex":7},{"imageOffset":16472,"symbol":"NSApplicationMain","symbolLocation":817,"imageIndex":3},{"imageOffset":25360,"symbol":"start","symbolLocation":2432,"imageIndex":8}]},{"id":35161,"frames":[{"imageOffset":5794,"symbol":"mach_msg2_trap","symbolLocation":10,"imageIndex":1},{"imageOffset":63101,"symbol":"mach_msg2_internal","symbolLocation":82,"imageIndex":1},{"imageOffset":34586,"symbol":"mach_msg_overwrite","symbolLocation":723,"imageIndex":1},{"imageOffset":6537,"symbol":"mach_msg","symbolLocation":19,"imageIndex":1},{"imageOffset":519438,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":145,"imageIndex":5},{"imageOffset":513914,"symbol":"__CFRunLoopRun","symbolLocation":1360,"imageIndex":5},{"imageOffset":510896,"symbol":"CFRunLoopRunSpecific","symbolLocation":560,"imageIndex":5},{"imageOffset":390298,"symbol":"-[NSRunLoop(NSRunLoop) runMode:beforeDate:]","symbolLocation":216,"imageIndex":9},{"imageOffset":110899,"symbol":"+[DTDKRemoteDeviceConnection startServiceBrowsers]","symbolLocation":194,"imageIndex":10},{"imageOffset":362540,"symbol":"__NSThread__start__","symbolLocation":1009,"imageIndex":9},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":35162,"frames":[{"imageOffset":5794,"symbol":"mach_msg2_trap","symbolLocation":10,"imageIndex":1},{"imageOffset":63101,"symbol":"mach_msg2_internal","symbolLocation":82,"imageIndex":1},{"imageOffset":34586,"symbol":"mach_msg_overwrite","symbolLocation":723,"imageIndex":1},{"imageOffset":6537,"symbol":"mach_msg","symbolLocation":19,"imageIndex":1},{"imageOffset":519438,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":145,"imageIndex":5},{"imageOffset":513914,"symbol":"__CFRunLoopRun","symbolLocation":1360,"imageIndex":5},{"imageOffset":510896,"symbol":"CFRunLoopRunSpecific","symbolLocation":560,"imageIndex":5},{"imageOffset":390298,"symbol":"-[NSRunLoop(NSRunLoop) runMode:beforeDate:]","symbolLocation":216,"imageIndex":9},{"imageOffset":166682,"symbol":"-[DTDKRemoteDeviceDataListener listenerThreadImplementation]","symbolLocation":248,"imageIndex":10},{"imageOffset":362540,"symbol":"__NSThread__start__","symbolLocation":1009,"imageIndex":9},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":35166,"name":"com.apple.CFSocket.private","frames":[{"imageOffset":41910,"symbol":"__select","symbolLocation":10,"imageIndex":1},{"imageOffset":681194,"symbol":"__CFSocketManager","symbolLocation":643,"imageIndex":5},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":35174,"name":"NIO-ELT-0-#0","frames":[{"imageOffset":25342,"symbol":"kevent","symbolLocation":10,"imageIndex":1},{"imageOffset":1962379,"symbol":"specialized static KQueue.kevent(kq:changelist:nchanges:eventlist:nevents:timeout:)","symbolLocation":43,"imageIndex":12},{"imageOffset":1877188,"symbol":"specialized Selector.whenReady0(strategy:onLoopBegin:_:)","symbolLocation":420,"imageIndex":12},{"imageOffset":1864419,"symbol":"SelectableEventLoop.run()","symbolLocation":451,"imageIndex":12},{"imageOffset":1620312,"symbol":"closure #1 in static MultiThreadedEventLoopGroup.setupThreadAndEventLoop(name:selectorFactory:initializer:)","symbolLocation":280,"imageIndex":12},{"imageOffset":1641242,"symbol":"partial apply for closure #1 in static MultiThreadedEventLoopGroup.setupThreadAndEventLoop(name:selectorFactory:initializer:)","symbolLocation":42,"imageIndex":12},{"imageOffset":1803503,"symbol":"thunk for @escaping @callee_guaranteed (@guaranteed NIOThread) -> ()","symbolLocation":15,"imageIndex":12},{"imageOffset":1967729,"symbol":"closure #1 in static ThreadOpsPosix.run(handle:args:detachThread:)","symbolLocation":481,"imageIndex":12},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":35209,"name":"com.apple.NSEventThread","frames":[{"imageOffset":5794,"symbol":"mach_msg2_trap","symbolLocation":10,"imageIndex":1},{"imageOffset":63101,"symbol":"mach_msg2_internal","symbolLocation":82,"imageIndex":1},{"imageOffset":34586,"symbol":"mach_msg_overwrite","symbolLocation":723,"imageIndex":1},{"imageOffset":6537,"symbol":"mach_msg","symbolLocation":19,"imageIndex":1},{"imageOffset":519438,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":145,"imageIndex":5},{"imageOffset":513914,"symbol":"__CFRunLoopRun","symbolLocation":1360,"imageIndex":5},{"imageOffset":510896,"symbol":"CFRunLoopRunSpecific","symbolLocation":560,"imageIndex":5},{"imageOffset":1697430,"symbol":"_NSEventThread","symbolLocation":132,"imageIndex":3},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":35240,"name":"DYMobileDeviceManager","frames":[{"imageOffset":5794,"symbol":"mach_msg2_trap","symbolLocation":10,"imageIndex":1},{"imageOffset":63101,"symbol":"mach_msg2_internal","symbolLocation":82,"imageIndex":1},{"imageOffset":34586,"symbol":"mach_msg_overwrite","symbolLocation":723,"imageIndex":1},{"imageOffset":6537,"symbol":"mach_msg","symbolLocation":19,"imageIndex":1},{"imageOffset":519438,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":145,"imageIndex":5},{"imageOffset":513914,"symbol":"__CFRunLoopRun","symbolLocation":1360,"imageIndex":5},{"imageOffset":510896,"symbol":"CFRunLoopRunSpecific","symbolLocation":560,"imageIndex":5},{"imageOffset":390298,"symbol":"-[NSRunLoop(NSRunLoop) runMode:beforeDate:]","symbolLocation":216,"imageIndex":9},{"imageOffset":925436,"symbol":"-[NSRunLoop(NSRunLoop) run]","symbolLocation":76,"imageIndex":9},{"imageOffset":42708,"symbol":"-[DYMobileDeviceManager _deviceNotificationThread:]","symbolLocation":127,"imageIndex":13},{"imageOffset":362540,"symbol":"__NSThread__start__","symbolLocation":1009,"imageIndex":9},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":40519,"name":"com.apple.NSURLConnectionLoader","frames":[{"imageOffset":5794,"symbol":"mach_msg2_trap","symbolLocation":10,"imageIndex":1},{"imageOffset":63101,"symbol":"mach_msg2_internal","symbolLocation":82,"imageIndex":1},{"imageOffset":34586,"symbol":"mach_msg_overwrite","symbolLocation":723,"imageIndex":1},{"imageOffset":6537,"symbol":"mach_msg","symbolLocation":19,"imageIndex":1},{"imageOffset":519438,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":145,"imageIndex":5},{"imageOffset":513914,"symbol":"__CFRunLoopRun","symbolLocation":1360,"imageIndex":5},{"imageOffset":510896,"symbol":"CFRunLoopRunSpecific","symbolLocation":560,"imageIndex":5},{"imageOffset":2373472,"imageIndex":14},{"imageOffset":362540,"symbol":"__NSThread__start__","symbolLocation":1009,"imageIndex":9},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":47743,"name":"Connection::RunLoop() packet reading thread","frames":[{"imageOffset":8390,"symbol":"read","symbolLocation":10,"imageIndex":1},{"imageOffset":60812,"symbol":"rpc_common::RPCConnectionSocket::Read(std::__1::basic_string<unsigned char, std::__1::char_traits<unsigned char>, std::__1::allocator<unsigned char> >&, bool)","symbolLocation":156,"imageIndex":15},{"imageOffset":29861,"symbol":"rpc_common::Connection::ReceivePacket(rpc_common::RPCPacket&)","symbolLocation":229,"imageIndex":15},{"imageOffset":29309,"symbol":"rpc_common::Connection::RunLoop()","symbolLocation":189,"imageIndex":15},{"imageOffset":54013,"symbol":"void* std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, rpc_common::Connection::AdoptUnixSocket(int)::$_0> >(void*)","symbolLocation":45,"imageIndex":15},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":47746,"name":"IOReader::ReadThread() for fd 90","frames":[{"imageOffset":41910,"symbol":"__select","symbolLocation":10,"imageIndex":1},{"imageOffset":13922,"symbol":"IOReader::ReadThread(std::__1::function<bool (void const*, unsigned long)>)","symbolLocation":482,"imageIndex":15},{"imageOffset":15409,"symbol":"void* std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, IOReader::StartReadThread(std::__1::function<bool (void const*, unsigned long)>)::$_0> >(void*)","symbolLocation":113,"imageIndex":15},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":47747,"frames":[{"imageOffset":29478,"symbol":"__wait4","symbolLocation":10,"imageIndex":1},{"imageOffset":20327,"symbol":"PosixSpawn::ReapProcess(int, int*, int*)","symbolLocation":71,"imageIndex":15},{"imageOffset":55447,"symbol":"void* std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, rpc_common::Connection::SpawnRPCServerProcess()::$_2> >(void*)","symbolLocation":71,"imageIndex":15},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":59421,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":61178,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62499,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62501,"queue":"com.apple.root.default-qos","frames":[{"imageOffset":8390,"symbol":"read","symbolLocation":10,"imageIndex":1},{"imageOffset":186128,"symbol":"_NSReadFromFileDescriptorWithProgress","symbolLocation":256,"imageIndex":9},{"imageOffset":318733,"symbol":"-[NSConcreteFileHandle readDataOfLength:]","symbolLocation":405,"imageIndex":9},{"imageOffset":3482471,"symbol":"closure #1 in closure #1 in static ShellCommandRunner.run(command:)","symbolLocation":711,"imageIndex":16},{"imageOffset":4695033,"symbol":"thunk for @escaping @callee_guaranteed () -> ()","symbolLocation":25,"imageIndex":16},{"imageOffset":6139,"symbol":"_dispatch_call_block_and_release","symbolLocation":12,"imageIndex":0},{"imageOffset":10820,"symbol":"_dispatch_client_callout","symbolLocation":8,"imageIndex":0},{"imageOffset":20846,"symbol":"_dispatch_queue_override_invoke","symbolLocation":811,"imageIndex":0},{"imageOffset":75426,"symbol":"_dispatch_root_queue_drain","symbolLocation":343,"imageIndex":0},{"imageOffset":77389,"symbol":"_dispatch_worker_thread2","symbolLocation":160,"imageIndex":0},{"imageOffset":11421,"symbol":"_pthread_wqthread","symbolLocation":256,"imageIndex":11},{"imageOffset":7271,"symbol":"start_wqthread","symbolLocation":15,"imageIndex":11}]},{"triggered":true,"id":62755,"instructionState":{"instructionStream":{"bytes":[38,72,137,223,91,65,94,93,233,110,248,255,255,101,72,199,4,37,96,1,0,0,1,0,0,0,101,72,199,4,37,104,1,0,0,0,0,0,0,72,137,216,91,65,94,93,195,144,144,144,144,144,144,144,144,144,144,144,144,144,144,85,72,137,229,72,131,63,0,116,14,232,16,0,0,0,72,137,199,93,233,10,245,255,255,49,192,93,195,144,144,144,85,72,137,229,65,87,65,86,65,85,65,84,83,80,76,139,39,77,133,228,15,132,197,1,0,0,68,137,224,131,224,1,72,133,192,15,133,182,1,0,0,73,137,255,72,190,248,255,255,255,255,127,0,0,76,141,45,134,5,201,67,68,137,224,193,232,9,68,137,225,193,233,4,49,193,131,225,63,72,193,225,6,78,141,52,41,101,139,20,37,24,0,0,0,49,192,240,66,15,177],"offset":96}},"threadState":{"r13":{"value":105553271068512},"rax":{"value":140703721524044,"objc-selector":"setObject:"},"rflags":{"value":66050},"cpu":{"value":4},"r14":{"value":105553285991680},"rsi":{"value":140703721527951,"objc-selector":"object"},"r8":{"value":140737488355320},"cr2":{"value":123145385730040},"rdx":{"value":152418704367908941},"r10":{"value":4479088712,"symbolLocation":0,"symbol":"OBJC_CLASS_$__DVTFilePathAssoc"},"r9":{"value":0},"r15":{"value":0},"rbx":{"value":140703180807680,"symbolLocation":0,"symbol":"objc_msgSend"},"trap":{"value":14,"description":"(no mapping for user data write)"},"err":{"value":6},"r11":{"value":4472629603,"symbolLocation":0,"symbol":"-[_DVTFilePathAssoc object]"},"rip":{"value":140703180831745,"matchesCrashFrame":1},"rbp":{"value":123145385730048},"rsp":{"value":123145385730048},"r12":{"value":123145385730224},"rcx":{"value":72057594037927936},"flavor":"x86_THREAD_STATE","rdi":{"value":105553285991736}},"queue":"DVTFilePathEventWatcher - event queue","frames":[{"imageOffset":52225,"symbol":"objc_loadWeakRetained","symbolLocation":4,"imageIndex":17},{"imageOffset":776560,"symbol":"-[_DVTFilePathAssoc object]","symbolLocation":13,"imageIndex":18},{"imageOffset":810611,"symbol":"__107-[DVTFilePath _addInfoForObserversOfChangedFilePath:toObjects:roles:blocks:dispatchQueues:operationQueues:]_block_invoke","symbolLocation":123,"imageIndex":18},{"imageOffset":777920,"symbol":"-[DVTFilePath _invokeWithLockedAssociates:]","symbolLocation":43,"imageIndex":18},{"imageOffset":810056,"symbol":"-[DVTFilePath _addInfoForObserversOfChangedFilePath:toObjects:roles:blocks:dispatchQueues:operationQueues:]","symbolLocation":390,"imageIndex":18},{"imageOffset":811308,"symbol":"-[DVTFilePath _hasChangeObservers]","symbolLocation":78,"imageIndex":18},{"imageOffset":794267,"symbol":"-[DVTFilePath _invalidateKnownDoesNotExist:explicitlyInvalidateChildren:]","symbolLocation":183,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18},{"imageOffset":793788,"symbol":"-[DVTFilePath _invalidateChildrenRecursivelyKnownDoesNotExist:]","symbolLocation":547,"imageIndex":18}]},{"id":62756,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62791,"frames":[{"imageOffset":5794,"symbol":"mach_msg2_trap","symbolLocation":10,"imageIndex":1},{"imageOffset":63101,"symbol":"mach_msg2_internal","symbolLocation":82,"imageIndex":1},{"imageOffset":34586,"symbol":"mach_msg_overwrite","symbolLocation":723,"imageIndex":1},{"imageOffset":6537,"symbol":"mach_msg","symbolLocation":19,"imageIndex":1},{"imageOffset":519438,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":145,"imageIndex":5},{"imageOffset":513914,"symbol":"__CFRunLoopRun","symbolLocation":1360,"imageIndex":5},{"imageOffset":510896,"symbol":"CFRunLoopRunSpecific","symbolLocation":560,"imageIndex":5},{"imageOffset":1054698,"symbol":"CFRunLoopRun","symbolLocation":40,"imageIndex":5},{"imageOffset":6483950,"symbol":"closure #1 in FSEventStream.start()","symbolLocation":254,"imageIndex":19},{"imageOffset":6281722,"symbol":"closure #1 in Thread.init(task:)","symbolLocation":106,"imageIndex":19},{"imageOffset":6281129,"symbol":"thunk for @escaping @callee_guaranteed () -> ()","symbolLocation":25,"imageIndex":19},{"imageOffset":6282166,"symbol":"@objc ThreadImpl.main()","symbolLocation":38,"imageIndex":19},{"imageOffset":362540,"symbol":"__NSThread__start__","symbolLocation":1009,"imageIndex":9},{"imageOffset":25177,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":11},{"imageOffset":7291,"symbol":"thread_start","symbolLocation":15,"imageIndex":11}]},{"id":62803,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62804,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62806,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62807,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62808,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62814,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]},{"id":62815,"frames":[{"imageOffset":7256,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":11}]}],
+  "usedImages" : [
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703182815232,
+    "size" : 290804,
+    "uuid" : "817339a1-d03e-3e54-9c47-acacf69f6193",
+    "path" : "\/usr\/lib\/system\/libdispatch.dylib",
+    "name" : "libdispatch.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703184134144,
+    "size" : 237560,
+    "uuid" : "0c2fd2c9-777c-3355-b70f-7b1b6e9d1b0b",
+    "path" : "\/usr\/lib\/system\/libsystem_kernel.dylib",
+    "name" : "libsystem_kernel.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703264886784,
+    "CFBundleShortVersionString" : "1.600.0",
+    "CFBundleIdentifier" : "com.apple.SkyLight",
+    "size" : 4100089,
+    "uuid" : "89844c6a-7225-3b2c-97e7-904aae33adda",
+    "path" : "\/System\/Library\/PrivateFrameworks\/SkyLight.framework\/Versions\/A\/SkyLight",
+    "name" : "SkyLight"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703236550656,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.AppKit",
+    "size" : 16797687,
+    "uuid" : "817d572e-eb8c-3999-b7a0-68e1c4b47266",
+    "path" : "\/System\/Library\/Frameworks\/AppKit.framework\/Versions\/C\/AppKit",
+    "name" : "AppKit",
+    "CFBundleVersion" : "2299"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703313575936,
+    "CFBundleShortVersionString" : "1.11",
+    "CFBundleIdentifier" : "com.apple.QuartzCore",
+    "size" : 3473406,
+    "uuid" : "10a00482-d136-3e49-bbd5-e9691cc8f82d",
+    "path" : "\/System\/Library\/Frameworks\/QuartzCore.framework\/Versions\/A\/QuartzCore",
+    "name" : "QuartzCore",
+    "CFBundleVersion" : "1042.20"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64h",
+    "base" : 140703184773120,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.CoreFoundation",
+    "size" : 4820992,
+    "uuid" : "dbc459f3-81bb-398a-8f74-3f7392392bb7",
+    "path" : "\/System\/Library\/Frameworks\/CoreFoundation.framework\/Versions\/A\/CoreFoundation",
+    "name" : "CoreFoundation",
+    "CFBundleVersion" : "1953.1"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703345397760,
+    "CFBundleShortVersionString" : "2.1.1",
+    "CFBundleIdentifier" : "com.apple.HIToolbox",
+    "size" : 3112947,
+    "uuid" : "ff73b93b-3c5b-3f73-948f-0a35a80f7fad",
+    "path" : "\/System\/Library\/Frameworks\/Carbon.framework\/Versions\/A\/Frameworks\/HIToolbox.framework\/Versions\/A\/HIToolbox",
+    "name" : "HIToolbox"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4457095168,
+    "CFBundleShortVersionString" : "14.1",
+    "CFBundleIdentifier" : "com.apple.dt.DVTKit",
+    "size" : 1622016,
+    "uuid" : "d8210780-d173-317f-85d1-67a07dba0391",
+    "path" : "\/Applications\/Xcode.app\/Contents\/SharedFrameworks\/DVTKit.framework\/Versions\/A\/DVTKit",
+    "name" : "DVTKit",
+    "CFBundleVersion" : "21527"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703181025280,
+    "size" : 607568,
+    "uuid" : "28fd2071-57f3-3873-87bf-e4f674a82de6",
+    "path" : "\/usr\/lib\/dyld",
+    "name" : "dyld"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703199936512,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.Foundation",
+    "size" : 10559479,
+    "uuid" : "eca88952-d3af-357e-80d8-4d31b2dc0c26",
+    "path" : "\/System\/Library\/Frameworks\/Foundation.framework\/Versions\/C\/Foundation",
+    "name" : "Foundation",
+    "CFBundleVersion" : "1953.1"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4701523968,
+    "CFBundleShortVersionString" : "14.1",
+    "CFBundleIdentifier" : "com.apple.DTDeviceKitBase",
+    "size" : 606208,
+    "uuid" : "55af1ba6-5eae-3127-a761-57187852b174",
+    "path" : "\/Applications\/Xcode.app\/Contents\/SharedFrameworks\/DTDeviceKitBase.framework\/Versions\/A\/DTDeviceKitBase",
+    "name" : "DTDeviceKitBase",
+    "CFBundleVersion" : "21506"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703184371712,
+    "size" : 49144,
+    "uuid" : "13b5e252-77d1-31e1-888d-1c5f4426ea87",
+    "path" : "\/usr\/lib\/system\/libsystem_pthread.dylib",
+    "name" : "libsystem_pthread.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4505460736,
+    "CFBundleShortVersionString" : "1.0",
+    "CFBundleIdentifier" : "com.apple.dt.XCResultKit",
+    "size" : 3620864,
+    "uuid" : "cb5738f0-2a7d-314a-96b0-f80c08c11d79",
+    "path" : "\/Applications\/Xcode.app\/Contents\/SharedFrameworks\/XCResultKit.framework\/Versions\/A\/XCResultKit",
+    "name" : "XCResultKit",
+    "CFBundleVersion" : "21016"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 5570801664,
+    "CFBundleShortVersionString" : "1.0",
+    "CFBundleIdentifier" : "com.apple.GPUToolsMobileFoundation",
+    "size" : 81920,
+    "uuid" : "e0d79870-5754-3e46-ae3c-defc3b65a098",
+    "path" : "\/Applications\/Xcode.app\/Contents\/SharedFrameworks\/GPUToolsMobileFoundation.framework\/Versions\/A\/GPUToolsMobileFoundation",
+    "name" : "GPUToolsMobileFoundation",
+    "CFBundleVersion" : "31501"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703260397568,
+    "CFBundleShortVersionString" : "1399.4",
+    "CFBundleIdentifier" : "com.apple.CFNetwork",
+    "size" : 3821560,
+    "uuid" : "a0d23d24-26f2-3180-a05b-61ac1175d230",
+    "path" : "\/System\/Library\/Frameworks\/CFNetwork.framework\/Versions\/A\/CFNetwork",
+    "name" : "CFNetwork",
+    "CFBundleVersion" : "1399.4"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4713234432,
+    "CFBundleShortVersionString" : "1400.0.38.13",
+    "CFBundleIdentifier" : "com.apple.LLDBRPC",
+    "size" : 409600,
+    "uuid" : "5422d7b5-b714-3cc1-8618-3c27395a3f09",
+    "path" : "\/Applications\/Xcode.app\/Contents\/SharedFrameworks\/LLDBRPC.framework\/Versions\/A\/LLDBRPC",
+    "name" : "LLDBRPC",
+    "CFBundleVersion" : "1400.0.38.13"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4747427840,
+    "CFBundleShortVersionString" : "1.0",
+    "CFBundleIdentifier" : "com.apple.dt.XcodeCloudKit",
+    "size" : 6422528,
+    "uuid" : "bbb486bd-5a10-3587-84a0-7665d66f6f3a",
+    "path" : "\/Applications\/Xcode.app\/Contents\/SharedFrameworks\/XcodeCloudKit.framework\/Versions\/A\/XcodeCloudKit",
+    "name" : "XcodeCloudKit",
+    "CFBundleVersion" : "21520"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64h",
+    "base" : 140703180779520,
+    "size" : 245721,
+    "uuid" : "aca7ef61-2853-3699-8c1f-1c0ab93ad6be",
+    "path" : "\/usr\/lib\/libobjc.A.dylib",
+    "name" : "libobjc.A.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4471853056,
+    "CFBundleShortVersionString" : "14.1",
+    "CFBundleIdentifier" : "com.apple.dt.DVTFoundation",
+    "size" : 6504448,
+    "uuid" : "e81334ff-cf0d-3751-8f95-af98c1ecd300",
+    "path" : "\/Applications\/Xcode.app\/Contents\/SharedFrameworks\/DVTFoundation.framework\/Versions\/A\/DVTFoundation",
+    "name" : "DVTFoundation",
+    "CFBundleVersion" : "21527"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4761108480,
+    "CFBundleShortVersionString" : "1.0",
+    "CFBundleIdentifier" : "com.apple.dt.IDE.SwiftPM",
+    "size" : 8798208,
+    "uuid" : "ec996070-2683-3480-804b-7c495f88555d",
+    "path" : "\/Applications\/Xcode.app\/Contents\/PlugIns\/IDESwiftPackageCore.framework\/Versions\/A\/Frameworks\/SwiftPM.framework\/Versions\/A\/SwiftPM",
+    "name" : "SwiftPM",
+    "CFBundleVersion" : "21508"
+  },
+  {
+    "size" : 0,
+    "source" : "A",
+    "base" : 0,
+    "uuid" : "00000000-0000-0000-0000-000000000000"
+  }
+],
+  "legacyInfo" : {
+  "threadTriggered" : {
+    "queue" : "DVTFilePathEventWatcher - event queue"
+  }
+},
+  "trialInfo" : {
+  "rollouts" : [
+    {
+      "rolloutId" : "62699e1ec1ff2978b47f6c3b",
+      "factorPackIds" : {
+        "SIRI_FIND_MY_CONFIGURATION_FILES" : "631f72d1de559130376df1fb"
+      },
+      "deploymentId" : 240000023
+    },
+    {
+      "rolloutId" : "6112e3d2fc54bc3389840661",
+      "factorPackIds" : {
+        "SIRI_TEXT_TO_SPEECH" : "6351d47a4ac5153dd52d5fc9"
+      },
+      "deploymentId" : 240000234
+    }
+  ],
+  "experiments" : [
+
+  ]
+},
+  "reportNotes" : [
+  "dyld_process_snapshot_create_for_process failed with 5"
+]
+}
+

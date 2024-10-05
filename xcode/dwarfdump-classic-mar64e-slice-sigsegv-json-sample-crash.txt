@@ -1,0 +1,148 @@
+Process:               dwarfdump-classic [9516]
+Path:                  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dwarfdump-classic
+Identifier:            dwarfdump-classic
+Version:               195.2
+Code Type:             ARM-64 (Native)
+Parent Process:        com.apple.dt.Xcode.ITunesSoftwareService [9477]
+Responsible:           Xcode [9409]
+User ID:               501
+
+Date/Time:             2021-10-19 12:37:01.304 -0400
+OS Version:            macOS 11.6 (20G165)
+Report Version:        12
+
+
+Time Awake Since Boot: 11000 seconds
+Time Since Wake:       9200 seconds
+
+System Integrity Protection: disabled
+
+Crashed Thread:        0  Dispatch queue: com.apple.main-thread
+
+Exception Type:        EXC_BAD_ACCESS (SIGSEGV)
+Exception Codes:       KERN_INVALID_ADDRESS at 0x00200001fd6ee490 -> 0x00000001fd6ee490 (possible pointer authentication failure)
+Exception Note:        EXC_CORPSE_NOTIFY
+
+Termination Signal:    Segmentation fault: 11
+Termination Reason:    Namespace SIGNAL, Code 0xb
+Terminating Process:   exc handler [9516]
+
+VM Regions Near 0x1fd6ee490:
+    __AUTH_CONST                1fd6ed248-1fd6ede30    [  3048] r--/rw- SM=COW  /usr/lib/system/libsystem_c.dylib
+--> __AUTH_CONST                1fd6ede30-1fd6efa70    [    7K] r--/rw- SM=COW  /usr/lib/libc++.1.dylib
+    __AUTH_CONST                1fd6efa70-1fd6f2c58    [   12K] r--/rw- SM=COW  /usr/lib/libc++abi.dylib
+
+Application Specific Information:
+dyld2 mode
+
+Thread 0 Crashed:: Dispatch queue: com.apple.main-thread
+0   dwarfdump-classic             	0x00000001020c38e8 0x1020b4000 + 63720
+1   dwarfdump-classic             	0x00000001020c38d4 0x1020b4000 + 63700
+2   dwarfdump-classic             	0x00000001020c09e8 0x1020b4000 + 51688
+3   libdyld.dylib                 	0x000000018ec89430 start + 4
+
+Thread 0 crashed with ARM Thread State (64-bit):
+    x0: 0x00000001fa0906a8   x1: 0x00000001fa090370   x2: 0x000000016dd4bb48   x3: 0x000000016dd4bba0
+    x4: 0x0000000000000000   x5: 0x0000000000000000   x6: 0x0000000000000000   x7: 0x0000000000000000
+    x8: 0x0000000000000012   x9: 0xffffffffffffffff  x10: 0x00000001020b4648  x11: 0x0000000080000028
+   x12: 0x0000000080000028  x13: 0x0000000000000000  x14: 0x0000000000000881  x15: 0x000000000000000c
+   x16: 0x00200001fd6ee458  x17: 0x634f0001fa0906a8  x18: 0x0000000000000000  x19: 0x000000016dd4b840
+   x20: 0x000000016dd4b848  x21: 0x0000000000000001  x22: 0x000000016dd4b840  x23: 0x000000016dd4b838
+   x24: 0x0000000000000000  x25: 0x000000016dd4bb28  x26: 0x0000000000000000  x27: 0x0000000000000000
+   x28: 0x000000016dd4bb18   fp: 0x000000016dd4b520   lr: 0x18610001020c38d4
+    sp: 0x000000016dd4b4f0   pc: 0x00000001020c38e8 cpsr: 0x80000000
+   far: 0x00200001fd6ee490  esr: 0x92000004
+
+
+Binary Images:
+       0x1020b4000 -        0x102127fff +dwarfdump-classic (195.2) <7A9F881B-1E4D-3F71-B1C0-5AB59232198E> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dwarfdump-classic
+       0x102288000 -        0x102307fff  dyld (852.2) <38657979-1ABE-3C9A-BF64-EF3B746216AB> /usr/lib/dyld
+       0x18e9c6000 -        0x18e9c7fff  libsystem_blocks.dylib (79) <BA713F79-1620-38B2-8717-79849B8E897E> /usr/lib/system/libsystem_blocks.dylib
+       0x18e9c8000 -        0x18e9fffff  libxpc.dylib (2038.120.1) <0E990C5D-C4F7-304A-9714-4409647CC2EF> /usr/lib/system/libxpc.dylib
+       0x18ea00000 -        0x18ea17fff  libsystem_trace.dylib (1277.120.1) <7A6B4800-8D94-3091-AC78-2D6B97A9B496> /usr/lib/system/libsystem_trace.dylib
+       0x18ea18000 -        0x18ea8bfff  libcorecrypto.dylib (1000.140.4) <FAF9B49D-2583-34EF-850B-047F050ED996> /usr/lib/system/libcorecrypto.dylib
+       0x18ea8c000 -        0x18eab7fff  libsystem_malloc.dylib (317.140.5) <A454F3F2-7BC4-3808-A60F-F5F4BC55577F> /usr/lib/system/libsystem_malloc.dylib
+       0x18eab8000 -        0x18eafcfff  libdispatch.dylib (1271.120.2) <4EDD5F72-2296-3891-B2A1-6741DB6C05C9> /usr/lib/system/libdispatch.dylib
+       0x18eafd000 -        0x18eb36fff  libobjc.A.dylib (824) <252C93CC-2D39-3C15-87F6-1336658B2F49> /usr/lib/libobjc.A.dylib
+       0x18eb37000 -        0x18eb39fff  libsystem_featureflags.dylib (28.60.1) <61A79E0B-1836-376D-AC24-171B40A9FAE7> /usr/lib/system/libsystem_featureflags.dylib
+       0x18eb3a000 -        0x18ebbbfff  libsystem_c.dylib (1439.141.1) <9B3C0AD0-1E0B-39D1-BE25-B97F8EA7E623> /usr/lib/system/libsystem_c.dylib
+       0x18ebbc000 -        0x18ec17fff  libc++.1.dylib (905.6) <BED05B96-CCAE-365A-B3F5-F8D72F5E77E1> /usr/lib/libc++.1.dylib
+       0x18ec18000 -        0x18ec2ffff  libc++abi.dylib (905.6) <3C5176E2-CE48-312B-97F6-23D4E7AFA43F> /usr/lib/libc++abi.dylib
+       0x18ec30000 -        0x18ec63fff  libsystem_kernel.dylib (7195.141.6) <FA7E835C-CB30-3D98-9331-30CE6584423D> /usr/lib/system/libsystem_kernel.dylib
+       0x18ec64000 -        0x18ec70fff  libsystem_pthread.dylib (454.120.2) <BDC1C5DA-9499-3580-9588-2928DE2440DD> /usr/lib/system/libsystem_pthread.dylib
+       0x18ec71000 -        0x18ecb2fff  libdyld.dylib (852.2) <BE0B539A-2EDF-3A99-9632-731C5928BBAC> /usr/lib/system/libdyld.dylib
+       0x18ecb3000 -        0x18ecb9fff  libsystem_platform.dylib (254.80.2) <2CC11FAD-1E31-3533-B1D8-9CDDF5DFE595> /usr/lib/system/libsystem_platform.dylib
+       0x18ecba000 -        0x18ece5fff  libsystem_info.dylib (542.40.3) <3B5B9F97-ECFB-3F6E-9B85-D8C62A8B3205> /usr/lib/system/libsystem_info.dylib
+       0x18ece6000 -        0x18f194fff  com.apple.CoreFoundation (6.9 - 1778.101) <1FC1BD60-DC83-3CC7-89AC-D734DC18473A> /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+       0x190e09000 -        0x19107afff  libicucore.A.dylib (66112) <987F240B-946D-3F96-AD1A-F3EF6752D5DB> /usr/lib/libicucore.A.dylib
+       0x19107b000 -        0x191085fff  libsystem_darwin.dylib (1439.141.1) <9BF54A49-874D-3D91-B319-6B2F676FE42D> /usr/lib/system/libsystem_darwin.dylib
+       0x1914be000 -        0x1914c9fff  libsystem_notify.dylib (279.40.4) <FA85C044-99A5-352D-B7AD-45FB31B295FF> /usr/lib/system/libsystem_notify.dylib
+       0x19349d000 -        0x1934acfff  libsystem_networkextension.dylib (1295.140.3) <0FFACDE5-D546-306D-B9FA-06EC8FCAEEF9> /usr/lib/system/libsystem_networkextension.dylib
+       0x193502000 -        0x193519fff  libsystem_asl.dylib (385) <7F462B8A-541F-3195-9BAE-CDEDFA3BA8A4> /usr/lib/system/libsystem_asl.dylib
+       0x194a73000 -        0x194a7afff  libsystem_symptoms.dylib (1431.140.1) <0B4FC817-CC87-31F2-872B-BD505D29F5EE> /usr/lib/system/libsystem_symptoms.dylib
+       0x1968cf000 -        0x1968e0fff  libsystem_containermanager.dylib (318.100.4) <FCE2D8EA-A9D8-3A5D-A908-3E9C0AFFB941> /usr/lib/system/libsystem_containermanager.dylib
+       0x19754d000 -        0x197551fff  libsystem_configuration.dylib (1109.140.1) <9BC511C4-6613-3F1D-8592-7D3971B24921> /usr/lib/system/libsystem_configuration.dylib
+       0x197552000 -        0x197556fff  libsystem_sandbox.dylib (1441.141.4) <CABF63A0-DDAF-3A54-8447-1256DFFD2907> /usr/lib/system/libsystem_sandbox.dylib
+       0x197f13000 -        0x197f15fff  libquarantine.dylib (119.40.2) <DE9BFFD7-62ED-38ED-BF58-388F192BE6FC> /usr/lib/system/libquarantine.dylib
+       0x198476000 -        0x19847afff  libsystem_coreservices.dylib (127.1) <F107780A-EFAD-3DC8-A62F-825DD954128E> /usr/lib/system/libsystem_coreservices.dylib
+       0x198672000 -        0x19869ffff  libsystem_m.dylib (3186.100.3) <092A6565-3BE3-3EEF-844E-B846793A4115> /usr/lib/system/libsystem_m.dylib
+       0x1986a1000 -        0x1986a6fff  libmacho.dylib (980) <F6CBC87D-DC83-3E5F-A7C0-B0115E7D1BC1> /usr/lib/system/libmacho.dylib
+       0x1986bf000 -        0x1986ccfff  libcommonCrypto.dylib (60178.120.3) <146E6A52-3060-32A1-9119-C3D6F8B5C57B> /usr/lib/system/libcommonCrypto.dylib
+       0x1986cd000 -        0x1986d7fff  libunwind.dylib (201) <2A01EF92-F92D-35F7-B638-8CBC6896DCAA> /usr/lib/system/libunwind.dylib
+       0x1986d8000 -        0x1986dffff  liboah.dylib (203.58) <6802DEC1-9ED5-3667-BFE0-3BDDE8BB40E1> /usr/lib/liboah.dylib
+       0x1986e0000 -        0x1986e8fff  libcopyfile.dylib (173.40.2) <8477DD43-56AA-3422-BF23-4ADC7B98462F> /usr/lib/system/libcopyfile.dylib
+       0x1986e9000 -        0x1986ecfff  libcompiler_rt.dylib (102.2) <50E8F23E-3E63-31BF-BFC3-EE75D281B151> /usr/lib/system/libcompiler_rt.dylib
+       0x1986ed000 -        0x1986effff  libsystem_collections.dylib (1439.141.1) <EA89016C-2C72-3531-84D9-2A696F2DAC85> /usr/lib/system/libsystem_collections.dylib
+       0x1986f0000 -        0x1986f2fff  libsystem_secinit.dylib (87.60.1) <836B23E3-DF08-31C8-98AD-4A9B12A4B404> /usr/lib/system/libsystem_secinit.dylib
+       0x1986f3000 -        0x1986f5fff  libremovefile.dylib (49.120.1) <687A6E36-0460-30BC-A675-7F83059AE2D9> /usr/lib/system/libremovefile.dylib
+       0x1986f6000 -        0x1986f6fff  libkeymgr.dylib (31) <C5D64EE9-AB76-3D4C-BC4F-2BE8415DC21A> /usr/lib/system/libkeymgr.dylib
+       0x1986f7000 -        0x1986fffff  libsystem_dnssd.dylib (1310.140.1) <DEE0783F-DDC9-35A6-9F6E-6B8FE94FBF0A> /usr/lib/system/libsystem_dnssd.dylib
+       0x198700000 -        0x198705fff  libcache.dylib (83) <2EA812B3-0565-35FA-BF54-DF98EF3DB5DE> /usr/lib/system/libcache.dylib
+       0x198706000 -        0x198707fff  libSystem.B.dylib (1292.120.1) <1E75FCDF-2357-30FE-AAAD-5290BA722464> /usr/lib/libSystem.B.dylib
+       0x198708000 -        0x19870bfff  libfakelink.dylib (3) <F096DD26-38CB-3EC9-8FC1-2F8B11A0675D> /usr/lib/libfakelink.dylib
+       0x19870c000 -        0x19870cfff  com.apple.SoftLinking (1.0 - 1) <FA588B2E-82E9-3570-B6FE-D2AB5F2A3E28> /System/Library/PrivateFrameworks/SoftLinking.framework/Versions/A/SoftLinking
+       0x19bb25000 -        0x19bb25fff  liblaunch.dylib (2038.120.1) <AA4E8477-1B82-357E-8275-FFED1F957AF9> /usr/lib/system/liblaunch.dylib
+       0x19dfd9000 -        0x19dfd9fff  libsystem_product_info_filter.dylib (8.40.1) <14136F56-3690-3346-90A0-31FC34DF3E1B> /usr/lib/system/libsystem_product_info_filter.dylib
+
+External Modification Summary:
+  Calls made by other processes targeting this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by all processes on this machine:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+
+VM Region Summary:
+ReadOnly portion of Libraries: Total=502.4M resident=0K(0%) swapped_out_or_unallocated=502.4M(100%)
+Writable regions: Total=17.3M written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=17.3M(100%)
+ 
+                                VIRTUAL   REGION 
+REGION TYPE                        SIZE    COUNT (non-coalesced) 
+===========                     =======  ======= 
+Kernel Alloc Once                   32K        1 
+MALLOC                            9360K        8 
+MALLOC guard page                   96K        5 
+STACK GUARD                       56.0M        1 
+Stack                             8176K        1 
+VM_ALLOCATE                        1.0G        1 
+__AUTH                              53K       12 
+__AUTH_CONST                      1033K       42 
+__DATA                             423K       41 
+__DATA_CONST                      2308K       41 
+__DATA_DIRTY                       110K       23 
+__LINKEDIT                       490.2M        4 
+__OBJC_CONST                        37K        6 
+__OBJC_RO                         75.1M        1 
+__OBJC_RW                         2576K        1 
+__TEXT                            12.1M       48 
+__UNICODE                          588K        1 
+shared memory                       16K        1 
+===========                     =======  ======= 
+TOTAL                              1.6G      238 
+

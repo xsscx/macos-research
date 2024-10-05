@@ -1,0 +1,136 @@
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+
+Process:               test_imageio [15674]
+Path:                  /Users/USER/*/test_imageio
+Identifier:            test_imageio
+Version:               ???
+Code Type:             X86-64 (Native)
+Parent Process:        fuzzer [15649]
+Responsible:           iTerm2 [885]
+User ID:               501
+
+Date/Time:             2023-12-19 20:06:54.0570 -0500
+OS Version:            macOS 14.2.1 (23C71)
+Report Version:        12
+Bridge OS Version:     8.2 (21P2057)
+
+System Integrity Protection: disabled
+
+Crashed Thread:        1  Dispatch queue: com.apple.root.user-interactive-qos
+
+Exception Type:        EXC_CRASH (SIGABRT)
+Exception Codes:       0x0000000000000000, 0x0000000000000000
+
+External Modification Warnings:
+Debugger attached to process.
+
+Application Specific Information:
+abort() called
+
+
+Thread 0::  Dispatch queue: com.apple.root.user-interactive-qos
+0   libsystem_kernel.dylib        	    0x7ff801f281e2 __ulock_wait + 10
+1   libdispatch.dylib             	    0x7ff801dbedb2 _dlock_wait + 46
+2   libdispatch.dylib             	    0x7ff801dbec3a _dispatch_thread_event_wait_slow + 40
+3   libdispatch.dylib             	    0x7ff801dd020b _dispatch_apply_invoke_and_wait + 324
+4   libdispatch.dylib             	    0x7ff801dcf6ab _dispatch_apply_with_attr_f + 1181
+5   libAppleEXR.dylib             	    0x7ffa0844ffce axr_error_t LaunchBlocks<ReadPixelsArgs>(void (*)(void*, unsigned long), ReadPixelsArgs const*, unsigned long, axr_flags_t) + 355
+6   libAppleEXR.dylib             	    0x7ffa08453422 TileDecoder::ReadYccRGBAPixels(double, YccMatrix const&, void*, unsigned long) const + 2242
+7   libAppleEXR.dylib             	    0x7ffa084455f9 Part::ReadRGBAPixels(axr_decoder*, void*, unsigned long, double, axr_flags_t) const + 2511
+8   ???                           	    0x7ff84583d592 ???
+9   ???                           	    0x7ff84583cf4c ???
+10  ???                           	    0x7ff845835fc4 ???
+11  ???                           	    0x7ff845832cba ???
+12  ???                           	    0x7ff845833b92 ???
+13  ???                           	    0x7ff84583252b ???
+14  CoreGraphics                  	    0x7ff807a469cf imageProvider_retain_data + 77
+15  CoreGraphics                  	    0x7ff807a46942 CGDataProviderRetainData + 75
+16  CoreGraphics                  	    0x7ff807a46967 provider_for_destination_retain_data + 17
+17  CoreGraphics                  	    0x7ff807a46942 CGDataProviderRetainData + 75
+18  CoreGraphics                  	    0x7ff807a467fe CGAccessSessionCreate + 98
+19  CoreGraphics                  	    0x7ff807a45806 img_data_lock + 3006
+20  CoreGraphics                  	    0x7ff807a411c3 CGSImageDataLock + 1286
+21  CoreGraphics                  	    0x7ff807a40c85 RIPImageDataInitializeShared + 170
+22  CoreGraphics                  	    0x7ff807a40932 RIPImageCacheGetRetained + 679
+23  CoreGraphics                  	    0x7ff807a40427 ripc_AcquireRIPImageData + 371
+24  CoreGraphics                  	    0x7ff807a3f20f ripc_DrawImage + 919
+25  CoreGraphics                  	    0x7ff807a3e697 CGContextDrawImageWithOptions + 676
+26  test_imageio                  	       0x107636c44 fuzz + 468
+27  ???                           	             0xf22 ???
+28  dyld                          	    0x7ff801bdb386 start + 1942
+
+Thread 1 Crashed::  Dispatch queue: com.apple.root.user-interactive-qos
+0   libsystem_kernel.dylib        	    0x7ff801f2d7a2 __pthread_kill + 10
+1   libsystem_pthread.dylib       	    0x7ff801f65f30 pthread_kill + 262
+2   libsystem_c.dylib             	    0x7ff801e84a49 abort + 126
+3   libc++abi.dylib               	    0x7ff801f1ec72 abort_message + 241
+4   libc++abi.dylib               	    0x7ff801f10e1a demangling_terminate_handler() + 266
+5   libobjc.A.dylib               	    0x7ff801baf476 _objc_terminate() + 104
+6   libc++abi.dylib               	    0x7ff801f1e0cb std::__terminate(void (*)()) + 6
+7   libc++abi.dylib               	    0x7ff801f1e086 std::terminate() + 54
+8   libdispatch.dylib             	    0x7ff801dbe5e1 _dispatch_client_callout2 + 28
+9   libdispatch.dylib             	    0x7ff801dcee3e _dispatch_apply_invoke + 214
+10  libdispatch.dylib             	    0x7ff801dbe59a _dispatch_client_callout + 8
+11  libdispatch.dylib             	    0x7ff801dcd99d _dispatch_root_queue_drain + 879
+12  libdispatch.dylib             	    0x7ff801dcdf22 _dispatch_worker_thread2 + 152
+13  libsystem_pthread.dylib       	    0x7ff801f62c06 _pthread_wqthread + 262
+14  libsystem_pthread.dylib       	    0x7ff801f61b97 start_wqthread + 15
+
+Thread 2:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 3:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 4:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 5:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 6:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 7:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 8:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 9:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 10:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+Thread 11:
+0   libsystem_pthread.dylib       	    0x7ff801f61b88 start_wqthread + 0
+
+
+Thread 1 crashed with X86 Thread State (64-bit):
+  rax: 0x0000000000000000  rbx: 0x0000000000000006  rcx: 0x000070000b698c48  rdx: 0x0000000000000000
+  rdi: 0x0000000000001203  rsi: 0x0000000000000006  rbp: 0x000070000b698c70  rsp: 0x000070000b698c48
+   r8: 0x000070000b698b10   r9: 0x000070000b698d70  r10: 0x0000000000000000  r11: 0x0000000000000246
+  r12: 0x0000000000001203  r13: 0x0000003000000008  r14: 0x000070000b699000  r15: 0x0000000000000016
+  rip: 0x00007ff801f2d7a2  rfl: 0x0000000000000246  cr2: 0x0000000000000000
+  
+Logical CPU:     0
+Error Code:      0x02000148 
+Trap Number:     133
+
+
+Binary Images:
+       0x107da6000 -        0x107dddfff libclang_rt.ubsan_osx_dynamic.dylib (*) <267444eb-bef4-3990-81d6-7a2f2d25bc09> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.ubsan_osx_dynamic.dylib
+       0x107633000 -        0x107636fff test_imageio (*) <0b5d3103-711e-3577-ba44-c3a1b744cb27> /Users/USER/*/test_imageio
+    0x7ff801f25000 -     0x7ff801f5fff7 libsystem_kernel.dylib (*) <9927a0a9-dfa8-3ffa-88d8-62055f37a137> /usr/lib/system/libsystem_kernel.dylib
+    0x7ff801dbb000 -     0x7ff801e01ffd libdispatch.dylib (*) <895cad19-704c-3ff8-b148-23689a163b12> /usr/lib/system/libdispatch.dylib
+    0x7ffa083aa000 -     0x7ffa08486fea libAppleEXR.dylib (*) <2b085191-b657-3ec9-928a-92baa21c7b31> /usr/lib/libAppleEXR.dylib
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000000000000> ???
+    0x7ff807a07000 -     0x7ff8081bfffc com.apple.CoreGraphics (2.0) <bd650e1f-319f-3036-8d71-d25ac8d268cc> /System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics
+    0x7ff801bd5000 -     0x7ff801c713bf dyld (*) <ab17bf63-259b-3b48-8d70-863166a2191c> /usr/lib/dyld
+    0x7ff801f60000 -     0x7ff801f6bfff libsystem_pthread.dylib (*) <a9ba8a53-d774-3fe9-8bde-64187bff7ea9> /usr/lib/system/libsystem_pthread.dylib
+    0x7ff801e05000 -     0x7ff801e8cfff libsystem_c.dylib (*) <29a0020e-3766-39df-80fe-9aa731847daa> /usr/lib/system/libsystem_c.dylib
+    0x7ff801f0c000 -     0x7ff801f24fff libc++abi.dylib (*) <a6d9f2ab-2afb-3b73-8a35-ebde8a7e4891> /usr/lib/libc++abi.dylib
+    0x7ff801b93000 -     0x7ff801bd4ff8 libobjc.A.dylib (*) <7e3b4177-738a-305c-93aa-d9e395b96b9d> /usr/lib/libobjc.A.dylib

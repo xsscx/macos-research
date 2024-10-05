@@ -1,0 +1,134 @@
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+
+Process:               vtdecode1 [12504]
+Path:                  /Users/USER/*/vtdecode1
+Identifier:            vtdecode1
+Version:               ???
+Code Type:             ARM-64 (Native)
+Parent Process:        fuzzer [12395]
+Responsible:           iTerm2 [660]
+User ID:               501
+
+Date/Time:             2024-03-03 20:46:04.5407 -0500
+OS Version:            macOS 14.3.1 (23D60)
+Report Version:        12
+Anonymous UUID:        B1032454-F6FC-12A2-0BAF-60586C7F852B
+
+Sleep/Wake UUID:       8DB15348-5F76-4093-9578-A0092E202853
+
+Time Awake Since Boot: 7000 seconds
+Time Since Wake:       1794 seconds
+
+System Integrity Protection: disabled
+
+Crashed Thread:        1  Dispatch queue: AssetPropertyStoreQueue
+
+Exception Type:        EXC_CRASH (SIGABRT)
+Exception Codes:       0x0000000000000000, 0x0000000000000000
+
+Thread 0::  Dispatch queue: com.apple.main-thread
+0   libsystem_kernel.dylib        	       0x1803ff62c __ulock_wait + 8
+1   libsystem_pthread.dylib       	       0x18044049c _pthread_join + 608
+2   vtdecode1                     	       0x100003af0 main + 636 (vtdecode1.m:92)
+3   dyld                          	       0x10001a0e0 start + 2360
+
+Thread 1 Crashed::  Dispatch queue: AssetPropertyStoreQueue
+0   libsystem_kernel.dylib        	       0x1804060dc __pthread_kill + 8
+1   libsystem_pthread.dylib       	       0x18043dcc0 pthread_kill + 288
+2   MediaToolbox                  	       0x18f9e141c 0x18f3c9000 + 6390812
+3   ???                           	       0x1dbcf4dd0 ???
+4   ???                           	     0xacf8b004d80 ???
+
+Thread 2::  Dispatch queue: AssetPropertyStoreQueue
+0   CoreFoundation                	       0x1804a70d4 CFEqual + 1448
+1   CoreFoundation                	       0x1804cc1fc CFArrayContainsValue + 112
+2   MediaToolbox                  	       0x18f9e2b50 0x18f3c9000 + 6396752
+3   MediaToolbox                  	       0x18f9e1448 0x18f3c9000 + 6390856
+4   libclang_rt.asan_osx_dynamic.dylib	       0x1009b5bcc asan_dispatch_call_block_and_release + 228
+5   libdispatch.dylib             	       0x18028c910 _dispatch_client_callout + 20
+6   libdispatch.dylib             	       0x18029bcc4 _dispatch_lane_barrier_sync_invoke_and_complete + 56
+7   libclang_rt.asan_osx_dynamic.dylib	       0x1009b5e6c wrap_dispatch_sync_f + 264
+8   MediaToolbox                  	       0x18f9e140c 0x18f3c9000 + 6390796
+9   MediaToolbox                  	       0x18f9e3cbc 0x18f3c9000 + 6401212
+10  MediaToolbox                  	       0x18f3cb68c FigAssetCreateWithURL + 552
+11  AVFCore                       	       0x195a46270 -[AVFigAssetInspectorLoader initWithURL:figAssetCreationFlags:figAssetCreationOptions:avAssetInitializationOptions:forAsset:figErr:] + 156
+12  AVFCore                       	       0x1959a4a50 avurlasset_setupGuts + 896
+13  AVFCore                       	       0x19596cd74 -[AVURLAsset initWithURL:options:] + 80
+14  AVFCore                       	       0x19596cd08 +[AVURLAsset URLAssetWithURL:options:] + 40
+15  vtdecode1                     	       0x100003528 fuzz + 152 (vtdecode1.m:31)
+16  libsystem_pthread.dylib       	       0x18043e034 _pthread_start + 136
+17  libsystem_pthread.dylib       	       0x180438e3c thread_start + 8
+
+Thread 3:
+0   libsystem_pthread.dylib       	       0x180438e28 start_wqthread + 0
+
+Thread 4:
+0   libsystem_pthread.dylib       	       0x180438e28 start_wqthread + 0
+
+Thread 5:: com.apple.coremedia.sharedRootQueue.48
+0   libsystem_kernel.dylib        	       0x1803fd808 semaphore_timedwait_trap + 8
+1   libdispatch.dylib             	       0x18028cf28 _dispatch_sema4_timedwait + 64
+2   libdispatch.dylib             	       0x18028d524 _dispatch_semaphore_wait_slow + 76
+3   libdispatch.dylib             	       0x18029dfc8 _dispatch_worker_thread + 328
+4   libsystem_pthread.dylib       	       0x18043e034 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x180438e3c thread_start + 8
+
+Thread 6:: com.apple.coremedia.sharedRootQueue.48
+0   libsystem_kernel.dylib        	       0x1803fd808 semaphore_timedwait_trap + 8
+1   libdispatch.dylib             	       0x18028cf28 _dispatch_sema4_timedwait + 64
+2   libdispatch.dylib             	       0x18028d524 _dispatch_semaphore_wait_slow + 76
+3   libdispatch.dylib             	       0x18029dfc8 _dispatch_worker_thread + 328
+4   libsystem_pthread.dylib       	       0x18043e034 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x180438e3c thread_start + 8
+
+Thread 7:: com.apple.coremedia.sharedRootQueue.49
+0   libsystem_kernel.dylib        	       0x1803fd808 semaphore_timedwait_trap + 8
+1   libdispatch.dylib             	       0x18028cf28 _dispatch_sema4_timedwait + 64
+2   libdispatch.dylib             	       0x18028d524 _dispatch_semaphore_wait_slow + 76
+3   libdispatch.dylib             	       0x18029dfc8 _dispatch_worker_thread + 328
+4   libsystem_pthread.dylib       	       0x18043e034 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x180438e3c thread_start + 8
+
+Thread 8:: com.apple.coremedia.sharedRootQueue.49
+0   libsystem_kernel.dylib        	       0x1803fd808 semaphore_timedwait_trap + 8
+1   libdispatch.dylib             	       0x18028cf28 _dispatch_sema4_timedwait + 64
+2   libdispatch.dylib             	       0x18028d524 _dispatch_semaphore_wait_slow + 76
+3   libdispatch.dylib             	       0x18029dfc8 _dispatch_worker_thread + 328
+4   libsystem_pthread.dylib       	       0x18043e034 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x180438e3c thread_start + 8
+
+Thread 9:: com.apple.coremedia.sharedRootQueue.47
+0   libsystem_kernel.dylib        	       0x1803fd808 semaphore_timedwait_trap + 8
+1   libdispatch.dylib             	       0x18028cf28 _dispatch_sema4_timedwait + 64
+2   libdispatch.dylib             	       0x18028d524 _dispatch_semaphore_wait_slow + 76
+3   libdispatch.dylib             	       0x18029dfc8 _dispatch_worker_thread + 328
+4   libsystem_pthread.dylib       	       0x18043e034 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x180438e3c thread_start + 8
+
+
+Thread 1 crashed with ARM Thread State (64-bit):
+    x0: 0x0000000000000000   x1: 0x0000000000000000   x2: 0x0000000000000000   x3: 0x0000000000000000
+    x4: 0x0000000000000000   x5: 0x0000000000000000   x6: 0x0000000000000000   x7: 0x00000001803505c3
+    x8: 0x8baac6522cbb833c   x9: 0x8baac6534353f33c  x10: 0x000000702dff0a01  x11: 0x000000002dfd0a01
+   x12: 0x000000002dfd0a01  x13: 0x0000000000000000  x14: 0x0000000000000000  x15: 0x00000001d6d2cee8
+   x16: 0x0000000000000148  x17: 0x00000001dfd972f8  x18: 0x0000000000000000  x19: 0x0000000000000006
+   x20: 0x000000016fe87000  x21: 0x0000000000001b03  x22: 0x000000016fe870e0  x23: 0x00000001dc529400
+   x24: 0x00000001dc529410  x25: 0x00000001dbcf4f60  x26: 0x00000001d5d05a44  x27: 0x00000001dc529400
+   x28: 0x0000000000000000   fp: 0x000000016fe84fe0   lr: 0x000000018043dcc0
+    sp: 0x000000016fe84fc0   pc: 0x00000001804060dc cpsr: 0x40001000
+   far: 0x0000000000000000  esr: 0x56000080  Address size fault
+
+Binary Images:
+       0x100014000 -        0x1000abfff dyld (*) <50746901-db0e-39a0-b391-baaa6b82ad0f> /usr/lib/dyld
+       0x100964000 -        0x100a07fff libclang_rt.asan_osx_dynamic.dylib (*) <1b16478a-5774-3735-9ce2-2864b8483624> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.asan_osx_dynamic.dylib
+       0x100000000 -        0x100003fff vtdecode1 (*) <ce223b6f-a46b-3f8f-aae9-c36e31be4291> /Users/USER/*/vtdecode1
+       0x1803fc000 -        0x180436fff libsystem_kernel.dylib (*) <a7228b5d-53c7-3fe9-84e4-2a8c04dcf051> /usr/lib/system/libsystem_kernel.dylib
+       0x180437000 -        0x180443ff3 libsystem_pthread.dylib (*) <449bbad3-f7ef-371d-9a59-fd4ffa78289b> /usr/lib/system/libsystem_pthread.dylib
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000000000000> ???
+       0x18f3c9000 -        0x18fcaefff com.apple.MediaToolbox (1.0) <58789a1b-d0af-3fc0-8ccd-4cceceb3a9bc> /System/Library/Frameworks/MediaToolbox.framework/Versions/A/MediaToolbox
+       0x1802d3000 -        0x180351ffb libsystem_c.dylib (*) <cc7a439e-f104-3047-995c-9a5a3cc4a442> /usr/lib/system/libsystem_c.dylib
+       0x18049e000 -        0x180975fff com.apple.CoreFoundation (6.9) <6030a572-b731-3f46-b3a0-2598fbb98c9a> /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+       0x180289000 -        0x1802cffff libdispatch.dylib (*) <5aa1649c-ef1d-39f7-a66c-4c5d2e53c474> /usr/lib/system/libdispatch.dylib
+       0x195968000 -        0x195bb1fff com.apple.AVFCore (1.0) <2c06a8ac-83f3-317c-9030-b7c416cdbe56> /System/Library/PrivateFrameworks/AVFCore.framework/Versions/A/AVFCore
