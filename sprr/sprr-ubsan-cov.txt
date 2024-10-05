@@ -1,0 +1,128 @@
+    1|       |#define _XOPEN_SOURCE
+    2|       |#include <signal.h>
+    3|       |#include <stdbool.h>
+    4|       |#include <stdint.h>
+    5|       |#include <stdio.h>
+    6|       |#include <string.h>
+    7|       |#include <sys/mman.h>
+    8|       |#include <sys/utsname.h>
+    9|       |#include <ucontext.h>
+   10|       |
+   11|       |static void sev_handler(int signo, siginfo_t *info, void *cx_)
+   12|      3|{
+   13|      3|    (void)signo;
+   14|      3|    (void)info;
+   15|      3|    ucontext_t *cx = cx_;
+   16|      3|    cx->uc_mcontext->__ss.__x[0] = 0xdeadbeef;
+   17|      3|    cx->uc_mcontext->__ss.__pc = cx->uc_mcontext->__ss.__lr;
+   18|      3|}
+   19|       |
+   20|       |static void bus_handler(int signo, siginfo_t *info, void *cx_)
+   21|  12.2k|{
+   22|  12.2k|    (void)signo;
+   23|  12.2k|    (void)info;
+   24|  12.2k|    ucontext_t *cx = cx_;
+   25|  12.2k|    cx->uc_mcontext->__ss.__x[0] = 0xdeadbeef;
+   26|  12.2k|    cx->uc_mcontext->__ss.__pc += 4;
+   27|  12.2k|}
+   28|       |
+   29|       |static void write_sprr_perm(uint64_t v)
+   30|      5|{
+   31|      5|    __asm__ __volatile__("msr S3_6_c15_c1_5, %0\n"
+   32|      5|                         "isb sy\n" ::"r"(v)
+   33|      5|                         :);
+   34|      5|}
+   35|       |
+   36|       |static uint64_t read_sprr_perm(void)
+   37|      8|{
+   38|      8|    uint64_t v;
+   39|      8|    __asm__ __volatile__("isb sy\n"
+   40|      8|                         "mrs %0, S3_6_c15_c1_5\n"
+   41|      8|                         : "=r"(v)::"memory");
+   42|      8|    return v;
+   43|      8|}
+   44|       |
+   45|       |static bool can_read(void *ptr)
+   46|      4|{
+   47|      4|    uint64_t v = 0;
+   48|      4|
+   49|      4|    __asm__ __volatile__("ldr x0, [%0]\n"
+   50|      4|                         "mov %0, x0\n"
+   51|      4|                         : "=r"(v)
+   52|      4|                         : "r"(ptr)
+   53|      4|                         : "memory", "x0");
+   54|      4|
+   55|      4|    if (v == 0xdeadbeef)
+   56|      1|        return false;
+   57|      3|    return true;
+   58|      3|}
+   59|       |
+   60|       |static bool can_write(void *ptr)
+   61|      4|{
+   62|      4|    uint64_t v = 0;
+   63|      4|
+   64|      4|    __asm__ __volatile__("str x0, [%0]\n"
+   65|      4|                         "mov %0, x0\n"
+   66|      4|                         : "=r"(v)
+   67|      4|                         : "r"(ptr + 8)
+   68|      4|                         : "memory", "x0");
+   69|      4|
+   70|      4|    if (v == 0xdeadbeef)
+   71|      3|        return false;
+   72|      1|    return true;
+   73|      1|}
+   74|       |
+   75|       |static bool can_exec(void *ptr)
+   76|      4|{
+   77|      4|    uint64_t (*fun_ptr)(uint64_t) = ptr;
+   78|      4|    uint64_t res = fun_ptr(0);
+   79|      4|    if (res == 0xdeadbeef)
+   80|      3|        return false;
+   81|      1|    return true;
+   82|      1|}
+   83|       |
+   84|       |static void sprr_test(void *ptr, uint64_t v)
+   85|      4|{
+   86|      4|    uint64_t a, b;
+   87|      4|    a = read_sprr_perm();
+   88|      4|    write_sprr_perm(v);
+   89|      4|    b = read_sprr_perm();
+   90|      4|
+   91|      4|    printf("%llx: %c%c%c\n", b, can_read(ptr) ? 'r' : '-', can_write(ptr) ? 'w' : '-',
+                                                              ^3    ^1                    ^1    ^3
+   92|      4|           can_exec(ptr) ? 'x' : '-');
+                                         ^1    ^3
+   93|      4|}
+   94|       |
+   95|       |static uint64_t make_sprr_val(uint8_t nibble)
+   96|      4|{
+   97|      4|    uint64_t res = 0;
+   98|     68|    for (int i = 0; i < 16; ++i)
+                                          ^64
+   99|     64|        res |= ((uint64_t)nibble) << (4 * i);
+  100|      4|    return res;
+  101|      4|}
+  102|       |
+  103|       |int main(int argc, char *argv[])
+  104|      1|{
+  105|      1|    (void)argc;
+  106|      1|    (void)argv;
+  107|      1|
+  108|      1|    struct sigaction sa;
+  109|      1|    sigfillset(&sa.sa_mask);
+  110|      1|    sa.sa_sigaction = bus_handler;
+  111|      1|    sa.sa_flags = SA_RESTART | SA_SIGINFO;
+  112|      1|    sigaction(SIGBUS, &sa, 0);
+  113|      1|    sa.sa_sigaction = sev_handler;
+  114|      1|    sigaction(SIGSEGV, &sa, 0);
+  115|      1|
+  116|      1|    uint32_t *ptr = mmap(NULL, 0x4000, PROT_READ | PROT_WRITE | PROT_EXEC,
+  117|      1|                         MAP_PRIVATE | MAP_ANONYMOUS | MAP_JIT, -1, 0);
+  118|      1|    write_sprr_perm(0x3333333333333333);
+  119|      1|    ptr[0] = 0xd65f03c0; // ret
+  120|      1|
+  121|      5|    for (int i = 0; i < 4; ++i)
+                                         ^4
+  122|      4|        sprr_test(ptr, make_sprr_val(i));
+  123|      1|}
+

@@ -1,0 +1,86 @@
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+
+Process:               test_imageio [73777]
+Path:                  /Users/USER/*/test_imageio
+Identifier:            test_imageio
+Version:               ???
+Code Type:             ARM-64 (Native)
+Parent Process:        launchd [1]
+Responsible:           iTerm2 [660]
+User ID:               501
+
+Date/Time:             2024-03-04 20:24:49.4092 -0500
+OS Version:            macOS 14.3.1 (23D60)
+Report Version:        12
+Anonymous UUID:        B1032454-F6FC-12A2-0BAF-60586C7F852B
+
+Sleep/Wake UUID:       95938073-AAAD-41F2-A9FB-F86292F5A964
+
+Time Awake Since Boot: 72000 seconds
+Time Since Wake:       260 seconds
+
+System Integrity Protection: disabled
+
+Crashed Thread:        0  Dispatch queue: com.apple.main-thread
+
+Exception Type:        EXC_BAD_ACCESS (SIGBUS)
+Exception Codes:       KERN_PROTECTION_FAILURE at 0x000000018ea96e18
+Exception Codes:       0x0000000000000002, 0x000000018ea96e18
+
+Termination Reason:    Namespace SIGNAL, Code 10 Bus error: 10
+Terminating Process:   exc handler [73777]
+
+External Modification Warnings:
+Debugger attached to process.
+
+VM Region Info: 0x18ea96e18 is in 0x18ea93000-0x18ead9000;  bytes after start: 15896  bytes before end: 270823
+      REGION TYPE                    START - END         [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL
+      unused __TEXT               18ea90000-18ea93000    [   12K] r--/rwx SM=COW  ...ed lib __TEXT
+--->  __TEXT                      18ea93000-18ead9000    [  280K] r--/rwx SM=COW  ...s/A/AppleJPEG
+      __TEXT                      18ead9000-18eadc000    [   12K] r--/rwx SM=COW  .../libJP2.dylib
+
+Thread 0 Crashed::  Dispatch queue: com.apple.main-thread
+0   AppleJPEG                     	       0x18ea96e18 applejpeg_decode_get_chroma_subsampling + 0
+1   ImageIO                       	       0x18ade65dc AppleJPEGReadPlugin::initialize(IIODictionary*) + 1972
+2   ImageIO                       	       0x18addbe28 IIOReadPlugin::callInitialize() + 388
+3   ImageIO                       	       0x18ade5de8 IIO_Reader_AppleJPEG::initImageAtOffset(CGImagePlugin*, unsigned long, unsigned long, unsigned long) + 156
+4   ImageIO                       	       0x18add900c IIOImageSource::makeImagePlus(unsigned long, IIODictionary*) + 808
+5   ImageIO                       	       0x18add88e8 IIOImageSource::getPropertiesAtIndexInternal(unsigned long, IIODictionary*) + 72
+6   ImageIO                       	       0x18add8804 IIOImageSource::copyPropertiesAtIndex(unsigned long, IIODictionary*) + 24
+7   ImageIO                       	       0x18add86a8 CGImageSourceCopyPropertiesAtIndex + 344
+8   AppKit                        	       0x183de70f0 ImageSourceOptionsForCGImageSource_index_ + 64
+9   AppKit                        	       0x183de6f70 +[NSBitmapImageRep _imagesWithData:hfsFileType:extension:zone:expandImageContentNow:includeAllReps:] + 428
+10  AppKit                        	       0x183efe4f4 +[NSBitmapImageRep imageRepsWithData:] + 68
+11  AppKit                        	       0x183efddc4 -[NSImage initWithData:] + 76
+12  test_imageio                  	       0x1004f7a2c fuzz + 224 (imageio.m:129)
+13  test_imageio                  	       0x1004f7d1c main + 400 (imageio.m:177)
+14  dyld                          	       0x1006ce0e0 start + 2360
+
+Thread 1:
+0   libsystem_pthread.dylib       	       0x180438e28 start_wqthread + 0
+
+
+Thread 0 crashed with ARM Thread State (64-bit):
+    x0: 0x0000000128989a00   x1: 0x0000000128989a00   x2: 0x00000001db842628   x3: 0x0000000000000002
+    x4: 0x0000000000000005   x5: 0x00000000000035a0   x6: 0x00000000000000c7   x7: 0x0000000000000000
+    x8: 0x0000600002944b98   x9: 0xacc067e2cedce20e  x10: 0x000000018b0aa39d  x11: 0x000000018b0aa39d
+   x12: 0x000000018074bcd4  x13: 0x000000000000006e  x14: 0x000000018074bcd4  x15: 0x0000000073c59240
+   x16: 0x000000018ea96e18  x17: 0x00000001dfdc3ae8  x18: 0x0000000000000000  x19: 0x000000010313f1a0
+   x20: 0x0000000000000000  x21: 0x000060000025aea0  x22: 0x0000000000000000  x23: 0x0000000000000000
+   x24: 0x0000000000000001  x25: 0x00000001db846e88  x26: 0x0000000000000000  x27: 0x000060000025aec0
+   x28: 0x000000018b09d92f   fp: 0x000000016f90ae70   lr: 0x000000018ade65dc
+    sp: 0x000000016f90ad70   pc: 0x000000018ea96e18 cpsr: 0x80001000
+   far: 0x000000018ea96e18  esr: 0x8200000f (Instruction Abort) Permission fault
+
+Binary Images:
+       0x1006c8000 -        0x10075ffff dyld (*) <50746901-db0e-39a0-b391-baaa6b82ad0f> /usr/lib/dyld
+       0x1004f4000 -        0x1004f7fff test_imageio (*) <8fbe19d6-2898-3e2b-af73-b8b5e1f3dc63> /Users/USER/*/test_imageio
+       0x18ea93000 -        0x18ead8fff com.apple.AppleJPEG (1.0) <c4dff00a-56a7-36b2-82f8-83292bdd3401> /System/Library/PrivateFrameworks/AppleJPEG.framework/Versions/A/AppleJPEG
+       0x18adcb000 -        0x18b0e5fff com.apple.ImageIO (3.3.0) <e2cae58e-979f-35db-a3a0-8ed9666059d0> /System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO
+       0x183cbf000 -        0x184feafff com.apple.AppKit (6.9) <873e5da0-bc01-399b-bf60-4066922d6a17> /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000000000000> ???
+       0x18049e000 -        0x180975fff com.apple.CoreFoundation (6.9) <6030a572-b731-3f46-b3a0-2598fbb98c9a> /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+       0x180437000 -        0x180443ff3 libsystem_pthread.dylib (*) <449bbad3-f7ef-371d-9a59-fd4ffa78289b> /usr/lib/system/libsystem_pthread.dylib
+

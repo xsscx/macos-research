@@ -1,0 +1,24 @@
+codesign -dvvv  /System/Applications/Utilities/ColorSync\ Utility.app/Contents/MacOS/ColorSync\ Utility
+Executable=/System/Applications/Utilities/ColorSync Utility.app/Contents/MacOS/ColorSync Utility
+Identifier=com.apple.ColorSyncUtility
+Format=app bundle with Mach-O universal (x86_64 arm64e)
+CodeDirectory v=20400 size=3347 flags=0x0(none) hashes=98+3 location=embedded
+Platform identifier=14
+Hash type=sha256 size=32
+CandidateCDHash sha256=cf20a8997bc6d54138dbdd31014ac75a465201ea
+CandidateCDHashFull sha256=cf20a8997bc6d54138dbdd31014ac75a465201ea8d9afec842786bbc35328435
+Hash choices=sha256
+CMSDigest=cf20a8997bc6d54138dbdd31014ac75a465201ea8d9afec842786bbc35328435
+CMSDigestType=2
+Launch Constraints:
+	None
+CDHash=cf20a8997bc6d54138dbdd31014ac75a465201ea
+Signature size=4442
+Authority=Software Signing
+Authority=Apple Code Signing Certification Authority
+Authority=Apple Root CA
+Signed Time=Apr 15, 2023 at 09:54:47
+Info.plist entries=31
+TeamIdentifier=not set
+Sealed Resources version=2 rules=2 files=0
+Internal requirements count=1 size=76

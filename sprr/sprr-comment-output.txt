@@ -1,0 +1,289 @@
+---------------------------
+Starting M1 SPRR Permission Configuration Register (EL0) S3_6_c15_c1_5 check in main()
+---------------------------
+System Hardware & Software
+machdep.cpu.brand_string: Apple M1
+20.5.0 Darwin Kernel Version 20.5.0: Sat May  8 05:10:31 PDT 2021; root:xnu-7195.121.3~9/RELEASE_ARM64_T8101 arm64
+---------------------------
+Writing to Syslogd at LOG_NOTICE of (EL0) S3_6_c15_c1_5 check
+---------------------------
+Today is Fri Jun  4 14:55:16 2021
+---------------------------
+Now hitting main() struct sigaction
+Now hitting main() sigfillset(&sa.sa_mask)
+Now hitting main() sa.sa_sigaction = bus_handler
+Now hitting main() sa.sa_flags = SA_RESTART | SA_SIGINFO
+Now hitting main() sigaction SIGBUS, &sa, 0
+Now hitting main() sa.sa_sigaction = sev_handler
+Now hitting main() sigaction SIGSEGV, &sa
+Now hitting main() uint32_t *ptr = mmap(NULL, 0x4000, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS | MAP_JIT, -1, 0)
+
+Now hitting main() write_sprr_perm(0x3333333333333333)
+
+Jumped to write_sprr_perm... Step 4...
+Start __volatile__ write_sprr_perm
+End __volatile__ write_sprr_perm
+End write_sprr_perm
+Finished write_sprr_perm ... Time elapsed for write_sprr_perm in ms: 0.001000
+
+Just executed main() write_sprr_perm(0x3333333333333333)
+
+Now in main() hitting ptr[0] 0xd65f03c0 RET
+
+Now in main() hitting for (int i = 0; i < 4; ++i)
+
+Jumped to make_sprr_val.. Step 1...
+Hitting make_sprr_val at uint64_t res = 0
+Hitting make_sprr_val at int i = 0; i < 16; ++i
+End of make_sprr_val
+Finished... Time elapsed for make_sprr_val in ms: 0.001000
+
+Jumped to sprr_test.. Step 2...
+Now at sprr_test before uint64_t a, b
+Completed at sprr_test after uint64_t a, b
+Now at sprr_test before a = read_sprr_perm()
+
+Jumped to read_sprr_perm... Step 3...
+Hitting read_sprr_perm at uint64_t v;
+Start __volatile__ read_sprr_perm
+End __volatile__ read_sprr_perm
+End read_sprr_perm
+Finished read_sprr_perm ... Time elapsed for read_sprr_perm in ms: 0.002000
+
+Completed at sprr_test following a = read_sprr_perm()
+
+Jumped to write_sprr_perm... Step 4...
+Start __volatile__ write_sprr_perm
+End __volatile__ write_sprr_perm
+End write_sprr_perm
+Finished write_sprr_perm ... Time elapsed for write_sprr_perm in ms: 0.006000
+
+Completed at sprr_test following write_sprr_perm(v)
+
+Now at sprr_test before b = read_sprr_perm()
+
+Jumped to read_sprr_perm... Step 3...
+Hitting read_sprr_perm at uint64_t v;
+Start __volatile__ read_sprr_perm
+End __volatile__ read_sprr_perm
+End read_sprr_perm
+Finished read_sprr_perm ... Time elapsed for read_sprr_perm in ms: 0.005000
+
+Finished at sprr_test after b = read_sprr_perm()
+
+Jumped to can_read... Step 5...
+Hitting can_read at uint64_t v = 0
+Start __volatile__ can_read
+End __volatile__ can_read
+Hitting 0xdeadbeef in can_read
+Finished... Time elapsed for can_read in ms: 0.020000
+
+Jumped to can_write... Step 6...
+Hitting can_write at uint64_t v = 0
+Start __volatile__ can_write
+End __volatile__ can_write
+Hitting 0xdeadbeef in can_write
+Finished... Time elapsed for can_write in ms: 0.013000
+
+Jumped to can_exec... Step 7...
+Hitting can_exec at uint64_t (*fun_ptr)(uint64_t) = ptr
+Hitting uint64_t res = fun_ptr(0)
+Executed uint64_t res = fun_ptr(0)
+Hitting 0xdeadbeef in can_exec
+Finished... Time elapsed in can_exec in ms: 6.542000
+
+Register Value:2010000030000000: ---
+Finished.... Time elapsed for sprr_test in ms: 6.646000
+
+Jumped to make_sprr_val.. Step 1...
+Hitting make_sprr_val at uint64_t res = 0
+Hitting make_sprr_val at int i = 0; i < 16; ++i
+End of make_sprr_val
+Finished... Time elapsed for make_sprr_val in ms: 0.001000
+
+Jumped to sprr_test.. Step 2...
+Now at sprr_test before uint64_t a, b
+Completed at sprr_test after uint64_t a, b
+Now at sprr_test before a = read_sprr_perm()
+
+Jumped to read_sprr_perm... Step 3...
+Hitting read_sprr_perm at uint64_t v;
+Start __volatile__ read_sprr_perm
+End __volatile__ read_sprr_perm
+End read_sprr_perm
+Finished read_sprr_perm ... Time elapsed for read_sprr_perm in ms: 0.002000
+
+Completed at sprr_test following a = read_sprr_perm()
+
+Jumped to write_sprr_perm... Step 4...
+Start __volatile__ write_sprr_perm
+End __volatile__ write_sprr_perm
+End write_sprr_perm
+Finished write_sprr_perm ... Time elapsed for write_sprr_perm in ms: 0.001000
+
+Completed at sprr_test following write_sprr_perm(v)
+
+Now at sprr_test before b = read_sprr_perm()
+
+Jumped to read_sprr_perm... Step 3...
+Hitting read_sprr_perm at uint64_t v;
+Start __volatile__ read_sprr_perm
+End __volatile__ read_sprr_perm
+End read_sprr_perm
+Finished read_sprr_perm ... Time elapsed for read_sprr_perm in ms: 0.002000
+
+Finished at sprr_test after b = read_sprr_perm()
+
+Jumped to can_read... Step 5...
+Hitting can_read at uint64_t v = 0
+Start __volatile__ can_read
+End __volatile__ can_read
+Hitting 0xdeadbeef in can_read
+Finished... Time elapsed for can_read in ms: 0.002000
+
+Jumped to can_write... Step 6...
+Hitting can_write at uint64_t v = 0
+Start __volatile__ can_write
+End __volatile__ can_write
+Hitting 0xdeadbeef in can_write
+Finished... Time elapsed for can_write in ms: 0.004000
+
+Jumped to can_exec... Step 7...
+Hitting can_exec at uint64_t (*fun_ptr)(uint64_t) = ptr
+Hitting uint64_t res = fun_ptr(0)
+Executed uint64_t res = fun_ptr(0)
+Hitting 0xdeadbeef in can_exec
+Finished... Time elapsed in can_exec in ms: 0.017000
+
+Register Value:2010000030100000: r-x
+Finished.... Time elapsed for sprr_test in ms: 0.057000
+
+Jumped to make_sprr_val.. Step 1...
+Hitting make_sprr_val at uint64_t res = 0
+Hitting make_sprr_val at int i = 0; i < 16; ++i
+End of make_sprr_val
+Finished... Time elapsed for make_sprr_val in ms: 0.003000
+
+Jumped to sprr_test.. Step 2...
+Now at sprr_test before uint64_t a, b
+Completed at sprr_test after uint64_t a, b
+Now at sprr_test before a = read_sprr_perm()
+
+Jumped to read_sprr_perm... Step 3...
+Hitting read_sprr_perm at uint64_t v;
+Start __volatile__ read_sprr_perm
+End __volatile__ read_sprr_perm
+End read_sprr_perm
+Finished read_sprr_perm ... Time elapsed for read_sprr_perm in ms: 0.006000
+
+Completed at sprr_test following a = read_sprr_perm()
+
+Jumped to write_sprr_perm... Step 4...
+Start __volatile__ write_sprr_perm
+End __volatile__ write_sprr_perm
+End write_sprr_perm
+Finished write_sprr_perm ... Time elapsed for write_sprr_perm in ms: 0.002000
+
+Completed at sprr_test following write_sprr_perm(v)
+
+Now at sprr_test before b = read_sprr_perm()
+
+Jumped to read_sprr_perm... Step 3...
+Hitting read_sprr_perm at uint64_t v;
+Start __volatile__ read_sprr_perm
+End __volatile__ read_sprr_perm
+End read_sprr_perm
+Finished read_sprr_perm ... Time elapsed for read_sprr_perm in ms: 0.007000
+
+Finished at sprr_test after b = read_sprr_perm()
+
+Jumped to can_read... Step 5...
+Hitting can_read at uint64_t v = 0
+Start __volatile__ can_read
+End __volatile__ can_read
+Hitting 0xdeadbeef in can_read
+Finished... Time elapsed for can_read in ms: 0.005000
+
+Jumped to can_write... Step 6...
+Hitting can_write at uint64_t v = 0
+Start __volatile__ can_write
+End __volatile__ can_write
+Hitting 0xdeadbeef in can_write
+Finished... Time elapsed for can_write in ms: 0.015000
+
+Jumped to can_exec... Step 7...
+Hitting can_exec at uint64_t (*fun_ptr)(uint64_t) = ptr
+Hitting uint64_t res = fun_ptr(0)
+Executed uint64_t res = fun_ptr(0)
+Hitting 0xdeadbeef in can_exec
+Finished... Time elapsed in can_exec in ms: 6.883000
+
+Register Value:2010000030200000: r--
+Finished.... Time elapsed for sprr_test in ms: 6.962000
+
+Jumped to make_sprr_val.. Step 1...
+Hitting make_sprr_val at uint64_t res = 0
+Hitting make_sprr_val at int i = 0; i < 16; ++i
+End of make_sprr_val
+Finished... Time elapsed for make_sprr_val in ms: 0.002000
+
+Jumped to sprr_test.. Step 2...
+Now at sprr_test before uint64_t a, b
+Completed at sprr_test after uint64_t a, b
+Now at sprr_test before a = read_sprr_perm()
+
+Jumped to read_sprr_perm... Step 3...
+Hitting read_sprr_perm at uint64_t v;
+Start __volatile__ read_sprr_perm
+End __volatile__ read_sprr_perm
+End read_sprr_perm
+Finished read_sprr_perm ... Time elapsed for read_sprr_perm in ms: 0.002000
+
+Completed at sprr_test following a = read_sprr_perm()
+
+Jumped to write_sprr_perm... Step 4...
+Start __volatile__ write_sprr_perm
+End __volatile__ write_sprr_perm
+End write_sprr_perm
+Finished write_sprr_perm ... Time elapsed for write_sprr_perm in ms: 0.001000
+
+Completed at sprr_test following write_sprr_perm(v)
+
+Now at sprr_test before b = read_sprr_perm()
+
+Jumped to read_sprr_perm... Step 3...
+Hitting read_sprr_perm at uint64_t v;
+Start __volatile__ read_sprr_perm
+End __volatile__ read_sprr_perm
+End read_sprr_perm
+Finished read_sprr_perm ... Time elapsed for read_sprr_perm in ms: 0.002000
+
+Finished at sprr_test after b = read_sprr_perm()
+
+Jumped to can_read... Step 5...
+Hitting can_read at uint64_t v = 0
+Start __volatile__ can_read
+End __volatile__ can_read
+Hitting 0xdeadbeef in can_read
+Finished... Time elapsed for can_read in ms: 0.002000
+
+Jumped to can_write... Step 6...
+Hitting can_write at uint64_t v = 0
+Start __volatile__ can_write
+End __volatile__ can_write
+Hitting 0xdeadbeef in can_write
+Finished... Time elapsed for can_write in ms: 0.001000
+
+Jumped to can_exec... Step 7...
+Hitting can_exec at uint64_t (*fun_ptr)(uint64_t) = ptr
+Hitting uint64_t res = fun_ptr(0)
+Executed uint64_t res = fun_ptr(0)
+Hitting 0xdeadbeef in can_exec
+Finished... Time elapsed in can_exec in ms: 6.541000
+
+Register Value:2010000030300000: rw-
+Finished.... Time elapsed for sprr_test in ms: 6.568000
+
+main () finished... Total Elapsed Time in ms: 20.290000
+
+M1 SPRR Permission Configuration Register (EL0) S3_6_c15_c1_5 check ended at Fri Jun  4 14:55:16 2021

@@ -1,0 +1,144 @@
+// REPRODUCTION:
+// Compile:
+// clang++ -g -o ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE.cpp
+//
+// run:
+/*
+(lldb) target create "./ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE"
+Current executable set to '/Users/xss/Documents/code/sipparser/ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE' (x86_64).
+(lldb) settings set -- target.run-args  "poc2"
+(lldb) env DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib
+(lldb) r
+Process 11264 launched: '/Users/xss/Documents/code/sipparser/ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE' (x86_64)
+GuardMalloc[ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE-11264]: Allocations will be placed on 16 byte boundaries.
+GuardMalloc[ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE-11264]:  - Some buffer overruns may not be noticed.
+GuardMalloc[ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE-11264]:  - Applications using vector instructions (e.g., SSE) should work.
+GuardMalloc[ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE-11264]: version 064559.72.1
+Loaded libIPTelephony.dylib at 0x7ff817276000
+Running decoder
+Process 11264 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x120a8)
+    frame #0: 0x00007ff81742be72 libIPTelephony.dylib`ims::nextToken(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, unsigned long, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >*, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) + 26
+libIPTelephony.dylib`ims::nextToken:
+->  0x7ff81742be72 <+26>: movzbl (%rdi), %eax
+    0x7ff81742be75 <+29>: testb  $0x1, %al
+    0x7ff81742be77 <+31>: je     0x7ff81742be80            ; <+40>
+    0x7ff81742be79 <+33>: movq   0x8(%r12), %r14
+Target 0: (ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE) stopped.
+(lldb) re re
+General Purpose Registers:
+       rax = 0x00007ff7bfefed80
+       rbx = 0x0000000000000000
+       rcx = 0x00007ff7bfefed80
+       rdx = 0x00007ff7bfefedb0
+       rdi = 0x00000000000120a8
+       rsi = 0x0000000000000000
+       rbp = 0x00007ff7bfefed70
+       rsp = 0x00007ff7bfefed20
+        r8 = 0x00007ff845f45d08  __sFX + 248
+        r9 = 0x0000000000000000
+       r10 = 0x00000000ffffff00
+       r11 = 0x00007ff845f45d00  __sFX + 240
+       r12 = 0x00000000000120a8
+       r13 = 0x00007ff7bfefedb0
+       r14 = 0x00000000000120a8
+       r15 = 0x00007ff7bfefed80
+       rip = 0x00007ff81742be72  libIPTelephony.dylib`ims::nextToken(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, unsigned long, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >*, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) + 26
+    rflags = 0x0000000000010202
+        cs = 0x000000000000002b
+        fs = 0x0000000000000000
+        gs = 0x0000000000000000
+
+(lldb) bt
+* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x120a8)
+  * frame #0: 0x00007ff81742be72 libIPTelephony.dylib`ims::nextToken(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, unsigned long, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >*, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) + 26
+    frame #1: 0x00007ff81742be22 libIPTelephony.dylib`ims::nextToken(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, unsigned long, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >*, char) + 31
+    frame #2: 0x00007ff817392f95 libIPTelephony.dylib`SipMultiStringHeader::setValueFromString(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) + 75
+    frame #3: 0x00000001000035f4 ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE`main(argc=2, argv=0x00007ff7bfeff550) at ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE.cpp:175:3
+    frame #4: 0x00007ff80250b41f dyld`start + 1903
+(lldb) dis -s $pc-32 -c 24 -m -F intel
+libIPTelephony.dylib`ims::nextToken:
+    0x7ff81742be52 <+79>: fucompi st, st(0)
+    0x7ff81742be54 <+81>: sbb    byte ptr [rdx + rdx], bh
+    0x7ff81742be57 <+84>: add    byte ptr [rbp + 0x48], dl
+
+libIPTelephony.dylib`ims::nextToken:
+    0x7ff81742be5a <+2>:  mov    ebp, esp
+    0x7ff81742be5c <+4>:  push   r15
+    0x7ff81742be5e <+6>:  push   r14
+    0x7ff81742be60 <+8>:  push   r13
+    0x7ff81742be62 <+10>: push   r12
+    0x7ff81742be64 <+12>: push   rbx
+    0x7ff81742be65 <+13>: sub    rsp, 0x28
+    0x7ff81742be69 <+17>: mov    r15, rcx
+    0x7ff81742be6c <+20>: mov    rbx, rsi
+    0x7ff81742be6f <+23>: mov    r12, rdi
+->  0x7ff81742be72 <+26>: movzx  eax, byte ptr [rdi]
+    0x7ff81742be75 <+29>: test   al, 0x1
+    0x7ff81742be77 <+31>: je     0x7ff81742be80            ; <+40>
+    0x7ff81742be79 <+33>: mov    r14, qword ptr [r12 + 0x8]
+    0x7ff81742be7e <+38>: jmp    0x7ff81742be86            ; <+46>
+    0x7ff81742be80 <+40>: mov    r14, rax
+    0x7ff81742be83 <+43>: shr    r14
+    0x7ff81742be86 <+46>: cmp    r14, rbx
+    0x7ff81742be89 <+49>: jbe    0x7ff81742bee7            ; <+143>
+    0x7ff81742be8b <+51>: test   byte ptr [r15], 0x1
+    0x7ff81742be8f <+55>: je     0x7ff81742be97            ; <+63>
+*/
+// CRASH
+/*
+System Integrity Protection: disabled
+
+Crashed Thread:        0  Dispatch queue: com.apple.main-thread
+
+Exception Type:        EXC_BAD_ACCESS (SIGSEGV)
+Exception Codes:       KERN_INVALID_ADDRESS at 0x00000000000120a8
+Exception Codes:       0x0000000000000001, 0x00000000000120a8
+
+Termination Reason:    Namespace SIGNAL, Code 11 Segmentation fault: 11
+Terminating Process:   exc handler [11290]
+
+VM Region Info: 0x120a8 is not in any region.  Bytes before following region: 4472385368
+      REGION TYPE                    START - END         [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL
+      UNUSED SPACE AT START
+--->
+      __TEXT                      10a945000-10a949000    [   16K] r-x/r-x SM=COW  ...locatorIcEEEE
+
+Thread 0 Crashed::  Dispatch queue: com.apple.main-thread
+0   libIPTelephony.dylib                  0x7ff81742be72 ims::nextToken(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, unsigned long, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>*, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) + 26
+1   libIPTelephony.dylib                  0x7ff81742be22 ims::nextToken(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, unsigned long, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>*, char) + 31
+2   libIPTelephony.dylib                  0x7ff817392f95 SipMultiStringHeader::setValueFromString(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) + 75
+3   ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE           0x10a9485f4 main + 292 (ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE.cpp:175)
+4   dyld                                  0x7ff80250b41f start + 1903
+
+
+Thread 0 crashed with X86 Thread State (64-bit):
+  rax: 0x00007ff7b55b9fc0  rbx: 0x0000000000000000  rcx: 0x00007ff7b55b9fc0  rdx: 0x00007ff7b55b9ff0
+  rdi: 0x00000000000120a8  rsi: 0x0000000000000000  rbp: 0x00007ff7b55b9fb0  rsp: 0x00007ff7b55b9f60
+   r8: 0x00007ff845f45d08   r9: 0x0000000000000000  r10: 0x00000000ffffff00  r11: 0x00007ff845f45d00
+  r12: 0x00000000000120a8  r13: 0x00007ff7b55b9ff0  r14: 0x00000000000120a8  r15: 0x00007ff7b55b9fc0
+  rip: 0x00007ff81742be72  rfl: 0x0000000000010206  cr2: 0x00000000000120a8
+
+Logical CPU:     4
+Error Code:      0x00000004 (no mapping for user data read)
+Trap Number:     14
+
+Thread 0 instruction stream:
+  02 88 48 01 c6 40 02 00-48 89 c1 e8 36 00 00 00  ..H..@..H...6...
+  48 89 c3 f6 45 e0 01 74-09 48 8b 7d f0 e8 2a 3f  H...E..t.H.}..*?
+  12 00 48 89 d8 48 83 c4-18 5b 5d c3 48 89 c3 f6  ..H..H...[].H...
+  45 e0 01 74 09 48 8b 7d-f0 e8 0e 3f 12 00 48 89  E..t.H.}...?..H.
+  df e8 18 3c 12 00 55 48-89 e5 41 57 41 56 41 55  ...<..UH..AWAVAU
+  41 54 53 48 83 ec 28 49-89 cf 48 89 f3 49 89 fc  ATSH..(I..H..I..
+ [0f]b6 07 a8 01 74 07 4d-8b 74 24 08 eb 06 49 89  .....t.M.t$...I.    <==
+  c6 49 d1 ee 49 39 de 76-5c 41 f6 07 01 74 06 4d  .I..I9.v\A...t.M
+  8b 6f 10 eb 04 4d 8d 6f-01 a8 01 4c 89 65 d0 48  .o...M.o...L.e.H
+  89 55 c8 48 89 45 b8 74-07 4d 8b 64 24 10 eb 03  .U.H.E.t.M.d$...
+  49 ff c4 41 0f be 34 1c-4c 89 ef e8 6c 41 12 00  I..A..4.L...lA..
+  48 85 c0 74 14 48 ff c3-49 39 de 75 e6 49 c7 c5  H..t.H..I9.u.I..
+
+Binary Images:
+       0x10a945000 -        0x10a948fff ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE (*) <51c09879-d7e8-374d-ad51-3d38af9ae204> /Users/USER/Documents/*/ZN20SipMultiStringHeader18setValueFromStringERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE
+    0x7ff817276000 -     0x7ff8175cdffd libIPTelephony.dylib (*) <a5eaae11-c354-385c-9448-e911221f15fa> /System/Library/PrivateFrameworks/IPTelephony.framework/Support/libIPTelephony.dylib
+    0x7ff802505000 -     0x7ff80259d5ef dyld (*) <31e1c182-e611-3883-97a3-4334a21c90bd> /usr/lib/dyld
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000

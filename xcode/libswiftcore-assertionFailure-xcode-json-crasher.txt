@@ -1,0 +1,239 @@
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+
+Process:               swift-driver [39747]
+Path:                  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-driver
+Identifier:            swift-driver
+Version:               ???
+Code Type:             ARM-64 (Native)
+Parent Process:        XCBBuildService [39416]
+Responsible:           Xcode [39406]
+User ID:               501
+
+Date/Time:             2022-12-06 21:50:02.9939 -0500
+OS Version:            macOS 13.0.1 (22A400)
+Report Version:        12
+
+Time Awake Since Boot: 39000 seconds
+Time Since Wake:       3131 seconds
+
+System Integrity Protection: enabled
+
+Crashed Thread:        0  Dispatch queue: com.apple.main-thread
+
+Exception Type:        EXC_BREAKPOINT (SIGTRAP)
+Exception Codes:       0x0000000000000001, 0x00000001ba63f218
+
+Termination Reason:    Namespace SIGNAL, Code 5 Trace/BPT trap: 5
+Terminating Process:   exc handler [39747]
+
+Kernel Triage:
+VM - pmap_enter retried due to resource shortage
+
+
+Thread 0 Crashed::  Dispatch queue: com.apple.main-thread
+0   libswiftCore.dylib            	       0x1ba63f218 _assertionFailure(_:_:file:line:flags:) + 316
+1   libswiftCore.dylib            	       0x1ba63f218 _assertionFailure(_:_:file:line:flags:) + 316
+2   swift-driver                  	       0x100658058 main + 2648
+3   dyld                          	       0x1ac5d7e50 start + 2544
+
+Thread 1:
+0   libsystem_pthread.dylib       	       0x1ac8fce18 start_wqthread + 0
+
+Thread 2:
+0   libsystem_pthread.dylib       	       0x1ac8fce18 start_wqthread + 0
+
+Thread 3:
+0   libsystem_pthread.dylib       	       0x1ac8fce18 start_wqthread + 0
+
+Thread 4:
+0   libsystem_pthread.dylib       	       0x1ac8fce18 start_wqthread + 0
+
+
+Thread 0 crashed with ARM Thread State (64-bit):
+    x0: 0x8000000100af62d0   x1: 0x0000000000000000   x2: 0x0000000000000000   x3: 0x0000600003040700
+    x4: 0x0000000000000000   x5: 0x000000016f7a9660   x6: 0x0000000000000073   x7: 0x0000000000000001
+    x8: 0x0000000000000100   x9: 0x00000000000000ff  x10: 0x00000000000006c0  x11: 0x00000000000007fb
+   x12: 0x00000000a946d810  x13: 0x00000000000007fd  x14: 0x00000000a966e01c  x15: 0x00000000a946d810
+   x16: 0x000000000000001c  x17: 0x0000000029600000  x18: 0x0000000000000000  x19: 0x8000000100af62d0
+   x20: 0x0000000000000002  x21: 0x0000000000000000  x22: 0x0000000000000017  x23: 0x0000000100af62d0
+   x24: 0xd000000000000025  x25: 0x0000000100af6d20  x26: 0x000000000000000b  x27: 0x0000000100bb6280
+   x28: 0x0000000000000000   fp: 0x000000016f7a97b0   lr: 0x00000001ba63f218
+    sp: 0x000000016f7a9730   pc: 0x00000001ba63f218 cpsr: 0x60001000
+   far: 0x0000000120200000  esr: 0xf2000001 (Breakpoint) brk 1
+
+Binary Images:
+       0x1ba608000 -        0x1bab55fff libswiftCore.dylib (*) <18b6c203-512a-36e9-9c56-1eca60868332> /usr/lib/swift/libswiftCore.dylib
+       0x100654000 -        0x100b6ffff swift-driver (*) <62d33a8b-561b-3fd0-ae9c-b467417e714b> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-driver
+       0x1ac5d2000 -        0x1ac65c4bf dyld (*) <de46dd52-4994-3fd8-b4b4-e352a1a19354> /usr/lib/dyld
+       0x1ac8fb000 -        0x1ac907ffb libsystem_pthread.dylib (*) <886caca0-5762-3640-8db2-3fa3b911c062> /usr/lib/system/libsystem_pthread.dylib
+
+External Modification Summary:
+  Calls made by other processes targeting this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by all processes on this machine:
+    task_for_pid: 5
+    thread_create: 0
+    thread_set_state: 88
+
+VM Region Summary:
+ReadOnly portion of Libraries: Total=934.4M resident=0K(0%) swapped_out_or_unallocated=934.4M(100%)
+Writable regions: Total=1.1G written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=1.1G(100%)
+
+                                VIRTUAL   REGION 
+REGION TYPE                        SIZE    COUNT (non-coalesced) 
+===========                     =======  ======= 
+Activity Tracing                   256K        1 
+Kernel Alloc Once                   32K        1 
+MALLOC                           232.2M       29 
+MALLOC guard page                   96K        5 
+MALLOC_MEDIUM (reserved)         480.0M        4         reserved VM address space (unallocated)
+MALLOC_NANO (reserved)           384.0M        1         reserved VM address space (unallocated)
+STACK GUARD                       56.1M        5 
+Stack                             10.1M        5 
+VM_ALLOCATE                         16K        1 
+__AUTH                             460K      102 
+__AUTH_CONST                      8001K      230 
+__DATA                            2470K      217 
+__DATA_CONST                      9438K      231 
+__DATA_DIRTY                       445K       84 
+__FONT_DATA                        2352        1 
+__LINKEDIT                       771.3M        2 
+__OBJC_CONST                       642K       81 
+__OBJC_RO                         65.1M        1 
+__OBJC_RW                         1981K        1 
+__TEXT                           163.1M      241 
+dyld private memory                256K        1 
+mapped file                       29.1M        2 
+shared memory                      624K        7 
+===========                     =======  ======= 
+TOTAL                              2.2G     1253 
+TOTAL, minus reserved VM space     1.3G     1253 
+
+
+
+-----------
+Full Report
+-----------
+
+{"app_name":"swift-driver","timestamp":"2022-12-06 21:50:09.00 -0500","app_version":"","slice_uuid":"62d33a8b-561b-3fd0-ae9c-b467417e714b","build_version":"","platform":1,"share_with_app_devs":0,"is_first_party":1,"bug_type":"309","os_version":"macOS 13.0.1 (22A400)","roots_installed":0,"incident_id":"D46AAEB3-18B0-4ECD-A084-051DB59012C6","name":"swift-driver"}
+{
+  "uptime" : 39000,
+  "procRole" : "Unspecified",
+  "version" : 2,
+  "userID" : 501,
+  "deployVersion" : 210,
+  "modelCode" : "MacBookPro17,1",
+  "coalitionID" : 1415,
+  "osVersion" : {
+    "train" : "macOS 13.0.1",
+    "build" : "22A400",
+    "releaseType" : "User"
+  },
+  "captureTime" : "2022-12-06 21:50:02.9939 -0500",
+  "incident" : "D46AAEB3-18B0-4ECD-A084-051DB59012C6",
+  "pid" : 39747,
+  "translated" : false,
+  "cpuType" : "ARM-64",
+  "roots_installed" : 0,
+  "bug_type" : "309",
+  "procLaunch" : "2022-12-06 21:49:46.3600 -0500",
+  "procStartAbsTime" : 939428757689,
+  "procExitAbsTime" : 939827910898,
+  "procName" : "swift-driver",
+  "procPath" : "\/Applications\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/bin\/swift-driver",
+  "parentProc" : "XCBBuildService",
+  "parentPid" : 39416,
+  "coalitionName" : "com.apple.dt.Xcode",
+  "crashReporterKey" : "B1032454-F6FC-12A2-0BAF-60586C7F852B",
+  "responsiblePid" : 39406,
+  "responsibleProc" : "Xcode",
+  "wakeTime" : 3131,
+  "sleepWakeUUID" : "58095448-24C0-41E7-AA1C-FF0C8202E7B1",
+  "sip" : "enabled",
+  "exception" : {"codes":"0x0000000000000001, 0x00000001ba63f218","rawCodes":[1,7422079512],"type":"EXC_BREAKPOINT","signal":"SIGTRAP"},
+  "termination" : {"flags":0,"code":5,"namespace":"SIGNAL","indicator":"Trace\/BPT trap: 5","byProc":"exc handler","byPid":39747},
+  "os_fault" : {"process":"swift-driver"},
+  "ktriageinfo" : "VM - pmap_enter retried due to resource shortage\n",
+  "extMods" : {"caller":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"system":{"thread_create":0,"thread_set_state":88,"task_for_pid":5},"targeted":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"warnings":0},
+  "faultingThread" : 0,
+  "threads" : [{"triggered":true,"id":639317,"threadState":{"x":[{"value":9223372041161237200},{"value":0},{"value":0},{"value":105553166862080},{"value":0},{"value":6165272160},{"value":115},{"value":1},{"value":256},{"value":255},{"value":1728},{"value":2043},{"value":2839992336},{"value":2045},{"value":2842091548},{"value":2839992336},{"value":28},{"value":694157312},{"value":0},{"value":9223372041161237200},{"value":2},{"value":0},{"value":23},{"value":4306461392},{"value":14987979559889010725},{"value":4306464032},{"value":11},{"value":4307247744,"symbolLocation":0,"symbol":"localFileSystem"},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":7422079512},"cpsr":{"value":1610616832},"fp":{"value":6165272496},"sp":{"value":6165272368},"esr":{"value":4060086273,"description":"(Breakpoint) brk 1"},"pc":{"value":7422079512,"matchesCrashFrame":1},"far":{"value":4833935360}},"queue":"com.apple.main-thread","frames":[{"imageOffset":225816,"symbol":"_assertionFailure(_:_:file:line:flags:)","symbolLocation":316,"imageIndex":0},{"imageOffset":225816,"symbol":"_assertionFailure(_:_:file:line:flags:)","symbolLocation":316,"imageIndex":0},{"imageOffset":16472,"symbol":"main","symbolLocation":2648,"imageIndex":1},{"imageOffset":24144,"symbol":"start","symbolLocation":2544,"imageIndex":2}]},{"id":639324,"frames":[{"imageOffset":7704,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":639330,"frames":[{"imageOffset":7704,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":639565,"frames":[{"imageOffset":7704,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":640034,"frames":[{"imageOffset":7704,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]}],
+  "usedImages" : [
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7421853696,
+    "size" : 5562368,
+    "uuid" : "18b6c203-512a-36e9-9c56-1eca60868332",
+    "path" : "\/usr\/lib\/swift\/libswiftCore.dylib",
+    "name" : "libswiftCore.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4301602816,
+    "size" : 5357568,
+    "uuid" : "62d33a8b-561b-3fd0-ae9c-b467417e714b",
+    "path" : "\/Applications\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/bin\/swift-driver",
+    "name" : "swift-driver"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7186751488,
+    "size" : 566464,
+    "uuid" : "de46dd52-4994-3fd8-b4b4-e352a1a19354",
+    "path" : "\/usr\/lib\/dyld",
+    "name" : "dyld"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7190065152,
+    "size" : 53244,
+    "uuid" : "886caca0-5762-3640-8db2-3fa3b911c062",
+    "path" : "\/usr\/lib\/system\/libsystem_pthread.dylib",
+    "name" : "libsystem_pthread.dylib"
+  }
+],
+  "sharedCache" : {
+  "base" : 7186104320,
+  "size" : 3403612160,
+  "uuid" : "2d053604-1cb6-3821-a8df-360eb2eb519b"
+},
+  "vmSummary" : "ReadOnly portion of Libraries: Total=934.4M resident=0K(0%) swapped_out_or_unallocated=934.4M(100%)\nWritable regions: Total=1.1G written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=1.1G(100%)\n\n                                VIRTUAL   REGION \nREGION TYPE                        SIZE    COUNT (non-coalesced) \n===========                     =======  ======= \nActivity Tracing                   256K        1 \nKernel Alloc Once                   32K        1 \nMALLOC                           232.2M       29 \nMALLOC guard page                   96K        5 \nMALLOC_MEDIUM (reserved)         480.0M        4         reserved VM address space (unallocated)\nMALLOC_NANO (reserved)           384.0M        1         reserved VM address space (unallocated)\nSTACK GUARD                       56.1M        5 \nStack                             10.1M        5 \nVM_ALLOCATE                         16K        1 \n__AUTH                             460K      102 \n__AUTH_CONST                      8001K      230 \n__DATA                            2470K      217 \n__DATA_CONST                      9438K      231 \n__DATA_DIRTY                       445K       84 \n__FONT_DATA                        2352        1 \n__LINKEDIT                       771.3M        2 \n__OBJC_CONST                       642K       81 \n__OBJC_RO                         65.1M        1 \n__OBJC_RW                         1981K        1 \n__TEXT                           163.1M      241 \ndyld private memory                256K        1 \nmapped file                       29.1M        2 \nshared memory                      624K        7 \n===========                     =======  ======= \nTOTAL                              2.2G     1253 \nTOTAL, minus reserved VM space     1.3G     1253 \n",
+  "legacyInfo" : {
+  "threadTriggered" : {
+    "queue" : "com.apple.main-thread"
+  }
+},
+  "trialInfo" : {
+  "rollouts" : [
+    {
+      "rolloutId" : "6112d17137f5d11121dcd4e2",
+      "factorPackIds" : {
+
+      },
+      "deploymentId" : 240000155
+    },
+    {
+      "rolloutId" : "60356660bbe37970735c5624",
+      "factorPackIds" : {
+
+      },
+      "deploymentId" : 240000027
+    }
+  ],
+  "experiments" : [
+
+  ]
+}
+}
+

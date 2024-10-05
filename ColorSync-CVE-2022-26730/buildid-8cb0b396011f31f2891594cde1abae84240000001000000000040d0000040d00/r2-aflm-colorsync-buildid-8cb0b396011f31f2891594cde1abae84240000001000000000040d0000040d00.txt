@@ -1,0 +1,2393 @@
+method.CSUtilityApp.init:
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.CSUtilityApp.optionalSignature:
+    reloc.objc_msgSend
+    sym.imp.objc_opt_respondsToSelector
+
+method.CSUtilityApp.applicationOpenUntitledFile::
+    reloc.objc_msgSend
+
+method.CSUtilityApp.applicationShouldHandleReopen:hasVisibleWindows::
+    reloc.objc_msgSend
+
+method.CSUtilityApp.newUtilityWindow::
+    sym.imp.objc_alloc
+
+method.CSUtilities.initWithWindow:signature::
+    sym.imp.objc_msgSendSuper2
+    sym.imp.objc_alloc_init
+    reloc.objc_msgSend
+    reloc.objc_retain
+
+method.CSUtilities.dealloc:
+    sym.imp.objc_msgSendSuper2
+
+method.CSUtilities.setupUI:
+    sym.imp.NSSizeFromString
+    reloc.objc_msgSend
+    sym.imp.objc_alloc
+    sym.imp.objc_autorelease
+
+method.CSUtilities.shouldUnselectResult::
+    reloc.objc_msgSend
+    reloc.objc_release
+    reloc.objc_retain
+    sym.imp.objc_opt_respondsToSelector
+    sym.imp.objc_opt_class
+    sym.imp.NSSizeFromString
+
+method.CSUtilities.selectModule::
+    reloc.objc_msgSend
+
+method.CSUtilities.windowShouldClose::
+    reloc.objc_msgSend
+
+method.CSUtilities.windowDidResize::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSend_stret
+    sym.imp.NSStringFromSize
+
+method.CSUtilities.windowDidLoad:
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.CSUtilities.toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar::
+    sym.imp.objc_alloc
+    sym.imp.objc_autorelease
+
+method.class.CSUtilities.findModule::
+    reloc.objc_msgSend
+    sym.imp.objc_alloc
+
+method.class.CSUtilityWrapper.newWithPath::
+    sym.imp.objc_alloc
+    reloc.objc_msgSend
+
+method.CSUtilityWrapper.initWithPath::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+    sym.imp.objc_alloc_init
+
+method.CSUtilityWrapper.dealloc:
+    sym.imp.objc_msgSendSuper2
+
+method.CSUtilityWrapper.bundle:
+    sym.imp.objc_opt_class
+
+method.CSUtilityWrapper.view:
+    reloc.objc_msgSend
+    sym.imp.NSLog
+    reloc.objc_retain
+    sym.imp.objc_msgSend_stret
+
+method.CSUtilityWrapper.viewMinSize:
+    sym.imp.objc_opt_respondsToSelector
+    reloc.objc_msgSend
+
+method.CSUtilityWrapper.viewMaxSize:
+    sym.imp.objc_opt_respondsToSelector
+    reloc.objc_msgSend
+
+method.CSUtilityWrapper.initialFirstResponder:
+    reloc.objc_msgSend
+    reloc.objc_retain
+
+method.CSUtilityWrapper.responderChainBegin:
+    reloc.objc_msgSend
+    sym.imp.objc_opt_respondsToSelector
+
+method.CSUtilityWrapper.icon:
+    sym.imp.objc_opt_respondsToSelector
+
+method.CSUtilityWrapper.shouldUnselect::
+    sym.imp.objc_opt_respondsToSelector
+    reloc.objc_msgSend
+
+method.CSUtilityWrapper.willUnselect::
+    sym.imp.objc_opt_respondsToSelector
+
+method.CSUtilityWrapper.didUnselect::
+    sym.imp.objc_opt_respondsToSelector
+
+method.CSUtilityWrapper.willSelect::
+    sym.imp.objc_opt_respondsToSelector
+
+method.CSUtilityWrapper.didSelect::
+    sym.imp.objc_opt_respondsToSelector
+
+method.CSUtilityWrapperArray.init:
+    sym.imp.objc_msgSendSuper2
+    sym.imp.objc_alloc_init
+
+method.CSUtilityWrapperArray.dealloc:
+    reloc.objc_release
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfileTable.initWithFrame::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.CSProfileTable.initWithCoder::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.CSProfileDoc.dealloc:
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfileDoc.windowControllerDidLoadNib::
+    sym.imp.objc_alloc_init
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfileDoc.readFromURL:ofType:error::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.CSProfileDoc.displayName:
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfileDoc.setDisplayName::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfileDoc.numberOfRowsInTableView::
+    reloc.objc_msgSend
+    sym.imp.ColorSyncProfileCopyTagSignatures
+    sym.imp.CFArrayGetCount
+
+method.CSProfileDoc.tableView:objectValueForTableColumn:row::
+    reloc.objc_msgSend
+    sym.imp.objc_opt_class
+
+method.CSProfileDoc.tableViewSelectionDidChange::
+    reloc.objc_msgSend
+
+method.CSProfileDoc.shouldUnselectResult::
+    reloc.objc_release
+    reloc.objc_msgSend
+    reloc.objc_retain
+
+method.CSProfileDoc.windowShouldClose::
+    reloc.objc_msgSend
+
+method.CSProfileDoc.windowDidUpdate::
+    reloc.objc_msgSend
+
+method.CSProfileDoc.profileIsDirty:
+    reloc.objc_msgSend
+
+method.CSProfileDoc.setPrintInfo::
+    sym.imp.objc_autorelease
+
+method.CSProfileDoc.printOperationWithSettings:error::
+    sym.imp.objc_msgSend_stret
+
+method.CSProfTag.localizedString::
+    sym.imp.NSStringFromClass
+
+method.class.CSProfTag.newWithPath::
+    sym.imp.objc_alloc
+    reloc.objc_msgSend
+
+method.CSProfTag.initWithPath::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_retain
+
+method.CSProfTag.dealloc:
+    reloc.objc_release
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfTag.bundle:
+    sym.imp.objc_opt_class
+
+method.CSProfTag.identifier:
+    sym.imp.objc_opt_class
+    sym.imp.NSStringFromClass
+
+method.CSProfTag.view:
+    reloc.objc_msgSend
+    sym.imp.NSLog
+
+method.CSProfTag.responderChainBegin:
+    reloc.objc_msgSend
+    sym.imp.objc_opt_respondsToSelector
+
+method.CSProfTagArray.init:
+    sym.imp.objc_msgSendSuper2
+    sym.imp.objc_alloc_init
+
+method.CSProfTagArray.dealloc:
+    reloc.objc_release
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfTagArray.objectToDisplayTagType:dataType:dataSize::
+    reloc.objc_msgSend
+    sym.imp._Block_object_dispose
+
+sym.func.10000447d:
+    reloc.objc_msgSend
+
+method.CSProfTagArray.describeTagType:dataType:dataSize::
+    reloc.objc_msgSend
+
+method.FilterToneMapping.dealloc:
+    sym.imp.CFRelease
+    sym.imp.CGImageRelease
+    reloc.objc_release
+    sym.imp.free
+    sym.imp.objc_msgSendSuper2
+
+method.FilterToneMapping.openToneMapping::
+    reloc.objc_msgSend
+
+method.FilterToneMapping.create_colorsync_transform:dstProfile::
+    sym.imp.ColorSyncTransformCreate
+    sym.imp.__stack_chk_fail
+
+method.FilterToneMapping.updateToneMappedImage:
+    reloc.objc_msgSend
+    reloc.objc_release
+    reloc.objc_retain
+    sym.imp.CGImageRelease
+    sym.imp.ColorSyncTransformConvert
+    sym.imp.CGDataProviderCreateWithData
+    sym.imp.CGImageCreate
+    sym.imp.CFRelease
+    sym.imp.__stack_chk_fail
+
+method.FilterToneMapping.imageLoaded::
+    reloc.objc_msgSend
+    sym.imp.CGImageGetBitmapInfo
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceCopyICCData
+    sym.imp.ColorSyncProfileCreate
+    sym.imp.CFRelease
+    sym.imp.CGColorSpaceCreateWithColorSyncProfile
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.CGImageGetAlphaInfo
+    sym.imp.CGColorSpaceGetNumberOfComponents
+
+method.FilterToneMapping.windowWillClose::
+    reloc.objc_msgSend
+
+method.FilterToneMapping.fillFP32BufferWithImageData:srcPtr:dstPtr:size::
+    sym.imp.CGImageGetBitsPerComponent
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceGetNumberOfComponents
+    sym.imp.CGImageGetAlphaInfo
+    sym.imp.CGImageGetDataProvider
+    sym.imp.CGDataProviderCopyData
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.calloc
+    sym.imp.CGImageGetBytesPerRow
+    sym.imp.__extendhfsf2
+
+method.FilterToneMapping.setExposure::
+    reloc.objc_msgSend
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterToneMapping.setDefog::
+    reloc.objc_msgSend
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterToneMapping.setKneeLow::
+    reloc.objc_msgSend
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterToneMapping.setKneeHigh::
+    reloc.objc_msgSend
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterToneMapping.toneMappedImage:
+    reloc.objc_msgSend
+
+method.FilterToneMapping.createToneMappedImage::
+    sym.imp.CGImageGetBitmapInfo
+    sym.imp.CGImageGetAlphaInfo
+    reloc.objc_msgSend
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceCopyICCData
+    sym.imp.ColorSyncProfileCreate
+    sym.imp.CFRelease
+    sym.imp.CGColorSpaceCreateWithColorSyncProfile
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.ColorSyncTransformConvert
+    sym.imp.CGDataProviderCreateWithData
+    sym.imp.CGImageCreate
+    sym.imp.free
+
+method.PlotViewBase.initWithFrame::
+    sym.imp.objc_msgSendSuper2
+
+method.PlotViewBase.drawRect::
+    sym.imp.objc_msgSend_stret
+
+method.PlotViewBase.setColor::
+    reloc.objc_msgSend
+
+method.PlotView.setData::
+    sym.imp.free
+
+method.PlotView.dealloc:
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.PlotView.drawGamma:
+    reloc.objc_msgSend
+    sym.imp.pow
+
+method.PlotView.drawTable:
+    reloc.objc_msgSend
+
+method.PlotView.SetPlotData:entryCount:entrySize::
+    reloc.objc_msgSend
+    sym.imp.malloc
+    sym.imp.swab
+    sym.imp.memcpy
+
+method.PlotView.SetPlotGamma:Min:Max::
+    reloc.objc_msgSend
+
+method.PlotViewXY.dealloc:
+    reloc.objc_release
+    sym.imp.free
+    sym.imp.objc_msgSendSuper2
+
+method.PlotViewXY.initWithFrame::
+    sym.imp.objc_msgSendSuper2
+    sym.imp.malloc
+    sym.imp.pow
+    sym.imp.objc_alloc
+    reloc.objc_msgSend
+
+method.PlotViewXY.drawData:
+    reloc.objc_msgSend
+
+method.PlotViewXY.drawColor::
+    reloc.objc_msgSend
+
+method.PlotViewXY.drawBack:
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+sym.func.10000853f:
+    sym.imp.pow
+
+sym.func.1000086dc:
+    sym.imp.pow
+
+sym.func.100008853:
+    sym.imp.pow
+
+sym.func.1000089bc:
+    sym.imp.pow
+
+sym.func.100008af4:
+    sym.func.100008853
+    sym.func.1000086dc
+
+sym.func.100008b58:
+    sym.func.1000089bc
+    sym.func.10000853f
+
+sym.func.100008c2c:
+    sym.imp.pow
+
+sym.func.100008d2a:
+    sym.imp.pow
+
+method.ProfView3D.awakeFromNib:
+    sym.imp.glShadeModel
+    sym.imp.glEnable
+    sym.imp.glDepthFunc
+    sym.imp.glPointSize
+    sym.imp.glBlendFunc
+    sym.imp.glClearColor
+    sym.imp.glMatrixMode
+    sym.imp.glLoadIdentity
+    sym.imp.objc_opt_respondsToSelector
+    reloc.objc_msgSend
+
+method.ProfView3D.freeHoldData:
+    sym.imp.free
+
+method.ProfView3D.freeData:
+    sym.imp.free
+
+method.ProfView3D.dealloc:
+    sym.imp.objc_msgSendSuper2
+
+method.ProfView3D.setPlotSpace::
+    0xffffffffffffffd0
+
+sym.func.100009635:
+    sym.func.100008af4
+
+sym.func.100009714:
+    sym.imp.pow
+
+sym.func.100009912:
+    sym.func.10000853f
+
+sym.func.1000099ce:
+    sym.func.100008853
+
+sym.func.100009b2e:
+    sym.func.100008853
+
+sym.func.100009cee:
+    sym.func.100008853
+
+method.ProfView3D.setProfile:tagType::
+    sym.imp.ColorSyncProfileCopyHeader
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CFRelease
+    sym.imp.CFEqual
+    sym.imp.CFArrayCreateMutable
+    sym.imp.ColorSyncProfileCreateWithName
+    sym.imp.CFDictionaryCreate
+    sym.imp.CFArrayAppendValue
+    sym.imp.ColorSyncTransformCreate
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFDataGetLength
+    sym.imp.malloc
+    sym.func.10000bb02
+    reloc.objc_msgSend
+    sym.imp.ColorSyncTransformConvert
+    sym.func.10000bb6d
+    sym.func.10000bcdb
+    sym.imp.free
+    sym.imp.__stack_chk_fail
+
+sym.func.10000bb6d:
+    sym.func.10000e7a6
+
+sym.func.10000bcdb:
+    sym.func.10000e880
+
+method.ProfView3D.setProfileGamut::
+    sym.imp.ColorSyncProfileCreateWithName
+    sym.imp.CFDictionaryCreate
+    sym.imp.CFArrayCreate
+    sym.imp.ColorSyncTransformCreate
+    sym.imp.CFRelease
+    sym.imp.malloc
+    sym.imp.ColorSyncTransformConvert
+    sym.func.10000c722
+    sym.func.10000bb6d
+    sym.func.10000bcdb
+    reloc.objc_msgSend
+    sym.imp.free
+    sym.imp.__stack_chk_fail
+
+method.ProfView3D.adjustProjectionMatrix:
+    sym.imp.objc_msgSend_stret
+    sym.imp.glMatrixMode
+    sym.imp.glLoadIdentity
+    sym.imp.gluPerspective
+    sym.imp.glViewport
+    sym.imp.glTranslatef
+    sym.imp.glRotatef
+
+method.ProfView3D.setFrameSize::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.ProfView3D.drawControl:
+    sym.imp.glIsEnabled
+    sym.imp.objc_msgSend_stret
+    sym.imp.glDisable
+    sym.imp.glEnable
+    sym.imp.glGetIntegerv
+    sym.imp.glMatrixMode
+    sym.imp.glPushMatrix
+    sym.imp.glLoadIdentity
+    sym.imp.glScalef
+    sym.imp.glTranslatef
+    sym.imp.glColor4f
+    sym.imp.glPolygonMode
+    sym.imp.glBegin
+    sym.imp.glVertex3f
+    sym.imp.glEnd
+    sym.imp.glPopMatrix
+
+method.ProfView3D.drawRect::
+    reloc.objc_msgSend
+    sym.imp.glClear
+    sym.imp.glPushMatrix
+    sym.imp.glEnable
+    sym.imp.glPolygonOffset
+    sym.imp.glEnableClientState
+    sym.imp.glColorPointer
+    sym.imp.glVertexPointer
+    sym.imp.glPolygonMode
+    sym.imp.glDrawArrays
+    sym.imp.glDisableClientState
+    sym.imp.glDisable
+    sym.imp.glColor4f
+    sym.imp.glCullFace
+    sym.imp.glPopMatrix
+    sym.imp.glFlush
+    sym.imp.CGContextGetType
+    sym.imp.objc_msgSend_stret
+    sym.imp.CGWindowListCreateImage
+    sym.imp.CGContextSaveGState
+    sym.imp.NSIntegralRect
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.CGAffineTransformMakeScale
+    sym.imp.CGAffineTransformConcat
+    sym.imp.CGContextConcatCTM
+    sym.imp.CGContextDrawImage
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGImageRelease
+
+method.ProfView3D.popupRect:
+    sym.imp.objc_msgSend_stret
+
+method.ProfView3D.inPopupRect::
+    sym.imp.objc_msgSend_stret
+    reloc.objc_msgSend
+    sym.imp.NSMouseInRect
+
+method.ProfView3D.resetCursorRects:
+    sym.imp.objc_msgSend_stret
+    sym.imp.objc_msgSendSuper2
+
+method.ProfView3D.mouseDown::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSend_stret
+
+method.ProfView3D.drawAxis:
+    sym.imp.glLineWidth
+    sym.imp.glBegin
+    sym.imp.glColor3f
+    sym.imp.glVertex3f
+    sym.imp.glEnd
+    sym.func.10000e7a6
+    sym.func.10000bcdb
+    sym.imp.glColor3ub
+    sym.imp.__stack_chk_fail
+
+method.ProfView3D.changePlotSpace::
+    reloc.objc_msgSend
+
+method.ProfView3D.compareHold::
+    sym.imp.malloc
+    sym.imp.memcpy
+
+method.ProfView3D.menuForEvent::
+    sym.imp.objc_alloc
+    sym.imp.objc_autorelease
+    sym.imp.objc_opt_class
+    reloc.objc_msgSend
+
+sym.func.10000e7a6:
+    sym.func.100008853
+    sym.func.10000e880
+
+sym.func.10000e880:
+    sym.imp.pow
+
+method.FilterPageView.dealloc:
+    sym.imp.CFRelease
+    reloc.objc_release
+    sym.imp.free
+    sym.imp.CGImageRelease
+    sym.imp.CFRunLoopTimerInvalidate
+    sym.imp.CGColorSpaceRelease
+    sym.imp.CGColorCodeFragmentRelease
+    sym.imp.objc_msgSendSuper2
+
+method.FilterPageView.initWithFrame::
+    sym.imp.objc_msgSendSuper2
+    sym.imp.objc_alloc_init
+    sym.imp.objc_msgSend_stret
+
+method.FilterPageView.createCacheContext:withAlpha:context::
+    sym.imp.NSLog
+    sym.imp.CGContextGetType
+    sym.imp.free
+    sym.imp.calloc
+    sym.imp.CGBitmapContextCreate
+    sym.imp.CFRelease
+    sym.imp.backtrace
+    sym.imp.dladdr
+    sym.imp.printf
+    sym.imp.__stack_chk_fail
+
+method.FilterPageView.drawRect::
+    sym.imp.objc_msgSend_stret
+    reloc.objc_msgSend
+    sym.imp.CFRetain
+    sym.imp.CFRelease
+    reloc.objc_retain
+    reloc.objc_release
+
+method.FilterPageView.drawBackground:
+    sym.imp.objc_msgSend_stret
+
+method.FilterPageView.drawPDFPageToCache:page:filter:softProof::
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+    reloc.objc_msgSend
+    sym.imp.CGContextSaveGState
+    sym.imp.CGContextSetAllowsAntialiasing
+    sym.imp.CGPDFPageGetRotationAngle
+    sym.imp.CGContextSetGrayFillColor
+    sym.imp.CGContextFillRect
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGPDFDocumentCopyOutputIntents
+    sym.imp.QuartzFilterCreateWithOutputIntents
+    sym.imp.CFRelease
+    sym.imp.CGContextDrawPDFPageInRect2
+    sym.imp.CGContextFlush
+    sym.imp.CGImageRelease
+    sym.imp.CGBitmapContextCreateImage
+    sym.imp.CGContextRelease
+
+method.FilterPageView.translationForDrawingToCache:orientation::
+    sym.imp.__stack_chk_fail
+
+method.FilterPageView.drawImageToCache:filter:affineTR:context::
+    sym.imp.CGImageHasAlpha
+    sym.imp.CGImageGetMask
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.CGRectApplyAffineTransform
+    reloc.objc_msgSend
+    sym.imp.CGAffineTransformTranslate
+    sym.imp.CGContextSaveGState
+    sym.imp.CGContextConcatCTM
+    sym.imp.CGAffineTransformInvert
+    sym.imp.CGContextSetGrayFillColor
+    sym.imp.CGContextFillRect
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawImage
+    sym.imp.CGContextEndPage
+    sym.imp.CGContextFlush
+    sym.imp.CGImageRelease
+    sym.imp.CGBitmapContextCreateImage
+    sym.imp.CGContextRelease
+
+method.FilterPageView.sizeToFit:
+    sym.imp.objc_msgSend_stret
+    sym.imp.CGRectGetWidth
+    sym.imp.CGRectGetHeight
+
+method.FilterPageView.boundsRectWithPreservedAspectRatio:
+    sym.imp.CGRectGetMinX
+    sym.imp.CGRectGetMinY
+    sym.imp.CGRectGetWidth
+    sym.imp.CGRectGetHeight
+    sym.imp.objc_msgSend_stret
+
+method.FilterPageView.drawCache::
+    sym.imp.objc_msgSend_stret
+    sym.imp.CGRectIntegral
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextGetInterpolationQualityRange
+    sym.imp.CGContextSetInterpolationQualityRange
+    reloc.objc_msgSend
+    sym.imp.objc_alloc
+    reloc.objc_retain
+    sym.imp.CGContextSaveGState
+    reloc.objc_release
+    sym.imp.CGContextDrawImage
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGContextEndPage
+    sym.imp.CGContextFlush
+
+method.FilterPageView.fitSize:
+    reloc.objc_msgSend
+
+method.FilterPageView.createCIFilteredImage::
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceGetType
+    sym.imp.CGColorSpaceCreateWithName
+    sym.imp.CGImageCreateCopyWithColorSpace
+    sym.imp.CGColorSpaceRelease
+    sym.imp.CGColorSpaceGetBaseColorSpace
+    sym.imp.CGColorSpaceSupportsOutput
+    sym.func.100011602
+    sym.imp.CGImageHasAlpha
+    sym.imp.CGImageGetMask
+    sym.imp.CGImageGetRenderingIntent
+    sym.imp.CGImageGetHeight
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetAlphaInfo
+    sym.imp.CGColorSpaceGetNumberOfComponents
+    sym.imp.CGColorSpaceGetProcessColorModel
+    sym.imp.CGColorTransformCreate
+    sym.imp.CGColorTransformGetColorSpace
+    sym.imp.CGImageGetShouldInterpolate
+    sym.imp.CGBitmapContextCreateWithDictionary
+    sym.imp.CGBitmapContextGetWidth
+    sym.imp.CGBitmapContextGetHeight
+    sym.imp.CGContextClearRect
+    sym.imp.CGColorCreate
+    sym.imp.CGContextSaveGState
+    sym.imp.CGContextSetFillColorWithColor
+    sym.imp.CGContextFillRect
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGColorRelease
+    sym.imp.CGImageCreateCopyWithRenderingIntent
+    sym.imp.CGContextSetInterpolationQualityRange
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawImage
+    sym.imp.CGContextEndPage
+    sym.imp.CGBitmapContextCreateImage
+    sym.imp.CGContextRelease
+    sym.imp.CGImageRelease
+    sym.imp.CGColorTransformRelease
+    sym.imp.objc_alloc
+    reloc.objc_msgSend
+    sym.imp.CGRectIntegral
+    reloc.objc_release
+    sym.imp.CGBitmapContextCreateWithAlpha
+    sym.imp.CGContextFlush
+    sym.imp.CGColorSpaceGetModel
+    sym.imp.__stack_chk_fail
+
+sym.func.100011602:
+    sym.imp.CGColorSpaceGetModel
+    sym.imp.CGColorSpaceCreateLab
+    sym.imp.__stack_chk_fail
+
+method.FilterPageView.setupSoftproofData:
+    reloc.objc_msgSend
+    sym.imp.CGColorSpaceEqualToColorSpace
+    sym.imp.CGColorSpaceRelease
+    sym.imp.CGColorCodeFragmentRelease
+    sym.imp.CGColorSpaceCreateWithName
+    sym.func.10001182e
+    sym.func.100011602
+    sym.imp.CGColorTransformCreateCodeFragment
+    sym.imp.CGColorTransformRelease
+    sym.imp.objc_alloc
+    sym.imp.CGColorCodeFragmentGetTextureData
+
+sym.func.10001182e:
+    sym.imp.CGColorSpaceConcatenate
+    sym.imp.CGColorSpaceRetain
+    sym.imp.CGColorTransformCreate
+    sym.imp.CGColorSpaceRelease
+
+method.FilterPDFDoc.dealloc:
+    sym.imp.CGPDFDocumentRelease
+    sym.imp.CFRelease
+    sym.imp.objc_msgSendSuper2
+
+method.FilterPDFDoc.windowControllerDidLoadNib::
+    sym.imp.objc_msgSendSuper2
+    sym.imp.CFDictionaryGetValue
+    reloc.objc_msgSend
+
+method.FilterPDFDoc.readFromURL:ofType:error::
+    reloc.objc_msgSend
+    sym.imp.CGPDFDocumentCreateWithURL
+    sym.imp.CFDictionaryCreateMutable
+    sym.imp.CGPDFDocumentCopyOutputIntents
+    sym.imp.CGPDFDocumentGetInfo
+    sym.imp.CFDictionarySetValue
+    sym.imp.CFRelease
+    sym.imp.CGPDFDictionaryGetString
+    sym.imp.CGPDFStringCopyTextString
+    sym.imp.CFStringGetLength
+    sym.imp.CGPDFDictionaryGetName
+    sym.imp.strcmp
+    sym.imp.CFDictionaryGetCount
+
+method.FilterPDFDoc.writePDFToURL:doc:filter:encryptOptions::
+    sym.imp.CGPDFDocumentGetNumberOfPages
+    sym.imp.CFDataCreateMutable
+    sym.imp.CFRetain
+    sym.imp.CGDataConsumerCreate
+    reloc.objc_msgSend
+    sym.imp.CFDictionaryCreateMutableCopy
+    sym.imp.CFDictionaryGetCount
+    sym.imp.malloc
+    sym.imp.CFDictionaryGetKeysAndValues
+    sym.imp.CFDictionarySetValue
+    sym.imp.free
+    sym.imp.CGPDFContextCreate
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawPDFPage
+    sym.imp.CGContextEndPage
+    sym.imp.CGPDFContextClose
+    sym.imp.CGContextRelease
+    sym.imp.CGDataConsumerRelease
+
+sym.func.100011ede:
+    sym.imp.CFDataAppendBytes
+
+method.FilterPDFDoc.softProof:
+    reloc.objc_msgSend
+
+method.FilterPDFDoc.setPDFDocument::
+    sym.imp.CGPDFDocumentRetain
+    sym.imp.CGPDFDocumentRelease
+    sym.imp.CGPDFDocumentGetNumberOfPages
+
+method.FilterPDFDoc.setOrigInfo::
+    sym.imp.CFRelease
+
+method.FilterPDFDoc.applyFilterAndScaleImage::
+    reloc.objc_msgSend
+    sym.imp.CGPDFDocumentRelease
+
+method.FilterPDFDoc.convertPageToImage:colorSpace::
+    sym.imp.CGColorSpaceCreateWithName
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+    sym.imp.CGColorSpaceGetNumberOfComponents
+    sym.imp.calloc
+    sym.imp.CGBitmapContextCreate
+    sym.imp.CGContextSaveGState
+    sym.imp.CGContextSetAllowsAntialiasing
+    sym.imp.CGPDFPageGetRotationAngle
+    sym.imp.CGContextSetGrayFillColor
+    sym.imp.CGContextFillRect
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawPDFPageInRect2
+    sym.imp.CGContextEndPage
+    sym.imp.CGContextFlush
+    sym.imp.CGBitmapContextCreateImage
+    sym.imp.CGContextRelease
+    sym.imp.free
+
+method.FilterPDFDoc.convertPDFDocumentToImageArray:count::
+    sym.imp.CFArrayCreateMutable
+    reloc.objc_msgSend
+    sym.imp.CFArrayAppendValue
+    sym.imp.CGImageRelease
+    sym.imp.CFArrayGetCount
+    sym.imp.CFRelease
+
+method.FilterPDFDoc.writeExportDataToURL:data:info::
+    sym.imp.CFDictionaryGetValue
+
+method.FilterPDFDoc.originalSize:
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+
+method.FilterPDFDoc.wholeDocumentAndSettings:
+    sym.imp.objc_msgSendSuper2
+
+method.FilterPDFDoc.setWholeDocumentAndSettings::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.FilterPDFDoc.printOperationWithSettings:error::
+    sym.imp.PMSessionGetCurrentPrinter
+    sym.imp.PMPrinterSupportsMatchingMode
+    sym.imp.objc_alloc
+    reloc.objc_release
+
+method.FilterTableView.tableView:shouldEditTableColumn:row::
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArrayGetValueAtIndex
+    reloc.objc_msgSend
+
+method.FilterTableView.textDidEndEditing::
+    sym.imp.objc_msgSendSuper2
+
+method.FilterTableView.keyDown::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDoc.setNilValueForKey::
+    reloc.objc_msgSend
+    sym.imp.NSLog
+
+method.FilterDoc.setImageSizeScaleValue::
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+
+method.FilterDoc.setImageSizeWidthValue::
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+
+method.FilterDoc.setImageSizeHeightValue::
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+
+method.FilterDoc.release:
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDoc.retain:
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDoc.dealloc:
+    sym.imp.CFRelease
+    reloc.objc_release
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDoc.validateMenuItem::
+    reloc.objc_msgSend
+    sym.imp.objc_opt_class
+    sym.imp.objc_opt_isKindOfClass
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDoc.validateToolbarItem::
+    reloc.objc_msgSend
+    sym.imp.CGImageGetBitmapInfo
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceUsesExtendedRange
+
+method.FilterDoc.windowControllerDidLoadNib::
+    sym.imp.pthread_mutex_init
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+    sym.imp.objc_msgSend_stret
+    sym.imp.objc_alloc_init
+    sym.imp.CGPDFDocumentAllowsCopying
+    sym.imp.CGPDFDocumentIsEncrypted
+    reloc.objc_retain
+
+method.FilterDoc.close:
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDoc.addToolbarItems:
+    sym.func.100014592
+    reloc.objc_msgSend
+    sym.imp.objc_alloc
+    sym.imp.objc_autorelease
+
+sym.func.100014592:
+    sym.imp.objc_alloc
+    sym.imp.objc_autorelease
+
+method.FilterDoc.toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar::
+    sym.imp.objc_alloc
+    sym.imp.objc_autorelease
+    reloc.objc_msgSend
+
+method.FilterDoc.toolbarDefaultItemIdentifiers::
+    reloc.objc_msgSend
+
+method.FilterDoc.filterPopupAction::
+    reloc.objc_msgSend
+
+method.FilterDoc.loadFilters::
+    reloc.objc_retain
+    reloc.objc_release
+    reloc.objc_msgSend
+    sym.func.100014f16
+    sym.imp.objc_msgSend_stret
+
+sym.func.100014f16:
+    sym.imp.CFURLCopyAbsoluteURL
+    sym.imp.CFEqual
+    sym.imp.CFRelease
+
+method.FilterDoc.loadProfile::
+    reloc.objc_msgSend
+
+method.FilterDoc.manuallyInstallProfile::
+    reloc.objc_msgSend
+    sym.imp.ColorSyncProfileCreate
+    sym.imp.ColorSyncProfileCopyHeader
+    sym.imp.CFDataGetBytePtr
+    sym.imp.ColorSyncProfileCopyDescriptionString
+    sym.imp.CFRelease
+    reloc.objc_release
+
+method.FilterDoc.loadProfiles::
+    sym.imp.CFRelease
+    sym.imp.objc_alloc_init
+    reloc.objc_retain
+    sym.imp.ColorSyncIterateInstalledProfilesWithOptions
+    reloc.objc_msgSend
+    sym.imp.objc_msgSend_stret
+
+method.FilterDoc.imageFilter:
+    sym.imp.ColorSyncProfileCopyData
+    sym.imp.objc_autorelease
+    sym.imp.CGColorSpaceCreateWithColorSyncProfile
+    sym.imp.CGColorSpaceGetProcessColorModel
+    reloc.objc_msgSend
+    sym.imp.CGColorSpaceRelease
+
+method.FilterDoc.setProfile::
+    reloc.objc_msgSend
+
+method.FilterDoc.profileMenuAction::
+    sym.imp.objc_opt_class
+    sym.imp.objc_opt_isKindOfClass
+    reloc.objc_msgSend
+
+method.FilterDoc.setProfileMode:
+    reloc.objc_msgSend
+    sym.imp.CFGetTypeID
+    sym.imp.CGImageGetTypeID
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceGetModel
+
+method.FilterDoc.setIntent::
+    reloc.objc_msgSend
+
+method.FilterDoc.saveDocumentAs::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDoc.updatePageInfo:
+    reloc.objc_msgSend
+
+method.FilterDoc.setCurrentFilter::
+    sym.imp.pthread_mutex_lock
+    reloc.objc_release
+
+method.FilterDoc.retainCurrentFilter:
+    sym.imp.pthread_mutex_lock
+    reloc.objc_retain
+    sym.imp.pthread_mutex_unlock
+
+method.FilterDoc.softproofSpaceCopy:
+    reloc.objc_msgSend
+    sym.imp.CFGetTypeID
+    sym.imp.CGImageGetTypeID
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceGetType
+    sym.imp.CGColorSpaceGetBaseColorSpace
+    sym.imp.CGColorSpaceRetain
+    sym.imp.CGColorSpaceRelease
+
+method.FilterDoc.readFromURL:ofType:error::
+    reloc.objc_msgSend
+
+method.FilterDoc.applyFilterToImage:filter:imageScaleFilter::
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    reloc.objc_msgSend
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceGetType
+    sym.imp.CGColorSpaceGetBaseColorSpace
+    sym.imp.CGColorSpaceGetProcessColorModel
+    sym.imp.objc_opt_class
+    sym.imp.objc_opt_isKindOfClass
+    sym.imp.CGColorSpaceSupportsOutput
+    sym.imp.CGColorSpaceRetain
+    sym.imp.CGColorSpaceCreateWithName
+    sym.imp.CGImageGetBitsPerComponent
+    sym.imp.CGImageGetBitsPerPixel
+    sym.imp.CGImageGetBytesPerRow
+    sym.imp.CGImageGetAlphaInfo
+    sym.imp.CGColorSpaceGetNumberOfComponents
+    sym.imp.CGImageHasAlpha
+    sym.imp.CGImageGetMask
+    sym.imp.CFGetTypeID
+    sym.imp.CFBooleanGetTypeID
+    sym.imp.CGBitmapContextCreateWithDictionary
+    sym.imp.CGBitmapContextGetWidth
+    sym.imp.CGBitmapContextGetHeight
+    sym.imp.CGColorCreate
+    sym.imp.CGContextSaveGState
+    sym.imp.CGContextSetFillColorWithColor
+    sym.imp.CGContextFillRect
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGColorRelease
+    sym.imp.CGBitmapContextCreateWithAlpha
+    sym.imp.CGContextClearRect
+    sym.imp.CGImageGetShouldInterpolate
+    sym.imp.CGContextSetInterpolationQualityRange
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawImage
+    sym.imp.CGContextEndPage
+    sym.imp.CGBitmapContextCreateImage
+    sym.imp.CGContextRelease
+    sym.imp.CGColorSpaceRelease
+    sym.func.10001bb37
+    sym.imp.CFNumberGetTypeID
+    sym.imp.__stack_chk_fail
+
+method.FilterDoc.applyFilterToPDFDoc:filter::
+    sym.imp.CGPDFDocumentGetNumberOfPages
+    sym.imp.CFDataCreateMutable
+    sym.imp.CFRetain
+    sym.imp.CGDataConsumerCreate
+    sym.imp.CGPDFContextCreate
+    reloc.objc_msgSend
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawPDFPage
+    sym.imp.CGContextEndPage
+    sym.imp.CGPDFContextClose
+    sym.imp.CGContextRelease
+    sym.imp.CGDataConsumerRelease
+    sym.imp.CGDataProviderCreateWithCFData
+    sym.imp.CFRelease
+    sym.imp.CGPDFDocumentCreateWithProvider
+    sym.imp.CGDataProviderRelease
+
+sym.func.100017ea4:
+    sym.imp.CFDataAppendBytes
+
+method.FilterDoc.oneImageArray::
+    sym.imp.CFArrayCreateMutable
+    sym.imp.CFArrayAppendValue
+    sym.imp.CFArrayGetCount
+    sym.imp.CFRelease
+
+method.FilterDoc.revertToContentsOfURL:ofType:error::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDoc.imageRectForPDFPage::
+    sym.imp.CGRectGetMinX
+    sym.imp.CGRectGetMinY
+    sym.imp.CGRectGetWidth
+    sym.imp.CGRectGetHeight
+
+method.FilterDoc.convertImageToPDFDoc::
+    sym.imp.CFDataCreateMutable
+    sym.imp.CFRetain
+    sym.imp.CGDataConsumerCreate
+    sym.imp.CGPDFContextCreate
+    sym.imp.CGImageGetShouldInterpolate
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.objc_msgSend_stret
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextSaveGState
+    sym.imp.CGContextSetGrayFillColor
+    sym.imp.CGContextFillRect
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGContextSetInterpolationQualityRange
+    sym.imp.CGContextDrawImage
+    sym.imp.CGContextEndPage
+    sym.imp.CGPDFContextClose
+    sym.imp.CGContextRelease
+    sym.imp.CGDataConsumerRelease
+    sym.imp.CGDataProviderCreateWithCFData
+    sym.imp.CFRelease
+    sym.imp.CGPDFDocumentCreateWithProvider
+    sym.imp.CGDataProviderRelease
+
+method.FilterDoc.convertImageArrayToPDFDoc::
+    sym.imp.CFArrayGetCount
+    sym.imp.CFDataCreateMutable
+    sym.imp.CFRetain
+    sym.imp.CGDataConsumerCreate
+    sym.imp.CGPDFContextCreate
+    sym.imp.CFArrayGetValueAtIndex
+    reloc.objc_msgSend
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawPDFPage
+    sym.imp.CGContextEndPage
+    sym.imp.CGPDFContextClose
+    sym.imp.CGContextRelease
+    sym.imp.CGDataConsumerRelease
+    sym.imp.CGDataProviderCreateWithCFData
+    sym.imp.CFRelease
+    sym.imp.CGPDFDocumentCreateWithProvider
+    sym.imp.CGDataProviderRelease
+
+method.FilterDoc.writeImageToFile:image:type:metadata::
+    reloc.objc_msgSend
+    sym.imp.CGImageDestinationCreateWithURL
+    sym.imp.CGImageDestinationAddImage
+    sym.imp.CGImageDestinationFinalize
+    sym.imp.CFRelease
+    sym.imp.CGImageRelease
+
+method.FilterDoc.setPrintInfo::
+    sym.imp.objc_autorelease
+
+method.FilterDoc.writableTypesForSaveOperation::
+    reloc.objc_msgSend
+    sym.imp.CGImageDestinationCopyTypeIdentifiers
+    sym.imp.objc_autorelease
+
+method.FilterDoc.defaultSaveAsProperties:
+    reloc.objc_msgSend
+    sym.imp.CFPropertyListCreateDeepCopy
+
+method.FilterDoc.adjustFrameSizeAction::
+    sym.imp.objc_msgSend_stret
+    sym.imp.CGRectGetWidth
+    sym.imp.CGRectGetHeight
+    reloc.objc_msgSend
+
+method.FilterDoc.currentPageAction::
+    reloc.objc_msgSend
+    sym.imp.NSBeep
+
+method.FilterDoc.filterApplyAction::
+    reloc.objc_msgSend
+    reloc.objc_retain
+
+method.FilterDoc.handleZoomToScale::
+    sym.imp.objc_msgSend_stret
+
+method.FilterDoc.zoomToFitAction::
+    sym.imp.objc_msgSend_stret
+    reloc.objc_msgSend
+
+method.FilterDoc.imageInfoAction::
+    sym.imp.CFGetTypeID
+    sym.imp.CGImageGetTypeID
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceGetType
+    sym.imp.CGColorSpaceGetModel
+    sym.imp.CGColorSpaceCopyICCProfileDescription
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    reloc.objc_msgSend
+    sym.imp.CGColorSpaceGetBaseColorSpace
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CFEqual
+    sym.imp.CGColorSpaceIsICCCompatible
+    reloc.objc_release
+
+method.FilterDoc.imageSizeAction::
+    reloc.objc_msgSend
+    sym.imp.CFGetTypeID
+    sym.imp.CGImageGetTypeID
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CFEqual
+
+method.FilterDoc.openImageCorrection:
+    sym.imp.objc_alloc_init
+
+method.FilterDoc.openToneMapping:
+    sym.imp.objc_alloc_init
+
+method.FilterDoc.releaseToneMapping::
+    reloc.objc_msgSend
+
+method.FilterDoc.imageSizeApplyButtonAction::
+    reloc.objc_msgSend
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CFEqual
+    reloc.objc_retain
+    sym.imp.CFDictionaryCreateMutableCopy
+    sym.imp.CFRelease
+    sym.imp.CFDictionarySetValue
+    sym.imp.CFDictionaryRemoveValue
+
+method.FilterDoc.currentURL:
+    reloc.objc_msgSend
+
+method.FilterDoc.filterAddNotification::
+    sym.imp.objc_opt_class
+    reloc.objc_msgSend
+
+method.FilterDoc.filterRemoveNotification::
+    sym.imp.objc_opt_class
+    reloc.objc_msgSend
+    reloc.objc_retain
+    sym.func.100014f16
+
+method.FilterDoc.filterUpdateNotification::
+    sym.imp.objc_opt_class
+    reloc.objc_msgSend
+    sym.func.100014f16
+
+method.FilterDoc.filterSelectNotification::
+    sym.imp.objc_opt_class
+
+method.FilterDoc.newPageViewFrame::
+    sym.imp.objc_msgSend_stret
+    reloc.objc_msgSend
+
+method.FilterDoc.centerPageViewFrame:
+    sym.imp.objc_msgSend_stret
+
+method.FilterDoc.pageViewResizeRequest::
+    sym.imp.objc_msgSend_stret
+    reloc.objc_msgSend
+
+method.FilterDoc.view:stringForToolTip:point:userData::
+    sym.imp.CFGetTypeID
+    sym.imp.CFArrayGetTypeID
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArrayGetValueAtIndex
+    sym.imp.CFDictionaryGetTypeID
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CFURLGetFileSystemRepresentation
+    sym.imp.strlen
+    sym.imp.CFStringCreateWithBytes
+    sym.imp.__stack_chk_fail
+
+method.FilterDoc.wholeDocumentAndMetadata:
+    reloc.objc_msgSend
+    sym.imp.__stack_chk_fail
+
+method.FilterDoc.wholeDocumentAndSettings:
+    reloc.objc_msgSend
+    sym.imp.__stack_chk_fail
+
+method.FilterDoc.setWholeDocumentAndSettings::
+    reloc.objc_msgSend
+
+method.FilterDoc.setupApplyProfileUndo::
+    reloc.objc_msgSend
+
+method.FilterDoc.setupApplyFilterUndo::
+    reloc.objc_msgSend
+
+method.class.FilterDoc.docTypeForImageType::
+    reloc.objc_msgSend
+
+sym.func.10001bb37:
+    sym.imp.objc_opt_class
+    sym.imp.objc_opt_isKindOfClass
+    reloc.objc_msgSend
+    sym.imp.CGColorSpaceCreateWithICCData
+    sym.imp.CFMakeCollectable
+
+sym.func.10001bbb4:
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CFDataGetBytePtr
+
+method.SelfSizingHeaderOutlineVIew.initWithFrame::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.SelfSizingHeaderOutlineVIew.initWithCoder::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.SelfSizingHeaderOutlineVIew.sizeTableHeaderCellsToFit:
+    sym.imp.objc_enumerationMutation
+    sym.imp.__stack_chk_fail
+
+method.FilterDocExport.dealloc:
+    reloc.objc_release
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDocExport.init:
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDocExport.addUserChoice:imageUTType:userSelection::
+    sym.imp.CFDictionarySetValue
+    reloc.objc_msgSend
+
+sym.func.10001c0d2:
+    reloc.objc_msgSend
+
+method.FilterDocExport.saveOptionCanUseFileType::
+    reloc.objc_msgSend
+
+method.FilterDocExport.openExportPanel:operation::
+    reloc.objc_retain
+    sym.imp.objc_alloc
+
+method.FilterDocExport.panelDidEnd:contextInfo:operation::
+    sym.imp.objc_alloc_init
+    reloc.objc_msgSend
+    sym.imp.objc_autorelease
+    sym.imp.CFDictionaryCreateMutableCopy
+    sym.imp.CFDictionaryCreateMutable
+    sym.imp.objc_opt_class
+    reloc.objc_release
+    sym.imp.CFRelease
+
+method.FilterPostScriptDoc.dealloc:
+    sym.imp.CGPDFDocumentRelease
+    sym.imp.objc_msgSendSuper2
+
+method.FilterPostScriptDoc.readFromURL:ofType:error::
+    reloc.objc_msgSend
+    sym.imp.getuid
+    sym.imp.CFURLGetFileSystemRepresentation
+    sym.imp.strlen
+    sym.imp.__sprintf_chk
+    sym.imp.fopen
+    sym.imp.CFStringCreateWithCString
+    sym.imp.fclose
+    sym.imp.CFURLCreateWithFileSystemPath
+    sym.imp.CFRelease
+    sym.imp.CGPSConverterCreate
+    sym.imp.CGPSConverterConvertFromURLToURL
+    sym.imp.CGPDFDocumentCreateWithURL
+    sym.imp.unlink
+    sym.imp.__stack_chk_fail
+
+method.FilterPostScriptDoc.writePostScriptToURL:doc:filter::
+    sym.imp.CGPDFDocumentGetNumberOfPages
+    sym.imp.CFDataCreateMutable
+    sym.imp.CFRetain
+    sym.imp.CGDataConsumerCreate
+    sym.imp.CGPSContextCreate
+    reloc.objc_msgSend
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawPDFPage
+    sym.imp.CGContextEndPage
+    sym.imp.CGContextRelease
+    sym.imp.CGDataConsumerRelease
+
+sym.func.10001cb1f:
+    sym.imp.CFDataAppendBytes
+
+method.FilterPostScriptDoc.setPDFDocument::
+    sym.imp.CGPDFDocumentRetain
+    sym.imp.CGPDFDocumentRelease
+    sym.imp.CGPDFDocumentGetNumberOfPages
+
+method.FilterPostScriptDoc.applyFilterAndScaleImage::
+    sym.imp.CGPDFDocumentRelease
+
+method.FilterPostScriptDoc.convertPageToImage:colorSpace::
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+    sym.imp.CGColorSpaceGetNumberOfComponents
+    sym.imp.calloc
+    sym.imp.CGBitmapContextCreate
+    sym.imp.CGContextSaveGState
+    sym.imp.CGPDFPageGetRotationAngle
+    sym.imp.CGContextSetGrayFillColor
+    sym.imp.CGContextFillRect
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawPDFPageInRect2
+    sym.imp.CGContextEndPage
+    sym.imp.CGContextFlush
+    sym.imp.CGBitmapContextCreateImage
+    sym.imp.CGContextRelease
+    sym.imp.free
+
+method.FilterPostScriptDoc.convertPDFDocumentToImageArray:count::
+    sym.imp.CFArrayCreateMutable
+    reloc.objc_msgSend
+    sym.imp.CFArrayAppendValue
+    sym.imp.CGImageRelease
+    sym.imp.CFArrayGetCount
+    sym.imp.CFRelease
+
+method.FilterPostScriptDoc.writeExportDataToURL:data:info::
+    sym.imp.CFDictionaryGetValue
+
+method.FilterPostScriptDoc.wholeDocumentAndSettings:
+    sym.imp.objc_msgSendSuper2
+
+method.FilterPostScriptDoc.setWholeDocumentAndSettings::
+    sym.imp.objc_msgSendSuper2
+
+method.FilterToolbarPageFieldView.initWithFrame::
+    sym.imp.objc_msgSendSuper2
+
+method.Header.setProfile:tagType:dataType::
+    sym.imp.ColorSyncProfileCopyHeader
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CFRelease
+    sym.imp.objc_alloc_init
+    sym.imp.objc_autorelease
+    sym.imp.NSLog
+    reloc.objc_msgSend
+
+method.AnyTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFRetain
+
+method.AnyTag.thread::
+    sym.func.10001de90
+    sym.imp.ColorSyncProfileCopyHeader
+    sym.imp.CFDataGetBytePtr
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.__memcpy_chk
+    reloc.objc_msgSend
+    sym.imp.NSLog
+    sym.imp.__stack_chk_fail
+
+method.ChadTagBracketedView.drawRect::
+    sym.imp.objc_msgSend_stret
+    sym.imp.NSFrameRect
+    sym.imp.NSInsetRect
+    sym.imp.NSDivideRect
+    sym.imp.NSRectFillUsingOperation
+
+method.ChadTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataGetBytePtr
+
+method.DescTag.dealloc:
+    sym.imp.CFRelease
+    sym.imp.objc_msgSendSuper2
+
+method.DescTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataCreateMutableCopy
+    sym.imp.CFDataSetLength
+    sym.imp.CFRetain
+    sym.imp.CFDataGetMutableBytePtr
+    reloc.objc_msgSend
+    sym.imp.__memcpy_chk
+    sym.imp.GetTextEncodingFromScriptInfo
+    sym.imp.CFStringCreateWithCString
+    sym.imp.objc_autorelease
+    sym.imp.__stack_chk_fail
+
+method.DescTag.controlTextDidEndEditing::
+    reloc.objc_msgSend
+
+method.DescTag.controlTextDidChange::
+    reloc.objc_msgSend
+
+method.DescTag.CleanAsciiName:
+    sym.imp.objc_alloc
+    sym.imp.objc_autorelease
+
+method.DescTag.CleanMacName:
+    sym.imp.CFStringCreateExternalRepresentation
+    sym.imp.CFStringCreateFromExternalRepresentation
+    sym.imp.CFRelease
+
+method.DescTag.UpdateDescTag:
+    sym.imp.CFStringCreateExternalRepresentation
+    sym.imp.objc_autorelease
+    sym.imp.calloc
+    reloc.objc_msgSend
+    sym.imp.CFDataCreateWithBytesNoCopy
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileSetTag
+    sym.imp.CFRelease
+
+method.SelfSizingHeaderTableVIew.initWithFrame::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.SelfSizingHeaderTableVIew.initWithCoder::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.SelfSizingHeaderTableVIew.sizeTableHeaderCellsToFit:
+    sym.imp.objc_enumerationMutation
+    sym.imp.__stack_chk_fail
+
+method.SelfSizingHeaderTableVIew.preparedCellAtColumn:row::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+sym.func.10001ed6d:
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataGetBytePtr
+
+method.XYZTag.setProfile:tagType:dataType::
+    sym.func.10001ed6d
+
+method.TextTag.dealloc:
+    sym.imp.CFRelease
+    sym.imp.objc_msgSendSuper2
+
+method.TextTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CFRetain
+
+method.TextTag.textView:shouldChangeTextInRange:replacementString::
+    reloc.objc_msgSend
+
+method.TextTag.updateTag::
+    reloc.objc_msgSend
+    sym.imp.objc_alloc
+    sym.imp.objc_autorelease
+    sym.imp.strlen
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFDataCreateMutableCopy
+    sym.imp.CFRelease
+    sym.imp.CFDataSetLength
+    sym.imp.CFDataGetMutableBytePtr
+    sym.imp.memcpy
+    sym.imp.ColorSyncProfileSetTag
+
+method.CurvTag.dealloc:
+    sym.imp.objc_msgSendSuper2
+
+method.CurvTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataCreateMutableCopy
+    sym.imp.CFDataSetLength
+    sym.imp.CFDataGetMutableBytePtr
+    sym.imp.objc_alloc_init
+    sym.imp.objc_autorelease
+
+method.ParaTag.dealloc:
+    sym.imp.objc_msgSendSuper2
+
+method.ParaTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataGetBytePtr
+    sym.imp.__memcpy_chk
+    reloc.objc_msgSend
+    sym.imp.objc_alloc
+    reloc.objc_release
+    sym.imp.__stack_chk_fail
+
+method.NumsTag.dealloc:
+    sym.imp.free
+    sym.imp.objc_msgSendSuper2
+
+method.NumsTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.malloc
+    sym.imp.CFDataGetBytePtr
+    sym.imp.memcpy
+
+method.AutoWrappingTextField.setFrameSize::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+    sym.imp.objc_msgSend_stret
+
+method.MlucTag.dealloc:
+    sym.imp.CFRelease
+    sym.imp.objc_msgSendSuper2
+
+method.MlucTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyLocalizedStringDictionary
+    sym.imp.CFDictionaryCreateMutableCopy
+    sym.imp.CFRelease
+    sym.imp.CFDictionaryGetCount
+    sym.imp.calloc
+    sym.imp.CFDictionaryGetKeysAndValues
+    sym.imp.CFArrayCreateMutable
+    sym.imp.CFArrayAppendValue
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArraySortValues
+    sym.imp.CFRetain
+
+method.MlucTag.updateTag:
+    sym.imp.ColorSyncProfileSetLocalizedStringDictionary
+
+method.MlucTag.addHit::
+    reloc.objc_msgSend
+    sym.imp.CFDictionaryContainsKey
+    sym.imp.CFDictionarySetValue
+    sym.imp.CFArrayAppendValue
+    sym.imp.CFArrayGetCount
+
+method.MlucTag.delHit::
+    reloc.objc_msgSend
+    sym.imp.CFArrayGetValueAtIndex
+    sym.imp.CFDictionaryRemoveValue
+    sym.imp.CFArrayRemoveValueAtIndex
+
+method.MlucTag.tableView:objectValueForTableColumn:row::
+    sym.imp.CFArrayGetValueAtIndex
+    reloc.objc_msgSend
+
+method.MlucTag.tableView:setObjectValue:forTableColumn:row::
+    reloc.objc_msgSend
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArrayGetValueAtIndex
+    sym.imp.CFArrayContainsValue
+    sym.imp.CFDictionarySetValue
+    sym.imp.__maskrune
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CFDictionaryRemoveValue
+    sym.imp.CFArraySetValueAtIndex
+    sym.imp.CFArraySortValues
+
+method.VcgtTag.dealloc:
+    sym.imp.free
+    sym.imp.objc_msgSendSuper2
+
+method.VcgtTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.malloc
+    sym.imp.CFDataGetBytePtr
+    sym.imp.memcpy
+    reloc.objc_msgSend
+
+method.VcgtTag.popHit::
+    reloc.objc_msgSend
+
+method.MmodTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataGetBytePtr
+    reloc.objc_msgSend
+
+method.NdinTag.dealloc:
+    sym.imp.free
+    sym.imp.objc_msgSendSuper2
+
+method.NdinTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.malloc
+    sym.imp.CFDataGetBytePtr
+    sym.imp.memcpy
+
+method.NdinTag.popHit::
+    reloc.objc_msgSend
+
+method.DtimTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataGetBytePtr
+
+method.MbaTag.dealloc:
+    sym.imp.free
+    sym.imp.objc_msgSendSuper2
+
+method.MbaTag.setProfile:tagType:dataType::
+    reloc.objc_msgSend
+    sym.imp.ColorSyncProfileCopyHeader
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CFRelease
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFDataGetLength
+    sym.imp.NSLog
+    sym.imp.malloc
+    sym.imp.memcpy
+    sym.func.10002397a
+    sym.func.100023b70
+
+method.MbaTag.makeItemsForPopup:withSpace:chanCount::
+    reloc.objc_msgSend
+
+method.MbaTag.SetupUI:
+    reloc.objc_msgSend
+
+method.MbaTag.UpdateCurveView:startPtr:space:plotView::
+    sym.imp.__stack_chk_fail
+
+method.MbaTag.UpdateColorCurveView:
+    reloc.objc_msgSend
+    sym.imp.calloc
+
+method.MbaTag.colorRadioHit::
+    reloc.objc_msgSend
+
+method.ViewTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFRelease
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataGetBytePtr
+
+method.MftTag.dealloc:
+    sym.imp.free
+    sym.imp.objc_msgSendSuper2
+
+method.MftTag.setProfile:tagType:dataType::
+    sym.imp.ColorSyncProfileCopyHeader
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CFRelease
+    sym.imp.ColorSyncCreateSignatureFromFourCharCode
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.CFDataGetLength
+    sym.imp.malloc
+    sym.imp.memcpy
+    sym.imp.NSLog
+
+method.MftTag.makeItemsForPopup:withSpace:chanCount::
+    reloc.objc_msgSend
+
+method.MftTag.SetupUI:
+    reloc.objc_msgSend
+
+method.MftTag.UpdateColorCurveView:
+    reloc.objc_msgSend
+    sym.imp.calloc
+
+method.MftTag.colorRadioHit::
+    reloc.objc_msgSend
+
+method.class.CSProfile.profileWithRef::
+    sym.imp.objc_alloc
+    reloc.objc_msgSend
+
+method.class.CSProfile.profileWithURL::
+    sym.imp.objc_alloc
+    reloc.objc_msgSend
+
+method.class.CSProfile.profileWithInfo::
+    sym.imp.objc_alloc
+    reloc.objc_msgSend
+
+method.class.CSProfile.profileWithSpace::
+    sym.imp.objc_alloc
+    reloc.objc_msgSend
+
+method.CSProfile.initializeWithRef::
+    sym.imp.objc_msgSendSuper2
+    sym.imp.ColorSyncProfileCreateMutableCopy
+    sym.imp.ColorSyncProfileGetURL
+    sym.imp.CFRetain
+    sym.imp.ColorSyncProfileCopyHeader
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CFRelease
+    sym.imp.ColorSyncProfileCopyDescriptionString
+    sym.imp.ColorSyncProfileGetMD5
+    sym.imp.ColorSyncProfileVerify
+    sym.imp.NSLog
+    sym.imp.NSBeep
+    sym.imp.objc_autorelease
+
+method.CSProfile.initWithURL::
+    sym.imp.ColorSyncProfileCreateWithURL
+    reloc.objc_msgSend
+    sym.imp.CFRelease
+    sym.imp.NSLog
+    sym.imp.NSBeep
+    sym.imp.objc_autorelease
+
+method.CSProfile.initWithInfo::
+    sym.imp.objc_msgSendSuper2
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CFRetain
+    reloc.objc_retain
+
+method.CSProfile.initWithSpace::
+    sym.imp.ColorSyncProfileCreateWithName
+    reloc.objc_msgSend
+    sym.imp.CFRelease
+    sym.imp.NSLog
+    sym.imp.NSBeep
+    sym.imp.objc_autorelease
+
+method.CSProfile.copyWithZone::
+    reloc.objc_msgSend
+    sym.imp.ColorSyncProfileCopyData
+    sym.imp.ColorSyncProfileCreate
+    sym.imp.CFRelease
+    sym.imp.ColorSyncProfileCreateWithURL
+
+method.CSProfile.dealloc:
+    reloc.objc_msgSend
+    reloc.objc_release
+    sym.imp.CFRelease
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfile.description:
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfile.setDescription::
+    reloc.objc_msgSend
+    sym.imp.__bzero
+    sym.imp.CFStringGetCString
+    sym.imp.CFStringGetBytes
+    sym.imp.strlen
+    sym.imp.CFDataCreateMutable
+    sym.imp.CFDataSetLength
+    sym.imp.CFDataGetMutableBytePtr
+    sym.imp.memcpy
+    sym.imp.ColorSyncProfileSetTag
+    sym.imp.CFRelease
+    sym.imp.CFStringCreateWithCString
+    sym.imp._CFBundleGetLanguageAndRegionCodes
+    sym.imp.CFBundleCopyLocalizationForLocalizationInfo
+    sym.imp.CFEqual
+    sym.imp.CFDictionaryCreate
+    sym.imp.ColorSyncProfileSetLocalizedStringDictionary
+    sym.imp.__stack_chk_fail
+
+method.CSProfile.getElementInfoAtIndex:tagSig:tagType:dataSize::
+    reloc.objc_msgSend
+    sym.imp.ColorSyncProfileCopyTagSignatures
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArrayGetValueAtIndex
+    sym.imp.ColorSyncProfileCopyTag
+    sym.imp.ColorSyncGetFourCharCodeFromSignature
+    sym.imp.CFDataGetLength
+    sym.imp.CFDataGetBytePtr
+    sym.imp.CFRelease
+
+method.CSProfile.profPathStr:
+    sym.imp.CFGetTypeID
+    sym.imp.CFURLGetTypeID
+    sym.imp.CFURLCopyFileSystemPath
+
+method.CSProfile.isEqual::
+    sym.imp.objc_opt_class
+    sym.imp.objc_opt_isKindOfClass
+    sym.imp.CFEqual
+    sym.imp.objc_msgSendSuper2
+
+method.CSProfile.profRef:
+    reloc.objc_msgSend
+
+method.CSProfile.open:
+    sym.imp.ColorSyncProfileCreateWithURL
+    sym.imp.ColorSyncProfileCreateMutableCopy
+    sym.imp.ColorSyncProfileGetMD5
+    sym.imp.CFRelease
+
+method.CSProfile.isDirty:
+    sym.imp.ColorSyncProfileGetMD5
+
+method.CSProfile.close:
+    sym.imp.CFRelease
+
+method.CSProfile.save:
+    reloc.objc_msgSend
+    sym.imp.ColorSyncProfileCopyData
+    sym.imp.CFURLWriteDataAndPropertiesToResource
+    sym.imp.CFRelease
+    sym.imp.ColorSyncProfileGetMD5
+
+method.CSProfile.saveTo::
+    sym.imp.ColorSyncProfileCopyData
+    sym.imp.CFURLWriteDataAndPropertiesToResource
+    sym.imp.CFRelease
+
+method.CSProfile.saveAs::
+    sym.imp.ColorSyncProfileCopyData
+    sym.imp.CFURLWriteDataAndPropertiesToResource
+    sym.imp.ColorSyncProfileCreateWithURL
+    sym.imp.ColorSyncProfileCreateMutableCopy
+    sym.imp.CFRelease
+    sym.imp.CFRetain
+    sym.imp.ColorSyncProfileGetMD5
+
+method.class.FilterDocProfile.newWithIterateData::
+    reloc.objc_msgSend
+
+method.FilterDocProfile.initWithIterateData::
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CFDataGetBytePtr
+
+method.FilterDocProfile.dealloc:
+    sym.imp.CFRelease
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDocProfile.ref:
+    sym.imp.ColorSyncProfileCreateWithURL
+
+method.FilterImageDoc.dealloc:
+    sym.imp.CFRelease
+    sym.imp.objc_msgSendSuper2
+
+method.FilterImageDoc.isAcceptedImageType::
+    sym.imp.CGImageSourceCopyTypeIdentifiers
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArrayContainsValue
+    sym.imp.CFRelease
+
+method.FilterImageDoc.readFromURL:ofType:error::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+    sym.imp.CGImageSourceCreateWithURL
+    sym.imp.CGImageSourceGetType
+    sym.imp.CFArrayCreateMutable
+    sym.imp.CGImageSourceGetCount
+    sym.imp.CGImageSourceCreateImageAtIndex
+    sym.imp.CFArrayAppendValue
+    sym.imp.CGImageRelease
+    sym.imp.CFArrayGetCount
+    sym.imp.CFRelease
+    sym.imp.CGImageSourceCopyPropertiesAtIndex
+    sym.imp.CFDictionaryCreateMutableCopy
+    sym.imp.CFDictionaryCreateMutable
+    sym.imp.CFDictionarySetValue
+
+method.FilterImageDoc.writeImageArrayToURL:imagearray:metadata::
+    sym.imp.CFArrayGetCount
+    sym.imp.CFGetTypeID
+    sym.imp.CFArrayGetTypeID
+    sym.imp.CFArrayGetValueAtIndex
+    sym.imp.CFDictionaryGetTypeID
+    sym.imp.CFDictionaryGetValue
+    sym.imp.CGImageDestinationCreateWithURL
+    sym.imp.CGImageDestinationAddImage
+    sym.imp.CGImageDestinationFinalize
+    sym.imp.CFRelease
+
+method.FilterImageDoc.writeSafelyToURL:ofType:forSaveOperation:error::
+    reloc.objc_msgSend
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArrayGetValueAtIndex
+    sym.imp.CFArrayRemoveValueAtIndex
+    sym.imp.CFArrayInsertValueAtIndex
+    sym.imp.CFRetain
+    sym.imp.CFRelease
+
+method.FilterImageDoc.affineTransform:
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.__stack_chk_fail
+
+method.FilterImageDoc.hasAlpha:
+    reloc.objc_msgSend
+    sym.imp.CGImageHasAlpha
+    sym.imp.CGImageGetMask
+
+method.FilterImageDoc.colorSpaceModel:
+    reloc.objc_msgSend
+    sym.imp.CGImageGetColorSpace
+
+method.FilterImageDoc.setImage::
+    reloc.objc_msgSend
+    sym.imp.CFArraySetValueAtIndex
+
+method.FilterImageDoc.setImageArray::
+    sym.imp.CFRetain
+    sym.imp.CFRelease
+    sym.imp.CFArrayGetCount
+
+method.FilterImageDoc.applyFilterAndScaleImage::
+    reloc.objc_msgSend
+    sym.imp.CGImageRelease
+    sym.imp.CGImageGetColorSpace
+    sym.imp.CGColorSpaceGetModel
+    sym.imp.CGColorSpaceGetBaseColorSpace
+    sym.imp.CGColorSpaceGetColorTableCount
+    sym.imp.malloc
+    sym.imp.CGColorSpaceGetColorTable
+    sym.imp.CGDataProviderCreateWithData
+    sym.imp.CGImageCreate
+    sym.imp.CGDataProviderRelease
+    sym.imp.CGImageGetData
+    sym.imp.CGImageGetAlphaInfo
+    sym.imp.CGColorSpaceCreateIndexed
+    sym.imp.CGImageCreateCopyWithColorSpace
+    sym.imp.CGColorSpaceRelease
+    sym.imp.free
+
+method.FilterImageDoc.applyToneMapping:
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArrayGetValueAtIndex
+    reloc.objc_msgSend
+    sym.imp.CFArrayRemoveValueAtIndex
+    sym.imp.CFArrayInsertValueAtIndex
+
+method.FilterImageDoc.exportData:operation::
+    sym.imp.CFArrayCreateMutableCopy
+    sym.imp.CFArrayGetCount
+    sym.imp.CFArrayGetValueAtIndex
+    reloc.objc_msgSend
+    sym.imp.CFArrayRemoveValueAtIndex
+    sym.imp.CFArrayInsertValueAtIndex
+    sym.imp.CFRetain
+    sym.imp.CFRelease
+
+method.FilterImageDoc.originalSize:
+    reloc.objc_msgSend
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+
+method.FilterImageDoc.bestTypeForWriting:
+    sym.imp.CGImageDestinationCopyTypeIdentifiers
+    sym.imp.objc_autorelease
+
+method.FilterImageDoc.wholeDocumentAndSettings:
+    reloc.objc_msgSend
+    sym.imp.__stack_chk_fail
+
+method.FilterImageDoc.setWholeDocumentAndSettings::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.FilterImageDoc.canBePrintingTarget:
+    sym.imp.PMSessionGetCurrentPrinter
+    sym.imp.PMPrinterIsRemote
+    sym.imp.PMPrinterIsPostScriptPrinter
+    sym.imp.PMPrinterSupportsMatchingMode
+    sym.imp.CFRelease
+    reloc.objc_msgSend
+    sym.imp.PMSessionSetColorMatchingMode
+    sym.imp.PMSessionCopyApplicationOutputIntentWithColorSyncProfiles
+    sym.imp.PMSessionCopyDefaultOutputIntentWithColorSyncProfiles
+    sym.imp.CFDictionaryContainsKey
+    sym.imp.CFRetain
+
+method.FilterImageDoc.printOperationWithSettings:error::
+    sym.imp.objc_alloc
+    sym.imp.PMSessionGetCurrentPrinter
+    sym.imp.PMPrinterSupportsMatchingMode
+    reloc.objc_release
+
+method.FilterImageDoc.runModalPrintOperation:delegate:didRunSelector:contextInfo::
+    reloc.objc_retain
+    sym.imp.objc_msgSendSuper2
+
+method.FilterImageDoc.documentDidRunModalPrintOperation:success:contextInfo::
+    reloc.objc_release
+    sym.imp.CFRelease
+
+method.FilterImageCorrection.dealloc:
+    sym.imp.objc_msgSendSuper2
+
+method.FilterImageCorrection.openImageCorrection::
+    reloc.objc_msgSend
+
+method.FilterImageCorrection.windowWillClose::
+    reloc.objc_msgSend
+
+method.FilterImageCorrection.setupExposure:
+    reloc.objc_retain
+
+method.FilterImageCorrection.setupWhiteBlackPoint:
+    reloc.objc_retain
+
+method.FilterImageCorrection.setupGamma:
+    reloc.objc_retain
+
+method.FilterImageCorrection.setupColorControl:
+    reloc.objc_retain
+
+method.FilterImageCorrection.setupSharpness:
+    reloc.objc_retain
+
+method.FilterImageCorrection.setupSepia:
+    reloc.objc_retain
+
+method.FilterImageCorrection.setExposure::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterImageCorrection.setBlackPoint::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterImageCorrection.setWhitePoint::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterImageCorrection.setGamma::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterImageCorrection.setSaturation::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterImageCorrection.setContrast::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterImageCorrection.setBrightness::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterImageCorrection.setSharpness::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.FilterImageCorrection.setSepiaIntensity::
+    reloc.objc_release
+    reloc.objc_retain
+
+method.NSString_MorePathExtensions_.realPath:
+    reloc.objc_msgSend
+    sym.imp.realpath_DARWIN_EXTSN
+    sym.imp.__stack_chk_fail
+
+method.NSString_MorePathExtensions_.standardizedPathWithTilde:
+    reloc.objc_msgSend
+    sym.imp.realpath_DARWIN_EXTSN
+    sym.imp.NSHomeDirectory
+    sym.imp.strlen
+    sym.imp.strncmp
+    sym.imp.__stack_chk_fail
+
+method.class.NSString_MorePathExtensions_.stringForType::
+    sym.imp.__maskrune
+
+method.FilterImagePrintView.initWithFrame:document::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_retain
+
+method.FilterImagePrintView.dealloc:
+    reloc.objc_release
+    sym.imp.objc_msgSendSuper2
+
+method.FilterImagePrintView.drawRect::
+    reloc.objc_msgSend
+    sym.imp.CFRetain
+    sym.imp.CFDictionaryGetValue
+    sym.imp.PMSessionCopyCurrentPrinterColorSyncProfile
+    sym.imp.CGColorSpaceCreateWithColorSyncProfile
+    sym.imp.CGColorTransformCreate
+    sym.imp.CGColorTransformConvertImage
+    sym.imp.CGColorTransformRelease
+    sym.imp.CGColorSpaceRelease
+    sym.imp.CGImageCreateCopyWithColorSpace
+    sym.imp.CGContextSaveGState
+    sym.imp.objc_msgSend_stret
+    sym.imp.NSInsetRect
+    sym.imp.CGImageGetWidth
+    sym.imp.CGImageGetHeight
+    sym.imp.CGRectApplyAffineTransform
+    sym.imp.CGAffineTransformConcat
+    sym.imp.CGAffineTransformMakeScale
+    sym.imp.CGContextGetType
+    sym.imp.CGContextClipToRect
+    sym.imp.CGContextGetCTM
+    sym.imp.CGContextConcatCTM
+    sym.imp.CGContextDrawImage
+    sym.imp.CGContextRestoreGState
+    sym.imp.CGImageRelease
+    sym.imp.CFRelease
+
+method.FilterPDFPrintView.initWithFrame:document:qfilter::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_retain
+
+method.FilterPDFPrintView.dealloc:
+    reloc.objc_release
+    sym.imp.objc_msgSendSuper2
+
+method.FilterPDFPrintView.knowsPageRange::
+    reloc.objc_msgSend
+    sym.imp.CGPDFDocumentGetNumberOfPages
+
+method.FilterPDFPrintView.drawRect::
+    sym.imp.CGPDFDocumentGetPage
+    sym.imp.CGPDFPageGetBoxRect
+    sym.imp.CGContextGetType
+    sym.imp.objc_msgSend_stret
+    sym.imp.NSIntegralRect
+    sym.imp.CGContextClipToRect
+    sym.imp.CGPDFPageGetRotationAngle
+    reloc.objc_msgSend
+    sym.imp.CGContextConcatCTM
+    sym.imp.CGContextBeginPage
+    sym.imp.CGContextDrawPDFPage
+    sym.imp.CGContextEndPage
+
+method.FilterDocPDEController.initWithFilterDoc:enableColorMatching:enablePrintTarget::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDocPDEController.dealloc:
+    sym.imp.objc_msgSendSuper2
+
+method.FilterDocPDEController.setNilValueForKey::
+    reloc.objc_msgSend
+    sym.imp.objc_msgSendSuper2
+
+method.class.FilterDocPDEController.keyPathsForValuesAffectingValueForKey::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.FilterDocPDEController.setRepresentedObject::
+    sym.imp.objc_opt_class
+    sym.imp.NSLog
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+method.FilterDocPDEController.updateUI::
+    sym.imp.PMSessionGetColorMatchingMode
+    sym.imp.PMSessionGetCurrentPrinter
+    sym.imp.PMPrinterIsPostScriptPrinter
+    sym.imp.CFStringCompare
+
+method.FilterDocPDEController.keyPathsForValuesAffectingPreview:
+    reloc.objc_msgSend
+
+method.FilterDocPDEController.setScaleFactor::
+    reloc.objc_msgSend
+    sym.imp.PMSetScale
+    sym.imp.PMSessionValidatePageFormat
+
+method.FilterDocPDEController.BPC:
+    reloc.objc_msgSend
+
+method.FilterDocPDEController.printMode:
+    sym.imp.PMSessionGetColorMatchingMode
+    sym.imp.PMSessionGetCurrentPrinter
+    sym.imp.PMPrinterIsPostScriptPrinter
+    sym.imp.CFStringCompare
+
+method.FilterDocPDEController.setPrintMode::
+    sym.imp.PMSessionGetCurrentPrinter
+    sym.imp.PMPrinterIsRemote
+    sym.imp.PMSessionSetColorMatchingMode
+    reloc.objc_msgSend
+    sym.imp.PMSessionSetApplicationOutputIntentWithColorSyncProfiles
+    sym.imp.PMSessionSetColorMatchingModeLock
+    sym.imp.printf
+
+method.FilterDocPDEController.intent:
+    reloc.objc_msgSend
+
+method.FilterDocPDEController.setPrintTargetEnabled::
+    reloc.objc_msgSend
+
+method.FilterDocPDEController.cgRenderingIntent:
+    reloc.objc_msgSend
+
+method.FilterDocPDEController.initializeApplicationDataInPrintInfo::
+    reloc.objc_msgSend
+
+method.class.FilterDocPDEController.initialize:
+    sym.imp.objc_opt_self
+    sym.imp.objc_alloc_init
+    sym.imp.objc_autorelease
+
+method.CSUPercentNumberFormatter.getObjectValue:forString:errorDescription::
+    sym.imp.objc_msgSendSuper2
+    reloc.objc_msgSend
+
+fcn.100052210:
+    0x00000003
+
+fcn.1000522a0:
+    0x00000003
+
+fcn.100051098:
+    rflags
+
+field.class.Header.Header::_ivar_strManuf:
+    0x10005346e
+
+field.class.MftTag.MftTag::_ivar__color7Steper:
+    0x100053736
+
+field.class.CSUtilityApp.CSUtilityApp::_property_hash:
+    rflags
+

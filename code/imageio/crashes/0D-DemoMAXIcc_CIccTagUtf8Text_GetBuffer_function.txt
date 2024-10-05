@@ -1,0 +1,78 @@
+COMMENT: Project Maintainer didn't accept Pull Request with C++ clamp() to resolve the Issue, 
+Full Disclosure: Publishing these Bugs provide Sunlight and Transparency for others see.
+Project: DemoMAXICC from International Color Consortium
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+
+Process:               iccRoundTrip [94736]
+Path:                  /Users/USER/Downloads/*/iccRoundTrip
+Identifier:            iccRoundTrip
+Version:               ???
+Code Type:             X86-64 (Native)
+Parent Process:        zsh [94652]
+Responsible:           iTerm2 [481]
+User ID:               501
+
+Date/Time:             2023-11-15 14:59:08.9261 -0500
+OS Version:            macOS 14.1.1 (23B81)
+Report Version:        12
+Bridge OS Version:     8.1 (21P1069)
+
+System Integrity Protection: disabled
+
+Crashed Thread:        0  Dispatch queue: com.apple.main-thread
+
+Exception Type:        EXC_BAD_ACCESS (SIGSEGV)
+Exception Codes:       KERN_INVALID_ADDRESS at 0x00006001013ac00f
+Exception Codes:       0x0000000000000001, 0x00006001013ac00f
+
+Termination Reason:    Namespace SIGNAL, Code 11 Segmentation fault: 11
+Terminating Process:   exc handler [94736]
+
+VM Region Info: 0x6001013ac00f is not in any region.  Bytes after previous region: 3778723856  Bytes before following region: 35143925710833
+      REGION TYPE                    START - END         [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL
+      MALLOC_NANO              600000000000-600020000000 [512.0M] rw-/rwx SM=PRV  
+--->  GAP OF 0x1ff776700000 BYTES
+      MALLOC_TINY              7ff796700000-7ff796800000 [ 1024K] rw-/rwx SM=PRV  
+
+Thread 0 Crashed::  Dispatch queue: com.apple.main-thread
+0   iccRoundTrip                  	       0x10f4205b0 CIccTagUtf8Text::GetBuffer(unsigned int) + 96
+1   iccRoundTrip                  	       0x10f4204eb CIccTagUtf8Text::Read(unsigned int, CIccIO*) + 203
+2   iccRoundTrip                  	       0x10f406da9 CIccProfile::LoadTag(IccTagEntry*, CIccIO*) + 457
+3   iccRoundTrip                  	       0x10f409573 CIccProfile::Read(CIccIO*) + 723
+4   iccRoundTrip                  	       0x10f414c2b ReadIccProfile(char const*) + 219
+5   iccRoundTrip                  	       0x10f3aa50a CIccEvalCompare::EvaluateProfile(char const*, unsigned char, icRenderingIntent, icXformInterp, bool) + 58
+6   iccRoundTrip                  	       0x10f3657d3 main + 323
+7   dyld                          	    0x7ff806f533a6 start + 1942
+
+
+Thread 0 crashed with X86 Thread State (64-bit):
+  rax: 0x00000000ffffffff  rbx: 0x000000010fb01b90  rcx: 0x00000000ffffffff  rdx: 0x00006000011a4080
+  rdi: 0x0000000000000400  rsi: 0x00006000013ac010  rbp: 0x00007ff7b0b9be20  rsp: 0x00007ff7b0b9be00
+   r8: 0x00000000000003ff   r9: 0x00000000813ff001  r10: 0x00000000000003fe  r11: 0x00000000000007fb
+  r12: 0x00007ff7b0b9c5c0  r13: 0x0000000000000000  r14: 0x000000010f365690  r15: 0x00007ff7b0b9c740
+  rip: 0x000000010f4205b0  rfl: 0x0000000000010202  cr2: 0x00006001013ac00f
+  
+Logical CPU:     6
+Error Code:      0x00000006 (no mapping for user data write)
+Trap Number:     14
+
+Thread 0 instruction stream:
+  55 48 89 e5 48 83 ec 20-48 89 7d f8 89 75 f4 48  UH..H.. H.}..u.H
+  8b 7d f8 8b 77 18 3b 75-f4 48 89 7d e8 0f 83 5c  .}..w.;u.H.}...\
+  00 00 00 48 8b 45 e8 48-8b 78 10 8b 4d f4 81 c1  ...H.E.H.x..M...
+  01 00 00 00 89 c9 89 ce-e8 63 0d 0a 00 48 8b 75  .........c...H.u
+  e8 48 89 46 10 48 81 7e-10 00 00 00 00 0f 84 1c  .H.F.H.~........
+  00 00 00 8b 45 f4 89 c1-48 8b 55 e8 48 8b 72 10  ....E...H.U.H.r.
+ [c6]04 0e 00 8b 45 f4 89-42 18 e9 0b 00 00 00 48  .....E..B......H	<==
+  8b 45 e8 c7 40 18 00 00-00 00 e9 00 00 00 00 48  .E..@..........H
+  8b 45 e8 48 8b 40 10 48-83 c4 20 5d c3 0f 1f 00  .E.H.@.H.. ]....
+  55 48 89 e5 48 83 ec 20-48 89 7d f8 48 8b 7d f8  UH..H.. H.}.H.}.
+  48 8b 47 10 48 89 7d e8-48 89 c7 e8 3c 11 0b 00  H.G.H.}.H...<...
+  89 c1 81 c1 01 00 00 00-89 4d f4 8b 4d f4 48 8b  .........M..M.H.
+
+Binary Images:
+       0x10f363000 -        0x10f4edfff iccRoundTrip (*) <d89b3d69-731e-3d07-8664-5d2a4f1c3b44> /Users/USER/Downloads/*/iccRoundTrip
+    0x7ff806f4d000 -     0x7ff806fe93df dyld (*) <d5406f23-6967-39c4-beb5-6ae3293c7753> /usr/lib/dyld
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000000000000> ???
