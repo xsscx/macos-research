@@ -1,0 +1,35 @@
+# Variables
+SDK = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk
+MIN_IOS_VERSION = 17.0
+ARCH = arm64e
+CODESIGN_IDENTITY = "YOUR_DEVELOPER_ID"
+ENTITLEMENTS = entitlements.xml
+APP_BUNDLE = xnuimagefuzzer.app
+EXECUTABLE = xnuimagefuzzer
+DYLIB = interpose.dylib
+SEED_FILE = Flowers.exr
+INFO_PLIST = Info.plist
+
+# The default target
+all: build copy_resources codesign run
+
+build:
+				mkdir -p $(APP_BUNDLE)
+				xcrun -sdk iphoneos clang -arch $(ARCH) -isysroot $(SDK) -framework UIKit -framework Foundation -framework CoreGraphics -framework ImageIO -framework UniformTypeIdentifiers -miphoneos-version-min=$(MIN_IOS_VERSION) -g -o $(EXECUTABLE) onmac/main.m
+				mv $(EXECUTABLE) $(APP_BUNDLE)/
+				cp $(DYLIB) $(APP_BUNDLE)/
+
+copy_resources:
+				cp ./$(SEED_FILE) ./$(INFO_PLIST) $(APP_BUNDLE)/
+
+codesign:
+				codesign -s $(CODESIGN_IDENTITY) --entitlements $(ENTITLEMENTS) --force $(APP_BUNDLE)
+
+run:
+				cd $(APP_BUNDLE) && .././runner ./$(EXECUTABLE) ./$(SEED_FILE) -1
+
+# Clean the build artifacts
+clean:
+				rm -rf $(APP_BUNDLE)
+
+.PHONY: all build copy_resources codesign run clean

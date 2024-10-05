@@ -1,0 +1,472 @@
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+
+Process:               identityservicesd [676]
+Path:                  /System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/Contents/MacOS/identityservicesd
+Identifier:            com.apple.identityservicesd
+Version:               10.0 (1000)
+Build Info:            IdentityServices-1766200092001031~12
+Code Type:             ARM-64 (Native)
+Parent Process:        launchd [1]
+User ID:               501
+
+Date/Time:             2022-12-03 22:36:36.8077 -0500
+OS Version:            macOS 13.0.1 (22A400)
+Report Version:        12
+
+Time Awake Since Boot: 23000 seconds
+Time Since Wake:       1456 seconds
+
+System Integrity Protection: enabled
+
+Crashed Thread:        6  Dispatch queue: IDSDaemonPriorityQueueUrgent
+
+Exception Type:        EXC_BAD_ACCESS (SIGSEGV)
+Exception Codes:       KERN_INVALID_ADDRESS at 0x0000000000000008
+Exception Codes:       0x0000000000000001, 0x0000000000000008
+
+Termination Reason:    Namespace SIGNAL, Code 11 Segmentation fault: 11
+Terminating Process:   exc handler [676]
+
+VM Region Info: 0x8 is not in any region.  Bytes before following region: 68719476728
+      REGION TYPE                    START - END         [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL
+      UNUSED SPACE AT START
+--->  
+      commpage (reserved)        1000000000-7000000000   [384.0G] ---/--- SM=NUL  ...(unallocated)
+
+Thread 0::  Dispatch queue: com.apple.main-thread
+0   libsystem_kernel.dylib        	       0x1ac8c4b20 kevent_id + 8
+1   libdispatch.dylib             	       0x1ac79e98c _dispatch_kq_poll + 228
+2   libdispatch.dylib             	       0x1ac79df1c _dispatch_event_loop_poke + 344
+3   identityservicesd             	       0x102465b08 0x102304000 + 1448712
+4   identityservicesd             	       0x1023d42f4 0x102304000 + 852724
+5   libdispatch.dylib             	       0x1ac77b504 _dispatch_client_callout + 20
+6   libdispatch.dylib             	       0x1ac77ef84 _dispatch_block_invoke_direct + 264
+7   identityservicesd             	       0x1023d4448 0x102304000 + 853064
+8   libdispatch.dylib             	       0x1ac7799dc _dispatch_call_block_and_release + 32
+9   libdispatch.dylib             	       0x1ac77b504 _dispatch_client_callout + 20
+10  libdispatch.dylib             	       0x1ac789d1c _dispatch_main_queue_drain + 928
+11  libdispatch.dylib             	       0x1ac78996c _dispatch_main_queue_callback_4CF + 44
+12  CoreFoundation                	       0x1aca22d6c __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__ + 16
+13  CoreFoundation                	       0x1ac9e07ec __CFRunLoopRun + 2036
+14  CoreFoundation                	       0x1ac9df8a4 CFRunLoopRunSpecific + 612
+15  Foundation                    	       0x1ad8e7e58 -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 212
+16  Foundation                    	       0x1ad960cf0 -[NSRunLoop(NSRunLoop) run] + 64
+17  identityservicesd             	       0x1023b10a4 0x102304000 + 708772
+18  dyld                          	       0x1ac5d7e50 start + 2544
+
+Thread 1:: TransportThread Primary
+0   libsystem_kernel.dylib        	       0x1ac8c8e98 kevent + 8
+1   IDSFoundation                 	       0x1bc066eac 0x1bbf4b000 + 1162924
+2   libsystem_pthread.dylib       	       0x1ac90206c _pthread_start + 148
+3   libsystem_pthread.dylib       	       0x1ac8fce2c thread_start + 8
+
+Thread 2:: TransportThread URGENT
+0   libsystem_kernel.dylib        	       0x1ac8c8e98 kevent + 8
+1   IDSFoundation                 	       0x1bc066eac 0x1bbf4b000 + 1162924
+2   libsystem_pthread.dylib       	       0x1ac90206c _pthread_start + 148
+3   libsystem_pthread.dylib       	       0x1ac8fce2c thread_start + 8
+
+Thread 3:: TransportThread Default
+0   libsystem_kernel.dylib        	       0x1ac8c8e98 kevent + 8
+1   IDSFoundation                 	       0x1bc066eac 0x1bbf4b000 + 1162924
+2   libsystem_pthread.dylib       	       0x1ac90206c _pthread_start + 148
+3   libsystem_pthread.dylib       	       0x1ac8fce2c thread_start + 8
+
+Thread 4:: TransportThread Sync
+0   libsystem_kernel.dylib        	       0x1ac8c8e98 kevent + 8
+1   IDSFoundation                 	       0x1bc066eac 0x1bbf4b000 + 1162924
+2   libsystem_pthread.dylib       	       0x1ac90206c _pthread_start + 148
+3   libsystem_pthread.dylib       	       0x1ac8fce2c thread_start + 8
+
+Thread 5:: com.apple.NSURLConnectionLoader
+0   libsystem_kernel.dylib        	       0x1ac8c2df0 mach_msg2_trap + 8
+1   libsystem_kernel.dylib        	       0x1ac8d48d8 mach_msg2_internal + 80
+2   libsystem_kernel.dylib        	       0x1ac8cb638 mach_msg_overwrite + 540
+3   libsystem_kernel.dylib        	       0x1ac8c316c mach_msg + 24
+4   CoreFoundation                	       0x1ac9e1bdc __CFRunLoopServiceMachPort + 160
+5   CoreFoundation                	       0x1ac9e04c8 __CFRunLoopRun + 1232
+6   CoreFoundation                	       0x1ac9df8a4 CFRunLoopRunSpecific + 612
+7   CFNetwork                     	       0x1b13a8bac 0x1b1157000 + 2431916
+8   Foundation                    	       0x1ad8e1470 __NSThread__start__ + 716
+9   libsystem_pthread.dylib       	       0x1ac90206c _pthread_start + 148
+10  libsystem_pthread.dylib       	       0x1ac8fce2c thread_start + 8
+
+Thread 6 Crashed::  Dispatch queue: IDSDaemonPriorityQueueUrgent
+0   CoreFoundation                	       0x1ac9821c4 CFGetTypeID + 92
+1   IMFoundation                  	       0x1bab5d0f4 JWCreateInvocationFromXPCObject + 144
+2   IMFoundation                  	       0x1bab5cf24 IMCreateInvocationFromXPCObjectWithProtocol + 172
+3   identityservicesd             	       0x1023d43e0 0x102304000 + 852960
+4   identityservicesd             	       0x102465b60 0x102304000 + 1448800
+5   libdispatch.dylib             	       0x1ac7799dc _dispatch_call_block_and_release + 32
+6   libdispatch.dylib             	       0x1ac77b504 _dispatch_client_callout + 20
+7   libdispatch.dylib             	       0x1ac782bbc _dispatch_lane_serial_drain + 672
+8   libdispatch.dylib             	       0x1ac78373c _dispatch_lane_invoke + 436
+9   libdispatch.dylib             	       0x1ac78e34c _dispatch_workloop_worker_thread + 652
+10  libsystem_pthread.dylib       	       0x1ac8fe100 _pthread_wqthread + 288
+11  libsystem_pthread.dylib       	       0x1ac8fce20 start_wqthread + 8
+
+Thread 7::  Dispatch queue: com.apple.identityservicesd.connection_queue
+0   libsystem_kernel.dylib        	       0x1ac8c4ba4 __ulock_wait + 8
+1   libsystem_pthread.dylib       	       0x1ac9060fc pthread_dependency_wait_np + 80
+2   identityservicesd             	       0x1023d3f84 0x102304000 + 851844
+3   identityservicesd             	       0x1023d34bc 0x102304000 + 849084
+4   identityservicesd             	       0x1023d2eb8 0x102304000 + 847544
+5   IMFoundation                  	       0x1bab95430 0x1bab56000 + 259120
+6   libxpc.dylib                  	       0x1ac66fe4c _xpc_connection_call_event_handler + 152
+7   libxpc.dylib                  	       0x1ac66e84c _xpc_connection_mach_event + 1380
+8   libdispatch.dylib             	       0x1ac77b5c4 _dispatch_client_callout4 + 20
+9   libdispatch.dylib             	       0x1ac797fe8 _dispatch_mach_msg_invoke + 468
+10  libdispatch.dylib             	       0x1ac782a94 _dispatch_lane_serial_drain + 376
+11  libdispatch.dylib             	       0x1ac798d04 _dispatch_mach_invoke + 448
+12  libdispatch.dylib             	       0x1ac782a94 _dispatch_lane_serial_drain + 376
+13  libdispatch.dylib             	       0x1ac783708 _dispatch_lane_invoke + 384
+14  libdispatch.dylib             	       0x1ac78e34c _dispatch_workloop_worker_thread + 652
+15  libsystem_pthread.dylib       	       0x1ac8fe100 _pthread_wqthread + 288
+16  libsystem_pthread.dylib       	       0x1ac8fce20 start_wqthread + 8
+
+Thread 8::  Dispatch queue: _CSDBThreadObjectQueue-IDSMessageStore
+0   libsystem_kernel.dylib        	       0x1ac8c6698 guarded_pwrite_np + 8
+1   libsqlite3.dylib              	       0x1b2a34c1c seekAndWrite + 484
+2   libsqlite3.dylib              	       0x1b29e2ce8 unixWrite + 180
+3   libsqlite3.dylib              	       0x1b2a3e318 pagerWalFrames + 1696
+4   libsqlite3.dylib              	       0x1b29e2520 sqlite3PagerCommitPhaseOne + 324
+5   libsqlite3.dylib              	       0x1b29ccab0 sqlite3BtreeCommitPhaseOne + 172
+6   libsqlite3.dylib              	       0x1b2995574 sqlite3VdbeHalt + 2176
+7   libsqlite3.dylib              	       0x1b29c6878 sqlite3VdbeExec + 60012
+8   libsqlite3.dylib              	       0x1b29b72d0 sqlite3_step + 1420
+9   CoreSDB                       	       0x1cd9adb04 CSDBSqliteStepWithConnection + 140
+10  CoreSDB                       	       0x1cd9ad3cc CSDBSqliteConnectionPerformSQL + 48
+11  CoreSDB                       	       0x1cd9b6078 CSDBSqliteConnectionCommit + 56
+12  CoreSDB                       	       0x1cd9ae83c CSDBRecordStoreSaveWithPreAndPostCallbacksAndTransactionType + 584
+13  CoreSDB                       	       0x1cd9ae56c CSDBRecordSaveStore + 56
+14  identityservicesd             	       0x102626dbc 0x102304000 + 3288508
+15  CoreSDB                       	       0x1cd9ae204 CSDBPerformLockedSectionForQueryForReading + 116
+16  identityservicesd             	       0x1026a2e18 0x102304000 + 3796504
+17  identityservicesd             	       0x102626d14 0x102304000 + 3288340
+18  identityservicesd             	       0x10260b4c4 0x102304000 + 3175620
+19  identityservicesd             	       0x10260bb10 0x102304000 + 3177232
+20  CoreSDB                       	       0x1cd9bcb58 0x1cd9ab000 + 72536
+21  libdispatch.dylib             	       0x1ac7799dc _dispatch_call_block_and_release + 32
+22  libdispatch.dylib             	       0x1ac77b504 _dispatch_client_callout + 20
+23  libdispatch.dylib             	       0x1ac782bbc _dispatch_lane_serial_drain + 672
+24  libdispatch.dylib             	       0x1ac783708 _dispatch_lane_invoke + 384
+25  libdispatch.dylib             	       0x1ac78e34c _dispatch_workloop_worker_thread + 652
+26  libsystem_pthread.dylib       	       0x1ac8fe100 _pthread_wqthread + 288
+27  libsystem_pthread.dylib       	       0x1ac8fce20 start_wqthread + 8
+
+Thread 9:
+0   libsystem_pthread.dylib       	       0x1ac8fce18 start_wqthread + 0
+
+
+Thread 6 crashed with ARM Thread State (64-bit):
+    x0: 0x0000000000000000   x1: 0x0000000102bf8a00   x2: 0x0000000000000000   x3: 0x000000013a66b1b0
+    x4: 0x0000000000000020   x5: 0x000000013a66b1b0   x6: 0x0000000000000002   x7: 0x0000000000000000
+    x8: 0x0000000000000008   x9: 0xabf20b2dcf230029  x10: 0x0000000000179f41  x11: 0x00000000000d5320
+   x12: 0x0035000000000000  x13: 0x001200013a6d6a20  x14: 0x0035000000000000  x15: 0x0000000025210104
+   x16: 0xc2190001ac982168  x17: 0x000000020ce1c320  x18: 0x0000000000000000  x19: 0x000000013a674730
+   x20: 0x0000000000000013  x21: 0x0000000000000000  x22: 0x000000013a67d190  x23: 0x000000013a674730
+   x24: 0x000000013a67d190  x25: 0x000000013b054fa8  x26: 0x0000000000000000  x27: 0x0000000207e00928
+   x28: 0x000000013a867048   fp: 0x000000016dc0e670   lr: 0x85158001bab5d0f4
+    sp: 0x000000016dc0e670   pc: 0x00000001ac9821c4 cpsr: 0x60001000
+   far: 0x0000000000000008  esr: 0x92000006 (Data Abort) byte read Translation fault
+
+Binary Images:
+       0x1ac8c2000 -        0x1ac8faffb libsystem_kernel.dylib (*) <6d6644d3-3db3-34c4-b1e3-c675ec5360f0> /usr/lib/system/libsystem_kernel.dylib
+       0x1ac777000 -        0x1ac7befff libdispatch.dylib (*) <40c9c98c-00d6-3e8e-9ad3-2ed6cf0d0cfe> /usr/lib/system/libdispatch.dylib
+       0x102304000 -        0x102a67fff com.apple.identityservicesd (10.0) <2e7cf653-eaa3-3b26-9d06-c77b49ed627b> /System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/Contents/MacOS/identityservicesd
+       0x1ac960000 -        0x1ace37fff com.apple.CoreFoundation (6.9) <f4ff83fc-e62c-30b4-b3a9-876c8a1fd595> /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+       0x1ad88b000 -        0x1ae2c3fff com.apple.Foundation (6.9) <52b2f83f-586d-32a2-8b66-ce651400ac8c> /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation
+       0x1ac5d2000 -        0x1ac65c4bf dyld (*) <de46dd52-4994-3fd8-b4b4-e352a1a19354> /usr/lib/dyld
+       0x1bbf4b000 -        0x1bc162fff com.apple.idsfoundation (10.0) <95baad93-c4fb-3ee3-9d07-4c94c8c2a4af> /System/Library/PrivateFrameworks/IDSFoundation.framework/Versions/A/IDSFoundation
+       0x1ac8fb000 -        0x1ac907ffb libsystem_pthread.dylib (*) <886caca0-5762-3640-8db2-3fa3b911c062> /usr/lib/system/libsystem_pthread.dylib
+       0x1b1157000 -        0x1b1516fff com.apple.CFNetwork (1399.4) <86c036e0-4a25-3600-a5b5-31b1caedbe4a> /System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork
+       0x1bab56000 -        0x1babcefff com.apple.imfoundation (10.0) <62d110d3-85f1-3055-8acb-235249ccce5d> /System/Library/PrivateFrameworks/IMFoundation.framework/Versions/A/IMFoundation
+       0x1ac662000 -        0x1ac6a4fff libxpc.dylib (*) <44992a1e-d222-3d40-841d-e2cf9e26f67e> /usr/lib/system/libxpc.dylib
+       0x1b296e000 -        0x1b2b36ff3 libsqlite3.dylib (*) <4a732e6c-857b-3b89-b2cf-e337e2edd716> /usr/lib/libsqlite3.dylib
+       0x1cd9ab000 -        0x1cd9c2fff com.apple.CoreSDB (10.0) <23eefa74-0309-394d-90cc-4e47a07c67d6> /System/Library/PrivateFrameworks/CoreSDB.framework/Versions/A/CoreSDB
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000000000000> ???
+
+External Modification Summary:
+  Calls made by other processes targeting this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by all processes on this machine:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+
+VM Region Summary:
+ReadOnly portion of Libraries: Total=1.4G resident=0K(0%) swapped_out_or_unallocated=1.4G(100%)
+Writable regions: Total=292.4M written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=292.4M(100%)
+
+                                VIRTUAL   REGION 
+REGION TYPE                        SIZE    COUNT (non-coalesced) 
+===========                     =======  ======= 
+Activity Tracing                   256K        1 
+CoreData Object IDs               4112K        2 
+Dispatch continuations            64.0M        1 
+Foundation                         800K        2 
+Kernel Alloc Once                   32K        1 
+MALLOC                            88.2M       36 
+MALLOC guard page                  192K        9 
+MALLOC_MEDIUM (reserved)         120.0M        1         reserved VM address space (unallocated)
+SQLite page cache                  768K        6 
+STACK GUARD                       56.2M       10 
+Stack                             12.8M       10 
+VM_ALLOCATE                         32K        2 
+__AUTH                            2571K      431 
+__AUTH_CONST                      28.0M      665 
+__CTF                               756        1 
+__DATA                            14.3M      650 
+__DATA_CONST                      31.6M      667 
+__DATA_DIRTY                      2245K      268 
+__FONT_DATA                        2352        1 
+__LINKEDIT                       762.7M        3 
+__OBJC_CONST                      5536K      391 
+__OBJC_RO                         65.1M        1 
+__OBJC_RW                         1981K        1 
+__TEXT                           673.6M      690 
+dyld private memory                256K        1 
+libnetwork                        1664K       24 
+mapped file                       33.8M       20 
+shared memory                      624K        7 
+===========                     =======  ======= 
+TOTAL                              1.9G     3902 
+TOTAL, minus reserved VM space     1.8G     3902 
+
+
+
+-----------
+Full Report
+-----------
+
+{"app_name":"identityservicesd","timestamp":"2022-12-03 22:37:27.00 -0500","app_version":"10.0","slice_uuid":"2e7cf653-eaa3-3b26-9d06-c77b49ed627b","build_version":"1000","platform":1,"bundleID":"com.apple.identityservicesd","share_with_app_devs":0,"is_first_party":0,"bug_type":"309","os_version":"macOS 13.0.1 (22A400)","roots_installed":0,"name":"identityservicesd","incident_id":"02F5CFBC-5531-4AD2-869F-B7A158023070"}
+{
+  "uptime" : 23000,
+  "procRole" : "Unspecified",
+  "version" : 2,
+  "userID" : 501,
+  "deployVersion" : 210,
+  "modelCode" : "MacBookPro17,1",
+  "coalitionID" : 645,
+  "osVersion" : {
+    "train" : "macOS 13.0.1",
+    "build" : "22A400",
+    "releaseType" : "User"
+  },
+  "captureTime" : "2022-12-03 22:36:36.8077 -0500",
+  "incident" : "02F5CFBC-5531-4AD2-869F-B7A158023070",
+  "pid" : 676,
+  "translated" : false,
+  "cpuType" : "ARM-64",
+  "roots_installed" : 0,
+  "bug_type" : "309",
+  "procLaunch" : "2022-12-01 22:12:35.0558 -0500",
+  "procStartAbsTime" : 720218554,
+  "procExitAbsTime" : 563213079425,
+  "procName" : "identityservicesd",
+  "procPath" : "\/System\/Library\/PrivateFrameworks\/IDS.framework\/identityservicesd.app\/Contents\/MacOS\/identityservicesd",
+  "bundleInfo" : {"CFBundleShortVersionString":"10.0","CFBundleVersion":"1000","CFBundleIdentifier":"com.apple.identityservicesd"},
+  "buildInfo" : {"ProjectName":"IdentityServices","SourceVersion":"1766200092001031","BuildVersion":"12"},
+  "storeInfo" : {"deviceIdentifierForVendor":"A15F78AC-C6AA-5A32-ACB6-821952E17F1A","thirdParty":true},
+  "parentProc" : "launchd",
+  "parentPid" : 1,
+  "coalitionName" : "com.apple.identityservicesd",
+  "crashReporterKey" : "B1032454-F6FC-12A2-0BAF-60586C7F852B",
+  "wakeTime" : 1456,
+  "sleepWakeUUID" : "99A678D4-747B-4A51-8A0C-D9761DA5D558",
+  "sip" : "enabled",
+  "vmRegionInfo" : "0x8 is not in any region.  Bytes before following region: 68719476728\n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      UNUSED SPACE AT START\n--->  \n      commpage (reserved)        1000000000-7000000000   [384.0G] ---\/--- SM=NUL  ...(unallocated)",
+  "exception" : {"codes":"0x0000000000000001, 0x0000000000000008","rawCodes":[1,8],"type":"EXC_BAD_ACCESS","signal":"SIGSEGV","subtype":"KERN_INVALID_ADDRESS at 0x0000000000000008"},
+  "termination" : {"flags":0,"code":11,"namespace":"SIGNAL","indicator":"Segmentation fault: 11","byProc":"exc handler","byPid":676},
+  "vmregioninfo" : "0x8 is not in any region.  Bytes before following region: 68719476728\n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      UNUSED SPACE AT START\n--->  \n      commpage (reserved)        1000000000-7000000000   [384.0G] ---\/--- SM=NUL  ...(unallocated)",
+  "extMods" : {"caller":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"system":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"targeted":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"warnings":0},
+  "faultingThread" : 6,
+  "threads" : [{"id":4885,"queue":"com.apple.main-thread","frames":[{"imageOffset":11040,"symbol":"kevent_id","symbolLocation":8,"imageIndex":0},{"imageOffset":162188,"symbol":"_dispatch_kq_poll","symbolLocation":228,"imageIndex":1},{"imageOffset":159516,"symbol":"_dispatch_event_loop_poke","symbolLocation":344,"imageIndex":1},{"imageOffset":1448712,"imageIndex":2},{"imageOffset":852724,"imageIndex":2},{"imageOffset":17668,"symbol":"_dispatch_client_callout","symbolLocation":20,"imageIndex":1},{"imageOffset":32644,"symbol":"_dispatch_block_invoke_direct","symbolLocation":264,"imageIndex":1},{"imageOffset":853064,"imageIndex":2},{"imageOffset":10716,"symbol":"_dispatch_call_block_and_release","symbolLocation":32,"imageIndex":1},{"imageOffset":17668,"symbol":"_dispatch_client_callout","symbolLocation":20,"imageIndex":1},{"imageOffset":77084,"symbol":"_dispatch_main_queue_drain","symbolLocation":928,"imageIndex":1},{"imageOffset":76140,"symbol":"_dispatch_main_queue_callback_4CF","symbolLocation":44,"imageIndex":1},{"imageOffset":798060,"symbol":"__CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__","symbolLocation":16,"imageIndex":3},{"imageOffset":526316,"symbol":"__CFRunLoopRun","symbolLocation":2036,"imageIndex":3},{"imageOffset":522404,"symbol":"CFRunLoopRunSpecific","symbolLocation":612,"imageIndex":3},{"imageOffset":380504,"symbol":"-[NSRunLoop(NSRunLoop) runMode:beforeDate:]","symbolLocation":212,"imageIndex":4},{"imageOffset":875760,"symbol":"-[NSRunLoop(NSRunLoop) run]","symbolLocation":64,"imageIndex":4},{"imageOffset":708772,"imageIndex":2},{"imageOffset":24144,"symbol":"start","symbolLocation":2544,"imageIndex":5}]},{"id":5037,"name":"TransportThread Primary","frames":[{"imageOffset":28312,"symbol":"kevent","symbolLocation":8,"imageIndex":0},{"imageOffset":1162924,"imageIndex":6},{"imageOffset":28780,"symbol":"_pthread_start","symbolLocation":148,"imageIndex":7},{"imageOffset":7724,"symbol":"thread_start","symbolLocation":8,"imageIndex":7}]},{"id":5038,"name":"TransportThread URGENT","frames":[{"imageOffset":28312,"symbol":"kevent","symbolLocation":8,"imageIndex":0},{"imageOffset":1162924,"imageIndex":6},{"imageOffset":28780,"symbol":"_pthread_start","symbolLocation":148,"imageIndex":7},{"imageOffset":7724,"symbol":"thread_start","symbolLocation":8,"imageIndex":7}]},{"id":5039,"name":"TransportThread Default","frames":[{"imageOffset":28312,"symbol":"kevent","symbolLocation":8,"imageIndex":0},{"imageOffset":1162924,"imageIndex":6},{"imageOffset":28780,"symbol":"_pthread_start","symbolLocation":148,"imageIndex":7},{"imageOffset":7724,"symbol":"thread_start","symbolLocation":8,"imageIndex":7}]},{"id":5040,"name":"TransportThread Sync","frames":[{"imageOffset":28312,"symbol":"kevent","symbolLocation":8,"imageIndex":0},{"imageOffset":1162924,"imageIndex":6},{"imageOffset":28780,"symbol":"_pthread_start","symbolLocation":148,"imageIndex":7},{"imageOffset":7724,"symbol":"thread_start","symbolLocation":8,"imageIndex":7}]},{"id":7660,"name":"com.apple.NSURLConnectionLoader","frames":[{"imageOffset":3568,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":0},{"imageOffset":75992,"symbol":"mach_msg2_internal","symbolLocation":80,"imageIndex":0},{"imageOffset":38456,"symbol":"mach_msg_overwrite","symbolLocation":540,"imageIndex":0},{"imageOffset":4460,"symbol":"mach_msg","symbolLocation":24,"imageIndex":0},{"imageOffset":531420,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":160,"imageIndex":3},{"imageOffset":525512,"symbol":"__CFRunLoopRun","symbolLocation":1232,"imageIndex":3},{"imageOffset":522404,"symbol":"CFRunLoopRunSpecific","symbolLocation":612,"imageIndex":3},{"imageOffset":2431916,"imageIndex":8},{"imageOffset":353392,"symbol":"__NSThread__start__","symbolLocation":716,"imageIndex":4},{"imageOffset":28780,"symbol":"_pthread_start","symbolLocation":148,"imageIndex":7},{"imageOffset":7724,"symbol":"thread_start","symbolLocation":8,"imageIndex":7}]},{"triggered":true,"id":342114,"threadState":{"x":[{"value":0},{"value":4341074432},{"value":0},{"value":5274775984},{"value":32},{"value":5274775984},{"value":2},{"value":0},{"value":8},{"value":12389977816226267177},{"value":1548097},{"value":873248},{"value":14918173765664768},{"value":5066554856008224},{"value":14918173765664768},{"value":622919940},{"value":13986210124966404456,"symbolLocation":13986210117775785984,"symbol":"CFGetTypeID"},{"value":8806056736},{"value":0},{"value":5274814256},{"value":19},{"value":0},{"value":5274849680},{"value":5274814256},{"value":5274849680},{"value":5285171112},{"value":0},{"value":8722057512},{"value":5276856392}],"flavor":"ARM_THREAD_STATE64","lr":{"value":9589711726471139572},"cpsr":{"value":1610616832},"fp":{"value":6136325744},"sp":{"value":6136325744},"esr":{"value":2449473542,"description":"(Data Abort) byte read Translation fault"},"pc":{"value":7190618564,"matchesCrashFrame":1},"far":{"value":8}},"queue":"IDSDaemonPriorityQueueUrgent","frames":[{"imageOffset":139716,"symbol":"CFGetTypeID","symbolLocation":92,"imageIndex":3},{"imageOffset":28916,"symbol":"JWCreateInvocationFromXPCObject","symbolLocation":144,"imageIndex":9},{"imageOffset":28452,"symbol":"IMCreateInvocationFromXPCObjectWithProtocol","symbolLocation":172,"imageIndex":9},{"imageOffset":852960,"imageIndex":2},{"imageOffset":1448800,"imageIndex":2},{"imageOffset":10716,"symbol":"_dispatch_call_block_and_release","symbolLocation":32,"imageIndex":1},{"imageOffset":17668,"symbol":"_dispatch_client_callout","symbolLocation":20,"imageIndex":1},{"imageOffset":48060,"symbol":"_dispatch_lane_serial_drain","symbolLocation":672,"imageIndex":1},{"imageOffset":51004,"symbol":"_dispatch_lane_invoke","symbolLocation":436,"imageIndex":1},{"imageOffset":95052,"symbol":"_dispatch_workloop_worker_thread","symbolLocation":652,"imageIndex":1},{"imageOffset":12544,"symbol":"_pthread_wqthread","symbolLocation":288,"imageIndex":7},{"imageOffset":7712,"symbol":"start_wqthread","symbolLocation":8,"imageIndex":7}]},{"id":344575,"queue":"com.apple.identityservicesd.connection_queue","frames":[{"imageOffset":11172,"symbol":"__ulock_wait","symbolLocation":8,"imageIndex":0},{"imageOffset":45308,"symbol":"pthread_dependency_wait_np","symbolLocation":80,"imageIndex":7},{"imageOffset":851844,"imageIndex":2},{"imageOffset":849084,"imageIndex":2},{"imageOffset":847544,"imageIndex":2},{"imageOffset":259120,"imageIndex":9},{"imageOffset":56908,"symbol":"_xpc_connection_call_event_handler","symbolLocation":152,"imageIndex":10},{"imageOffset":51276,"symbol":"_xpc_connection_mach_event","symbolLocation":1380,"imageIndex":10},{"imageOffset":17860,"symbol":"_dispatch_client_callout4","symbolLocation":20,"imageIndex":1},{"imageOffset":135144,"symbol":"_dispatch_mach_msg_invoke","symbolLocation":468,"imageIndex":1},{"imageOffset":47764,"symbol":"_dispatch_lane_serial_drain","symbolLocation":376,"imageIndex":1},{"imageOffset":138500,"symbol":"_dispatch_mach_invoke","symbolLocation":448,"imageIndex":1},{"imageOffset":47764,"symbol":"_dispatch_lane_serial_drain","symbolLocation":376,"imageIndex":1},{"imageOffset":50952,"symbol":"_dispatch_lane_invoke","symbolLocation":384,"imageIndex":1},{"imageOffset":95052,"symbol":"_dispatch_workloop_worker_thread","symbolLocation":652,"imageIndex":1},{"imageOffset":12544,"symbol":"_pthread_wqthread","symbolLocation":288,"imageIndex":7},{"imageOffset":7712,"symbol":"start_wqthread","symbolLocation":8,"imageIndex":7}]},{"id":344638,"queue":"_CSDBThreadObjectQueue-IDSMessageStore","frames":[{"imageOffset":18072,"symbol":"guarded_pwrite_np","symbolLocation":8,"imageIndex":0},{"imageOffset":814108,"symbol":"seekAndWrite","symbolLocation":484,"imageIndex":11},{"imageOffset":478440,"symbol":"unixWrite","symbolLocation":180,"imageIndex":11},{"imageOffset":852760,"symbol":"pagerWalFrames","symbolLocation":1696,"imageIndex":11},{"imageOffset":476448,"symbol":"sqlite3PagerCommitPhaseOne","symbolLocation":324,"imageIndex":11},{"imageOffset":387760,"symbol":"sqlite3BtreeCommitPhaseOne","symbolLocation":172,"imageIndex":11},{"imageOffset":161140,"symbol":"sqlite3VdbeHalt","symbolLocation":2176,"imageIndex":11},{"imageOffset":362616,"symbol":"sqlite3VdbeExec","symbolLocation":60012,"imageIndex":11},{"imageOffset":299728,"symbol":"sqlite3_step","symbolLocation":1420,"imageIndex":11},{"imageOffset":11012,"symbol":"CSDBSqliteStepWithConnection","symbolLocation":140,"imageIndex":12},{"imageOffset":9164,"symbol":"CSDBSqliteConnectionPerformSQL","symbolLocation":48,"imageIndex":12},{"imageOffset":45176,"symbol":"CSDBSqliteConnectionCommit","symbolLocation":56,"imageIndex":12},{"imageOffset":14396,"symbol":"CSDBRecordStoreSaveWithPreAndPostCallbacksAndTransactionType","symbolLocation":584,"imageIndex":12},{"imageOffset":13676,"symbol":"CSDBRecordSaveStore","symbolLocation":56,"imageIndex":12},{"imageOffset":3288508,"imageIndex":2},{"imageOffset":12804,"symbol":"CSDBPerformLockedSectionForQueryForReading","symbolLocation":116,"imageIndex":12},{"imageOffset":3796504,"imageIndex":2},{"imageOffset":3288340,"imageIndex":2},{"imageOffset":3175620,"imageIndex":2},{"imageOffset":3177232,"imageIndex":2},{"imageOffset":72536,"imageIndex":12},{"imageOffset":10716,"symbol":"_dispatch_call_block_and_release","symbolLocation":32,"imageIndex":1},{"imageOffset":17668,"symbol":"_dispatch_client_callout","symbolLocation":20,"imageIndex":1},{"imageOffset":48060,"symbol":"_dispatch_lane_serial_drain","symbolLocation":672,"imageIndex":1},{"imageOffset":50952,"symbol":"_dispatch_lane_invoke","symbolLocation":384,"imageIndex":1},{"imageOffset":95052,"symbol":"_dispatch_workloop_worker_thread","symbolLocation":652,"imageIndex":1},{"imageOffset":12544,"symbol":"_pthread_wqthread","symbolLocation":288,"imageIndex":7},{"imageOffset":7712,"symbol":"start_wqthread","symbolLocation":8,"imageIndex":7}]},{"id":344737,"frames":[{"imageOffset":7704,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":7}]}],
+  "usedImages" : [
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7189831680,
+    "size" : 233468,
+    "uuid" : "6d6644d3-3db3-34c4-b1e3-c675ec5360f0",
+    "path" : "\/usr\/lib\/system\/libsystem_kernel.dylib",
+    "name" : "libsystem_kernel.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7188475904,
+    "size" : 294912,
+    "uuid" : "40c9c98c-00d6-3e8e-9ad3-2ed6cf0d0cfe",
+    "path" : "\/usr\/lib\/system\/libdispatch.dylib",
+    "name" : "libdispatch.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 4331683840,
+    "CFBundleShortVersionString" : "10.0",
+    "CFBundleIdentifier" : "com.apple.identityservicesd",
+    "size" : 7749632,
+    "uuid" : "2e7cf653-eaa3-3b26-9d06-c77b49ed627b",
+    "path" : "\/System\/Library\/PrivateFrameworks\/IDS.framework\/identityservicesd.app\/Contents\/MacOS\/identityservicesd",
+    "name" : "identityservicesd",
+    "CFBundleVersion" : "1000"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7190478848,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.CoreFoundation",
+    "size" : 5079040,
+    "uuid" : "f4ff83fc-e62c-30b4-b3a9-876c8a1fd595",
+    "path" : "\/System\/Library\/Frameworks\/CoreFoundation.framework\/Versions\/A\/CoreFoundation",
+    "name" : "CoreFoundation",
+    "CFBundleVersion" : "1953.1"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7206383616,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.Foundation",
+    "size" : 10719232,
+    "uuid" : "52b2f83f-586d-32a2-8b66-ce651400ac8c",
+    "path" : "\/System\/Library\/Frameworks\/Foundation.framework\/Versions\/C\/Foundation",
+    "name" : "Foundation",
+    "CFBundleVersion" : "1953.1"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7186751488,
+    "size" : 566464,
+    "uuid" : "de46dd52-4994-3fd8-b4b4-e352a1a19354",
+    "path" : "\/usr\/lib\/dyld",
+    "name" : "dyld"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7448342528,
+    "CFBundleShortVersionString" : "10.0",
+    "CFBundleIdentifier" : "com.apple.idsfoundation",
+    "size" : 2195456,
+    "uuid" : "95baad93-c4fb-3ee3-9d07-4c94c8c2a4af",
+    "path" : "\/System\/Library\/PrivateFrameworks\/IDSFoundation.framework\/Versions\/A\/IDSFoundation",
+    "name" : "IDSFoundation",
+    "CFBundleVersion" : "1000"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7190065152,
+    "size" : 53244,
+    "uuid" : "886caca0-5762-3640-8db2-3fa3b911c062",
+    "path" : "\/usr\/lib\/system\/libsystem_pthread.dylib",
+    "name" : "libsystem_pthread.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7265939456,
+    "CFBundleShortVersionString" : "1399.4",
+    "CFBundleIdentifier" : "com.apple.CFNetwork",
+    "size" : 3932160,
+    "uuid" : "86c036e0-4a25-3600-a5b5-31b1caedbe4a",
+    "path" : "\/System\/Library\/Frameworks\/CFNetwork.framework\/Versions\/A\/CFNetwork",
+    "name" : "CFNetwork",
+    "CFBundleVersion" : "1399.4"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7427416064,
+    "CFBundleShortVersionString" : "10.0",
+    "CFBundleIdentifier" : "com.apple.imfoundation",
+    "size" : 495616,
+    "uuid" : "62d110d3-85f1-3055-8acb-235249ccce5d",
+    "path" : "\/System\/Library\/PrivateFrameworks\/IMFoundation.framework\/Versions\/A\/IMFoundation",
+    "name" : "IMFoundation",
+    "CFBundleVersion" : "1000"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7187341312,
+    "size" : 274432,
+    "uuid" : "44992a1e-d222-3d40-841d-e2cf9e26f67e",
+    "path" : "\/usr\/lib\/system\/libxpc.dylib",
+    "name" : "libxpc.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7291199488,
+    "size" : 1871860,
+    "uuid" : "4a732e6c-857b-3b89-b2cf-e337e2edd716",
+    "path" : "\/usr\/lib\/libsqlite3.dylib",
+    "name" : "libsqlite3.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 7744434176,
+    "CFBundleShortVersionString" : "10.0",
+    "CFBundleIdentifier" : "com.apple.CoreSDB",
+    "size" : 98304,
+    "uuid" : "23eefa74-0309-394d-90cc-4e47a07c67d6",
+    "path" : "\/System\/Library\/PrivateFrameworks\/CoreSDB.framework\/Versions\/A\/CoreSDB",
+    "name" : "CoreSDB",
+    "CFBundleVersion" : "1000"
+  },
+  {
+    "size" : 0,
+    "source" : "A",
+    "base" : 0,
+    "uuid" : "00000000-0000-0000-0000-000000000000"
+  }
+],
+  "sharedCache" : {
+  "base" : 7186104320,
+  "size" : 3403612160,
+  "uuid" : "2d053604-1cb6-3821-a8df-360eb2eb519b"
+},
+  "vmSummary" : "ReadOnly portion of Libraries: Total=1.4G resident=0K(0%) swapped_out_or_unallocated=1.4G(100%)\nWritable regions: Total=292.4M written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=292.4M(100%)\n\n                                VIRTUAL   REGION \nREGION TYPE                        SIZE    COUNT (non-coalesced) \n===========                     =======  ======= \nActivity Tracing                   256K        1 \nCoreData Object IDs               4112K        2 \nDispatch continuations            64.0M        1 \nFoundation                         800K        2 \nKernel Alloc Once                   32K        1 \nMALLOC                            88.2M       36 \nMALLOC guard page                  192K        9 \nMALLOC_MEDIUM (reserved)         120.0M        1         reserved VM address space (unallocated)\nSQLite page cache                  768K        6 \nSTACK GUARD                       56.2M       10 \nStack                             12.8M       10 \nVM_ALLOCATE                         32K        2 \n__AUTH                            2571K      431 \n__AUTH_CONST                      28.0M      665 \n__CTF                               756        1 \n__DATA                            14.3M      650 \n__DATA_CONST                      31.6M      667 \n__DATA_DIRTY                      2245K      268 \n__FONT_DATA                        2352        1 \n__LINKEDIT                       762.7M        3 \n__OBJC_CONST                      5536K      391 \n__OBJC_RO                         65.1M        1 \n__OBJC_RW                         1981K        1 \n__TEXT                           673.6M      690 \ndyld private memory                256K        1 \nlibnetwork                        1664K       24 \nmapped file                       33.8M       20 \nshared memory                      624K        7 \n===========                     =======  ======= \nTOTAL                              1.9G     3902 \nTOTAL, minus reserved VM space     1.8G     3902 \n",
+  "legacyInfo" : {
+  "threadTriggered" : {
+    "queue" : "IDSDaemonPriorityQueueUrgent"
+  }
+},
+  "trialInfo" : {
+  "rollouts" : [
+    {
+      "rolloutId" : "6112d17137f5d11121dcd4e2",
+      "factorPackIds" : {
+
+      },
+      "deploymentId" : 240000155
+    },
+    {
+      "rolloutId" : "60356660bbe37970735c5624",
+      "factorPackIds" : {
+
+      },
+      "deploymentId" : 240000027
+    }
+  ],
+  "experiments" : [
+
+  ]
+}
+}
+

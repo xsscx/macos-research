@@ -1,0 +1,75 @@
+{"app_name":"dwarfdump-classic","timestamp":"2021-07-24 21:51:59.00 -0400","app_version":"13.0","slice_uuid":"29ee21b4-ecdb-3cef-93ff-93987072963e","build_version":"19203.1","platform":1,"bundleID":"com.apple.dt.Xcode","share_with_app_devs":0,"is_first_party":1,"etl_key":"3","bug_type":"309","os_version":"macOS 11.4 (20F71)","incident_id":"C33833C4-B8A6-43CA-A419-25267C2696A6","name":"dwarfdump-classic"}
+{
+  "uptime" : 38000,
+  "procLaunch" : "2021-07-24 21:51:59.4850 -0400",
+  "procRole" : "Unspecified",
+  "version" : 2,
+  "exception" : {
+    "type" : "EXC_BAD_ACCESS",
+    "signal" : "SIGSEGV",
+    "subtype" : "KERN_INVALID_ADDRESS at 0x00200002052fe490 -> 0x00000002052fe490 (possible pointer authentication failure)"
+  },
+  "userID" : 501,
+  "modelCode" : "Macmini9,1",
+  "coalitionID" : 607,
+  "osVersion" : {
+    "train" : "macOS 11.4",
+    "build" : "20F71",
+    "releaseType" : "User"
+  },
+  "captureTime" : "2021-07-24 21:51:59.4864 -0400",
+  "incident" : "C33833C4-B8A6-43CA-A419-25267C2696A6",
+  "pid" : 13511,
+  "translated" : false,
+  "cpuType" : "ARM-64",
+  "procName" : "dwarfdump-classic",
+  "procPath" : "\/Applications\/Xcode-beta.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/bin\/dwarfdump-classic",
+  "bundleInfo" : {"CFBundleShortVersionString":"13.0","CFBundleVersion":"19203.1","CFBundleIdentifier":"com.apple.dt.Xcode"},
+  "buildInfo" : {"ProjectName":"IDEFrameworks","SourceVersion":"19203001000000000","ProductBuildVersion":"13A5192j","BuildVersion":"9"},
+  "parentProc" : "com.apple.dt.Xcode.ITunesSoftwareService",
+  "parentPid" : 11264,
+  "coalitionName" : "com.apple.dt.Xcode",
+  "crashReporterKey" : "14B1F107-0C95-8C91-C99D-EC65A24607FE",
+  "responsiblePid" : 8206,
+  "responsibleProc" : "Xcode",
+  "sip" : "disabled",
+  "vmRegionInfo" : "0x2052fe490 is in 0x2052fde30-0x2052ffa70;  bytes after start: 1632  bytes before end: 5599\n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      __AUTH_CONST                2052fd248-2052fde30    [  3048] r--\/rw- SM=COW  ...ystem_c.dylib\n--->  __AUTH_CONST                2052fde30-2052ffa70    [    7K] r--\/rw- SM=COW  ...ibc++.1.dylib\n      __AUTH_CONST                2052ffa70-205302c58    [   12K] r--\/rw- SM=COW  ...bc++abi.dylib",
+  "isCorpse" : 1,
+  "termination" : {"flags":0,"code":11,"namespace":"SIGNAL","indicator":"Segmentation fault: 11","byProc":"exc handler","byPid":13511},
+  "asi" : {"dyld":[]},
+  "extMods" : {"caller":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"system":{"thread_create":0,"thread_set_state":0,"task_for_pid":3},"targeted":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"warnings":0},
+  "faultingThread" : 0,
+  "threads" : [{"triggered":true,"id":346376,"threadState":{"x":[{"value":8619967640},{"value":8619966816},{"value":6091717456},{"value":6091717544},{"value":0},{"value":0},{"value":0},{"value":0},{"value":18},{"value":18446744073709551615},{"value":4375168584},{"value":2147483688},{"value":2147483688},{"value":0},{"value":2177},{"value":12},{"value":9007207931700312},{"value":7155938341534975128},{"value":0},{"value":6091716688},{"value":6091716696},{"value":1},{"value":6091716688},{"value":6091716680},{"value":0},{"value":6091717424},{"value":0},{"value":0},{"value":6091717408}],"flavor":"ARM_THREAD_STATE64","lr":{"value":17827358391832983764},"cpsr":{"value":2147483648},"fp":{"value":6091715888},"sp":{"value":6091715840},"esr":{"value":2449473540,"description":"(Data Abort) byte read Translation fault"},"pc":{"value":4375230696},"far":{"value":9007207931700368}},"queue":"com.apple.main-thread","frames":[{"imageOffset":63720,"imageIndex":0},{"imageOffset":63700,"imageIndex":0},{"imageOffset":51688,"imageIndex":0},{"imageOffset":99408,"symbol":"start","symbolLocation":4,"imageIndex":1}]}],
+  "usedImages" : [
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 4375166976,
+    "size" : 475136,
+    "uuid" : "29ee21b4-ecdb-3cef-93ff-93987072963e",
+    "path" : "\/Applications\/Xcode-beta.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/bin\/dwarfdump-classic",
+    "name" : "dwarfdump-classic"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6821711872,
+    "size" : 270336,
+    "uuid" : "f775b9ff-1995-3613-a55a-3046e628ad8a",
+    "path" : "\/usr\/lib\/system\/libdyld.dylib",
+    "name" : "libdyld.dylib"
+  },
+  {
+    "size" : 0,
+    "source" : "A",
+    "base" : 0,
+    "uuid" : "00000000-0000-0000-0000-000000000000"
+  }
+],
+  "vmSummary" : "ReadOnly portion of Libraries: Total=501.9M resident=0K(0%) swapped_out_or_unallocated=501.9M(100%)\nWritable regions: Total=17.3M written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=17.3M(100%)\n\n                                VIRTUAL   REGION \nREGION TYPE                        SIZE    COUNT (non-coalesced) \n===========                     =======  ======= \nKernel Alloc Once                   32K        1 \nMALLOC                            9360K        8 \nMALLOC guard page                   96K        5 \nSTACK GUARD                       56.0M        1 \nStack                             8176K        1 \nVM_ALLOCATE                        1.0G        1 \n__AUTH                              53K       12 \n__AUTH_CONST                      1033K       42 \n__DATA                             423K       40 \n__DATA_CONST                      2308K       41 \n__DATA_DIRTY                       110K       23 \n__LINKEDIT                       489.8M        4 \n__OBJC_CONST                        37K        6 \n__OBJC_RO                         75.0M        1 \n__OBJC_RW                         2576K        1 \n__TEXT                            12.1M       48 \n__UNICODE                          588K        1 \nshared memory                       16K        1 \n===========                     =======  ======= \nTOTAL                              1.6G      237 \n",
+  "legacyInfo" : {
+  "threadTriggered" : {
+    "queue" : "com.apple.main-thread"
+  }
+}
+}

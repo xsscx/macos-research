@@ -1,0 +1,130 @@
+#
+# @file CMakeLists.xnu
+# @brief CMakeLists.xnu for Jackalope when Building Source for XNU Run Targets
+# @author @h02332 | David Hoyt
+# @date 04 MAR 2024
+# @version 2.0.3
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# @section CHANGES
+# - 05/MAR/2024, h02332: Initial commit.
+#
+# @section TODO
+# - Add Logging
+#
+
+cmake_minimum_required(VERSION 3.1)
+project(fuzzer VERSION 2.0.3 DESCRIPTION "Fuzzer Run Targets for XNU Platform")
+set(CMAKE_CXX_STANDARD 17)
+
+# Enforce build type to be Debug if not specified to ensure symbols are included
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
+endif()
+
+# Compiler flags for Debug and Release build types
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2")
+
+# Architecture determination
+if(APPLE)
+  execute_process(
+    COMMAND uname -m
+    COMMAND tr -d '\n'
+    OUTPUT_VARIABLE OSX_ARCHITECTURE
+  )
+  if("${OSX_ARCHITECTURE}" STREQUAL "arm64")
+    add_definitions(-DARM64)
+    message(STATUS "Configuring build for ARM64 architecture.")
+  elseif("${OSX_ARCHITECTURE}" STREQUAL "x86_64")
+    message(STATUS "Configuring build for X86_64 architecture.")
+  else()
+    message(FATAL_ERROR "Unsupported architecture: ${OSX_ARCHITECTURE}")
+  endif()
+endif()
+
+# Include directories
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/Mersenne)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/TinyInst)
+
+# Add TinyInst directory
+add_subdirectory(TinyInst)
+
+# Library source files
+set(SOURCE_FILES
+  client.cpp
+  client.h
+  directory.cpp
+  directory.h
+  fuzzer.cpp
+  fuzzer.h
+  instrumentation.cpp
+  instrumentation.h
+  tinyinstinstrumentation.cpp
+  tinyinstinstrumentation.h
+  mutator.cpp
+  mutator.h
+  minimizer.cpp
+  minimizer.h
+  mutex.cpp
+  mutex.h
+  prng.cpp
+  prng.h
+  third_party/Mersenne/mersenne.cpp
+  third_party/Mersenne/mersenne.h
+  runresult.h
+  sample.cpp
+  sample.h
+  sampledelivery.cpp
+  sampledelivery.h
+  server.cpp
+  server.h
+  thread.cpp
+  thread.h
+  shm.cpp
+  shm.h
+  range.h
+  rangetracker.cpp
+  rangetracker.h
+  mutators/grammar/grammar.cpp
+  mutators/grammar/grammar.h
+  mutators/grammar/grammarmutator.cpp
+  mutators/grammar/grammarmutator.h
+  mutators/grammar/grammarminimizer.cpp
+  mutators/grammar/grammarminimizer.h
+)
+
+# Fuzzer library
+add_library(fuzzerlib STATIC ${SOURCE_FILES})
+add_dependencies(fuzzerlib tinyinst)
+target_link_libraries(fuzzerlib tinyinst)
+
+# macOS specific linking
+if(APPLE)
+  find_library(COREFOUNDATION_LIB CoreFoundation)
+  find_library(IOKIT_LIB IOKit)
+  target_link_libraries(fuzzerlib ${COREFOUNDATION_LIB} ${IOKIT_LIB})
+endif()
+
+# Fuzzer executable
+add_executable(fuzzer main.cpp)
+target_link_libraries(fuzzer fuzzerlib)
+
+# Test executable
+add_executable(test test.cpp)
+target_link_libraries(test fuzzerlib)
+
+# Examples subdirectory
+add_subdirectory(examples)

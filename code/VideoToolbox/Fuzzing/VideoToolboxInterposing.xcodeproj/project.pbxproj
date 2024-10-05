@@ -1,0 +1,1466 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		65FC0236961B4720972D552B /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CE0A104D711E4DF5897E4643 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				224BDBB66A7F803BB338A8EC /* Generate CMakeFiles/ZERO_CHECK */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+		97C22D4221364ADA980331C4 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6E2C1C2396C1477D9513C3DE /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				5DBE45415FED60BE3A2ED0AC /* Generate CMakeFiles/ALL_BUILD */,
+			);
+			dependencies = (
+				E5654D438C0749A2AB550108 /* PBXTargetDependency */,
+				11C1A8C2C1BC4595A0454571 /* PBXTargetDependency */,
+				FD3ADD3F692A4C75B01A01D4 /* PBXTargetDependency */,
+				6F5BCDC40BEE4ACD8C940401 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		2ACAAA3B425C452BAEF4CCB1 /* videotoolbox-runner.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE5C874E4443AB9351E0D3 /* videotoolbox-runner.m */; };
+		79C67874833B4691AB04011C /* videotoolbox-interposer.c in Sources */ = {isa = PBXBuildFile; fileRef = D171FE14FEB44AD1B4798181 /* videotoolbox-interposer.c */; };
+		8721993A30B74CF4A5E803E2 /* videotoolbox-runner.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E7EEDEA50B47EE923A2381 /* videotoolbox-runner.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		157DE641D38A44EDA60C44E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65FC0236961B4720972D552B;
+			remoteInfo = ZERO_CHECK;
+		};
+		2CE49189533143FE9AF6908E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65FC0236961B4720972D552B;
+			remoteInfo = ZERO_CHECK;
+		};
+		2D1C86A3EA3B4032B5D8102D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26756053001349EDAF5D38BA;
+			remoteInfo = "videotoolbox-interposer";
+		};
+		6B5380C8FD5B498FBB97DCA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65FC0236961B4720972D552B;
+			remoteInfo = ZERO_CHECK;
+		};
+		974B2FF1784645C1B27C383A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 206A6DD20A1240268AC160DA;
+			remoteInfo = "videotoolbox-runner";
+		};
+		A49D5A5B91B14BDDB5351E68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 572166E11D6948EAB4935BF6;
+			remoteInfo = "videotoolbox-runner-ios";
+		};
+		AE07AEC351AD45079EB0C46F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26756053001349EDAF5D38BA;
+			remoteInfo = "videotoolbox-interposer";
+		};
+		B6D25805D97243A19734AA3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26756053001349EDAF5D38BA;
+			remoteInfo = "videotoolbox-interposer";
+		};
+		DE2A5CAA73BE4AF39EA246D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F05185A331443808746BA93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65FC0236961B4720972D552B;
+			remoteInfo = ZERO_CHECK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		028C7E9046B24BD0B97FE245 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		058762E53D424162BCA32E78 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		61E7EEDEA50B47EE923A2381 /* videotoolbox-runner.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "videotoolbox-runner.m"; sourceTree = SOURCE_ROOT; };
+		90B9C33EB6E44827B8F7A773 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		94B0F41E9B894C53B7841E66 /* videotoolbox-runner-ios */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = "videotoolbox-runner-ios"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD0F85B034C049968D8D3760 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		CFC8B9514C1C49C1B173BBEC /* videotoolbox-runner */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = "videotoolbox-runner"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D171FE14FEB44AD1B4798181 /* videotoolbox-interposer.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; path = "videotoolbox-interposer.c"; sourceTree = SOURCE_ROOT; };
+		D9DE5C874E4443AB9351E0D3 /* videotoolbox-runner.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "videotoolbox-runner.m"; sourceTree = SOURCE_ROOT; };
+		EAAE62CDFF4B4C1EA6E4E585 /* libvideotoolbox-interposer.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = "libvideotoolbox-interposer.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		44CDA8331C7C4350902ADE33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5FD52A630EB14AC8871BD1D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E108036B2C89492CBBADE75D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0B16526C2BC04F4C834C50A5 = {
+			isa = PBXGroup;
+			children = (
+				1414C4CBB63D4DD78EF95820 /* videotoolbox-interposer */,
+				359BD0F6F291493FA5E5694E /* videotoolbox-runner */,
+				D819AE3B4C7647B9A103F482 /* videotoolbox-runner-ios */,
+				219DBA8A53054164B07CCD64 /* ALL_BUILD */,
+				94C49A0380784E0CAADB0D0A /* Products */,
+				4D906BC2F2BD4D8195DA9C34 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1414C4CBB63D4DD78EF95820 /* videotoolbox-interposer */ = {
+			isa = PBXGroup;
+			children = (
+				A5F8426E034D4B95B7526FAA /* Source Files */,
+				058762E53D424162BCA32E78 /* CMakeLists.txt */,
+			);
+			name = "videotoolbox-interposer";
+			sourceTree = "<group>";
+		};
+		219DBA8A53054164B07CCD64 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				38B7CE5B0EAB474EB15CB570 /* CMake Rules */,
+				90B9C33EB6E44827B8F7A773 /* CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		359BD0F6F291493FA5E5694E /* videotoolbox-runner */ = {
+			isa = PBXGroup;
+			children = (
+				52DE2D5214E64B0FBD1FA006 /* Source Files */,
+				028C7E9046B24BD0B97FE245 /* CMakeLists.txt */,
+			);
+			name = "videotoolbox-runner";
+			sourceTree = "<group>";
+		};
+		38B7CE5B0EAB474EB15CB570 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		4D906BC2F2BD4D8195DA9C34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		52DE2D5214E64B0FBD1FA006 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				D9DE5C874E4443AB9351E0D3 /* videotoolbox-runner.m */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		94C49A0380784E0CAADB0D0A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EAAE62CDFF4B4C1EA6E4E585 /* libvideotoolbox-interposer.dylib */,
+				CFC8B9514C1C49C1B173BBEC /* videotoolbox-runner */,
+				94B0F41E9B894C53B7841E66 /* videotoolbox-runner-ios */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A5F8426E034D4B95B7526FAA /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				D171FE14FEB44AD1B4798181 /* videotoolbox-interposer.c */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		BE123B4FC34446EBAB18E52F /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				61E7EEDEA50B47EE923A2381 /* videotoolbox-runner.m */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		D819AE3B4C7647B9A103F482 /* videotoolbox-runner-ios */ = {
+			isa = PBXGroup;
+			children = (
+				BE123B4FC34446EBAB18E52F /* Source Files */,
+				BD0F85B034C049968D8D3760 /* CMakeLists.txt */,
+			);
+			name = "videotoolbox-runner-ios";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		206A6DD20A1240268AC160DA /* videotoolbox-runner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD85AB4FDD5C497394B3C4BA /* Build configuration list for PBXNativeTarget "videotoolbox-runner" */;
+			buildPhases = (
+				18036EC7286B4412918E9C6F /* Sources */,
+				E108036B2C89492CBBADE75D /* Frameworks */,
+				CC66E8872C36836D4D07FF97 /* CMake PostBuild Rules */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2DAD61BAD4B747E9A7942586 /* PBXTargetDependency */,
+				2777E7652ECA4C8994976CEA /* PBXTargetDependency */,
+			);
+			name = "videotoolbox-runner";
+			productName = "videotoolbox-runner";
+			productReference = CFC8B9514C1C49C1B173BBEC /* videotoolbox-runner */;
+			productType = "com.apple.product-type.tool";
+		};
+		26756053001349EDAF5D38BA /* videotoolbox-interposer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7BA8FA79D844CBBAF66BB7E /* Build configuration list for PBXNativeTarget "videotoolbox-interposer" */;
+			buildPhases = (
+				423DC028D7D849C5B28C544B /* Sources */,
+				44CDA8331C7C4350902ADE33 /* Frameworks */,
+				952ADAFDAC0EF7A483A4D86E /* CMake PostBuild Rules */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2352D3AB36344B1486A5EF8F /* PBXTargetDependency */,
+			);
+			name = "videotoolbox-interposer";
+			productName = "videotoolbox-interposer";
+			productReference = EAAE62CDFF4B4C1EA6E4E585 /* libvideotoolbox-interposer.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		572166E11D6948EAB4935BF6 /* videotoolbox-runner-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E2B7D17CCFB436C86BE6D37 /* Build configuration list for PBXNativeTarget "videotoolbox-runner-ios" */;
+			buildPhases = (
+				AF63B961424341498EAA308D /* Sources */,
+				5FD52A630EB14AC8871BD1D5 /* Frameworks */,
+				D6866CFF9E561C8F2D473101 /* CMake PostBuild Rules */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E76B97BC1F3048F28D2FE993 /* PBXTargetDependency */,
+				DA4B057E23D242808090AE37 /* PBXTargetDependency */,
+			);
+			name = "videotoolbox-runner-ios";
+			productName = "videotoolbox-runner-ios";
+			productReference = 94B0F41E9B894C53B7841E66 /* videotoolbox-runner-ios */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7F05185A331443808746BA93 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1540;
+			};
+			buildConfigurationList = 9579F5E23AFF4C2BB3092F9B /* Build configuration list for PBXProject "VideoToolboxInterposing" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0B16526C2BC04F4C834C50A5;
+			projectDirPath = "/Users/xss/tmp/vtd-test";
+			projectRoot = "";
+			targets = (
+				97C22D4221364ADA980331C4 /* ALL_BUILD */,
+				65FC0236961B4720972D552B /* ZERO_CHECK */,
+				26756053001349EDAF5D38BA /* videotoolbox-interposer */,
+				206A6DD20A1240268AC160DA /* videotoolbox-runner */,
+				572166E11D6948EAB4935BF6 /* videotoolbox-runner-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		224BDBB66A7F803BB338A8EC /* Generate CMakeFiles/ZERO_CHECK */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CMakeFiles/ZERO_CHECK";
+			outputPaths = (
+				"/Users/xss/tmp/vtd-test/xcode_build/CMakeFiles/ZERO_CHECK",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nif test \"$CONFIGURATION\" = \"Debug\"; then :\n  cd /Users/xss/tmp/vtd-test/xcode_build\n  make -f /Users/xss/tmp/vtd-test/xcode_build/CMakeScripts/ReRunCMake.make\nfi\nif test \"$CONFIGURATION\" = \"Release\"; then :\n  cd /Users/xss/tmp/vtd-test/xcode_build\n  make -f /Users/xss/tmp/vtd-test/xcode_build/CMakeScripts/ReRunCMake.make\nfi\nif test \"$CONFIGURATION\" = \"MinSizeRel\"; then :\n  cd /Users/xss/tmp/vtd-test/xcode_build\n  make -f /Users/xss/tmp/vtd-test/xcode_build/CMakeScripts/ReRunCMake.make\nfi\nif test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :\n  cd /Users/xss/tmp/vtd-test/xcode_build\n  make -f /Users/xss/tmp/vtd-test/xcode_build/CMakeScripts/ReRunCMake.make\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5DBE45415FED60BE3A2ED0AC /* Generate CMakeFiles/ALL_BUILD */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CMakeFiles/ALL_BUILD";
+			outputPaths = (
+				"/Users/xss/tmp/vtd-test/xcode_build/CMakeFiles/ALL_BUILD",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nif test \"$CONFIGURATION\" = \"Debug\"; then :\n  cd /Users/xss/tmp/vtd-test/xcode_build\n  echo Build\\ all\\ projects\nfi\nif test \"$CONFIGURATION\" = \"Release\"; then :\n  cd /Users/xss/tmp/vtd-test/xcode_build\n  echo Build\\ all\\ projects\nfi\nif test \"$CONFIGURATION\" = \"MinSizeRel\"; then :\n  cd /Users/xss/tmp/vtd-test/xcode_build\n  echo Build\\ all\\ projects\nfi\nif test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :\n  cd /Users/xss/tmp/vtd-test/xcode_build\n  echo Build\\ all\\ projects\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		952ADAFDAC0EF7A483A4D86E /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
+		};
+		CC66E8872C36836D4D07FF97 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
+		};
+		D6866CFF9E561C8F2D473101 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18036EC7286B4412918E9C6F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2ACAAA3B425C452BAEF4CCB1 /* videotoolbox-runner.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		423DC028D7D849C5B28C544B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79C67874833B4691AB04011C /* videotoolbox-interposer.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF63B961424341498EAA308D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8721993A30B74CF4A5E803E2 /* videotoolbox-runner.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11C1A8C2C1BC4595A0454571 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 572166E11D6948EAB4935BF6 /* videotoolbox-runner-ios */;
+			targetProxy = A49D5A5B91B14BDDB5351E68 /* PBXContainerItemProxy */;
+		};
+		2352D3AB36344B1486A5EF8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65FC0236961B4720972D552B /* ZERO_CHECK */;
+			targetProxy = DE2A5CAA73BE4AF39EA246D5 /* PBXContainerItemProxy */;
+		};
+		2777E7652ECA4C8994976CEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65FC0236961B4720972D552B /* ZERO_CHECK */;
+			targetProxy = 157DE641D38A44EDA60C44E6 /* PBXContainerItemProxy */;
+		};
+		2DAD61BAD4B747E9A7942586 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26756053001349EDAF5D38BA /* videotoolbox-interposer */;
+			targetProxy = 2D1C86A3EA3B4032B5D8102D /* PBXContainerItemProxy */;
+		};
+		6F5BCDC40BEE4ACD8C940401 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65FC0236961B4720972D552B /* ZERO_CHECK */;
+			targetProxy = 2CE49189533143FE9AF6908E /* PBXContainerItemProxy */;
+		};
+		DA4B057E23D242808090AE37 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65FC0236961B4720972D552B /* ZERO_CHECK */;
+			targetProxy = 6B5380C8FD5B498FBB97DCA2 /* PBXContainerItemProxy */;
+		};
+		E5654D438C0749A2AB550108 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 206A6DD20A1240268AC160DA /* videotoolbox-runner */;
+			targetProxy = 974B2FF1784645C1B27C383A /* PBXContainerItemProxy */;
+		};
+		E76B97BC1F3048F28D2FE993 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26756053001349EDAF5D38BA /* videotoolbox-interposer */;
+			targetProxy = B6D25805D97243A19734AA3A /* PBXContainerItemProxy */;
+		};
+		FD3ADD3F692A4C75B01A01D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26756053001349EDAF5D38BA /* videotoolbox-interposer */;
+			targetProxy = AE07AEC351AD45079EB0C46F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		03E84CA93CE7492C844031E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/lib/Debug";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					videotoolbox_interposer_EXPORTS,
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "@rpath";
+				LIBRARY_STYLE = DYNAMIC;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"'-std=gnu11'",
+					"-fPIC",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-dynamiclib",
+					"-Wl,-headerpad_max_install_names",
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "videotoolbox-interposer";
+				SECTORDER_FLAGS = "";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-interposer.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Debug;
+		};
+		0A550DC8394A4A8FA514F804 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/lib/RelWithDebInfo";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					videotoolbox_interposer_EXPORTS,
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "@rpath";
+				LIBRARY_STYLE = DYNAMIC;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"-fPIC",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-dynamiclib",
+					"-Wl,-headerpad_max_install_names",
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "videotoolbox-interposer";
+				SECTORDER_FLAGS = "";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-interposer.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = RelWithDebInfo;
+		};
+		0F54105E96CF4A419F5BBF48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "/Users/xss/tmp/vtd-test/xcode_build/build";
+			};
+			name = Release;
+		};
+		1124095F5BBA492F9299DDC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/bin/Debug";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/Debug",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"'-std=gnu11'",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/Debug/libvideotoolbox-interposer.dylib",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.srd.videotoolbox;
+				PRODUCT_NAME = "videotoolbox-runner";
+				SECTORDER_FLAGS = "";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-runner.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Debug;
+		};
+		3248CC74713F44B897B1E8CF /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/bin/MinSizeRel";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/MinSizeRel",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/MinSizeRel/libvideotoolbox-interposer.dylib",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.srd.videotoolbox;
+				PRODUCT_NAME = "videotoolbox-runner";
+				SECTORDER_FLAGS = "";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-runner.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = MinSizeRel;
+		};
+		3A071231F4814354BD32BE14 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = MinSizeRel;
+		};
+		43C0B39A1B014FF592FBE2F8 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = RelWithDebInfo;
+		};
+		5D3793DDD6584AA88696A721 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "/Users/xss/tmp/vtd-test/xcode_build/build";
+			};
+			name = MinSizeRel;
+		};
+		61BCB553B8974F7281F68B4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64e;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/bin/Release";
+				DEVELOPMENT_TEAM = 7KJ5XYCA8X;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/Release",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"-fobjc-arc",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/Release/libvideotoolbox-interposer.dylib",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.srd.videotoolbox.ios;
+				PRODUCT_NAME = "videotoolbox-runner-ios";
+				SECTORDER_FLAGS = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-runner-ios.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Release;
+		};
+		61E4A7B2B2AD4A6484357AA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Debug;
+		};
+		6CC85E85883D4153A12F3223 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Debug;
+		};
+		6D289173198740A6A7383901 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = MinSizeRel;
+		};
+		7639FC144B68470A86A54690 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = RelWithDebInfo;
+		};
+		8E0519E58D6F4A538210C371 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/lib/MinSizeRel";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					videotoolbox_interposer_EXPORTS,
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "@rpath";
+				LIBRARY_STYLE = DYNAMIC;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"-fPIC",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-dynamiclib",
+					"-Wl,-headerpad_max_install_names",
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "videotoolbox-interposer";
+				SECTORDER_FLAGS = "";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-interposer.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = MinSizeRel;
+		};
+		9113F67E391041FFAE2A3DE8 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64e;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/bin/RelWithDebInfo";
+				DEVELOPMENT_TEAM = 7KJ5XYCA8X;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/RelWithDebInfo",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"-fobjc-arc",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/RelWithDebInfo/libvideotoolbox-interposer.dylib",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.srd.videotoolbox.ios;
+				PRODUCT_NAME = "videotoolbox-runner-ios";
+				SECTORDER_FLAGS = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-runner-ios.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = RelWithDebInfo;
+		};
+		920647EED46940BF9D392C97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Release;
+		};
+		9A73AC6FBDE84D2E8DC52F37 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "/Users/xss/tmp/vtd-test/xcode_build/build";
+			};
+			name = RelWithDebInfo;
+		};
+		ADA140ED2B2B4876974BFC7B /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64e;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/bin/MinSizeRel";
+				DEVELOPMENT_TEAM = 7KJ5XYCA8X;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/MinSizeRel",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"-fobjc-arc",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/MinSizeRel/libvideotoolbox-interposer.dylib",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.srd.videotoolbox.ios;
+				PRODUCT_NAME = "videotoolbox-runner-ios";
+				SECTORDER_FLAGS = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-runner-ios.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = MinSizeRel;
+		};
+		B2886DC27C3641DE957BEEB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Release;
+		};
+		B28F21803B4D476E8005A9E6 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/bin/RelWithDebInfo";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/RelWithDebInfo",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/RelWithDebInfo/libvideotoolbox-interposer.dylib",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.srd.videotoolbox;
+				PRODUCT_NAME = "videotoolbox-runner";
+				SECTORDER_FLAGS = "";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-runner.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = RelWithDebInfo;
+		};
+		B724219AEC30446B89432FDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64e;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/bin/Debug";
+				DEVELOPMENT_TEAM = 7KJ5XYCA8X;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/Debug",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"'-std=gnu11'",
+					"-fobjc-arc",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/Debug/libvideotoolbox-interposer.dylib",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.srd.videotoolbox.ios;
+				PRODUCT_NAME = "videotoolbox-runner-ios";
+				SECTORDER_FLAGS = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-runner-ios.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Debug;
+		};
+		C3692E0A00294CDFA906AE8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/lib/Release";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					videotoolbox_interposer_EXPORTS,
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "@rpath";
+				LIBRARY_STYLE = DYNAMIC;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"-fPIC",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-dynamiclib",
+					"-Wl,-headerpad_max_install_names",
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "videotoolbox-interposer";
+				SECTORDER_FLAGS = "";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-interposer.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Release;
+		};
+		D7ACFF71479A4A19976D1B84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/xss/tmp/vtd-test/xcode_build/bin/Release";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/Release",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu11'",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/xss/tmp/vtd-test/xcode_build/lib/Release/libvideotoolbox-interposer.dylib",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					VideoToolbox,
+					"$(inherited)",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.srd.videotoolbox;
+				PRODUCT_NAME = "videotoolbox-runner";
+				SECTORDER_FLAGS = "";
+				TARGET_TEMP_DIR = "/Users/xss/tmp/vtd-test/xcode_build/build/videotoolbox-runner.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Release;
+		};
+		DFD4CD4A15054B798866CC33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk;
+				SYMROOT = "/Users/xss/tmp/vtd-test/xcode_build/build";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E2B7D17CCFB436C86BE6D37 /* Build configuration list for PBXNativeTarget "videotoolbox-runner-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B724219AEC30446B89432FDE /* Debug */,
+				61BCB553B8974F7281F68B4E /* Release */,
+				ADA140ED2B2B4876974BFC7B /* MinSizeRel */,
+				9113F67E391041FFAE2A3DE8 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6E2C1C2396C1477D9513C3DE /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61E4A7B2B2AD4A6484357AA0 /* Debug */,
+				920647EED46940BF9D392C97 /* Release */,
+				3A071231F4814354BD32BE14 /* MinSizeRel */,
+				7639FC144B68470A86A54690 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9579F5E23AFF4C2BB3092F9B /* Build configuration list for PBXProject "VideoToolboxInterposing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFD4CD4A15054B798866CC33 /* Debug */,
+				0F54105E96CF4A419F5BBF48 /* Release */,
+				5D3793DDD6584AA88696A721 /* MinSizeRel */,
+				9A73AC6FBDE84D2E8DC52F37 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BD85AB4FDD5C497394B3C4BA /* Build configuration list for PBXNativeTarget "videotoolbox-runner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1124095F5BBA492F9299DDC8 /* Debug */,
+				D7ACFF71479A4A19976D1B84 /* Release */,
+				3248CC74713F44B897B1E8CF /* MinSizeRel */,
+				B28F21803B4D476E8005A9E6 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CE0A104D711E4DF5897E4643 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CC85E85883D4153A12F3223 /* Debug */,
+				B2886DC27C3641DE957BEEB2 /* Release */,
+				6D289173198740A6A7383901 /* MinSizeRel */,
+				43C0B39A1B014FF592FBE2F8 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F7BA8FA79D844CBBAF66BB7E /* Build configuration list for PBXNativeTarget "videotoolbox-interposer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03E84CA93CE7492C844031E1 /* Debug */,
+				C3692E0A00294CDFA906AE8B /* Release */,
+				8E0519E58D6F4A538210C371 /* MinSizeRel */,
+				0A550DC8394A4A8FA514F804 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7F05185A331443808746BA93 /* Project object */;
+}
